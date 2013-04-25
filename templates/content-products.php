@@ -35,46 +35,125 @@
 	?>
 
 	<?php
-		// Button to trigger modal
-		echo '<a id="buynow" href="#userloginoptions" role="button" class="btn" data-toggle="modal">Buy now!</a>';
 
-		// "BUY NOW!"
+		/*
+		 * User Selected Options
+		 */
+		// Color Options
+		if (get_field('product_color_options')) {
+			$colorOptions = get_field('product_color_options');
+			echo '<h3>Select Color</h3>';
+			echo '<select class="product-color-selection">';
+			foreach ($colorOptions as $colorOption) {
+				echo '<option value="'.$colorOption.'">'.$colorOption.'</option>';
+			}
+			echo '</select>';
+		}
+		// Quantity Options
+		echo '<h3>How many would you like to add?</h3>';
+		echo '<select class="product-qty-selection">';
+		for($i = 1; $i < 11; $i++) {
+			echo '<option value="'.$i.'">'.$i.'</option>';	
+		}
+		echo '</select>';
+		
+
+		/*
+		 * "Add To Cart"
+		 */
+		echo '<hr />';
+		// Button to trigger modal
 		if(!is_user_logged_in()) {
-			 
-			// Modal
-			echo '<div id="userloginoptions" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">';
+			echo '<a id="addToCart" href="#" role="button" class="btn btn-info" data-post-id="'.$post->ID.'">Add To Cart</a>';
+		} else {
+			// Logged in user view...
+		}
+
+		/* 
+		 * "Shopping Cart Options"
+		 */
+
+		// Modal 1: "Register"
+		if(!is_user_logged_in()) { 
+			echo '<div id="userregister" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">';
+			echo  '<div class="modal-header">';
+			echo    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+			echo    '<h3 id="myModalLabel">'. __('Welcome!','litton_bags') .'</h3>';
+			echo  '</div>';
+			echo  '<div class="modal-body">';
+			echo 		'<p>Sign up, create a shopping cart and shop Litton Bags whenever you feel like!</p>';
+			echo 		'<p>If you do not want to sign up, you can checkout using our guest checkout :)</p>';
+			echo 		'<a class="register progress btn btn-success" href="/wp-login.php?action=register">New</a>';
+		    ?>
+		    <!-- Login -->
+		    <!-- http://codex.wordpress.org/Function_Reference/wp_signon -->
+				<div class="login-form hide">
+					<?php wp_login_form(); ?>
+				</div>
+		    <?php
+			echo 		'<a class="login btn btn-primary" href="/wp-login.php">Returning</a>';
+			echo  '</div>';
+			echo  '<div class="modal-footer">';
+			//echo    '<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>';
+			//echo    '<button class="btn btn-primary">Add To Cart</button>';
+			echo  '</div>';
+			echo '</div>';
+		}
+		
+		// Modal 2: "Add to Cart" option parameters
+		echo '<div id="cartoptions" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">';
+		echo  '<div class="modal-header">';
+		echo    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+		echo    '<h3 id="myModalLabel">'. __('Product Options','litton_bags') .'</h3>';
+		echo  '</div>';
+		echo  '<div class="modal-body">';
+		if (get_field('product_color_options')) {
+			$colorOptions = get_field('product_color_options');
+			echo '<h3>Select Color</h3>';
+			echo '<select>';
+			foreach ($colorOptions as $colorOption) {
+				echo '<option>'.$colorOption.'</option>';
+			}
+			echo '</select>';
+		}
+		echo '<h3>Quantity</h3>';
+		echo '<select><option>1</option><option>2</option><option>3</option></select>';
+		echo  '</div>';
+		echo  '<div class="modal-footer">';
+		//echo    '<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>';
+		echo    '<button class="btn btn-primary">Add To Cart</button>';
+		echo  '</div>';
+		echo '</div>';
+
+		/* 
+		 * "Checkout Options"
+		 */
+		if(!is_user_logged_in()) { 
+
+			// Modal 1: User Options Modal
+			echo '<div id="usercheckoutoptions" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">';
 			echo  	'<div class="modal-header">';
 			echo    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
 			echo    '<h3 id="myModalLabel">'. __('Welcome!','litton_bags') .'</h3>';
 			echo  '</div>';
 			echo  '<div class="modal-body">';
-	    
-			// Forms: http://wordpress.stackexchange.com/questions/95139/custom-registration-template-page
-	    ?>
-	    <!-- Login -->
-			<div class="login hide">
+		  
+		  echo  '<p>Here at Litton we believe simplicity is best so our checkout process is, well, quite simple. If you don&#39;t need a shopping cart or do not want to save your credit card option, select our guest option.</p>';
+		  echo 	'<p>Review, Pay and Confrim.</p>';
+				// Forms: http://wordpress.stackexchange.com/questions/95139/custom-registration-template-page
+		    ?>
+		    <!-- Login -->
+		    <!-- http://codex.wordpress.org/Function_Reference/wp_signon -->
+				<div class="login-form hide">
+					<?php wp_login_form(); ?>
+				</div>
+		    <?php
 
-			</div>
-	    <!-- Registration -->
-	    <div class="registration hide">
-	        <div id="register-form">
-	            <form action="<?php echo site_url('wp-login.php?action=register', 'login_post') ?>" method="post">
-	                <input type="text" name="user_login" value="Username" id="user_login" class="input" placeholder="Username" />
-	                <input type="text" name="user_email" value="E-Mail" id="user_email" class="input"  placeholder="E-Mail" />
-	                    <?php do_action('register_form'); ?>
-	                    <input class="btn btn-primary" type="submit" value="<?php _e('Register'); ?>" id="register" />
-	                <hr />
-	                <p class="statement"><?php _e('A password will be e-mailed to you.'); ?></p>
-	            </form>
-	        </div>
-	    </div><!-- /Registration -->
-	    <?php
-	    
-	    // Provide selection options
-			echo '<div class="loginoptions">';
-			echo 		'<a class="login btn btn-primary" href="/wp-login.php">Log in</a>';
-			echo 		'<a class="register btn btn-success" href="/wp-login.php?action=register">Register</a>';
-			echo '</div>';
+	    // Provide user checkout options
+			echo 		'<div class="loginoptions">';
+			echo 			'<a class="login btn btn-primary" href="/wp-login.php">Returning Fan</a>';
+			echo 			'<a class="guest progress btn btn-success" href="/wp-login.php?action=register">Guest Fan</a>';
+			echo 		'</div>';
 
 			echo  '</div>';
 			echo  '<div class="modal-footer">';
@@ -82,8 +161,15 @@
 			//echo    '<button class="btn btn-primary">Save changes</button>';
 			echo  '</div>';
 			echo '</div>';
+		}
 
-		} else {
+		// Modal 2: Checkout Options Modal
+		echo '<div id="checkoutform" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">';
+		echo  	'<div class="modal-header">';
+		echo    '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+		echo    '<h3 id="myModalLabel">'. __('Checkout','litton_bags') .'</h3>';
+		echo  '</div>';
+		echo  '<div class="modal-body">';
 
 			// "STRIPE Variables
 			$productPrice = get_field('product_price'); // in 'cents'
@@ -99,7 +185,27 @@
 				echo '<div class="payment-errors alert hide"></div>';
 				echo '<h2>Your Total Cost: &#36;'.$english_notation.' USD</h2>';
 				// "Stripe": Payment Form
-				echo '<form action="" method="POST" id="stripe-payment-form">';				
+				echo '<form action="" method="POST" id="stripe-payment-form">';
+				//		NAME
+				echo 	'<div class="form-row">';
+				echo 		'<label>'. __('Full Name', 'litton_bags') .'</label>';
+				echo 		'<input type="text" size="20" autocomplete="off" data-stripe="name" />';
+				echo 	'</div>';
+				//		ADDRESS
+				echo 	'<div class="form-row">';
+				echo 		'<label>'. __('Address Line 1', 'litton_bags') .'</label>';
+				echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-line1" />';
+				echo 		'<label>'. __('Address Line 2', 'litton_bags') .'</label>';
+				echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-line2" />';
+				echo 		'<label>'. __('City', 'litton_bags') .'</label>';
+				echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-city" />';
+				echo 		'<label>'. __('Zip Code', 'litton_bags') .'</label>';
+				echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-zip" />';
+				echo 		'<label>'. __('State', 'litton_bags') .'</label>';
+				echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-state" />';
+				echo 		'<label>'. __('Country', 'litton_bags') .'</label>';
+				echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-country" />';
+				echo 	'</div>';				
 				// 		CARD NUMBER
 				echo 	'<div class="form-row">';
 				echo 		'<label>'. __('Card Number', 'litton_bags') .'</label>';
@@ -127,7 +233,12 @@
 				echo '</form>';
 			}
 
-		} // is_user_logged_in()
+		echo  '</div>';
+		echo  '<div class="modal-footer">';
+		//echo    '<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>';
+		//echo    '<button class="btn btn-primary">Save changes</button>';
+		echo  '</div>';
+		echo '</div>';
 
 	?>
 	

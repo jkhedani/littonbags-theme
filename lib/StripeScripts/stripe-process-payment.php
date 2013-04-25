@@ -69,7 +69,6 @@ function pippin_stripe_process_payment() {
 			$redirect = add_query_arg('payment', 'paid', $_POST['redirect']);
  
 		} catch (Exception $e) {
-			
 			// redirect on failed payment
 			$redirect = add_query_arg('payment', 'failed', $_POST['redirect']);
 		}

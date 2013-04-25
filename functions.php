@@ -8,7 +8,6 @@
 /**
  *  Globals & Constants
  */
-
 $stripe_options = get_option('stripe_settings');
 
 
@@ -17,13 +16,17 @@ $stripe_options = get_option('stripe_settings');
  * http://codex.wordpress.org/Plugin_API/Action_Reference/wp_enqueue_scripts
  */
 function diamond_scripts() {
-	wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css' );
+    $protocol='http:'; // discover the correct protocol to use
+    if(!empty($_SERVER['HTTPS'])) $protocol='https:';
+	
+    wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css' );
 	// Activate line below for responsive layout
 	// Requires: Child theme style, resets, parent theme base style and bootstrap base style
 	// to load prior to responsive. Responsive styles should typically be loaded last.
 	//wp_enqueue_style( 'diamond-style-responsive', get_stylesheet_directory_uri().'/css/diamond-style-responsive.css', array('diamond-style','resets','bootstrap-base-styles','bootstrap-parent-style'));
     wp_enqueue_script('bootstrap-modal-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-modal.js', array(), false, true);
-    wp_enqueue_script('diamond-custom-script', get_stylesheet_directory_uri().'/js/scripts.js', array(), false, true);
+    wp_enqueue_script('bootstrap-tooltip-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-tooltip.js', array(), false, true);
+    wp_enqueue_script('bootstrap-popover-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-popover.js', array(), false, true);
     // "Stripe" scripts
     global $stripe_options;
     // check to see if we are in test mode
@@ -32,14 +35,34 @@ function diamond_scripts() {
     } else {
         $publishable = $stripe_options['live_publishable_key'];
     }
+    wp_enqueue_script('json2');
     wp_enqueue_script('jquery');
 	wp_enqueue_script('stripe-script', '//js.stripe.com/v2/');
     wp_enqueue_script('stripe-processing', get_stylesheet_directory_uri().'/lib/StripeScripts/stripe-processing.js');
     wp_localize_script('stripe-processing', 'stripe_vars', array(
             'publishable_key' => $publishable,
     ));
+    // jStorage
+    // http://www.jstorage.info/
+    wp_enqueue_script('jstorage-script', get_stylesheet_directory_uri().'/js/jstorage.js');
+    wp_enqueue_script('diamond-custom-script', get_stylesheet_directory_uri().'/js/scripts.js', array(), false, true);
+
+    // Shopping Cart  
+    wp_enqueue_script('shopping-cart-scripts', get_stylesheet_directory_uri().'/lib/ShoppingCart/shopping-cart.js', array('jquery','json2'), true);
+    wp_localize_script('shopping-cart-scripts', 'shopping_cart_scripts', array(
+        'ajaxurl' => admin_url('admin-ajax.php',$protocol),
+        'nonce' => wp_create_nonce('shopping_cart_scripts_nonce')
+    ));
+
 }
 add_action( 'wp_enqueue_scripts', 'diamond_scripts' );
+
+/**
+ * Shopping Cart
+ * By Justin Hedani
+ * Uses: Ajax, jStorage & Bootstrap
+ */
+require_once( get_stylesheet_directory() . '/lib/ShoppingCart/shopping-cart.php');
 
 /**
  * "Stripe" Integration
@@ -57,7 +80,8 @@ if (is_admin()) {
  * Custom Post Types (e.g. Products, etc.)
  */
 function LTTNBAGS_post_types() {
-	// "Products"
+  global $product_type;
+  // "Products"
   $labels = array(
     'name' => __( 'Products' ),
     'singular_name' => __( 'Product' ),
@@ -68,13 +92,12 @@ function LTTNBAGS_post_types() {
     'search_items' => __('Search Products'),
     'not_found' => __('No Products found.'),
   );
-	register_post_type( 'products',
+  register_post_type( 'products',
     array(
     	'menu_position' => 5,
     	'public' => true,
     	'supports' => array('title', 'editor', 'thumbnail'),
     	'labels' => $labels,
-    	'rewrite' => array('slug' => __('products')),
     )
   );
 
@@ -99,12 +122,13 @@ function LTTNBAGS_taxonomies() {
     'new_item_name' => __( 'New Product Type' ),
     'menu_name' => __( ' Edit Product Types' ),
   ); 	
-  register_taxonomy('product-type',array('products'), array(
+  register_taxonomy('product_type',array('products'), array(
     'hierarchical' => true,
     'labels' => $labels,
     'show_ui' => true,
+    'publicly_queryable' => true,
     'query_var' => true,
-    'rewrite' => array( 'slug' => 'product-type' ),
+    'rewrite' => array( 'slug' => '%product_type%', 'with_front' => false ),
   ));
 }
 add_action( 'init', 'LTTNBAGS_taxonomies');
