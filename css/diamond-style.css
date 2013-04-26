@@ -333,3 +333,25 @@ Diamond Specific Styles
   border-left-color: #ffffff;
   bottom: -10px;
 }
+/*
+ * Global Styles
+ */
+.pipe {
+  color: #eeeeee;
+  padding: 0 7px;
+}
+/*
+ * Shopping Cart Styles
+ */
+.shopping-cart-product .product-color {
+  text-transform: capitalize;
+}
+.popover {
+  min-width: 290px;
+}
+.popover-content .product-subtotal {
+  display: none;
+}
+.popover-content .checkout-totals {
+  display: none;
+}

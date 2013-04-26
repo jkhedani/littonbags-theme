@@ -1,6 +1,7 @@
 <?php
 
 function refresh_shopping_cart() {
+	do_action('init');
 	global $wpdb, $post;
 
 	// Nonce check
@@ -12,9 +13,12 @@ function refresh_shopping_cart() {
 
 	$html = "";
 	$success = false;
-
+	$productDescription = "|"; // Build annotated description to pass to Stripe
 	foreach ($products as $product) {
-		foreach ($product as $key => $value) {
+		$itemID = ""; // Grab the product ID for use outside this loop
+		$itemQty = ""; // Grab the product ID for use outside this loop
+		$html .= '<div class="shopping-cart-product" data-jStorage-key="'.$product['key'].'">';
+		foreach ($product as $key => $value) { // For each individual product
 			//Get Product Name/Post Data
 			if ($key == 'postID') {
 				$productsInCart = new WP_Query(array(
@@ -23,31 +27,80 @@ function refresh_shopping_cart() {
 				));	
 				while($productsInCart->have_posts()) : $productsInCart->the_post();
 					$currentPostID = $post->ID;
-					$html .= get_the_title();
+					$itemID = $currentPostID;
+					$html .= '<span class="product-title">'.get_the_title().'</span><span class="pipe">|</span>';
+					$productDescription = $productDescription . get_the_title();
 				endwhile;
 				wp_reset_postdata();
 			}
 			// Get Product Color
 			if($key == 'color') {
+				$html .= '<span class="product-color" data-product-color="'.$value.'">';
 				if ($value == 'none') {
-					// Do nothin.
+					$html .= 'n/a';
 				} else {
-					$html .= 'Color:'.$value;
+					$html .= $value;
 				}
+				$html .= '</span><span class="pipe">|</span>';
+				$productDescription = $productDescription . $value;
 			}
 			// Get Product Qty
 			if($key == 'qty') {
-				$html .= 'Qty:'.$value;
+				$html .= '<span class="product-qty" data-product-qty="'.$value.'">'.$value.'</span>';
+				$itemQty = $value;
+				$productDescription = $productDescription . $value;
 			}
-			$html .= '<br />';
 		}
+		// Generate Individual Product Cost
+		$productPrice = get_field('product_price', $itemID);
+		$productPriceInDollars = $productPrice/100; // in 'dollars'
+		$english_notation = number_format($productPriceInDollars,2,'.',''); // in eng notation 'dollars'
+    $html .= '<span class="pipe">|</span><span class="product-cost" data-product-cost="'.$productPrice.'">'.$english_notation.'</span>';
+
+    // Generate Individual Product Subtotal
+    $individualProductSubtotal = $productPrice * $itemQty;
+    $productPriceInDollars = $individualProductSubtotal/100; // in 'dollars'
+    $english_notation = number_format($productPriceInDollars,2,'.',''); // in eng notation 'dollars'
+    $html .= '<span class="pipe">|</span><span class="product-subtotal"> Subtotal: '.$english_notation.'</span>';
+
+    // Generate Entire Shopping Cart Subtotal
+    $grandSubtotal = $grandSubtotal + $individualProductSubtotal;
+
+		// Create delete cart item key
+		$productDescription = $productDescription . '|';
+		$html .= '<a href="javascript:void(0);" class="btn remove">-</a>';
+		$html .= '</div>';
 	}
+
+	// Generate user readable versions of Totals
+	// Subtotals
+	$subtotal_productPriceInDollars = $grandSubtotal/100; // in 'dollars'
+	$subtotal_english_notation = number_format($subtotal_productPriceInDollars,2,'.',''); // in eng notation 'dollars'
+	
+	// Tax
+	$tax = $grandSubtotal * 0.0471;
+	$tax_productPriceInDollars = $tax/100; // in 'dollars'
+	$tax_english_notation = number_format($tax_productPriceInDollars,2,'.',''); // in eng notation 'dollars'
+
+	// Grand
+	$grandTotal = intval($grandSubtotal + $tax);
+	$grand_productPriceInDollars = $grandTotal/100; // in 'dollars'
+	$grand_english_notation = number_format($grand_productPriceInDollars,2,'.',''); // in eng notation 'dollars'
+
+	// Display Subtotal, Add Tax/Fees/Whatever & show Grand Total
+	$html .= '<div class="checkout-totals">';
+	$html .= '<div class="subtotal">Subtotal: '.$subtotal_english_notation.'</div>';
+	$html .= '<div class="auxfees">Tax (0.0471): '.$tax_english_notation.'</div>';
+	$html .= '<div class="total">Total: '.$grand_english_notation.'</div>';
+	$html .= '</div>';
 
 	// Build the response...
 	$success = true;
 	$response = json_encode(array(
 		'success' => $success,
-		'html' => $html
+		'html' => $html,
+		'total' => $grandTotal,
+		'desc' => $productDescription,
 	));
 	
 	// Construct and send the response

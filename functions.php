@@ -24,6 +24,7 @@ function diamond_scripts() {
 	// Requires: Child theme style, resets, parent theme base style and bootstrap base style
 	// to load prior to responsive. Responsive styles should typically be loaded last.
 	//wp_enqueue_style( 'diamond-style-responsive', get_stylesheet_directory_uri().'/css/diamond-style-responsive.css', array('diamond-style','resets','bootstrap-base-styles','bootstrap-parent-style'));
+    wp_enqueue_script('bootstrap-transition-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-transition.js', array(), false, true);
     wp_enqueue_script('bootstrap-modal-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-modal.js', array(), false, true);
     wp_enqueue_script('bootstrap-tooltip-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-tooltip.js', array(), false, true);
     wp_enqueue_script('bootstrap-popover-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-popover.js', array(), false, true);
