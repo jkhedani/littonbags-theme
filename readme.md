@@ -6,7 +6,7 @@
 
 #		I. Making sure you're in the right place.
 		If you are reading this document with the intent to edit the design of the course make sure that:
-			a) you're a design team member who has been issued a published course,
+			a) you are a design team member who has been issued a published course,
 			b) that the folder this document you are reading is in its own folder titled ("course-courseNumber" or "course-art175")
 			c) you have both this theme and its parent (wp-theme-course-parent) active in your wordpress install.
 
