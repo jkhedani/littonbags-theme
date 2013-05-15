@@ -36,7 +36,8 @@
 ?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/inc/images/favicon.ico" />
+<link rel="shortcut icon" href="<?php bloginfo( 'stylesheet_directory' ); ?>/images/favicon.png" />
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <!--[if lt IE 9]>
 <script src="<?php echo get_template_directory_uri(); ?>/inc/js/html5.js" type="text/javascript"></script>
 <![endif]-->
@@ -47,7 +48,7 @@
   // ADMIN: Move navbar down from under admin when user is
   // logged in but not in the theme customizer previewer
   global $wp_customize;
-  if(is_user_logged_in() && ! isset( $wp_customize )) {
+  if ( is_user_logged_in() && ! isset( $wp_customize ) ) {
     echo '
     <style type="text/css">
       #navbar { margin-top: 28px; } /* Positions navbar below admin bar */
@@ -70,26 +71,16 @@
   	<header id="navbar" class="navbar navbar-inverse navbar-fixed-top">
     	<div class="navbar-inner">
       	<div class="container">
-      		<!-- Bootstrap: Collapses to form mobile toggle menu -->
-        	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          	<span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand site-title" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
-          <nav class="nav-collapse collapse">
-          	<h1 class="assistive-text"><?php _e( 'Menu', '_s' ); ?></h1>
-  					<div class="assistive-text skip-link"><a href="#content" title="<?php esc_attr_e( 'Skip to content', '_s' ); ?>"><?php _e( 'Skip to content', '_s' ); ?></a></div>
-            <!-- Shopping Cart Nav -->
-            <?php
-            echo '<ul class="nav pull-right">';
-            echo  '<li class="shoppingcart"><a class="shoppingcartshow" href="#">Cart</a></li>';
-            echo '</ul>';
-            ?>
-        	</nav><!--/.nav-collapse -->
+      		
+          <a class="brand site-title" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>    
+          <!-- Shopping Cart Nav -->
+          <ul class="nav pull-right">
+            <li class="shoppingcart"><a href="#" class="shoppingcartshow">Cart</a></li>
+          </ul>
+ 
       	</div><!-- .container -->
     	</div><!-- .navbar-inner -->
-    </header>
+    </header><!-- #navbar -->
 
     <?php bedrock_belowheader();?>
 

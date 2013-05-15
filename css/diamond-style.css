@@ -340,12 +340,24 @@ Diamond Specific Styles
   color: #eeeeee;
   padding: 0 7px;
 }
+a.btn:visited {
+  color: #ffffff;
+}
 /*
  * Shopping Cart Styles
  */
+.shoppingcartshow {
+  cursor: pointer;
+}
 .shopping-cart-product .product-color {
   text-transform: capitalize;
 }
+.clearcart {
+  cursor: pointer;
+}
+/*
+ * Checkout Styles
+ */
 .popover {
   min-width: 290px;
 }
@@ -354,4 +366,10 @@ Diamond Specific Styles
 }
 .popover-content .checkout-totals {
   display: none;
+}
+/*
+ * Media Queries
+ */
+@media (max-width: 979px) {
+  
 }

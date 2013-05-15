@@ -11,15 +11,21 @@ Diamond Specific Styles
 /*
  * Global Styles
  */
-
 .pipe { color: @grayLighter; padding: 0 7px; }
+a.btn:visited { color: @white; } // Prevents buttons from turning purple :(
 
 /*
  * Shopping Cart Styles
  */
+ .shoppingcartshow { cursor: pointer; }
  .shopping-cart-product {
  	 .product-color { text-transform: capitalize; }
  }
+ .clearcart { cursor: pointer; }
+
+/*
+ * Checkout Styles
+ */
 
 // TEMP
 .popover { min-width: 290px; }
@@ -27,3 +33,8 @@ Diamond Specific Styles
 	.product-subtotal { display: none; }
 	.checkout-totals { display: none; }
 }
+
+/*
+ * Media Queries
+ */
+@media (max-width: 979px) { }

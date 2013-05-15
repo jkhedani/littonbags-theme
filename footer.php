@@ -19,7 +19,7 @@
 			<div class="site-info">
 				<?php
 					echo '<div class="footer-credits">&copy; '.date('Y');
-					//echo ' | Made by Hedani';
+					echo ' | <a href="#">Feedback(NEED MAILTO ADDRESS)</a>';
 					echo '</div>';
 				?>
 			</div><!-- .site-info -->

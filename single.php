@@ -20,6 +20,7 @@ get_header(); ?>
 
 			<?php while ( have_posts() ) : the_post(); 
 
+				// Use appropriate templates for specific content types
 				if(get_post_type() == 'products'):
 					get_template_part( 'templates/content', 'products' );
 				else:

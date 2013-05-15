@@ -20,6 +20,7 @@ get_header(); ?>
 				<header class="span12">
 					<h1><?php _e('Welcome','litton_bags'); ?></h1>
 					<a href="/wp/products/the-minster/" class="btn btn-primary">Get The Minster</a>
+					<a href="#" class="btn btn-primary test" data-toggle="popover" data-content="Here's some test content" data-original-title="A Title">Test</a>
 				</header>
 			</div>
 

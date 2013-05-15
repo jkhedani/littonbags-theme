@@ -11,12 +11,15 @@ function refresh_shopping_cart() {
 	// Grab all post IDs that should be in cart
 	$products = $_REQUEST['products'];
 
+	/*
+	 * Let's build the Shopping Cart!
+	 */
 	$html = "";
 	$success = false;
-	$productDescription = "|"; // Build annotated description to pass to Stripe
+	$productDescription = ""; // Build annotated description to pass to Stripe pipe(|) separated
 	foreach ($products as $product) {
 		$itemID = ""; // Grab the product ID for use outside this loop
-		$itemQty = ""; // Grab the product ID for use outside this loop
+		$itemQty = ""; // Grab the product Qty for use outside this loop
 		$html .= '<div class="shopping-cart-product" data-jStorage-key="'.$product['key'].'">';
 		foreach ($product as $key => $value) { // For each individual product
 			//Get Product Name/Post Data
@@ -29,7 +32,8 @@ function refresh_shopping_cart() {
 					$currentPostID = $post->ID;
 					$itemID = $currentPostID;
 					$html .= '<span class="product-title">'.get_the_title().'</span><span class="pipe">|</span>';
-					$productDescription = $productDescription . get_the_title();
+					$productDescription = $productDescription . $currentPostID . ','; // Add ID to product description
+					$productDescription = $productDescription . get_the_title() . ','; // Add Title to product description
 				endwhile;
 				wp_reset_postdata();
 			}
@@ -42,13 +46,13 @@ function refresh_shopping_cart() {
 					$html .= $value;
 				}
 				$html .= '</span><span class="pipe">|</span>';
-				$productDescription = $productDescription . $value;
+				$productDescription = $productDescription . $value . ','; // Add Color to product description
 			}
 			// Get Product Qty
 			if($key == 'qty') {
 				$html .= '<span class="product-qty" data-product-qty="'.$value.'">'.$value.'</span>';
 				$itemQty = $value;
-				$productDescription = $productDescription . $value;
+				$productDescription = $productDescription . $value; // Add Quantity to product description;
 			}
 		}
 		// Generate Individual Product Cost
@@ -67,11 +71,17 @@ function refresh_shopping_cart() {
     $grandSubtotal = $grandSubtotal + $individualProductSubtotal;
 
 		// Create delete cart item key
-		$productDescription = $productDescription . '|';
+		if ($product != end($products)) {
+			$productDescription = $productDescription . '|';	
+		}
+
 		$html .= '<a href="javascript:void(0);" class="btn remove">-</a>';
 		$html .= '</div>';
 	}
 
+	/*
+	 * Let's build the Review Totals!
+	 */
 	// Generate user readable versions of Totals
 	// Subtotals
 	$subtotal_productPriceInDollars = $grandSubtotal/100; // in 'dollars'
@@ -94,13 +104,14 @@ function refresh_shopping_cart() {
 	$html .= '<div class="total">Total: '.$grand_english_notation.'</div>';
 	$html .= '</div>';
 
-	// Build the response...
+	/*
+	 * Build the response...
+	 */
 	$success = true;
 	$response = json_encode(array(
 		'success' => $success,
 		'html' => $html,
-		'total' => $grandTotal,
-		'desc' => $productDescription,
+		'desc' => $productDescription
 	));
 	
 	// Construct and send the response

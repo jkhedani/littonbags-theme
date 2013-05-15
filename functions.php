@@ -24,37 +24,43 @@ function diamond_scripts() {
 	// Requires: Child theme style, resets, parent theme base style and bootstrap base style
 	// to load prior to responsive. Responsive styles should typically be loaded last.
 	//wp_enqueue_style( 'diamond-style-responsive', get_stylesheet_directory_uri().'/css/diamond-style-responsive.css', array('diamond-style','resets','bootstrap-base-styles','bootstrap-parent-style'));
-    wp_enqueue_script('bootstrap-transition-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-transition.js', array(), false, true);
-    wp_enqueue_script('bootstrap-modal-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-modal.js', array(), false, true);
-    wp_enqueue_script('bootstrap-tooltip-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-tooltip.js', array(), false, true);
-    wp_enqueue_script('bootstrap-popover-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-popover.js', array(), false, true);
-    // "Stripe" scripts
+
+    /*
+     * Set proper API keys based on Stripe Settings in wordpress
+     */
     global $stripe_options;
-    // check to see if we are in test mode
     if(isset($stripe_options['test_mode']) && $stripe_options['test_mode']) {
-        $publishable = $stripe_options['test_publishable_key'];
+        $publishable = $stripe_options['test_publishable_key']; // Use Test API Key for Stripe Processing
     } else {
-        $publishable = $stripe_options['live_publishable_key'];
+        $publishable = $stripe_options['live_publishable_key']; // Use Test API Key for Stripe Processing
     }
-    wp_enqueue_script('json2');
-    wp_enqueue_script('jquery');
-	wp_enqueue_script('stripe-script', '//js.stripe.com/v2/');
-    wp_enqueue_script('stripe-processing', get_stylesheet_directory_uri().'/lib/StripeScripts/stripe-processing.js');
-    wp_localize_script('stripe-processing', 'stripe_vars', array(
-            'publishable_key' => $publishable,
-    ));
-    // jStorage
-    // http://www.jstorage.info/
-    wp_enqueue_script('jstorage-script', get_stylesheet_directory_uri().'/js/jstorage.js');
-    wp_enqueue_script('diamond-custom-script', get_stylesheet_directory_uri().'/js/scripts.js', array(), false, true);
+        wp_enqueue_script('bootstrap-transition-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-transition.js', array(), false, true);
+        wp_enqueue_script('bootstrap-modal-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-modal.js', array(), false, true);
+        wp_enqueue_script('bootstrap-tooltip-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-tooltip.js', array(), false, true);
+        wp_enqueue_script('bootstrap-popover-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-popover.js', array(), false, true);
 
-    // Shopping Cart  
-    wp_enqueue_script('shopping-cart-scripts', get_stylesheet_directory_uri().'/lib/ShoppingCart/shopping-cart.js', array('jquery','json2'), true);
-    wp_localize_script('shopping-cart-scripts', 'shopping_cart_scripts', array(
-        'ajaxurl' => admin_url('admin-ajax.php',$protocol),
-        'nonce' => wp_create_nonce('shopping_cart_scripts_nonce')
-    ));
+        wp_enqueue_script('json2');
+        wp_enqueue_script('jquery');
+        
+        wp_enqueue_script('stripe-processing', get_stylesheet_directory_uri().'/lib/StripeScripts/stripe-processing.js');
+        wp_localize_script('stripe-processing', 'stripe_vars', array(
+                'publishable_key' => $publishable,
+        ));
+        // jStorage
+        // http://www.jstorage.info/
+        wp_enqueue_script('jstorage-script', get_stylesheet_directory_uri().'/js/jstorage.js');
+        wp_enqueue_script('diamond-custom-script', get_stylesheet_directory_uri().'/js/scripts.js', array(), false, true);
 
+        // Shopping Cart  
+        wp_enqueue_script('shopping-cart-scripts', get_stylesheet_directory_uri().'/lib/ShoppingCart/shopping-cart.js', array('jquery','json2'), true);
+        wp_localize_script('shopping-cart-scripts', 'shopping_cart_scripts', array(
+            'ajaxurl' => admin_url('admin-ajax.php',$protocol),
+            'nonce' => wp_create_nonce('shopping_cart_scripts_nonce')
+        ));
+
+    // TEST Mode
+
+    
 }
 add_action( 'wp_enqueue_scripts', 'diamond_scripts' );
 
