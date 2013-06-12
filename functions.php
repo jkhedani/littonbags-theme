@@ -10,7 +10,6 @@
  */
 $stripe_options = get_option('stripe_settings');
 
-
 /**
  * Properly add new script files using this function.
  * http://codex.wordpress.org/Plugin_API/Action_Reference/wp_enqueue_scripts
@@ -18,7 +17,7 @@ $stripe_options = get_option('stripe_settings');
 function diamond_scripts() {
     $protocol='http:'; // discover the correct protocol to use
     if(!empty($_SERVER['HTTPS'])) $protocol='https:';
-	
+	// Enqueue Styles
     wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css' );
 	// Activate line below for responsive layout
 	// Requires: Child theme style, resets, parent theme base style and bootstrap base style
@@ -34,32 +33,31 @@ function diamond_scripts() {
     } else {
         $publishable = $stripe_options['live_publishable_key']; // Use Test API Key for Stripe Processing
     }
-        wp_enqueue_script('bootstrap-transition-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-transition.js', array(), false, true);
-        wp_enqueue_script('bootstrap-modal-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-modal.js', array(), false, true);
-        wp_enqueue_script('bootstrap-tooltip-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-tooltip.js', array(), false, true);
-        wp_enqueue_script('bootstrap-popover-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-popover.js', array(), false, true);
+    // Enqueue Scripts
+    wp_enqueue_script('bootstrap-transition-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-transition.js', array(), false, true);
+    wp_enqueue_script('bootstrap-modal-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-modal.js', array(), false, true);
+    wp_enqueue_script('bootstrap-tooltip-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-tooltip.js', array(), false, true);
+    wp_enqueue_script('bootstrap-popover-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-popover.js', array(), false, true);
+    wp_enqueue_script('bootstrap-tab-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-tab.js', array(), false, true);
 
-        wp_enqueue_script('json2');
-        wp_enqueue_script('jquery');
-        
-        wp_enqueue_script('stripe-processing', get_stylesheet_directory_uri().'/lib/StripeScripts/stripe-processing.js');
-        wp_localize_script('stripe-processing', 'stripe_vars', array(
-                'publishable_key' => $publishable,
-        ));
-        // jStorage
-        // http://www.jstorage.info/
-        wp_enqueue_script('jstorage-script', get_stylesheet_directory_uri().'/js/jstorage.js');
-        wp_enqueue_script('diamond-custom-script', get_stylesheet_directory_uri().'/js/scripts.js', array(), false, true);
+    wp_enqueue_script('json2');
+    wp_enqueue_script('jquery');
+    
+    wp_enqueue_script('stripe-processing', get_stylesheet_directory_uri().'/lib/StripeScripts/stripe-processing.js');
+    wp_localize_script('stripe-processing', 'stripe_vars', array(
+            'publishable_key' => $publishable,
+    ));
+    // jStorage
+    // http://www.jstorage.info/
+    wp_enqueue_script('jstorage-script', get_stylesheet_directory_uri().'/js/jstorage.js');
+    wp_enqueue_script('diamond-custom-script', get_stylesheet_directory_uri().'/js/scripts.js', array(), false, true);
 
-        // Shopping Cart  
-        wp_enqueue_script('shopping-cart-scripts', get_stylesheet_directory_uri().'/lib/ShoppingCart/shopping-cart.js', array('jquery','json2'), true);
-        wp_localize_script('shopping-cart-scripts', 'shopping_cart_scripts', array(
-            'ajaxurl' => admin_url('admin-ajax.php',$protocol),
-            'nonce' => wp_create_nonce('shopping_cart_scripts_nonce')
-        ));
-
-    // TEST Mode
-
+    // Shopping Cart  
+    wp_enqueue_script('shopping-cart-scripts', get_stylesheet_directory_uri().'/lib/ShoppingCart/shopping-cart.js', array('jquery','json2'), true);
+    wp_localize_script('shopping-cart-scripts', 'shopping_cart_scripts', array(
+        'ajaxurl' => admin_url('admin-ajax.php',$protocol),
+        'nonce' => wp_create_nonce('shopping_cart_scripts_nonce')
+    ));
     
 }
 add_action( 'wp_enqueue_scripts', 'diamond_scripts' );
@@ -107,7 +105,6 @@ function LTTNBAGS_post_types() {
     	'labels' => $labels,
     )
   );
-
 }
 add_action( 'init', 'LTTNBAGS_post_types' );
 
@@ -139,6 +136,36 @@ function LTTNBAGS_taxonomies() {
   ));
 }
 add_action( 'init', 'LTTNBAGS_taxonomies');
+
+/**
+ * Add custom body classes
+ */
+function custom_body_class($classes) {
+    global $post;
+    // "Shop"
+    if ( $post->ID === 19 ) {
+        $classes[] = 'shop';
+        return $classes;
+    } else {
+        return $classes;
+    }
+}
+add_filter('body_class','custom_body_class');
+
+/**
+ * Create Litton Bags Menu Structure
+ */
+function LTTNBAGS_primary_menu() {
+    global $post;
+    $productcount = wp_count_posts('products'); // Total products
+    $publishedproductcount = $productcount->publish; // Total products published
+    ;
+    // If there are more than one published products, show nav
+    if ( $publishedproductcount > 1 ) {
+        // create nav here, justin.
+    }
+}
+add_action('bedrock_abovepostcontent','LTTNBAGS_primary_menu');
 
 /**
  * Custom Hook Functions

@@ -2,14 +2,20 @@
 
 function refresh_shopping_cart() {
 	do_action('init');
-	global $wpdb, $post;
+	global $wpdb, $post, $stripe_options;;
 
 	// Nonce check
 	$nonce = $_REQUEST['nonce'];
 	if (!wp_verify_nonce($nonce, 'shopping_cart_scripts_nonce')) die(__('Busted.'));
 	
+	// http://www.php.net/manual/en/function.money-format.php
+	setlocale(LC_MONETARY, 'en_US');
+
 	// Grab all post IDs that should be in cart
 	$products = $_REQUEST['products'];
+	
+	// Set subtotal of all product costs combined
+	$grandSubtotal = 0;
 
 	/*
 	 * Let's build the Shopping Cart!
@@ -17,6 +23,7 @@ function refresh_shopping_cart() {
 	$html = "";
 	$success = false;
 	$productDescription = ""; // Build annotated description to pass to Stripe pipe(|) separated
+
 	foreach ($products as $product) {
 		$itemID = ""; // Grab the product ID for use outside this loop
 		$itemQty = ""; // Grab the product Qty for use outside this loop
@@ -55,26 +62,34 @@ function refresh_shopping_cart() {
 				$productDescription = $productDescription . $value; // Add Quantity to product description;
 			}
 		}
+
+		/*
+		 * Generate User-facing totals 
+		 */
+
 		// Generate Individual Product Cost
 		$productPrice = get_field('product_price', $itemID);
-		$productPriceInDollars = $productPrice/100; // in 'dollars'
-		$english_notation = number_format($productPriceInDollars,2,'.',''); // in eng notation 'dollars'
-    $html .= '<span class="pipe">|</span><span class="product-cost" data-product-cost="'.$productPrice.'">'.$english_notation.'</span>';
+		$productPriceInDollars = money_format('%n', $productPrice/100); // in 'dollars'
+    $html .= '<span class="pipe">|</span><span class="product-cost" data-product-cost="'.$productPrice.'">'.$productPriceInDollars.'</span>';
 
     // Generate Individual Product Subtotal
     $individualProductSubtotal = $productPrice * $itemQty;
-    $productPriceInDollars = $individualProductSubtotal/100; // in 'dollars'
-    $english_notation = number_format($productPriceInDollars,2,'.',''); // in eng notation 'dollars'
-    $html .= '<span class="pipe">|</span><span class="product-subtotal"> Subtotal: '.$english_notation.'</span>';
+    $productPriceInDollars = money_format('%n', $individualProductSubtotal/100); // in 'dollars'
+    $html .= '<span class="pipe">|</span><span class="product-subtotal"> Subtotal: '.$productPriceInDollars.'</span>';
 
     // Generate Entire Shopping Cart Subtotal
-    $grandSubtotal = $grandSubtotal + $individualProductSubtotal;
+    $grandSubtotal += $individualProductSubtotal;
 
-		// Create delete cart item key
+		/*
+		 * Cleanup
+		 */
+
+		// Generate a pipe between products; never at the beginning or the end
 		if ($product != end($products)) {
 			$productDescription = $productDescription . '|';	
 		}
 
+		// Create delete cart item key
 		$html .= '<a href="javascript:void(0);" class="btn remove">-</a>';
 		$html .= '</div>';
 	}
@@ -82,26 +97,25 @@ function refresh_shopping_cart() {
 	/*
 	 * Let's build the Review Totals!
 	 */
+
 	// Generate user readable versions of Totals
 	// Subtotals
-	$subtotal_productPriceInDollars = $grandSubtotal/100; // in 'dollars'
-	$subtotal_english_notation = number_format($subtotal_productPriceInDollars,2,'.',''); // in eng notation 'dollars'
+	$subtotal_productPriceInDollars = money_format('%n', $grandSubtotal/100); // in 'dollars'
 	
 	// Tax
-	$tax = $grandSubtotal * 0.0471;
-	$tax_productPriceInDollars = $tax/100; // in 'dollars'
-	$tax_english_notation = number_format($tax_productPriceInDollars,2,'.',''); // in eng notation 'dollars'
+	$currenttaxrate = $stripe_options['tax_rate'];
+	$tax = round($grandSubtotal * $currenttaxrate);
+	$tax_productPriceInDollars = money_format('%n', $tax/100); // in 'dollars'
 
 	// Grand
 	$grandTotal = intval($grandSubtotal + $tax);
-	$grand_productPriceInDollars = $grandTotal/100; // in 'dollars'
-	$grand_english_notation = number_format($grand_productPriceInDollars,2,'.',''); // in eng notation 'dollars'
+	$grand_productPriceInDollars = money_format('%n', $grandTotal/100); // in 'dollars'
 
 	// Display Subtotal, Add Tax/Fees/Whatever & show Grand Total
 	$html .= '<div class="checkout-totals">';
-	$html .= '<div class="subtotal">Subtotal: '.$subtotal_english_notation.'</div>';
-	$html .= '<div class="auxfees">Tax (0.0471): '.$tax_english_notation.'</div>';
-	$html .= '<div class="total">Total: '.$grand_english_notation.'</div>';
+	$html .= '<div class="subtotal">Subtotal: '.$subtotal_productPriceInDollars.'</div>';
+	$html .= '<div class="auxfees">Tax ('.$currenttaxrate.'%): '.$tax_productPriceInDollars.'</div>';
+	$html .= '<div class="total">Total: '.$grand_productPriceInDollars.'</div>';
 	$html .= '</div>';
 
 	/*

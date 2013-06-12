@@ -71,6 +71,22 @@ function stripe_render_options_page() {
 						</td>
 					</tr>
 				</tbody>
+			</table>
+
+			<h3 class="title"><?php _e('Currency Parameters', 'litton_bags'); ?></h3>
+
+			<table class="form-table">
+				<tbody>
+					<tr valign="top">	
+						<th scope="row" valign="top">
+							<?php _e('Tax Rate', 'litton_bags'); ?>
+						</th>
+						<td>
+							<input id="stripe_settings[tax_rate]" name="stripe_settings[tax_rate]" class="regular-text" type="text" value="<?php echo $stripe_options['tax_rate']; ?>"/>
+							<label class="description" for="stripe_settings[tax_rate]"><?php _e('Enter desired tax rate (e.g. 0.0471)', 'litton_bags'); ?></label>
+						</td>
+					</tr>
+				</tbody>
 			</table>	
  
 			<p class="submit">
