@@ -126,7 +126,14 @@
 					echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-state" />';
 					echo 		'<label>'. __('Country', 'litton_bags') .'</label>';
 					echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-country" />';
-					echo 	'</div>';				
+					echo 	'</div>';
+
+					//		EMAIL
+					echo 	'<div class="form-row">';
+					echo 		'<label>'. __('Email Address', 'litton_bags') .'</label>';
+					echo 		'<input type="text" size="20" autocomplete="off" name="email" />';
+					echo 	'</div>';
+
 					// 		CARD NUMBER
 					echo 	'<div class="form-row">';
 					echo 		'<label>'. __('Card Number', 'litton_bags') .'</label>';
