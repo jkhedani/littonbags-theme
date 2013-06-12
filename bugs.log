@@ -1,2 +1,3 @@
 • Nonces may still be finicky in production - very least: get rid of error messages.
 • Check if tooltip can be malicious (XSS)
+• iPad transaction didn't add tax...

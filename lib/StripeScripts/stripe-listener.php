@@ -6,7 +6,7 @@
  */
 function stripe_event_listener() {
  	// Listen for wps-listener (from Stripe)
-	if ( isset( $_GET['wps-listener'] ) && $_GET['wps-listener'] == 'stripe' ) {
+	if ( isset( $_GET['lb-listener'] ) && $_GET['lb-listener'] == 'stripe' ) {
 		
 		// Basic Stripe Setup
 		global $stripe_options;
@@ -25,8 +25,8 @@ function stripe_event_listener() {
 		// this will be used to retrieve the event from Stripe
 		$event_id = $event_json->id;
  
-		if(isset($event_json->id)) {
-			
+ 		// We must ensure to only use the event ID from the initial listen.
+		if ( isset( $event_json->id ) ) {
 			/*
 			 * Let's generate some events
 			 */
