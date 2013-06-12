@@ -131,7 +131,7 @@
 					//		EMAIL
 					echo 	'<div class="form-row">';
 					echo 		'<label>'. __('Email Address', 'litton_bags') .'</label>';
-					echo 		'<input type="text" size="20" autocomplete="off" name="email" />';
+					echo 		'<input type="text" size="20" autocomplete="off" name="email" />'; // ARE WE DOING THIS CORRECTLY?!
 					echo 	'</div>';
 
 					// 		CARD NUMBER

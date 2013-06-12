@@ -70,7 +70,7 @@ function pippin_stripe_process_payment() {
 				$customer_email = $current_user->user_email;
 			else:
 				$customer_id = false;
-				$customer_email = $_POST['email'];
+				$customer_email = $_POST['email']; // Are we doing this correctly?!
 			endif;
 
 			// create a new customer if our current user doesn't have one...

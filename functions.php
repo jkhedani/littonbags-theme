@@ -79,6 +79,7 @@ if (is_admin()) {
     require_once( get_stylesheet_directory() . '/lib/StripeScripts/settings.php' );
 } else {
     require_once( get_stylesheet_directory() . '/lib/StripeScripts/stripe-process-payment.php' );
+    require_once( get_stylesheet_directory() . '/lib/StripeScripts/stripe-listener.php' );
 }
 
 /**

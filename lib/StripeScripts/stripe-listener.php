@@ -7,7 +7,7 @@
 function stripe_event_listener() {
  	// Listen for wps-listener (from Stripe)
 	if ( isset( $_GET['lb-listener'] ) && $_GET['lb-listener'] == 'stripe' ) {
-		
+
 		// Basic Stripe Setup
 		global $stripe_options;
 		require_once( get_stylesheet_directory() . '/lib/Stripe.php' );
@@ -37,8 +37,11 @@ function stripe_event_listener() {
  
 				// successful payment
 				if($event->type == 'charge.succeeded') {
-					// send customer's payment receipt email here
- 
+					
+					/*
+					 * Send customer's payment receipt email here.
+					 */
+
 					// retrieve the payer's information
 					$customer = Stripe_Customer::retrieve($invoice->customer);
 					$email = $customer->email;
@@ -50,13 +53,16 @@ function stripe_event_listener() {
 					$message = "Hello " . $customer_name . "\n\n";
 					$message .= "You have successfully made a payment of " . $amount . "\n\n";
 					$message .= "Thank you!";
- 
+
 					wp_mail($email, $subject, $message, $headers);
 				}
  
 				// failed payment
 				if($event->type == 'charge.failed') {
-					// send a failed payment notice email here
+					
+					/*
+					 * Send customer's failed payment notice here.
+					 */
  
 					// retrieve the payer's information
 					$customer = Stripe_Customer::retrieve($invoice->customer);
