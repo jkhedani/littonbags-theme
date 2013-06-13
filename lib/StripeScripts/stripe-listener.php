@@ -6,7 +6,7 @@
  */
 function stripe_event_listener() {
  	// Listen for wps-listener (from Stripe)
-	//if ( isset( $_GET['lb-listener'] ) && $_GET['lb-listener'] == 'stripe' ) {
+	if ( isset( $_GET['lb-listener'] ) && $_GET['lb-listener'] == 'stripe' ) {
 
 		// Basic Stripe Setup
 		global $stripe_options;
@@ -84,7 +84,7 @@ function stripe_event_listener() {
 			}
 		
 		} // isset $event_json
-	//} // lb-listener
+	} // wps-listener
 }
 add_action('init', 'stripe_event_listener');
 

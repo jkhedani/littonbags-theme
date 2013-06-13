@@ -34,14 +34,15 @@ function diamond_scripts() {
         $publishable = $stripe_options['live_publishable_key']; // Use Test API Key for Stripe Processing
     }
     // Enqueue Scripts
-    wp_enqueue_script('bootstrap-transition-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-transition.js', array(), false, true);
-    wp_enqueue_script('bootstrap-modal-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-modal.js', array(), false, true);
-    wp_enqueue_script('bootstrap-tooltip-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-tooltip.js', array(), false, true);
-    wp_enqueue_script('bootstrap-popover-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-popover.js', array(), false, true);
-    wp_enqueue_script('bootstrap-tab-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-tab.js', array(), false, true);
+    wp_enqueue_script( 'bootstrap-transition-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-transition.js', array(), false, true );
+    wp_enqueue_script( 'bootstrap-modal-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-modal.js', array(), false, true );
+    wp_enqueue_script( 'bootstrap-tooltip-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-tooltip.js', array(), false, true );
+    wp_enqueue_script( 'bootstrap-popover-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-popover.js', array(), false, true );
+    wp_enqueue_script( 'bootstrap-tab-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-tab.js', array(), false, true );
+    wp_enqueue_script( 'jquery-validate', get_stylesheet_directory_uri().'/js/jquery.validate.js', array('jquery') );
 
-    wp_enqueue_script('json2');
-    wp_enqueue_script('jquery');
+    wp_enqueue_script( 'json2'); // Is this necessary?
+    wp_enqueue_script( 'jquery'); // Is this necessary?
     
     wp_enqueue_script('stripe-processing', get_stylesheet_directory_uri().'/lib/StripeScripts/stripe-processing.js');
     wp_localize_script('stripe-processing', 'stripe_vars', array(

@@ -1,3 +1,4 @@
 • Nonces may still be finicky in production - very least: get rid of error messages.
 • Check if tooltip can be malicious (XSS)
 • It may be a good idea to check how to grab emails another way....
+• Mailer still an issue: problem is believed to be tied to submission of wp_mail and/or server settings
