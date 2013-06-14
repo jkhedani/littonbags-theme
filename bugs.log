@@ -2,3 +2,9 @@
 • Check if tooltip can be malicious (XSS)
 • It may be a good idea to check how to grab emails another way....
 • Mailer still an issue: problem is believed to be tied to submission of wp_mail and/or server settings
+• See if we can fail bad addresses and CVCs...
+
+TTD:
+
+• Integrate jQuery Validate using example - must be careful we aren't sending name values upon submission...possibly find another validation method.
+• Establish handler for payment success and fail.

@@ -101,19 +101,26 @@
 					echo '<p class="success">' . __('Thank you for your payment.', 'litton_bags') . '</p>';
 				} else {
 
-					// "Stripe": Error Message
-					echo '<div class="payment-errors alert hide"></div>';
 					//echo '<h2>Your Total Cost: &#36;<span class="total-english-notation"></span> USD</h2>';
 
 					// "Stripe": Payment Form
 					echo '<form action="" method="POST" id="stripe-payment-form">';
-					//		NAME
+					
+					// 		FORM ERRORS
+					echo '<div class="payment-errors alert hide"></div>';
+
+					// 		PERSONAL INFO
 					echo 	'<div class="form-row">';
+					echo 	'<legend>Basic Information</legend>';
 					echo 		'<label>'. __('Full Name', 'litton_bags') .'</label>';
 					echo 		'<input type="text" size="20" autocomplete="off" data-stripe="name" />';
+					echo 		'<label>'. __('Email Address', 'litton_bags') .'</label>';
+					echo 		'<input type="text" size="20" autocomplete="off" name="email" />'; // ARE WE DOING THIS CORRECTLY?!
 					echo 	'</div>';
+
 					//		ADDRESS
 					echo 	'<div class="form-row">';
+					echo 		'<legend>Billing Address</legend>';
 					echo 		'<label>'. __('Address Line 1', 'litton_bags') .'</label>';
 					echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-line1" />';
 					echo 		'<label>'. __('Address Line 2', 'litton_bags') .'</label>';
@@ -126,37 +133,23 @@
 					echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-state" />';
 					echo 		'<label>'. __('Country', 'litton_bags') .'</label>';
 					echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-country" />';
-					echo 	'</div>';
-
-					//		EMAIL
-					echo 	'<div class="form-row">';
-					echo 		'<label>'. __('Email Address', 'litton_bags') .'</label>';
-					echo 		'<input type="text" size="20" autocomplete="off" name="email" />'; // ARE WE DOING THIS CORRECTLY?!
+					echo 		'<br />';
+					echo 		'<input id="mailingIsDifferent" type="checkbox" name="mailingDifferent" value="mailingIsDifferent" />';
+					echo   	'<span class="formHelperText">My mailing address is different from my billing address.</span>';
 					echo 	'</div>';
 
 					// 		CARD NUMBER
 					echo 	'<div class="form-row">';
+					echo 		'<legend>Card Information</legend>';
 					echo 		'<label>'. __('Card Number', 'litton_bags') .'</label>';
 					echo 		'<input type="text" size="20" autocomplete="off" data-stripe="number" />';
-					echo 	'</div>';
-					// 		CVC
-					echo 	'<div class="form-row">';
 					echo 		'<label>'. __('CVC', 'litton_bags') .'</label>';
 					echo 		'<input type="text" size="4" autocomplete="off" data-stripe="cvc" />';
-					echo 	'</div>';
-					// 		EXPIRATION
-					echo 	'<div class="form-row">';
 					echo 		'<label>'. __('Expiration (MM/YYYY)', 'litton_bags') .'</label>';
 					echo 		'<input type="text" size="2" data-stripe="exp-month" />';
 					echo 		'<span> / </span>';
 					echo 		'<input type="text" size="4" data-stripe="exp-year" />';
 					echo 	'</div>';
-
-					// 		DESCRIPTION
-					// echo 	'<div class="form-row">';
-					// echo 		'<label>'. __('Description', 'litton_bags') .'</label>';
-					// echo 		'<input type="text" size="4" autocomplete="off" data-stripe="description" />';
-					// echo 	'</div>';
 
 					//		WORDPRESS DATA VALUES (NO SENSITIVE FORMS BELOW THIS LINE!)	
 					echo 	'<input type="hidden" name="action" value="stripe"/>';

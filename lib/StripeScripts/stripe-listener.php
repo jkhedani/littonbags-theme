@@ -55,6 +55,7 @@ function stripe_event_listener() {
 					$message .= "Thank you!";
 
 					wp_mail($email, $subject, $message, $headers);
+
 				}
  
 				// failed payment
