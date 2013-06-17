@@ -8,3 +8,5 @@ TTD:
 
 • Integrate jQuery Validate using example - must be careful we aren't sending name values upon submission...possibly find another validation method.
 • Establish handler for payment success and fail.
+• Integrate Paypal payment option
+• Figure out how we can safely collect email addresses and shipping addresses for customers

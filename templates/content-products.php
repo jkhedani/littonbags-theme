@@ -103,6 +103,10 @@
 
 					//echo '<h2>Your Total Cost: &#36;<span class="total-english-notation"></span> USD</h2>';
 
+					echo 'We use a secure payment processing method powered by Stripe. Read more »';
+					echo '5% of your purchase will go to the charity WakaWaka Lights.';
+					echo 'We accept Visa, Mastercard, etc., etc.';
+
 					// "Stripe": Payment Form
 					echo '<form action="" method="POST" id="stripe-payment-form">';
 					
@@ -110,16 +114,16 @@
 					echo '<div class="payment-errors alert hide"></div>';
 
 					// 		PERSONAL INFO
-					echo 	'<div class="form-row">';
+					echo 	'<div class="form-row" id="basic-info">';
 					echo 	'<legend>Basic Information</legend>';
 					echo 		'<label>'. __('Full Name', 'litton_bags') .'</label>';
 					echo 		'<input type="text" size="20" autocomplete="off" data-stripe="name" />';
 					echo 		'<label>'. __('Email Address', 'litton_bags') .'</label>';
-					echo 		'<input type="text" size="20" autocomplete="off" name="email" />'; // ARE WE DOING THIS CORRECTLY?!
+					echo 		'<input type="text" size="20" autocomplete="off" class="email" name="email" />'; // ARE WE DOING THIS CORRECTLY?!
 					echo 	'</div>';
 
 					//		ADDRESS
-					echo 	'<div class="form-row">';
+					echo 	'<div class="form-row" id="addr-info">';
 					echo 		'<legend>Billing Address</legend>';
 					echo 		'<label>'. __('Address Line 1', 'litton_bags') .'</label>';
 					echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-line1" />';
@@ -139,16 +143,16 @@
 					echo 	'</div>';
 
 					// 		CARD NUMBER
-					echo 	'<div class="form-row">';
+					echo 	'<div class="form-row" id="cc-info">';
 					echo 		'<legend>Card Information</legend>';
 					echo 		'<label>'. __('Card Number', 'litton_bags') .'</label>';
-					echo 		'<input type="text" size="20" autocomplete="off" data-stripe="number" />';
+					echo 		'<input type="text" size="20" autocomplete="off" class="cc-num" data-stripe="number" />';
 					echo 		'<label>'. __('CVC', 'litton_bags') .'</label>';
-					echo 		'<input type="text" size="4" autocomplete="off" data-stripe="cvc" />';
+					echo 		'<input type="text" size="4" autocomplete="off" class="cc-cvc" data-stripe="cvc" />';
 					echo 		'<label>'. __('Expiration (MM/YYYY)', 'litton_bags') .'</label>';
-					echo 		'<input type="text" size="2" data-stripe="exp-month" />';
+					echo 		'<input type="text" size="2" data-stripe="exp-month" class="cc-exp-month" data-numeric />';
 					echo 		'<span> / </span>';
-					echo 		'<input type="text" size="4" data-stripe="exp-year" />';
+					echo 		'<input type="text" size="4" data-stripe="exp-year" class="cc-exp-year" data-numeric />';
 					echo 	'</div>';
 
 					//		WORDPRESS DATA VALUES (NO SENSITIVE FORMS BELOW THIS LINE!)	
@@ -164,7 +168,7 @@
 			// Checkout Step Three: "Processing..."
 			echo 	'<div class="checkoutProcessing hide">';
 			// Ajax gif: http://www.mytreedb.com/view_blog/a-33-high_quality_ajax_loader_images.html
-			echo  '<img src="'.get_stylesheet_directory_uri().'/images/ajax-loader.gif" alt="Your payment is processing."/>';
+			echo  '<img src="'.get_stylesheet_directory_uri().'/images/ajax-loader-256.gif" alt="Your payment is processing."/>';
 			echo  '<p>Please wait for your payment to process. Refrain from closing this page to avoid multiple charges.</p>';
 			echo  '</div>';
 
@@ -174,11 +178,11 @@
 
 			echo  '</div>'; // .modal-body
 			echo  '<div class="modal-footer">';
-			//echo    '<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>';
 			echo 		'<div class="checkoutReview checkoutControls show">';
-			echo    	'<button class="btn btn-primary choosePaymentMethod">Select A Payment Method</button>';
+			echo    	'<button class="btn btn-primary choosePaymentMethod">Continue to Payment Method</button>';
 			echo 		'</div>';
 			echo 		'<div class="checkoutPay checkoutControls hide">';
+			echo  		'<img class="processing-spinner hide" src="'.get_stylesheet_directory_uri().'/images/ajax-loader-32.gif" alt="Your payment is processing."/>';
 			echo    	'<button class="btn btn-primary submitPayment">Submit Your Payment</button>';
 			echo  	'</div>';
 			echo 		'<div class="checkoutThanks checkoutControls hide">';

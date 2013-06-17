@@ -40,6 +40,7 @@ function diamond_scripts() {
     wp_enqueue_script( 'bootstrap-popover-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-popover.js', array(), false, true );
     wp_enqueue_script( 'bootstrap-tab-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-tab.js', array(), false, true );
     wp_enqueue_script( 'jquery-validate', get_stylesheet_directory_uri().'/js/jquery.validate.js', array('jquery') );
+    wp_enqueue_script( 'jquery-payment', get_stylesheet_directory_uri().'/js/jquery.payment.js', array('jquery') );
 
     wp_enqueue_script( 'json2'); // Is this necessary?
     wp_enqueue_script( 'jquery'); // Is this necessary?

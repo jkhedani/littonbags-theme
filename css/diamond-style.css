@@ -358,6 +358,9 @@ a.btn:visited {
 /*
  * Checkout Styles
  */
+input.error {
+  border: 1px solid #b94a48 !important;
+}
 .popover {
   min-width: 290px;
 }

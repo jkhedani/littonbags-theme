@@ -58,10 +58,11 @@ function pippin_stripe_process_payment() {
  		Stripe::setApiKey($secret_key);
 
 		/**
-		 * "Charging the Card"
+		 * "Charging the Card via the User"
 		 */
 		try {
 
+			// STEP ONE: Check if user has an existing account.
 			// Grab user's customer ID...
 			if ( is_user_logged_in() ):
 				global $current_user;
@@ -73,19 +74,20 @@ function pippin_stripe_process_payment() {
 				$customer_email = $_POST['email']; // Are we doing this correctly?!
 			endif;
 
-			// create a new customer if our current user doesn't have one...
+			// STEP TWO: Create a new customer if our current user doesn't have one...
 			if( !$customer_id ) {
 				$customer = Stripe_Customer::create(array(
 					'card' => $token,
-					'email' => $customer_email
+					'email' => $customer_email,
 				));
 				$customer_id = $customer->id;
-				if( is_user_logged_in () ) {
-					update_user_meta( get_current_user_id(), '_stripe_customer_id', $customer_id );
-				}
+				// Enable the next three lines when we want to start storing stripe customer IDs
+				//if( is_user_logged_in () ) {
+				//	update_user_meta( get_current_user_id(), '_stripe_customer_id', $customer_id );
+				//}
 			}
-
-			// charge customer if an customer id is found
+			
+			// STEP THREE: Charge customer once an customer id is found or created
 			if( $customer_id ) {
 				$charge = Stripe_Charge::create(array(
 					'amount' => $amount, // amount in cents
@@ -125,6 +127,7 @@ function pippin_stripe_process_payment() {
 		  // Authentication with Stripe's API failed
 		  // (maybe you changed API keys recently)
 		} catch (Stripe_ApiConnectionError $e) {
+			// "Cannot validate payment data with Stripe. Are you still connected to the internet."
 		  // Network communication with Stripe failed
 		} catch (Stripe_Error $e) {
 		  // Display a very generic error to the user, and maybe send
