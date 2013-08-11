@@ -1,20 +1,150 @@
-/*
-Diamond Specific Styles
-*/
+/**
+ * Diamond Specific Styles
+ */
 
-@import "../../bedrock/inc/less/bedrock-variables.less"; // Replace this line with your new variables, if you like.
+@import "diamond-style-variables.less"; // Replace this line with your new variables, if you like.
 @import "../../bedrock/inc/bootstrap/less/mixins.less";
 @import "../../bedrock/inc/bootstrap/less/modals.less";
 @import "../../bedrock/inc/bootstrap/less/tooltip.less";
 @import "../../bedrock/inc/bootstrap/less/popovers.less";
 
-/*
+@pinkAccent: #F0BDB7;
+@beigeAccent: #F2E9E1;
+
+/**
  * Global Styles
  */
 .pipe { color: @grayLighter; padding: 0 7px; }
 a.btn:visited { color: @white; } // Prevents buttons from turning purple :(
 
-/*
+/**
+ * Vertical Centering
+ */
+// body {
+// 	#page {
+// 		width: 100%;
+// 		min-height: 0px;
+// 		height: 720px;
+// 		top: 50%;
+// 		position: absolute;
+// 		margin: -390px 0 0 0;
+// 		// header, main and footer heights must equal page height.
+// 		header#navbar { /* height is 40px */ }
+// 		#main { min-height: 600px; overflow: hidden; }
+// 		footer#colophon { height: 80px; }
+// 	}
+// }
+
+/**
+ * General Layout Styles
+ */
+html {
+	overflow-y: auto !important;
+	body {
+		background-color: #000 !important;
+		#page {
+			header#page-header {
+				#navbar.navbar {
+					margin: 0;
+					padding: 120px 0 0 0;
+					background-color: #000;
+					.navbar-inner {
+						background: #000;
+						border: none;
+						border-radius: 0;
+						.site-title {
+							text-indent: -9999px;
+							background: url('../images/logo.png') no-repeat;
+							display: block;
+							width: 163px; 
+							height: 44px;
+							padding: 0;
+							margin-bottom: 15px;
+						}
+						.shoppingcart {
+							background: url('../images/cart-icon.png') no-repeat;
+							display: block;
+							width: 27px; 
+							height: 21px;
+							text-indent: -9999px;
+							margin-top: 15px;
+						}
+					}
+				}
+			}
+			#main {
+				position: relative;
+				overflow: hidden;
+				min-height: 600px;
+				padding-top: 0;
+				background-color: @pinkAccent;
+				.background-image { width: 100%; position: absolute; }
+			}
+		}
+		footer#colophon {
+			background-color: #000;
+			overflow: hidden;
+			#menu-footer-menu {
+				padding: 20px;
+				li {
+					list-style: none;
+					a {
+						font-family: 'Open Sans', sans-serif;
+						font-size: 10px;
+						text-transform: uppercase;
+						color: #CCC;
+					}
+				}
+			}
+		}
+	}
+}
+
+/**
+ * Front Page
+ */
+body.home {
+	// Discover and Shop links
+	#menu-highlight-menu {
+		position: absolute;
+		right: 0;
+		li {
+			list-style: none;
+			clear: both;
+		}
+	}
+}
+
+/**
+ * Single Products Page
+ * Note: Most styles here are for the Minster bag in particular
+ */
+body.single-products {
+	#page {
+		#main {
+			background-color: rgb( 254,254,253 );
+			#content {
+				position: relative;
+				z-index: 99;
+				.product-header { }
+				.product-scroll {
+					max-height: 600px;
+					width: 480px;
+					right: 120px;
+					position: absolute;
+					z-index: -9999;
+					overflow: hidden;
+					.product-scroll-collage {	
+						overflow-y: scroll;
+					}
+				}
+				.product-content { float: right; }
+			}
+		}
+	}
+}
+
+/**
  * Shopping Cart Styles
  */
  .shoppingcartshow { cursor: pointer; }
@@ -23,7 +153,7 @@ a.btn:visited { color: @white; } // Prevents buttons from turning purple :(
  }
  .clearcart { cursor: pointer; }
 
-/*
+/**
  * Checkout Styles
  */
 
@@ -36,7 +166,40 @@ input.error { border: 1px solid #b94a48 !important; }
 	.checkout-totals { display: none; }
 }
 
+
 /*
  * Media Queries
  */
-@media (max-width: 979px) { }
+
+// Large and above
+@media ( min-width: 1200px ) {
+	body {
+		//.navbar .container { width: 1180px; }
+		//.container { width: 1180px; }
+	}
+}
+
+// Large and below
+@media ( max-width: 1200px ) {
+	body {
+		#main { padding: 0 20px; }
+	}
+}
+
+// Desktop & Below
+@media ( max-width: 979px ) {
+
+}
+
+// Tablet & Below
+@media ( max-width: 767px ) {
+	body {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+// Phones & Below
+@media (max-width: 479px) {
+
+}

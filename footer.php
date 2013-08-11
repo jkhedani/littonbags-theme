@@ -12,19 +12,17 @@
 	<?php bedrock_mainend(); ?>
 
 	</div><!-- #main .site-main -->
-	<div id="push"></div>
-	</div><!-- #page .hfeed .site -->
 	<footer id="colophon" class="site-footer" role="contentinfo">
-		<div class="container">
-			<div class="site-info">
-				<?php
-					echo '<div class="footer-credits">&copy; '.date('Y');
-					echo ' | <a href="#">Feedback(NEED MAILTO ADDRESS)</a>';
-					echo '</div>';
-				?>
-			</div><!-- .site-info -->
-		</div><!-- .container -->
+		<div class="site-info container">
+			<?php
+				wp_nav_menu(array(
+					'menu' => 'footer-menu',
+					'menu_class' => 'nav-pills pull-right'
+				));
+			?>
+		</div><!-- .site-info -->
 	</footer><!-- #colophon .site-footer -->
+	</div><!-- #page .hfeed .site -->
 
 <?php wp_footer(); ?>
 <?php bedrock_after(); ?>

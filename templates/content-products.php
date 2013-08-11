@@ -5,34 +5,34 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php the_ID(); ?>">
 
-	<?php bedrock_postcontentstart(); ?>
-
-	<header class="entry-header">
+	<header class="product-header span3">
 		
-		<?php bedrock_abovetitle(); ?>
-		
-		<h1 class="entry-title"><?php the_title(); ?></h1>
-		
-		<?php bedrock_belowtitle(); ?>
-		
-		<hr />
+		<h1 class="product-title"><?php the_title(); ?></h1>
+		<h2 class="product-subtitle"><?php echo get_field('product_subtitle'); ?></h2>
+		<?php if ( $post->post_content=="" && is_user_logged_in() ) : ?>
+			<p class="muted helper-text">You currently have no description. Add some <a href="'.get_edit_post_link().'" title="Edit this piece of content">here.</a></p>
+		<?php else : ?>
+		<p class="product-details"><?php echo get_the_content(); ?></p>
+		<?php endif; ?>
 
 	</header><!-- .entry-header -->
 
-	<div class="entry-content">
+	<div class="product-scroll">
+		<div class="product-scroll-collage">
+			<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/the-minster-collage-web.jpg" />
+		</div>
+	</div>
+
+	<div class="product-content span2">
 	
-	<?php
+		<?php
 			/*
 			 * Bag Description
 			 */
 
-			if ( $post->post_content=="" && is_user_logged_in() ) {
-				echo '<p class="muted helper-text">You currently have no description. Add some <a href="'.get_edit_post_link().'" title="Edit this piece of content">here.</a></p>';
-			} else {
-				the_content();
-			}
+		
 
 			/*
 			 * User Selected Options
@@ -191,11 +191,8 @@
 			echo  '</div>'; // .modal-footer
 			echo '</div>'; // .modal (#checkout)
 
-	?>
+		?>
 	
-			<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', '_s' ), 'after' => '</div>' ) ); ?>
 	</div><!-- .entry-content -->
-	
-	<?php bedrock_postcontentend(); ?>
 
 </article><!-- #post-<?php the_ID(); ?> -->

@@ -10,3 +10,8 @@ TTD:
 • Establish handler for payment success and fail.
 • Integrate Paypal payment option
 • Figure out how we can safely collect email addresses and shipping addresses for customers
+• PayPal Integration
+• Coupon integration
+• Test on iOS
+• Secure Payment Logo + Stripe Logo
+• Text explaining Tax Rate

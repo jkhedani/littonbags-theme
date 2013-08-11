@@ -1,6 +1,6 @@
-/*
-Diamond Specific Styles
-*/
+/**
+ * Diamond Specific Styles
+ */
 .clearfix {
   *zoom: 1;
 }
@@ -333,7 +333,7 @@ Diamond Specific Styles
   border-left-color: #ffffff;
   bottom: -10px;
 }
-/*
+/**
  * Global Styles
  */
 .pipe {
@@ -343,7 +343,109 @@ Diamond Specific Styles
 a.btn:visited {
   color: #ffffff;
 }
-/*
+/**
+ * Vertical Centering
+ */
+/**
+ * General Layout Styles
+ */
+html {
+  overflow-y: auto !important;
+}
+html body {
+  background-color: #000 !important;
+}
+html body #page header#page-header #navbar.navbar {
+  margin: 0;
+  padding: 120px 0 0 0;
+  background-color: #000;
+}
+html body #page header#page-header #navbar.navbar .navbar-inner {
+  background: #000;
+  border: none;
+  border-radius: 0;
+}
+html body #page header#page-header #navbar.navbar .navbar-inner .site-title {
+  text-indent: -9999px;
+  background: url('../images/logo.png') no-repeat;
+  display: block;
+  width: 163px;
+  height: 44px;
+  padding: 0;
+  margin-bottom: 15px;
+}
+html body #page header#page-header #navbar.navbar .navbar-inner .shoppingcart {
+  background: url('../images/cart-icon.png') no-repeat;
+  display: block;
+  width: 27px;
+  height: 21px;
+  text-indent: -9999px;
+  margin-top: 15px;
+}
+html body #page #main {
+  position: relative;
+  overflow: hidden;
+  min-height: 600px;
+  padding-top: 0;
+  background-color: #f0bdb7;
+}
+html body #page #main .background-image {
+  width: 100%;
+  position: absolute;
+}
+html body footer#colophon {
+  background-color: #000;
+  overflow: hidden;
+}
+html body footer#colophon #menu-footer-menu {
+  padding: 20px;
+}
+html body footer#colophon #menu-footer-menu li {
+  list-style: none;
+}
+html body footer#colophon #menu-footer-menu li a {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #CCC;
+}
+/**
+ * Front Page
+ */
+body.home #menu-highlight-menu {
+  position: absolute;
+  right: 0;
+}
+body.home #menu-highlight-menu li {
+  list-style: none;
+  clear: both;
+}
+/**
+ * Single Products Page
+ * Note: Most styles here are for the Minster bag in particular
+ */
+body.single-products #page #main {
+  background-color: #fefefd;
+}
+body.single-products #page #main #content {
+  position: relative;
+  z-index: 99;
+}
+body.single-products #page #main #content .product-scroll {
+  max-height: 600px;
+  width: 480px;
+  right: 120px;
+  position: absolute;
+  z-index: -9999;
+  overflow: hidden;
+}
+body.single-products #page #main #content .product-scroll .product-scroll-collage {
+  overflow-y: scroll;
+}
+body.single-products #page #main #content .product-content {
+  float: right;
+}
+/**
  * Shopping Cart Styles
  */
 .shoppingcartshow {
@@ -355,7 +457,7 @@ a.btn:visited {
 .clearcart {
   cursor: pointer;
 }
-/*
+/**
  * Checkout Styles
  */
 input.error {
@@ -373,6 +475,23 @@ input.error {
 /*
  * Media Queries
  */
+@media (min-width: 1200px) {
+  
+}
+@media (max-width: 1200px) {
+  body #main {
+    padding: 0 20px;
+  }
+}
 @media (max-width: 979px) {
+  
+}
+@media (max-width: 767px) {
+  body {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+@media (max-width: 479px) {
   
 }

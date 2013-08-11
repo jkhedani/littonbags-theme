@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * Place any hand-crafted Wordpress
  * Please read the documentation on how to use this file within child theme (README.md)
@@ -22,7 +24,7 @@ function diamond_scripts() {
 	// Activate line below for responsive layout
 	// Requires: Child theme style, resets, parent theme base style and bootstrap base style
 	// to load prior to responsive. Responsive styles should typically be loaded last.
-	//wp_enqueue_style( 'diamond-style-responsive', get_stylesheet_directory_uri().'/css/diamond-style-responsive.css', array('diamond-style','resets','bootstrap-base-styles','bootstrap-parent-style'));
+	// wp_enqueue_style( 'diamond-style-responsive', get_stylesheet_directory_uri().'/css/diamond-style-responsive.css', array('diamond-style','resets','bootstrap-base-styles','bootstrap-parent-style'));
 
     /*
      * Set proper API keys based on Stripe Settings in wordpress
@@ -45,10 +47,13 @@ function diamond_scripts() {
     wp_enqueue_script( 'json2'); // Is this necessary?
     wp_enqueue_script( 'jquery'); // Is this necessary?
     
+    // Stripe
+    // https://stripe.com/
     wp_enqueue_script('stripe-processing', get_stylesheet_directory_uri().'/lib/StripeScripts/stripe-processing.js');
     wp_localize_script('stripe-processing', 'stripe_vars', array(
             'publishable_key' => $publishable,
     ));
+
     // jStorage
     // http://www.jstorage.info/
     wp_enqueue_script('jstorage-script', get_stylesheet_directory_uri().'/js/jstorage.js');
@@ -77,7 +82,7 @@ require_once( get_stylesheet_directory() . '/lib/ShoppingCart/shopping-cart.php'
  */
 
 // Load "Stripe" settings & Payment processors
-if (is_admin()) {
+if ( is_admin() ) {
     require_once( get_stylesheet_directory() . '/lib/StripeScripts/settings.php' );
 } else {
     require_once( get_stylesheet_directory() . '/lib/StripeScripts/stripe-process-payment.php' );
@@ -135,7 +140,7 @@ function LTTNBAGS_taxonomies() {
     'show_ui' => true,
     'publicly_queryable' => true,
     'query_var' => true,
-    'rewrite' => array( 'slug' => '%product_type%', 'with_front' => false ),
+    //'rewrite' => array( 'slug' => '%product_type%', 'with_front' => false ), // Seems to be causing permalink issues
   ));
 }
 add_action( 'init', 'LTTNBAGS_taxonomies');
@@ -143,17 +148,17 @@ add_action( 'init', 'LTTNBAGS_taxonomies');
 /**
  * Add custom body classes
  */
-function custom_body_class($classes) {
-    global $post;
+//function custom_body_class($classes) {
+//    global $post;
     // "Shop"
-    if ( $post->ID === 19 ) {
-        $classes[] = 'shop';
-        return $classes;
-    } else {
-        return $classes;
-    }
-}
-add_filter('body_class','custom_body_class');
+//    if ( $post->ID === 19 ) {
+//        $classes[] = 'shop';
+//        return $classes;
+//    } else {
+//        return $classes;
+//   }
+//}
+//add_filter('body_class','custom_body_class');
 
 /**
  * Create Litton Bags Menu Structure

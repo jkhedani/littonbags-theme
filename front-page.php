@@ -13,25 +13,17 @@
 
 get_header(); ?>
 			
-	<div id="primary" class="content-area row">
-		<div id="content" class="site-content span12" role="main">
-			
-			<?php bedrock_contentstart(); ?>
-
-			<?php bedrock_get_breadcrumbs(); ?>
-
-			<?php bedrock_abovepostcontent(); ?>
-
-			<!-- <div class="row">
-				<header class="span12"> -->
-					<h1><?php _e('Welcome','litton_bags'); ?></h1>
-					<a href="/wp/products/the-minster/" class="btn btn-primary">Get The Minster</a>
-				<!-- </header>
-			</div> -->
-
-			<?php bedrock_belowpostcontent(); ?>
-
-			<?php bedrock_contentend(); ?>
+	<div id="primary" class="content-area container">
+		<div id="content" class="site-content" role="main">
+					
+			<?php
+				wp_nav_menu(array(
+					'menu' => 'highlight-menu',
+					'menu_class' => 'nav-pills pull-right'
+				));
+			?>
+			<h1><?php _e('Welcome','litton_bags'); ?></h1>
+			<a href="/wp/products/the-minster/" class="btn btn-primary">Get The Minster</a>
 
 		</div><!-- #content .site-content -->
 	</div><!-- #primary .content-area -->
