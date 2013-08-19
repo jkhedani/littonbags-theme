@@ -44,7 +44,7 @@
 			// Color Options
 			if (get_field('product_color_options')) {
 				$colorOptions = get_field('product_color_options');
-				echo '<h3>Color</h3>';
+				echo '<h3 class="product-color-title">Color</h3>';
 				echo '<select class="product-color-selection">';
 				foreach ($colorOptions as $colorOption) {
 					echo '<option value="'.$colorOption.'">'.$colorOption.'</option>';

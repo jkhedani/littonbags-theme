@@ -93,7 +93,7 @@ function refresh_shopping_cart() {
 			}
 
 			// Create delete cart item key
-			$html .= '<a href="javascript:void(0);" class="btn remove">-</a>';
+			$html .= '<a href="javascript:void(0);" class="btn remove">x</a>';
 			$html .= '</div>';
 		}
 
