@@ -10,6 +10,8 @@
 
 @pinkAccent: #F0BDB7;
 @beigeAccent: #F2E9E1;
+@mapleAccent: rgb(219,88,68);
+@brownAccent: rgb(96,55,55);
 
 /**
  * Global Styles
@@ -18,22 +20,15 @@
 a.btn:visited { color: @white; } // Prevents buttons from turning purple :(
 
 /**
- * Vertical Centering
+ *	Mixins
  */
-// body {
-// 	#page {
-// 		width: 100%;
-// 		min-height: 0px;
-// 		height: 720px;
-// 		top: 50%;
-// 		position: absolute;
-// 		margin: -390px 0 0 0;
-// 		// header, main and footer heights must equal page height.
-// 		header#navbar { /* height is 40px */ }
-// 		#main { min-height: 600px; overflow: hidden; }
-// 		footer#colophon { height: 80px; }
-// 	}
-// }
+.full-width-background-image (@imageURL, @bgColor) {
+	background: url(@imageURL) no-repeat center center fixed @bgColor;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
 
 /**
  * General Layout Styles
@@ -41,14 +36,21 @@ a.btn:visited { color: @white; } // Prevents buttons from turning purple :(
 html {
 	overflow-y: auto !important;
 	body {
+
 		background-color: #000 !important;
 		#page {
 			header#page-header {
+				position: fixed;
+				top: 0;
+				width: 100%;
+				z-index: 9999;
 				#navbar.navbar {
 					margin: 0;
 					padding: 120px 0 0 0;
 					background-color: #000;
 					.navbar-inner {
+						width: 900px;
+						margin: 0 auto;
 						background: #000;
 						border: none;
 						border-radius: 0;
@@ -76,9 +78,10 @@ html {
 				position: relative;
 				overflow: hidden;
 				min-height: 600px;
+				margin: 179px 0 0 0;
 				padding-top: 0;
-				background-color: @pinkAccent;
-				.background-image { width: 100%; position: absolute; }
+				background-color: #FFF;
+				.background-image { width: 100%; position: absolute; top: -1px; }
 			}
 		}
 		footer#colophon {
@@ -100,17 +103,45 @@ html {
 	}
 }
 
+/*
+ * Default: Page
+ */
+body.page-template-default {
+	article {
+		position: relative;
+		.attachment-post-thumbnail { position: fixed; margin: 0 0 0 125px; }
+	}
+}
+
 /**
  * Front Page
  */
 body.home {
+	i.tab.brown {
+		width: 10px;
+		height: 100%;
+		background-color: @brownAccent;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
 	// Discover and Shop links
 	#menu-highlight-menu {
 		position: absolute;
 		right: 0;
+		bottom: 50%;
 		li {
 			list-style: none;
 			clear: both;
+			a {
+				color: #FFF;
+				padding: 8px 10px 8px 22px;
+				background-color: rgba(44,44,44,0.6);
+				min-width: 120px;
+				display: block;
+				position: relative;
+				margin-bottom: 8px;
+			}
 		}
 	}
 }
@@ -124,21 +155,39 @@ body.single-products {
 		#main {
 			background-color: rgb( 254,254,253 );
 			#content {
-				position: relative;
-				z-index: 99;
-				.product-header { }
-				.product-scroll {
-					max-height: 600px;
-					width: 480px;
-					right: 120px;
-					position: absolute;
-					z-index: -9999;
-					overflow: hidden;
-					.product-scroll-collage {	
-						overflow-y: scroll;
+				article {
+					position: relative;
+					.product-header {
+						position: fixed;
+					}
+					.product-content {
+						position: fixed;
+						margin: 0 0 0 805px;
+					}
+					.product-scroll {
+						width: 615px;
+						margin-left: 205px;
+					}
+					#checkoutModal {
+						top: 0;
+						left: 0;
+						margin: 0;
+						width: 100%;
+						height: 100%;
+						padding: 100px;
+						z-index: 99999;
+						border-radius: 0;
+						border: none;
+						moz-box-sizing: border-box;
+						-webkit-box-sizing: border-box;
+						box-sizing: border-box;
+						background-color: #FFF;
+						.full-width-background-image ('../images/checkout-beth.png', #FFF);
+						.modal-header, .modal-body, .modal-footer {
+							width: 600px;
+						}
 					}
 				}
-				.product-content { float: right; }
 			}
 		}
 	}
@@ -181,9 +230,9 @@ input.error { border: 1px solid #b94a48 !important; }
 
 // Large and below
 @media ( max-width: 1200px ) {
-	body {
-		#main { padding: 0 20px; }
-	}
+	// body {
+	// 	#main { padding: 0 20px; }
+	// }
 }
 
 // Desktop & Below

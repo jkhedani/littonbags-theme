@@ -13,7 +13,7 @@
 
 get_header(); ?>
 
-		<div id="primary" class="content-area span8">
+		<div id="primary" class="content-area container">
 			<div id="content" class="site-content" role="main">
 				
 			<?php while ( have_posts() ) : the_post();
@@ -21,7 +21,7 @@ get_header(); ?>
 				if($post->ID === 19): // "Shop"
 					get_template_part( 'templates/content', 'shop' );
 				else:
-					get_template_part( 'content', 'page' );
+					get_template_part( 'templates/content', 'page' );
 				endif;
 
 				comments_template( '', true ); ?>

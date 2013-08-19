@@ -5,9 +5,7 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
-	<?php bedrock_postcontentstart(); ?>
+<article id="post-<?php the_ID(); ?>" <?php post_class('row'); ?>>
 
 	<header class="entry-header">
 		

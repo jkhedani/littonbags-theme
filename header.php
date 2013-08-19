@@ -61,14 +61,10 @@
 ?></head>
 
 <body <?php body_class(); ?>>
-
-  <?php bedrock_before(); ?>
   
   <div id="page" class="hfeed site">
-   
-    <?php bedrock_aboveheader();?>
-    
-    <header id="page-header" class="container">
+
+    <header id="page-header">
     	<div id="navbar" class="navbar navbar-inverse">
       	<div class="navbar-inner">
             <a class="brand site-title" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>    
@@ -82,7 +78,7 @@
 
     <?php bedrock_belowheader();?>
 
-  	<div id="main" role="main" class="site-main row">
+  	<div id="main" role="main" class="site-main">
 
     <!-- Background image -->
     <?php if ( is_front_page() ) : ?>

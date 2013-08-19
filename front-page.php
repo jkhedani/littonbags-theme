@@ -1,4 +1,4 @@
-<?php
+	<?php
 /**
  * The template for displaying all pages.
  *
@@ -19,7 +19,8 @@ get_header(); ?>
 			<?php
 				wp_nav_menu(array(
 					'menu' => 'highlight-menu',
-					'menu_class' => 'nav-pills pull-right'
+					'menu_class' => 'pull-right',
+					'link_before' => '<i class="tab brown"></i>'
 				));
 			?>
 			<h1><?php _e('Welcome','litton_bags'); ?></h1>
