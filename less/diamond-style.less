@@ -33,12 +33,24 @@ a.btn:visited { color: @white; } // Prevents buttons from turning purple :(
 .capitalize {
 	text-transform: capitalize;
 }
+.border-box {
+	moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+
+/*
+ * General Form Styles
+ */
+form {
+	select { width: 100%; }
+}
 
 /**
  * General Layout Styles
  */
 html {
-	select { width: 100%; }
 	overflow-y: auto !important;
 	body {
 		background-color: #000 !important;
@@ -89,6 +101,7 @@ html {
 			}
 		}
 		footer#colophon {
+			z-index: 9999;
 			background-color: #000;
 			overflow: hidden;
 			#menu-footer-menu {
@@ -111,9 +124,67 @@ html {
  * Default: Page
  */
 body.page-template-default {
+	form {
+		text-transform: uppercase;
+		p { color: #888; font-size: 13px; }
+		input { width: 100%; padding: 10px; margin-top: 8px; color: #444; }
+		textarea { width: 100%; padding: 10px; margin-top: 8px; color: #444;  }
+		#send-mail {
+			width: 100px; 
+			background-color: @pinkAccent;
+			box-shadow: none;
+			border-radius: 0;
+			border: none;
+			color: #FFF;
+			font-size: 14px;
+			text-transform: uppercase;
+			text-shadow: none;
+		}
+	}
+	// Contact Form Specific Styles
+	div.wpcf7-validation-errors {
+		padding: 8px 35px 8px 14px;
+		margin-bottom: 20px;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+		background-color: #fcf8e3;
+		border: 1px solid #fbeed5;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+
+		color: #c09853;
+	}
+	.wpcf7-not-valid-tip {
+		padding: 8px 35px 8px 14px;
+		margin-bottom: 20px;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+		background-color: #fcf8e3;
+		border: 1px solid #fbeed5;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+
+		color: #b94a48;
+		background-color: #f2dede;
+		border-color: #eed3d7;
+
+		top: -11px;
+		right: 0;
+		left: auto;
+		min-width: 150px;
+		width: auto;
+	}
+	// General Default Page Styles
 	article {
 		position: relative;
-		.attachment-post-thumbnail { position: fixed; margin: 0 0 0 125px; }
+		z-index: 10;
+		.attachment-post-thumbnail { position: absolute; margin: 0 0 0 125px; z-index: -99; }
+		header {
+			margin-top: 30px;
+		}
+		.entry-content {
+			margin-top: 0px;
+		}
 	}
 }
 

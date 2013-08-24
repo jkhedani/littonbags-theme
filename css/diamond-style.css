@@ -349,14 +349,22 @@ a.btn:visited {
 .capitalize {
   text-transform: capitalize;
 }
+.border-box {
+  moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*
+ * General Form Styles
+ */
+form select {
+  width: 100%;
+}
 /**
  * General Layout Styles
  */
 html {
   overflow-y: auto !important;
-}
-html select {
-  width: 100%;
 }
 html body {
   background-color: #000 !important;
@@ -410,6 +418,7 @@ html body #page #main .background-image {
   top: -1px;
 }
 html body footer#colophon {
+  z-index: 9999;
   background-color: #000;
   overflow: hidden;
 }
@@ -428,12 +437,79 @@ html body footer#colophon #menu-footer-menu li a {
 /*
  * Default: Page
  */
+body.page-template-default form {
+  text-transform: uppercase;
+}
+body.page-template-default form p {
+  color: #888;
+  font-size: 13px;
+}
+body.page-template-default form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  color: #444;
+}
+body.page-template-default form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  color: #444;
+}
+body.page-template-default form #send-mail {
+  width: 100px;
+  background-color: #f0bdb7;
+  box-shadow: none;
+  border-radius: 0;
+  border: none;
+  color: #FFF;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-shadow: none;
+}
+body.page-template-default div.wpcf7-validation-errors {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  color: #c09853;
+}
+body.page-template-default .wpcf7-not-valid-tip {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  top: -11px;
+  right: 0;
+  left: auto;
+  min-width: 150px;
+  width: auto;
+}
 body.page-template-default article {
   position: relative;
+  z-index: 10;
 }
 body.page-template-default article .attachment-post-thumbnail {
-  position: fixed;
+  position: absolute;
   margin: 0 0 0 125px;
+  z-index: -99;
+}
+body.page-template-default article header {
+  margin-top: 30px;
+}
+body.page-template-default article .entry-content {
+  margin-top: 0px;
 }
 /**
  * Front Page

@@ -57,7 +57,7 @@
 			/*
 			 * "Add To Cart" Button
 			 */
-			echo '<a id="addToCart" role="button" href="#" class="btn btn-info" data-post-id="'.$post->ID.'">Add To Cart</a>'; ?>
+			echo '<a id="addToCart" role="button" href="javascript:void(0);" class="btn btn-info" data-post-id="'.$post->ID.'">Add To Cart</a>'; ?>
 
 		</div><!-- .product-content -->
 

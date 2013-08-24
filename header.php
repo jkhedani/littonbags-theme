@@ -70,7 +70,7 @@
             <a class="brand site-title" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>    
             <!-- Shopping Cart Nav -->
             <ul class="nav pull-right">
-              <li class="shoppingcart"><a href="#" class="shoppingcartshow">Cart</a></li>
+              <li class="shoppingcart"><a href="javascript:void(0);" class="shoppingcartshow">Cart</a></li>
             </ul>
       	</div><!-- .navbar-inner -->
       </div><!-- #navbar -->

@@ -17,10 +17,8 @@
 		<?php bedrock_belowtitle(); ?>
 	</header><!-- .entry-header -->
 
-	<div class="entry-content span7">
+	<div class="entry-content span6">
 		<?php the_content(); ?>
-		<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', '_s' ), 'after' => '</div>' ) ); ?>
-		<?php edit_post_link( __( 'Edit', '_s' ), '<span class="edit-link">', '</span>' ); ?>
 	</div><!-- .entry-content -->
 
 	<?php bedrock_postcontentend(); ?>
