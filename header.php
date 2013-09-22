@@ -64,25 +64,19 @@
   
   <div id="page" class="hfeed site">
 
-    <header id="page-header">
-    	<div id="navbar" class="navbar navbar-inverse">
-      	<div class="navbar-inner">
-            <a class="brand site-title" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>    
-            <!-- Shopping Cart Nav -->
-            <ul class="nav pull-right">
-              <li class="shoppingcart"><a href="javascript:void(0);" class="shoppingcartshow">Cart</a></li>
-            </ul>
-      	</div><!-- .navbar-inner -->
-      </div><!-- #navbar -->
-    </header><!-- .container -->
-
-    <?php bedrock_belowheader();?>
+  	<header id="navbar" class="navbar navbar-fixed-top navbar-inverse">
+    	<div class="navbar-inner">
+        <a class="site-title" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>    
+        <!-- Shopping Cart Nav -->
+        <ul class="nav pull-right">
+          <li class="shoppingcart"><a href="javascript:void(0);" class="shoppingcartshow">Cart</a></li>
+        </ul>
+    	</div><!-- .navbar-inner -->
+    </header><!-- #navbar -->
 
   	<div id="main" role="main" class="site-main">
 
     <!-- Background image -->
     <?php if ( is_front_page() ) : ?>
-      <img class="background-image" src="<?php echo get_stylesheet_directory_uri(); ?>/images/home-bg.jpg" alt="Home background image" />
+      <div class="background-image"></div>
     <?php endif; ?>
-
-    <?php bedrock_mainstart(); ?>

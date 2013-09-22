@@ -10,12 +10,6 @@ get_header(); ?>
 
 		<div id="primary" class="content-area container">
 			<div id="content" class="site-content" role="main">
-			
-			<?php bedrock_contentstart(); ?>
-
-			<?php bedrock_get_breadcrumbs(); ?>
-
-			<?php bedrock_abovepostcontent(); ?>
 
 			<?php while ( have_posts() ) : the_post(); 
 
@@ -33,10 +27,6 @@ get_header(); ?>
 			?>
 
 			<?php endwhile; // end of the loop. ?>
-
-			<?php bedrock_belowpostcontent(); ?>
-
-			<?php bedrock_contentend(); ?>
 
 			</div><!-- #content .site-content -->
 		</div><!-- #primary .content-area -->

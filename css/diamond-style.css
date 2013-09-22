@@ -334,6 +334,87 @@
   bottom: -10px;
 }
 /**
+ *	Fonts
+ */
+@font-face {
+  font-family: 'Ever After';
+  src: url('../fonts/everafte-webfont.eot');
+  src: url('../fonts/everafte-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/everafte-webfont.woff') format('woff'), url('../fonts/everafte-webfont.ttf') format('truetype'), url('../fonts/everafte-webfont.svg#ever_afterregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Ostrich';
+  src: url('../fonts/ostrich-regular-webfont.eot');
+  src: url('../fonts/ostrich-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/ostrich-regular-webfont.woff') format('woff'), url('../fonts/ostrich-regular-webfont.ttf') format('truetype'), url('../fonts/ostrich-regular-webfont.svg#ostrich_sansmedium') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Ostrich Light';
+  src: url('../fonts/ostrich-light-webfont.eot');
+  src: url('../fonts/ostrich-light-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/ostrich-light-webfont.woff') format('woff'), url('../fonts/ostrich-light-webfont.ttf') format('truetype'), url('../fonts/ostrich-light-webfont.svg#ostrich_sanscondensed_light') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Learning Curve Pro';
+  src: url('../fonts/learningcurve_ot-webfont.eot');
+  src: url('../fonts/learningcurve_ot-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/learningcurve_ot-webfont.woff') format('woff'), url('../fonts/learningcurve_ot-webfont.ttf') format('truetype'), url('../fonts/learningcurve_ot-webfont.svg#learning_curve_proregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+#font-family .ever-after {
+  font-family: 'Ever After', 'sans-serif';
+  font-weight: normal;
+}
+#font-family .ostrich {
+  font-family: 'Ostrich', 'serif';
+  font-weight: normal;
+}
+#font-family .ostrich-light {
+  font-family: 'Ostrich Light', 'serif';
+  font-weight: normal;
+}
+#font-family .learning-curve {
+  font-family: 'Learning Curve Pro', 'serif';
+  font-weight: normal;
+}
+#font-family .source-sans-pro {
+  font-family: 'Source Sans Pro', 'serif';
+  font-weight: normal;
+}
+#font-family .georgia {
+  font-family: 'Georgia', serif;
+  font-weight: normal;
+}
+#font-family .raleway {
+  font-family: 'Raleway', serif;
+  font-weight: normal;
+}
+/**
+ *	Mixins
+ */
+.background-cover {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.capitalize {
+  text-transform: capitalize;
+}
+.border-box {
+  moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.no-text {
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/**
  * Global Styles
  */
 .pipe {
@@ -343,16 +424,33 @@
 a.btn:visited {
   color: #ffffff;
 }
-/**
- *	Mixins
- */
-.capitalize {
-  text-transform: capitalize;
+.btn.btn-primary {
+  background-color: transparent;
+  border: 0;
+  text-shadow: none;
+  border-radius: 0;
+  box-shadow: none;
+  display: block;
+  font-family: 'Georgia', serif;
+  font-weight: normal;
+  font-style: italic;
+  font-size: 14px;
+  background: url('../images/various-ribbons.png') 50% 0 no-repeat;
+  width: 190px;
+  height: 23px;
+  padding: 5px;
+  margin: 18px 0 0 0;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
-.border-box {
-  moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+.btn.btn-primary:hover {
+  background: url('../images/various-ribbons.png') 50% 0 no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 /*
  * General Form Styles
@@ -369,34 +467,33 @@ html {
 html body {
   background-color: #000 !important;
 }
-html body #page header#page-header {
+html body #page header#navbar {
+  margin: 0;
+  padding: 86px 0 20px 0;
+  background-color: #000;
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 9999;
+  z-index: 1000;
 }
-html body #page header#page-header #navbar.navbar {
-  margin: 0;
-  padding: 120px 0 0 0;
-  background-color: #000;
-}
-html body #page header#page-header #navbar.navbar .navbar-inner {
-  width: 900px;
+html body #page header#navbar .navbar-inner {
   margin: 0 auto;
   background: #000;
   border: none;
   border-radius: 0;
 }
-html body #page header#page-header #navbar.navbar .navbar-inner .site-title {
+html body #page header#navbar .navbar-inner .site-title {
   text-indent: -9999px;
   background: url('../images/logo.png') no-repeat;
+  float: left;
   display: block;
   width: 163px;
   height: 44px;
   padding: 0;
   margin-bottom: 15px;
+  margin-left: 25px;
 }
-html body #page header#page-header #navbar.navbar .navbar-inner .shoppingcart {
+html body #page header#navbar .navbar-inner .shoppingcart {
   background: url('../images/cart-icon.png') no-repeat;
   display: block;
   width: 27px;
@@ -404,35 +501,80 @@ html body #page header#page-header #navbar.navbar .navbar-inner .shoppingcart {
   text-indent: -9999px;
   margin-top: 15px;
 }
-html body #page #main {
-  position: relative;
-  overflow: hidden;
-  min-height: 600px;
-  margin: 179px 0 0 0;
-  padding-top: 0;
-  background-color: #FFF;
+html body #page header#navbar .navbar-inner .nav {
+  margin-right: 25px;
 }
-html body #page #main .background-image {
-  width: 100%;
-  position: absolute;
-  top: -1px;
+html body #page #main {
+  overflow: hidden;
+  margin: 165px 0 0 0;
+  padding-top: 0;
+  z-index: 1;
+  position: relative;
 }
 html body footer#colophon {
   z-index: 9999;
   background-color: #000;
   overflow: hidden;
+  position: relative;
+}
+html body footer#colophon h3.explore-title {
+  position: absolute;
+  right: 381px;
+  margin: 37px 0 0 0;
+  width: 105px;
+  background: url('../images/explore-text-3.png') no-repeat;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 }
 html body footer#colophon #menu-footer-menu {
-  padding: 20px;
+  min-width: 425px;
+  background: url('../images/footer-ribbon-2.png') no-repeat;
+  padding: 20px 20px 20px 50px;
+  margin: 45px 0 0 0;
 }
 html body footer#colophon #menu-footer-menu li {
   list-style: none;
 }
 html body footer#colophon #menu-footer-menu li a {
   font-family: 'Open Sans', sans-serif;
-  font-size: 10px;
+  font-size: 9px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: #CCC;
+  color: rgba(255, 255, 255, 0.6);
+}
+html body footer#colophon #menu-footer-menu li a[title='Facebook'] {
+  width: 25px;
+  height: 28px;
+  display: block;
+  padding: 0;
+  margin: -2px 0 0 10px;
+  background: url('../images/social-icons.png') no-repeat;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+html body footer#colophon #menu-footer-menu li a[title='Instagram'] {
+  width: 25px;
+  height: 28px;
+  display: block;
+  padding: 0;
+  margin: -2px 0 0 10px;
+  background: url('../images/social-icons.png') -28px 0 no-repeat;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+html body footer#colophon #menu-footer-menu li a[title='Pinterest'] {
+  width: 25px;
+  height: 28px;
+  display: block;
+  padding: 0;
+  margin: -2px 0 0 10px;
+  background: url('../images/social-icons.png') -56px 0 no-repeat;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 }
 /*
  * Default: Page
@@ -514,6 +656,18 @@ body.page-template-default article .entry-content {
 /**
  * Front Page
  */
+body.home #main .background-image {
+  background: url('../images/home-bg.jpg') 50% 0 no-repeat;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: -1px;
+  z-index: -9;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 body.home i.tab.brown {
   width: 10px;
   height: 100%;
@@ -540,6 +694,43 @@ body.home #menu-highlight-menu li a {
   position: relative;
   margin-bottom: 8px;
 }
+body.home #primary {
+  position: relative;
+  min-height: 600px;
+}
+body.home .minster-type-treatment {
+  position: absolute;
+  right: 25px;
+  bottom: 60px;
+}
+body.home .minster-type-treatment h1 {
+  font-family: 'Learning Curve Pro', 'serif';
+  font-weight: normal;
+  font-size: 95px;
+  color: #FFF;
+  margin-bottom: 20px;
+}
+body.home .minster-type-treatment span.minster-flair {
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 102px;
+  float: left;
+  display: block;
+  background: url('../images/minster-flair.png') no-repeat;
+}
+body.home .minster-type-treatment span.subtitle {
+  font-family: 'Ostrich Light', 'serif';
+  font-weight: normal;
+  text-transform: uppercase;
+  font-size: 34px;
+  color: rgba(255, 255, 255, 0.6);
+  float: right;
+  margin-right: 10px;
+}
+body.home .minster-type-treatment a.btn-primary {
+  margin: 18px auto 0;
+}
 /**
  * Single Products Page
  * Note: Most styles here are for the Minster bag in particular
@@ -551,40 +742,97 @@ body.single-products #page #main #content article {
   position: relative;
 }
 body.single-products #page #main #content article .product-header {
+  width: 350px;
+  margin: 160px 0 0 -10px;
   position: fixed;
+}
+body.single-products #page #main #content article .product-header .product-title {
+  font-family: 'Learning Curve Pro', 'serif';
+  font-weight: normal;
+  font-size: 84px;
+  color: #603737;
+  margin: 0 0 -7px 0;
+}
+body.single-products #page #main #content article .product-header .product-subtitle {
+  font-family: 'Ever After', 'sans-serif';
+  font-weight: normal;
+  color: #e23c5a;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  background: url('../images/light-gray-ribbon.png') no-repeat;
+  width: 600px;
+  text-align: center;
+  margin: 0 0 15px -142px;
+  padding: 14px 0 0 0;
+  font-size: 28px;
+}
+body.single-products #page #main #content article .product-header .product-details {
+  font-family: 'Source Sans Pro', 'serif';
+  font-weight: normal;
+  font-size: 17px;
+  line-height: 1.4;
+  font-weight: 300;
+  color: #555;
 }
 body.single-products #page #main #content article .product-content {
+  font-family: 'Source Sans Pro', 'serif';
+  font-weight: normal;
+  width: 200px;
   position: fixed;
-  margin: 0 0 0 805px;
+  right: 0;
+  top: 375px;
+}
+body.single-products #page #main #content article .product-content h3 {
+  float: left;
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.5;
+}
+body.single-products #page #main #content article .product-content select {
+  width: 50px;
+}
+body.single-products #page #main #content article .product-content .product-cost {
+  font-family: 'Georgia', serif;
+  font-weight: normal;
+  display: block;
+  color: #e23c5a;
+  font-size: 28px;
+  margin: 0 0 11px 0;
 }
 body.single-products #page #main #content article .product-scroll {
-  width: 615px;
-  margin-left: 205px;
+  width: 960px;
+  margin-left: 20px;
+  margin-top: -60px;
 }
-body.single-products #page #main #content article #checkoutModal {
-  top: 0;
-  left: 0;
-  margin: 0;
+body.single-products #page #main #content article .product-scroll img {
   width: 100%;
-  height: 100%;
-  padding: 100px;
-  z-index: 99999;
-  border-radius: 0;
-  border: none;
-  moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  background-color: #FFF;
-  background: url('../images/checkout-beth.png') no-repeat center center fixed #ffffff;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
 }
-body.single-products #page #main #content article #checkoutModal .modal-header,
-body.single-products #page #main #content article #checkoutModal .modal-body,
-body.single-products #page #main #content article #checkoutModal .modal-footer {
-  width: 600px;
+body.single-products #page #main #content article .lookbook-container {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+}
+body.single-products #page #main #content article .lookbook-container a {
+  font-family: 'Source Sans Pro', 'serif';
+  font-weight: normal;
+  padding-top: 3px;
+  padding-left: 35px;
+  color: #e23c5a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: url('../images/mini-arrow.png') no-repeat;
+}
+body.single-products .jquery-color-selection {
+  *zoom: 1;
+}
+body.single-products .jquery-color-selection:before,
+body.single-products .jquery-color-selection:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+body.single-products .jquery-color-selection:after {
+  clear: both;
 }
 body.single-products .jquery-color-selection ul {
   margin: 0;
@@ -618,10 +866,81 @@ body.single-products .jquery-color-selection ul li a:hover {
   text-decoration: none;
 }
 /**
+ *	Checkout Modal
+ */
+#checkoutModal {
+  top: 0;
+  left: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  padding: 100px;
+  z-index: 99999;
+  border-radius: 0;
+  border: none;
+  moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #FFF;
+  background: url('../images/checkout-beth.png') no-repeat center center fixed #ffffff;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+#checkoutModal .modal-header,
+#checkoutModal .modal-body,
+#checkoutModal .modal-footer {
+  width: 600px;
+}
+/**
+ *	Checkout Preview
+ */
+body .popover.bottom {
+  position: fixed;
+  top: 174px !important;
+  margin-top: 15px;
+  margin-left: -135px;
+  min-width: 290px;
+  max-width: none;
+  background: #b7aca3;
+  border: none;
+  z-index: 9999;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
+body .popover.bottom .arrow {
+  right: 10px;
+  left: auto;
+}
+body .popover.bottom .arrow:after {
+  border-bottom-color: #b7aca3;
+}
+body .popover-content {
+  font-family: 'Raleway', serif;
+  font-weight: normal;
+  font-size: 16px;
+  font-weight: 300;
+  padding: 20px 20px 17px 20px;
+}
+body .popover-content hr {
+  border-bottom: none;
+}
+body .popover-content .product-subtotal {
+  display: none;
+}
+body .popover-content .checkout-totals {
+  display: none;
+}
+/**
  * Shopping Cart Styles
  */
 .shoppingcartshow {
   cursor: pointer;
+}
+.shopping-cart-product {
+  color: #FFF;
 }
 .shopping-cart-product .product-color {
   text-transform: capitalize;
@@ -629,47 +948,101 @@ body.single-products .jquery-color-selection ul li a:hover {
 .shopping-cart-product a.btn.remove {
   background: none;
   border: none;
+  color: #FFF;
   padding: 0;
-  color: #BBB;
+  text-shadow: none;
+  box-shadow: none;
   margin: -5px 0 0 10px;
 }
 .clearcart {
   cursor: pointer;
 }
 /**
+ * Checkout: Step One
+ */
+/**
  * Checkout Styles
  */
 input.error {
   border: 1px solid #b94a48 !important;
 }
-.popover {
-  min-width: 290px;
-  max-width: none;
-}
-.popover-content .product-subtotal {
-  display: none;
-}
-.popover-content .checkout-totals {
-  display: none;
-}
 /*
  * Media Queries
  */
+@media (min-width: 1400px) {
+  header#navbar .site-title {
+    margin: 0 !important;
+  }
+  header#navbar .nav {
+    margin-right: 0 !important;
+  }
+}
 @media (min-width: 1200px) {
-  
+  body .container {
+    width: 1200px;
+  }
+  body #page {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  body header#navbar {
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+  }
 }
 @media (max-width: 1200px) {
   
 }
 @media (max-width: 979px) {
-  
+  body .navbar .container,
+  body .container {
+    width: 767px;
+  }
+  body .navbar-inner {
+    padding: 0 !important;
+  }
 }
 @media (max-width: 767px) {
   body {
-    padding-left: 0;
-    padding-right: 0;
+    padding: 0 !important;
+  }
+  body .navbar .container,
+  body .container {
+    width: 479px;
+  }
+  body.home #primary {
+    min-height: 440px;
   }
 }
 @media (max-width: 479px) {
-  
+  html body #page header#navbar {
+    padding: 30px 0 0 0;
+  }
+  html body #page #main {
+    margin: 104px 0 0 0;
+  }
+  html body.home .minster-type-treatment {
+    position: relative;
+    width: 355px;
+    bottom: 0;
+    right: 0;
+    margin: 50px 0 0 25px;
+  }
+  html body.single-products #checkoutModal {
+    padding: 0;
+    margin: 100px 0 0 0;
+  }
+  html body.single-products #checkoutModal .modal-header {
+    width: 100%;
+  }
+  html body.single-products #checkoutModal .modal-body {
+    width: 100%;
+    max-height: 0;
+  }
+  html body.single-products #checkoutModal .modal-footer {
+    width: 100%;
+  }
+  html body.single-products #page #main #content article .product-content {
+    margin: 0;
+  }
 }

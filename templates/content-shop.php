@@ -9,12 +9,8 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<?php bedrock_postcontentstart(); ?>
-
 	<header class="entry-header">
-		<?php bedrock_abovetitle(); ?>
 		<h1 class="entry-title"><?php the_title(); ?></h1>
-		<?php bedrock_belowtitle(); ?>
 	</header><!-- .entry-header -->
 
 	<div class="entry-content">
@@ -49,6 +45,4 @@
 		echo '</div>';
 
   ?>
-	<?php bedrock_postcontentend(); ?>
-
 </article><!-- #post-<?php the_ID(); ?> -->

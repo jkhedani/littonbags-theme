@@ -17,14 +17,21 @@ get_header(); ?>
 		<div id="content" class="site-content" role="main">
 					
 			<?php
-				wp_nav_menu(array(
-					'menu' => 'highlight-menu',
-					'menu_class' => 'pull-right',
-					'link_before' => '<i class="tab brown"></i>'
-				));
+				// wp_nav_menu(array(
+				// 	'menu' => 'highlight-menu',
+				// 	'menu_class' => 'pull-right',
+				// 	'link_before' => '<i class="tab brown"></i>'
+				// ));
 			?>
-			<h1><?php _e('Welcome','litton_bags'); ?></h1>
-			<a href="/wp/products/the-minster/" class="btn btn-primary">Get The Minster</a>
+			<div class="minster-type-treatment">
+				<h1><?php _e('The Minster','litton_bags'); ?></h1>
+				<span class="minster-flair">~</span>
+				<span class="subtitle"><?php _e('A Luxury Camera Bag','litton_bags'); ?></span>
+				<br />
+				<a class="btn btn-primary" href="<?php echo get_site_url(); ?>/products/the-minster">discover the bag</a>
+			</div>
+
+			<?php render_shopping_cart(); ?>
 
 		</div><!-- #content .site-content -->
 	</div><!-- #primary .content-area -->

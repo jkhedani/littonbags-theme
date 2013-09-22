@@ -1,5 +1,17 @@
 jQuery(document).ready(function($){
 	
+	/**
+	 *	General Scripts
+	 */
+
+ 	// Hide address bar for iOS devices
+ 	// http://davidwalsh.name/hide-address-bar
+	window.addEventListener("load",function() {
+		setTimeout( function() {
+			window.scrollTo(0, 1);
+		}, 0);
+	});
+
 	// "Shop"
 	if($('body').hasClass('shop')) {
 		$('#product-type-tabs').tab('show');

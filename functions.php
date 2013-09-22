@@ -1,7 +1,5 @@
 <?php
 
-
-
 /**
  * Place any hand-crafted Wordpress
  * Please read the documentation on how to use this file within child theme (README.md)
@@ -20,12 +18,14 @@ function diamond_scripts() {
     $protocol='http:'; // discover the correct protocol to use
     if(!empty($_SERVER['HTTPS'])) $protocol='https:';
 	// Enqueue Styles
-    wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css' );
-	// Activate line below for responsive layout
+	wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css' );
+    wp_enqueue_style( 'google-fonts-raleway', '//fonts.googleapis.com/css?family=Raleway:300', array(), false, true );
+    wp_enqueue_style( 'google-fonts-source-sans-pro', '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', array(), false, true );
+    // Activate line below for responsive layout
 	// Requires: Child theme style, resets, parent theme base style and bootstrap base style
 	// to load prior to responsive. Responsive styles should typically be loaded last.
-	// wp_enqueue_style( 'diamond-style-responsive', get_stylesheet_directory_uri().'/css/diamond-style-responsive.css', array('diamond-style','resets','bootstrap-base-styles','bootstrap-parent-style'));
-
+	wp_enqueue_style( 'diamond-style-responsive', get_stylesheet_directory_uri().'/css/diamond-style-responsive.css', array('diamond-style','resets','bootstrap-base-styles','bootstrap-parent-style'));
+    
     /*
      * Set proper API keys based on Stripe Settings in wordpress
      */
@@ -75,6 +75,7 @@ add_action( 'wp_enqueue_scripts', 'diamond_scripts' );
  * Uses: Ajax, jStorage & Bootstrap
  */
 require_once( get_stylesheet_directory() . '/lib/ShoppingCart/shopping-cart.php');
+require_once( get_stylesheet_directory() . '/lib/ShoppingCart/shopping-cart-markup.php');
 
 /**
  * "Stripe" Integration
