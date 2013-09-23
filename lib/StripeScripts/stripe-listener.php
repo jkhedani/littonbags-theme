@@ -51,11 +51,13 @@ function stripe_event_listener() {
 					$subject = __('Payment Receipt', 'litton_bags');
 					$headers = 'From: "' . html_entity_decode(get_bloginfo('name')) . '" <' . get_bloginfo('admin_email') . '>';
 					//$message = "Hello " . $customer_name . "\n\n";
+					$message = "Hello!\n\n";
 					$message .= "You have successfully made a payment of " . $amount . "\n\n";
 					$message .= "Thank you!";
 
 					wp_mail($email, $subject, $message, $headers);
 
+					error_log('mailed!');
 				}
  
 				// failed payment
