@@ -1,9 +1,10 @@
 <?php
 
 function refresh_shopping_cart() {
-	do_action('init');
-	global $wpdb, $post, $stripe_options;;
 
+	do_action('init');
+	global $wpdb, $post, $stripe_options;
+	
 	// Nonce check
 	$nonce = $_REQUEST['nonce'];
 	if (!wp_verify_nonce($nonce, 'shopping_cart_scripts_nonce')) die(__('Busted.'));
@@ -12,7 +13,7 @@ function refresh_shopping_cart() {
 	setlocale(LC_MONETARY, 'en_US');
 
 	// Grab all post IDs that should be in cart
-	if(isset($_REQUEST['products'])) {
+	if ( isset($_REQUEST['products']) ) {
 		$products = $_REQUEST['products'];
 	}
 
@@ -26,8 +27,8 @@ function refresh_shopping_cart() {
 	$success = false;
 	$productDescription = ""; // Build annotated description to pass to Stripe pipe(|) separated
 
-	if(isset($products)) {
-		foreach ($products as $product) {
+	if ( isset($products) ) {
+		foreach ( $products as $product ) {
 			$itemID = ""; // Grab the product ID for use outside this loop
 			$itemQty = ""; // Grab the product Qty for use outside this loop
 			$html .= '<div class="shopping-cart-product" data-jStorage-key="'.$product['key'].'">';
@@ -71,7 +72,8 @@ function refresh_shopping_cart() {
 			 */
 
 			// Generate Individual Product Cost
-			$productPrice = get_field('product_price', $itemID);
+			//$productPrice = get_field('product_price', $itemID); // For some reason, get_field() doesn't work here.
+			$productPrice = get_post_meta( $itemID, 'product_price', true );
 			$productPriceInDollars = money_format('%n', $productPrice/100); // in 'dollars'
 	    $html .= '<span class="pipe">|</span><span class="product-cost" data-product-cost="'.$productPrice.'">'.$productPriceInDollars.'</span>';
 

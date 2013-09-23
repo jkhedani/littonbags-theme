@@ -34,4 +34,4 @@ get_header(); ?>
 
 <?php get_footer(); ?>
 
-		<?php render_shopping_cart(); ?>
+<?php render_shopping_cart(); ?>

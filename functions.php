@@ -178,7 +178,7 @@ if(function_exists("register_field_group"))
                 'label' => 'Product Price',
                 'name' => 'product_price',
                 'type' => 'number',
-                'instructions' => 'Enter the price of the product in cents(USD) e.g. "349.00"',
+                'instructions' => 'Enter the price of the product in cents(USD) e.g. "34900"',
                 'required' => 1,
             ),
             array (

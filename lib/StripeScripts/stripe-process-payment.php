@@ -20,8 +20,9 @@ function pippin_stripe_process_payment() {
 			$desiredProductValues = explode(',',$desiredProduct);
 			foreach ($desiredProductValues as $key => $value) {
 				// Returns PostID
-				if($key == 0) {
-				$productPrice = get_field('product_price', $value); // Individual product price
+				if ( $key == 0 ) {
+					//$productPrice = get_field('product_price', $value); // Individual product price
+					$productPrice = get_post_meta( $value, 'product_price', true );
 				}
 				// Returns Quantity
 				if($key == 3) {
