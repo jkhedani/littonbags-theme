@@ -69,6 +69,4 @@
 			<a class="lookbook-link" href="">View The Lookbook</a>
 		</div>
 
-		<?php render_shopping_cart(); ?>
-
 </article><!-- #post-<?php the_ID(); ?> -->

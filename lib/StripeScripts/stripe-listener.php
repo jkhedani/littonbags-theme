@@ -48,7 +48,7 @@ function stripe_event_listener() {
  
 					$amount = $invoice->amount / 100; // amount comes in as amount in cents, so we need to convert to dollars
  
-					$subject = __('Payment Receipt', 'pippin_stripe');
+					$subject = __('Payment Receipt', 'litton_bags');
 					$headers = 'From: "' . html_entity_decode(get_bloginfo('name')) . '" <' . get_bloginfo('admin_email') . '>';
 					$message = "Hello " . $customer_name . "\n\n";
 					$message .= "You have successfully made a payment of " . $amount . "\n\n";

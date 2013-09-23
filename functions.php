@@ -9,6 +9,7 @@
  *  Globals & Constants
  */
 $stripe_options = get_option('stripe_settings');
+$easypost_options = get_option('easypost_settings');
 
 /**
  * Properly add new script files using this function.
@@ -30,7 +31,7 @@ function diamond_scripts() {
      * Set proper API keys based on Stripe Settings in wordpress
      */
     global $stripe_options;
-    if(isset($stripe_options['test_mode']) && $stripe_options['test_mode']) {
+    if ( isset($stripe_options['test_mode']) && $stripe_options['test_mode'] ) {
         $publishable = $stripe_options['test_publishable_key']; // Use Test API Key for Stripe Processing
     } else {
         $publishable = $stripe_options['live_publishable_key']; // Use Test API Key for Stripe Processing
@@ -53,6 +54,9 @@ function diamond_scripts() {
     wp_localize_script('stripe-processing', 'stripe_vars', array(
             'publishable_key' => $publishable,
     ));
+
+    // EasyPost
+    wp_enqueue_script('easypost-processing', get_stylesheet_directory_uri().'/lib/EasyPostScripts/easypost-processing.js');
 
     // jStorage
     // http://www.jstorage.info/
@@ -89,6 +93,17 @@ if ( is_admin() ) {
     require_once( get_stylesheet_directory() . '/lib/StripeScripts/stripe-process-payment.php' );
     require_once( get_stylesheet_directory() . '/lib/StripeScripts/stripe-listener.php' );
 }
+
+/**
+ *  "Easy Post" Integration
+ *  https://www.easypost.com
+ */
+if ( is_admin() ) {
+    require_once( get_stylesheet_directory() . '/lib/EasyPostScripts/settings.php' );
+}
+//require_once( get_stylesheet_directory() . '/lib/easypost.php' );
+
+
 
 /**
  * Custom Post Types (e.g. Products, etc.)

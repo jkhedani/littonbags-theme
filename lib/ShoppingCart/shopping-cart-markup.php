@@ -11,6 +11,10 @@ function render_shopping_cart() {
 	echo    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
 	echo    	'<h3 class="checkoutTitle">'. __('Review Your Cart','litton_bags') .'</h3>';
 	echo    '</div>';
+	echo 		'<div class="checkoutBasic hide">';
+	echo    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+	echo    	'<h3 class="checkoutTitle">'. __('Provide Some Basic Info','litton_bags') .'</h3>';
+	echo 		'</div>';
 	echo 		'<div class="checkoutPay checkoutPay hide">';
 	echo    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
 	echo    	'<h3 class="checkoutTitle">'. __('Submit Your Payment','litton_bags') .'</h3>';
