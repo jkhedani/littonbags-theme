@@ -103,8 +103,6 @@ if ( is_admin() ) {
 }
 //require_once( get_stylesheet_directory() . '/lib/easypost.php' );
 
-
-
 /**
  * Custom Post Types (e.g. Products, etc.)
  */
@@ -162,19 +160,80 @@ function LTTNBAGS_taxonomies() {
 add_action( 'init', 'LTTNBAGS_taxonomies');
 
 /**
- * Add custom body classes
+ *  Register Field Groups
+ *
+ *  The register_field_group function accepts 1 array which holds the relevant data to register a field group
+ *  You may edit the array as you see fit. However, this may result in errors if the array is not compatible with ACF
  */
-//function custom_body_class($classes) {
-//    global $post;
-    // "Shop"
-//    if ( $post->ID === 19 ) {
-//        $classes[] = 'shop';
-//        return $classes;
-//    } else {
-//        return $classes;
-//   }
-//}
-//add_filter('body_class','custom_body_class');
+
+if(function_exists("register_field_group"))
+{
+    register_field_group(array (
+        'id' => 'acf_product-details',
+        'title' => 'Product Details',
+        'fields' => array (
+            array (
+                'default_value' => '',
+                'key' => 'field_51760a56678b4',
+                'label' => 'Product Price',
+                'name' => 'product_price',
+                'type' => 'number',
+                'instructions' => 'Enter the price of the product in cents(USD) e.g. "349.00"',
+                'required' => 1,
+            ),
+            array (
+                'layout' => 'vertical',
+                'choices' => array (
+                    'black' => 'Black',
+                    'white' => 'White',
+                    'taupe' => 'Taupe',
+                ),
+                'default_value' => '',
+                'key' => 'field_517874920f218',
+                'label' => 'Color Options',
+                'name' => 'product_color_options',
+                'type' => 'checkbox',
+                'instructions' => 'If there are color options available for the product, check all that apply below. Otherwise, leave checkboxes blank.',
+            ),
+            array (
+                'default_value' => '',
+                'formatting' => 'html',
+                'key' => 'field_51da38849cb71',
+                'label' => 'Product Subtitle',
+                'name' => 'product_subtitle',
+                'type' => 'text',
+            ),
+            array (
+                'default_value' => 0,
+                'message' => '',
+                'key' => 'field_52085b419ca0d',
+                'label' => 'Product Sold Out',
+                'name' => 'product_sold_out',
+                'type' => 'true_false',
+                'instructions' => 'Did you sell out of this product?',
+            ),
+        ),
+        'location' => array (
+            array (
+                array (
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'products',
+                    'order_no' => 0,
+                    'group_no' => 0,
+                ),
+            ),
+        ),
+        'options' => array (
+            'position' => 'normal',
+            'layout' => 'default',
+            'hide_on_screen' => array (
+            ),
+        ),
+        'menu_order' => 0,
+    ));
+}
+
 
 /**
  * Create Litton Bags Menu Structure
