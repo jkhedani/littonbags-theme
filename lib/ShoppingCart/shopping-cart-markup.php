@@ -5,39 +5,58 @@ function render_shopping_cart() {
 	 * "Checkout" Modal
 	 */
   echo '<div id="checkoutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">';
+	
+	/**
+	 *	Checkout Headers
+	 */
 	echo  '<div class="modal-header">';
 
 	echo 		'<div class="checkoutReview checkoutControls show">';
 	echo    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
 	echo    	'<h3 class="checkoutTitle">'. __('Review Your Cart','litton_bags') .'</h3>';
+	echo 			'<div class="half-stache pink"></div>';
 	echo    '</div>';
+
 	echo 		'<div class="checkoutBasic hide">';
 	echo    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
-	echo    	'<h3 class="checkoutTitle">'. __('Provide Some Basic Info','litton_bags') .'</h3>';
+	echo    	'<h3 class="checkoutTitle">'. __('Basic Information','litton_bags') .'</h3>';
+	echo 			'<div class="half-stache pink"></div>';
 	echo 		'</div>';
-	echo 		'<div class="checkoutPay checkoutPay hide">';
+
+	echo 		'<div class="checkoutPay hide">';
 	echo    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
 	echo    	'<h3 class="checkoutTitle">'. __('Submit Your Payment','litton_bags') .'</h3>';
+	echo 			'<div class="half-stache pink"></div>';
 	echo 		'</div>';
-	echo 		'<div class="checkoutThanks checkoutThanks hide">';
+
+	echo 		'<div class="checkoutThanks hide">';
 	echo    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
 	echo    	'<h3 class="checkoutTitle">'. __('Thanks For Purchasing','litton_bags') .'</h3>';
+	echo 			'<div class="half-stache pink"></div>';
 	echo 		'</div>';
 	
 	echo  '</div>';
+
+
+	/**
+	 *	Stripe Checkout Content
+	 */
 	echo  '<div class="modal-body">';
 
-	// Checkout Step One: Review
+	/**
+	 *	A. Checkout Step One: Review
+	 */
 	echo 	'<div class="checkoutReview show"></div>';
 
-	// Checkout Step Two: Pay
-	echo 	'<div class="checkoutPay hide">';
+	/**
+	 *	B. Checkout Step Two: Basic Info / Pay
+	 */
+	echo 	'<div class="checkoutBasic hide">';
 		// "STRIPE Variables
 		$productPrice = get_field('product_price'); // in 'cents'
 		$productPriceInDollars = $productPrice/100; // in 'dollars'
 		$english_notation = number_format($productPriceInDollars,2,'.',''); // in eng notation 'dollars'
 
-		// "STRIPE" Checkout
 		if( isset($_GET['payment']) && $_GET['payment'] == 'paid') {
 			echo '<p class="success">' . __('Thank you for your payment.', 'litton_bags') . '</p>';
 		} else {
@@ -48,12 +67,15 @@ function render_shopping_cart() {
 			echo '5% of your purchase will go to the charity WakaWaka Lights.';
 			echo 'We accept Visa, Mastercard, etc., etc.';
 
-			// "Stripe": Payment Form
+			// "Stripe": Basic/Payment Form
 			echo '<form action="" method="POST" id="stripe-payment-form">';
 			
 			// 		FORM ERRORS
 			echo '<div class="payment-errors alert hide"></div>';
 
+			/**
+			 *	B.1. Basic Info Collection
+			 */
 			// 		PERSONAL INFO
 			echo 	'<div class="form-row" id="basic-info">';
 			echo 	'<legend>Basic Information</legend>';
@@ -63,7 +85,7 @@ function render_shopping_cart() {
 			echo 		'<input type="text" size="20" autocomplete="off" class="email" name="email" />'; // ARE WE DOING THIS CORRECTLY?!
 			echo 	'</div>';
 
-			//		ADDRESS
+			//		CC ADDRESS COLLECTION
 			echo 	'<div class="form-row" id="addr-info">';
 			echo 		'<legend>Billing Address</legend>';
 			echo 		'<label>'. __('Address Line 1', 'litton_bags') .'</label>';
@@ -78,13 +100,31 @@ function render_shopping_cart() {
 			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-state" />';
 			echo 		'<label>'. __('Country', 'litton_bags') .'</label>';
 			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-country" />';
+			echo   	'<span class="formHelperText">Currently, we are only shipping to the United States on our website. Email us for international purchases.</span>';
 			echo 		'<br />';
-			echo 		'<input id="mailingIsDifferent" type="checkbox" name="mailingDifferent" value="mailingIsDifferent" />';
-			echo   	'<span class="formHelperText">My mailing address is different from my billing address.</span>';
+			echo 		'<input id="shippingIsDifferent" type="checkbox" />';
+			echo   	'<span class="formHelperText">My shipping address is different from my billing address.</span>';
+			echo 	'</div>';
+
+			//		SHIPPING ADDRESS COLLECTION
+			echo 	'<div class="form-row hide" id="addr-info-shipping">';
+			echo 		'<legend>Shipping Address</legend>';
+			echo 		'<label>'. __('Address Line 1', 'litton_bags') .'</label>';
+			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-line1" />';
+			echo 		'<label>'. __('Address Line 2', 'litton_bags') .'</label>';
+			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-line2" />';
+			echo 		'<label>'. __('City', 'litton_bags') .'</label>';
+			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-city" />';
+			echo 		'<label>'. __('Zip Code', 'litton_bags') .'</label>';
+			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-zip" />';
+			echo 		'<label>'. __('State', 'litton_bags') .'</label>';
+			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-state" />';
+			echo 		'<label>'. __('Country', 'litton_bags') .'</label>';
+			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-country" />';
 			echo 	'</div>';
 
 			// 		CARD NUMBER
-			echo 	'<div class="form-row" id="cc-info">';
+			echo 	'<div class="form-row hide" id="cc-info">';
 			echo 		'<legend>Card Information</legend>';
 			echo 		'<label>'. __('Card Number', 'litton_bags') .'</label>';
 			echo 		'<input type="text" size="20" autocomplete="off" class="cc-num" data-stripe="number" />';
@@ -101,7 +141,7 @@ function render_shopping_cart() {
 			echo 	'<input type="hidden" name="redirect" value="'. get_permalink() .'"/>';
 			echo 	'<input type="hidden" name="stripe_nonce" value="'. wp_create_nonce('stripe-nonce').'"/>';
 			echo 	'<input type="hidden" name="description" value=""/>';
-			echo 	'<button type="submit hidden" class="btn btn-primary hide" id="stripe-submit">'. __('Submit Payment', 'litton_bags') .'</button>';
+			echo 	'<button type="submit hidden" class="hide" id="stripe-submit">'. __('Submit Payment', 'litton_bags') .'</button>';
 			echo '</form>';
 		}
 	echo  '</div>'; // Pay
@@ -120,7 +160,10 @@ function render_shopping_cart() {
 	echo  '</div>'; // .modal-body
 	echo  '<div class="modal-footer">';
 	echo 		'<div class="checkoutReview checkoutControls show">';
-	echo    	'<button class="btn btn-primary choosePaymentMethod">Continue to Payment Method</button>';
+	echo    	'<button class="btn btn-primary choosePaymentMethod">Select Payment Method</button>';
+	echo 		'</div>';
+	echo 		'<div class="checkoutBasic checkoutControls hide">';
+	echo    	'<button id="submitBasicInfo" class="btn btn-primary">Submit Basic Info</button>'; // [completes step B.1]
 	echo 		'</div>';
 	echo 		'<div class="checkoutPay checkoutControls hide">';
 	echo  		'<img class="processing-spinner hide" src="'.get_stylesheet_directory_uri().'/images/ajax-loader-32.gif" alt="Your payment is processing."/>';
@@ -130,6 +173,13 @@ function render_shopping_cart() {
 	echo    	'<button class="btn btn-primary closeCheckout" data-dismiss="modal" aria-hidden="true">Close</button>';
 	echo  	'</div>';
 	echo  '</div>'; // .modal-footer
+
+	// Modal Fluff
+	echo '<div class="watercolor-blob pink"></div>';
+	echo '<div class="watercolor-blob gold"></div>';
+	echo '<div class="watercolor-blob gray"></div>';
+	echo '<div class="stamp-watermark"></div>';
+
 	echo '</div>'; // .modal (#checkout)
 
 }

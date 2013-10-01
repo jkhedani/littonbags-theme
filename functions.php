@@ -55,9 +55,6 @@ function diamond_scripts() {
             'publishable_key' => $publishable,
     ));
 
-    // EasyPost
-    wp_enqueue_script('easypost-processing', get_stylesheet_directory_uri().'/lib/EasyPostScripts/easypost-processing.js');
-
     // jStorage
     // http://www.jstorage.info/
     wp_enqueue_script('jstorage-script', get_stylesheet_directory_uri().'/js/jstorage.js');
@@ -202,6 +199,42 @@ if(function_exists("register_field_group"))
                 'label' => 'Product Subtitle',
                 'name' => 'product_subtitle',
                 'type' => 'text',
+            ),
+            array (
+                'default_value' => '',
+                'key' => 'field_5240e5123eb58',
+                'label' => 'Shipping Weight',
+                'name' => 'shipping_weight',
+                'type' => 'number',
+                'instructions' => 'Input the weight of the parcel in OZ.',
+                'required' => 1,
+            ),
+            array (
+                'default_value' => '',
+                'key' => 'field_5240e59863d1c',
+                'label' => 'Shipping Length',
+                'name' => 'shipping_length',
+                'type' => 'number',
+                'instructions' => 'Input the length of the parcel in IN.',
+                'required' => 1,
+            ),
+            array (
+                'default_value' => '',
+                'key' => 'field_5240e5cc63d1d',
+                'label' => 'Shipping Width',
+                'name' => 'shipping_width',
+                'type' => 'number',
+                'instructions' => 'Input the width of the parcel in IN.',
+                'required' => 1,
+            ),
+            array (
+                'default_value' => '',
+                'key' => 'field_5240e5da63d1e',
+                'label' => 'Shipping Height',
+                'name' => 'shipping_height',
+                'type' => 'number',
+                'instructions' => 'Input the height of the parcel in IN.',
+                'required' => 1,
             ),
             array (
                 'default_value' => 0,

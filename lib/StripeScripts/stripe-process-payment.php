@@ -1,5 +1,5 @@
 <?php 
-function pippin_stripe_process_payment() {
+function stripe_process_payment() {
 	if(isset($_POST['action']) && $_POST['action'] == 'stripe' && wp_verify_nonce($_POST['stripe_nonce'], 'stripe-nonce')) {
  		
  		/**
@@ -97,7 +97,204 @@ function pippin_stripe_process_payment() {
 
 			// redirect on successful payment
 			$redirect = add_query_arg('payment', 'paid', $_POST['redirect']);
- 		
+ 			
+			/**
+			 *	Easy Post: Generate Purchase Label after confirming customer has purchased physical good.
+			 * 	NOTE: This should be ok to start here. May need more fringe case testing.
+			 */
+
+			// A. Confirm that a user has purchased a physical good.
+			global $easypost_options;
+			require_once( get_stylesheet_directory() . '/lib/easypost.php' );
+			if ( isset($easypost_options['test_mode']) && $easypost_options['test_mode'] ) {
+				\EasyPost\EasyPost::setApiKey( $easypost_options['test_secret_key'] );
+			} else {
+				\EasyPost\EasyPost::setApiKey( $easypost_options['live_secret_key'] );
+			}
+
+			// B. Retrieve customer's address on the card IF they haven't opted to submit a separate mailing address
+			// $customer = Stripe_Customer::retrieve($customer_id);
+			// $card = $customer->default_card;
+			// error_log($card->address_line1);
+
+			// try {
+
+			 /******************/
+
+			 //  // B. Create a new users address
+			 //  $to_address = \EasyPost\Address::create( array(
+			 //    "name"    => "JDogg",
+			 //    "street1" => "388 Townsend St",
+			 //    "street2" => "Apt 20",
+			 //    "city"    => "San Francisco",
+			 //    "state"   => "CA",
+			 //    "zip"     => "94107",
+			 //    "phone"   => "415-456-7890"
+			 //  ));
+			 //  // C. Retrieve the "from address" from settings
+				// $from_address = \EasyPost\Address::create( array(
+			 //    "company" => $easypost_options['company_name'],
+			 //    "street1" => $easypost_options['street_one'],
+			 //    "city"    => $easypost_options['city'],
+			 //    "state"   => $easypost_options['state'],
+			 //    "zip"     => $easypost_options['zip_code'],
+				// ));
+				
+				// $shipments = array();
+
+				// // D. Create a parcel for each product in shopping cart
+				// foreach ($desiredProducts as $desiredProduct) {
+				// 	$desiredProductValues = explode(',',$desiredProduct);
+				// 	foreach ($desiredProductValues as $key => $value) {
+				// 		// Returns PostID
+				// 		if ( $key == 0 ) :
+				// 			$parcelLength = get_post_meta( $value, 'shipping_length', true );
+				// 			$parcelWidth = get_post_meta( $value, 'shipping_length', true );
+				// 			$parcelHeight = get_post_meta( $value, 'shipping_length', true );
+				// 			$parcelWeight = get_post_meta( $value, 'shipping_length', true );
+
+				// 			$parcel = \EasyPost\Parcel::create( array(
+				// 		    "length" => $parcelLength,
+				// 			  "width" => $parcelWidth,
+				// 			  "height" => $parcelHeight,
+				// 			  "weight" => $parcelWeight
+				// 			));
+							
+				// 		endif;
+				// 	} // end foreach
+				// 	// E. Generate a shipment based on each parcel utilizing the same to/from address
+				// 	$shipments[] = \EasyPost\Shipment::create( array(
+				//     "to_address"   => $to_address,
+				//     "from_address" => $from_address,
+				//     "parcel"       => $parcel
+				// 	));
+				// } // end foreach
+
+				// foreach ( $shipments as $shipment ) {
+				// 	$shipment->buy($shipment->lowest_rate());
+				// 	error_log('asdf');
+				// 	error_log($shipment->postage_label->label_url);
+				// }
+
+				/******************/
+
+				// $to_address_params = array(
+				//   "name"    => "Jon Calhoun",
+				//   "street1" => "388 Townsend St",
+				//   "street2" => "Apt 20",
+				//   "city"    => "San Francisco",
+				//   "state"   => "CA",
+				//   "zip"     => "94107-8273",
+				//   "phone"   => "415-456-7890"
+				// );
+
+				// $from_address = \EasyPost\Address::create( array(
+			 //    "company" => $easypost_options['company_name'],
+			 //    "street1" => $easypost_options['street_one'],
+			 //    "city"    => $easypost_options['city'],
+			 //    "state"   => $easypost_options['state'],
+			 //    "zip"     => $easypost_options['zip_code'],
+				// ));
+				// //$parcel = \EasyPost\Parcel::create(...);
+				// $parcels = array();
+				// foreach ($desiredProducts as $desiredProduct) {
+				// 	$desiredProductValues = explode(',',$desiredProduct);
+				// 	foreach ($desiredProductValues as $key => $value) {
+				// 		// Returns PostID
+				// 		if ( $key == 0 ) :
+				// 			$parcelLength = get_post_meta( $value, 'shipping_length', true );
+				// 			$parcelWidth = get_post_meta( $value, 'shipping_length', true );
+				// 			$parcelHeight = get_post_meta( $value, 'shipping_length', true );
+				// 			$parcelWeight = get_post_meta( $value, 'shipping_length', true );
+
+				// 			$parcels[] = \EasyPost\Parcel::create( array(
+				// 		    "length" => $parcelLength,
+				// 			  "width" => $parcelWidth,
+				// 			  "height" => $parcelHeight,
+				// 			  "weight" => $parcelWeight
+				// 			));
+							
+				// 		endif;
+				// 	} // end foreach
+				// } // end foreach
+
+				// $shipments = array();
+				// foreach ($parcels as $parcel) {
+				// 	$shipments[] = array(
+			 //      'from_address' => $from_address,
+			 //      'to_address'   => $to_address_params,
+			 //      'parcel'       => $parcel,
+			 //      'carrier'      => 'UPS',
+			 //      'reference'		 => 'order_12345'
+				// 	);
+				// }
+
+				// $customs_info = \EasyPost\CustomsInfo::create(...);
+
+				// \EasyPost\Batch::create_and_buy(array( 'shipment' => $shipments ));
+
+				/******************/
+
+			// 	$to_address = \EasyPost\Address::create( array(
+	  //       "name"    => "Dirk Digg",
+	  //       "street1" => "388 Townsend St",
+	  //       "street2" => "Apt 20",
+	  //       "city"    => "San Francisco",
+	  //       "state"   => "CA",
+	  //       "zip"     => "94107",
+	  //       "phone"   => "415-456-7890"
+			//    ));
+
+			// 	$from_address = \EasyPost\Address::create( array(
+			//     "company" => $easypost_options['company_name'],
+			//     "street1" => $easypost_options['street_one'],
+			//     "city"    => $easypost_options['city'],
+			//     "state"   => $easypost_options['state'],
+			//     "zip"     => $easypost_options['zip_code'],
+			// 	));
+				
+			// 	foreach ($desiredProducts as $desiredProduct) {
+			// 		$desiredProductValues = explode(',',$desiredProduct);
+			// 		foreach ($desiredProductValues as $key => $value) {
+			// 			// Returns PostID
+			// 			if ( $key == 0 ) :
+			// 				$parcelLength = get_post_meta( $value, 'shipping_length', true );
+			// 				$parcelWidth = get_post_meta( $value, 'shipping_length', true );
+			// 				$parcelHeight = get_post_meta( $value, 'shipping_length', true );
+			// 				$parcelWeight = get_post_meta( $value, 'shipping_length', true );
+
+			// 				$parcel = \EasyPost\Parcel::create( array(
+			// 			    "length" => $parcelLength,
+			// 				  "width" => $parcelWidth,
+			// 				  "height" => $parcelHeight,
+			// 				  "weight" => $parcelWeight
+			// 				));
+			// 			endif;
+			// 		} // end foreach
+			// 	} // end foreach
+
+			// 	$shipment = \EasyPost\Shipment::create(
+			//     array(
+		 //        "to_address"   => $to_address,
+		 //        "from_address" => $from_address,
+		 //        "parcel"       => $parcel
+			//     )
+			// 	);
+
+			// 	$shipment->buy($shipment->lowest_rate());
+			// 	error_log( $shipment->postage_label->label_url );
+
+
+			// } catch (Exception $e) {
+			//   echo "Status: " . $e->getHttpStatus() . ":\n";
+			//   echo $e->getMessage();
+			//   if (!empty($e->param)) {
+			//       echo "\nInvalid param: {$e->param}";
+			//   }
+			//   exit();
+			// }
+
+
  		/*
  		 * Handle Card Errors
  		 * NOTE: Addresses seeme to get cashed even on failure :: https://support.stripe.com/questions/cvc-or-avs-failed-but-payment-succeeded
@@ -137,5 +334,5 @@ function pippin_stripe_process_payment() {
 
 	} // Nonce check
 } // end function
-add_action('init', 'pippin_stripe_process_payment');
+add_action('init', 'stripe_process_payment');
 ?>

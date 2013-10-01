@@ -66,11 +66,13 @@
 
   	<header id="navbar" class="navbar navbar-fixed-top navbar-inverse">
     	<div class="navbar-inner">
-        <a class="site-title" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>    
-        <!-- Shopping Cart Nav -->
-        <ul class="nav pull-right">
-          <li class="shoppingcart"><a href="javascript:void(0);" class="shoppingcartshow">Cart</a></li>
-        </ul>
+        <div class="container">
+          <a class="site-title" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>    
+          <!-- Shopping Cart Trigger -->
+          <div class="shoppingcart">
+            <a href="javascript:void(0);" class="shoppingcartshow">Cart</a>
+          </div>          
+        </div>
     	</div><!-- .navbar-inner -->
     </header><!-- #navbar -->
 

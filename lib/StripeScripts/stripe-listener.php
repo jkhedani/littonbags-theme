@@ -35,29 +35,28 @@ function stripe_event_listener() {
 				$event = Stripe_Event::retrieve($event_id);
 				$invoice = $event->data->object;
  
-				// successful payment
-				if($event->type == 'charge.succeeded') {
+				// Upon Successful Payment
+				if ( $event->type == 'charge.succeeded' ) {
 					
 					/*
 					 * Send customer's payment receipt email here.
 					 */
 
 					// retrieve the payer's information
-					$customer = Stripe_Customer::retrieve($invoice->customer);
-					$email = $customer->email;
+					// $customer = Stripe_Customer::retrieve($invoice->customer);
+					// $email = $customer->email;
  
-					$amount = $invoice->amount / 100; // amount comes in as amount in cents, so we need to convert to dollars
+					// $amount = $invoice->amount / 100; // amount comes in as amount in cents, so we need to convert to dollars
  
-					$subject = __('Payment Receipt', 'litton_bags');
-					$headers = 'From: "' . html_entity_decode(get_bloginfo('name')) . '" <' . get_bloginfo('admin_email') . '>';
-					//$message = "Hello " . $customer_name . "\n\n";
-					$message = "Hello!\n\n";
-					$message .= "You have successfully made a payment of " . $amount . "\n\n";
-					$message .= "Thank you!";
+					// $subject = __('Payment Receipt', 'litton_bags');
+					// $headers = 'From: "' . html_entity_decode(get_bloginfo('name')) . '" <' . get_bloginfo('admin_email') . '>';
+					// //$message = "Hello " . $customer_name . "\n\n";
+					// $message = "Hello!\n\n";
+					// $message .= "You have successfully made a payment of " . $amount . "\n\n";
+					// $message .= "Thank you!";
 
-					wp_mail($email, $subject, $message, $headers);
+					// wp_mail($email, $subject, $message, $headers);
 
-					error_log('mailed!');
 				}
  
 				// failed payment
