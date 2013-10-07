@@ -23,5 +23,7 @@
 
 <?php wp_footer(); ?>
 
+<?php render_shopping_cart(); ?>
+
 </body>
 </html>

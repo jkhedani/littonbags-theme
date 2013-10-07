@@ -6,6 +6,16 @@
  */
 
 /**
+ *  Helper Functions
+ */
+
+// HTML set content type for sending html through WP_Mail
+function set_html_content_type() {
+    return 'text/html';
+}
+
+
+/**
  *  Globals & Constants
  */
 $stripe_options = get_option('stripe_settings');
@@ -284,42 +294,16 @@ function LTTNBAGS_primary_menu() {
 add_action('bedrock_abovepostcontent','LTTNBAGS_primary_menu');
 
 /**
- * Custom Hook Functions
- *
- * Use these hooks to add/insert functions/content at specific load points within the Wordpress loading process.
- * Inspired by Thematic
- * A list of all hook functions and what templates they are used in:
- *
- *	bedrock_before()
- *		bedrock_aboveheader()
- *		(header)
- *		bedrock_belowheader()
- *		bedrock_mainstart()
- *			bedrock_contentstart()
- *			(breadcrumbs)
- *			bedrock_abovepostcontent()
- *				bedrock_postcontentstart()
- *				(postcontent)
- *					bedrock_abovetitle()
- *					bedrock_belowtitle()
- *				bedrock_postcontentend()
- *			bedrock_belowpostcontent()
- *			bedrock_contentend()
- *			bedrock_sidebarstart()
- *			(sidebar)
- *			bedrock_sidebarend()
- *			(pager)
- *		bedrock_mainend()
- *	bedrock_after()
- *
- * Here is an example of how to properly hook into a function:
- *
- *		function nameOfMyNewFunction() {
- *			// content to output
- *		}
- *		add_action('theNameOfTheHookTheContentAboveWillGetLoaded','nameOfMyNewFunction');
- *
+ *  Add body class to pages that are not the home page to help
+ *  styles distiguish between the two
  */
+function page_not_home_class( $classes ) {
+    if ( ! is_front_page() ) {
+        $classes[] = 'page-not-home';
+    }    
+    return $classes;
+}
+add_filter('body_class','page_not_home_class');
 
 
 

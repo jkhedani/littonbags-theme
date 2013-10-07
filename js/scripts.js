@@ -18,14 +18,16 @@ jQuery(document).ready(function($){
 	}
 	// "Product Pages"
 	if ( $('body').hasClass('single-products') ) {
-		/*
-		 * jQuery Click Color Selection modification
-		 * 08182013
+
+		/**
+		 * 	jQuery Click Color Selection modification
+		 * 	08182013
 		 */
+
  		// Hide select element and title
-		$(".product-color-title, .product-color-selection").hide();
+		$(".product-color-selection").hide();
 		// Create color container after quantity selection
-		$('.product-content .product-qty-selection').after('<div class="jquery-color-selection"><ul></ul></div>');
+		$('.product-content .product-color-title').after('<div class="jquery-color-selection"><ul></ul></div>');
 		// Grab available color options and create buttons in color container
 		$(".product-color-selection option").each(function() {
 			$('.jquery-color-selection ul').append('<li><a href="#" data-color-value='+$(this).val()+' class="'+$(this).val()+'">'+$(this).val()+'</a></li>').addClass('capitalize');
@@ -39,6 +41,27 @@ jQuery(document).ready(function($){
 			return false;
 		});
 
+		/**
+		 *	jQuery ScrollTo
+		 */
+
+		// Define scrollable object
+		var SCROLL_TO_OBJECT = $('.product-scroll img');
+		// Define scrollto navigation
+		var SCROLL_TO_NAV = $('.product-specifications');
+		// Find scrollable object distance from page top
+		var DISTANCE_FROM_TOP = parseInt( SCROLL_TO_OBJECT.offset().top );
+		// On scroll to navigation click
+		$(SCROLL_TO_NAV).find('a').on( 'click', function() {
+			// Get desired scroll location
+			var desiredScrollLocation = parseInt( $(this).attr('data-scroll-position') );
+			// Calculate exact page scroll location by taking into consideration the scroll objects position from the top
+			var exactPageScrollToPosition = DISTANCE_FROM_TOP + desiredScrollLocation;
+			// scroll page to scroll location
+			$('html, body').animate({
+        scrollTop: exactPageScrollToPosition
+    	}, 500);
+		});
 	}
 
 

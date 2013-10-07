@@ -17,9 +17,13 @@ get_header(); ?>
 			<div id="content" class="site-content" role="main">
 				
 			<?php while ( have_posts() ) : the_post();
-			
-				if($post->ID === 19): // "Shop"
+				
+				$faqspage = get_page_by_title('faqs');
+
+				if ( $post->ID === 19 ) : // "Shop"
 					get_template_part( 'templates/content', 'shop' );
+				elseif ( is_page( $faqspage->ID ) ) :
+					get_template_part( 'templates/content', 'page-faqs' );
 				else:
 					get_template_part( 'templates/content', 'page' );
 				endif;

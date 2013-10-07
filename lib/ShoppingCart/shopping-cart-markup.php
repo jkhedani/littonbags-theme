@@ -51,7 +51,7 @@ function render_shopping_cart() {
 	/**
 	 *	B. Checkout Step Two: Basic Info / Pay
 	 */
-	echo 	'<div class="checkoutBasic hide">';
+	echo 	'<div class="checkoutBasicAndPay hide">';
 		// "STRIPE Variables
 		$productPrice = get_field('product_price'); // in 'cents'
 		$productPriceInDollars = $productPrice/100; // in 'dollars'
@@ -77,7 +77,7 @@ function render_shopping_cart() {
 			 *	B.1. Basic Info Collection
 			 */
 			// 		PERSONAL INFO
-			echo 	'<div class="form-row" id="basic-info">';
+			echo 	'<div class="form-row checkoutBasic basic-info" id="basic-info" >';
 			echo 	'<legend>Basic Information</legend>';
 			echo 		'<label>'. __('Full Name', 'litton_bags') .'</label>';
 			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="name" />';
@@ -86,12 +86,12 @@ function render_shopping_cart() {
 			echo 	'</div>';
 
 			//		CC ADDRESS COLLECTION
-			echo 	'<div class="form-row" id="addr-info">';
+			echo 	'<div class="form-row checkoutBasic basic-info" id="addr-info">';
 			echo 		'<legend>Billing Address</legend>';
 			echo 		'<label>'. __('Address Line 1', 'litton_bags') .'</label>';
 			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-line1" />';
 			echo 		'<label>'. __('Address Line 2', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-line2" />';
+			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-line2" class="optional" />';
 			echo 		'<label>'. __('City', 'litton_bags') .'</label>';
 			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-city" />';
 			echo 		'<label>'. __('Zip Code', 'litton_bags') .'</label>';
@@ -107,24 +107,24 @@ function render_shopping_cart() {
 			echo 	'</div>';
 
 			//		SHIPPING ADDRESS COLLECTION
-			echo 	'<div class="form-row hide" id="addr-info-shipping">';
+			echo 	'<div class="form-row basic-info hide" id="addr-info-shipping">';
 			echo 		'<legend>Shipping Address</legend>';
 			echo 		'<label>'. __('Address Line 1', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-line1" />';
+			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-line1" name="shipping-address-line1" />';
 			echo 		'<label>'. __('Address Line 2', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-line2" />';
+			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-line2" name="shipping-address-line2" class="optional" />';
 			echo 		'<label>'. __('City', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-city" />';
+			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-city" name="shipping-address-city" />';
 			echo 		'<label>'. __('Zip Code', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-zip" />';
+			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-zip" name="shipping-address-zip" />';
 			echo 		'<label>'. __('State', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-state" />';
+			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-state" name="shipping-address-state" />';
 			echo 		'<label>'. __('Country', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-country" />';
+			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-country" name="shipping-address-country" />';
 			echo 	'</div>';
 
 			// 		CARD NUMBER
-			echo 	'<div class="form-row hide" id="cc-info">';
+			echo 	'<div class="form-row checkoutPay payment-info hide" id="cc-info">';
 			echo 		'<legend>Card Information</legend>';
 			echo 		'<label>'. __('Card Number', 'litton_bags') .'</label>';
 			echo 		'<input type="text" size="20" autocomplete="off" class="cc-num" data-stripe="number" />';
@@ -178,6 +178,7 @@ function render_shopping_cart() {
 	echo '<div class="watercolor-blob pink"></div>';
 	echo '<div class="watercolor-blob gold"></div>';
 	echo '<div class="watercolor-blob gray"></div>';
+	echo '<div class="tilted-frame"></div>';
 	echo '<div class="stamp-watermark"></div>';
 
 	echo '</div>'; // .modal (#checkout)

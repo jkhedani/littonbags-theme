@@ -16,6 +16,18 @@
 		<p class="product-details"><?php echo get_the_content(); ?></p>
 		<?php endif; ?>
 
+		<!-- Product Specifications -->
+		<ul class="product-specifications">
+			<li><a href="#features" data-scroll-position="500">Features</a></li>
+			<li><a href="#interior" data-scroll-position="1500">Interior & Material</a></li>
+			<li><a href="#modular-storage" data-scroll-position="2200">Modular Storage</a></li>
+		</ul>
+
+		<!-- Product Lookbook -->
+		<div class="lookbook-container">
+			<a class="lookbook-link" href="">View The Lookbook</a>
+		</div>
+
 	</header><!-- .entry-header -->
 
 	<div class="product-content span2">
@@ -34,7 +46,7 @@
 			}
 
 			// Quantity Options
-			echo '<h3>Quantity</h3>';
+			echo '<h3 class="product-qty-title">Quantity</h3>';
 			echo '<select class="product-qty-selection">';
 			for($i = 1; $i < 11; $i++) {
 				echo '<option value="'.$i.'">'.$i.'</option>';	
@@ -63,10 +75,6 @@
 
 		<div class="product-scroll">
 			<?php echo get_the_post_thumbnail(); ?>
-		</div>
-
-		<div class="lookbook-container">
-			<a class="lookbook-link" href="">View The Lookbook</a>
 		</div>
 
 </article><!-- #post-<?php the_ID(); ?> -->

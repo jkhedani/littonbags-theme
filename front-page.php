@@ -31,8 +31,6 @@ get_header(); ?>
 				<a class="btn btn-primary" href="<?php echo get_site_url(); ?>/products/the-minster">discover the bag</a>
 			</div>
 
-			<?php render_shopping_cart(); ?>
-
 		</div><!-- #content .site-content -->
 	</div><!-- #primary .content-area -->
 	<?php //get_sidebar(); ?>
