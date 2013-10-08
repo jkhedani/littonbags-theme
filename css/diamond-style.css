@@ -1124,8 +1124,8 @@ body .popover-content .checkout-totals {
 }
 #checkoutModal .tilted-frame {
   position: absolute;
-  left: 760px;
-  top: 120px;
+  left: 720px;
+  top: 110px;
   width: 462px;
   height: 575px;
   background: url('../images/tilted-frame-v2.png') no-repeat;
