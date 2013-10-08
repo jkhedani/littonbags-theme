@@ -40,23 +40,126 @@ function stripe_process_payment() {
 
 		// set the total amount in cents
 		$amount = $grandtotal;
- 
+ 	
+		/**
+		 *	Easy Post: Generate Purchase Label after confirming customer has purchased physical good.
+		 * 	NOTE: This should be ok to start here. May need more fringe case testing.
+		 */
+
+		// 	A. Confirm that a user has purchased a physical good.
+		//	If the function gets this far, they've probably successfully purchased their goods.
+
+		// B. Establish EasyPost API keys & load library
+		global $easypost_options;
+		require_once( get_stylesheet_directory() . '/lib/easypost.php' );
+		if ( isset($easypost_options['test_mode']) && $easypost_options['test_mode'] ) {
+			\EasyPost\EasyPost::setApiKey( $easypost_options['test_secret_key'] );
+		} else {
+			\EasyPost\EasyPost::setApiKey( $easypost_options['live_secret_key'] );
+		}
+
+		try {
+			// C1. Retrieve this customer's mailing address...
+			$to_address = array(
+			  "name"    => "Jon Calhoun",
+			  "street1" => strip_tags( trim( $_POST['shipping-address-line1'] ) ),
+			  "street2" => strip_tags( trim( $_POST['shipping-address-line2'] ) ),
+			  "city"    => strip_tags( trim( $_POST['shipping-address-city'] ) ),
+			  "state"   => strip_tags( trim( $_POST['shipping-address-state'] ) ),
+			  "zip"     => strip_tags( trim( $_POST['shipping-address-zip'] ) ),
+			);
+			
+			// C2. Retrieve poster's address ( Stored in settings )
+			$from_address = \EasyPost\Address::create( array(
+		    "company" => $easypost_options['company_name'],
+		    "street1" => $easypost_options['street_one'],
+		    "city"    => $easypost_options['city'],
+		    "state"   => $easypost_options['state'],
+		    "zip"     => $easypost_options['zip_code'],
+			));
+
+			// C3. Create a separate parcel for each product
+			$parcels = array();
+			foreach ($desiredProducts as $desiredProduct) {
+				$desiredProductValues = explode(',',$desiredProduct);
+				foreach ($desiredProductValues as $key => $value) {
+					// Returns PostID
+					if ( $key == 0 ) :
+						$parcelLength = get_post_meta( $value, 'shipping_length', true );
+						$parcelWidth = get_post_meta( $value, 'shipping_width', true );
+						$parcelHeight = get_post_meta( $value, 'shipping_height', true );
+						$parcelWeight = get_post_meta( $value, 'shipping_weight', true );
+
+						$parcels[] = \EasyPost\Parcel::create( array(
+					    "length" => $parcelLength,
+						  "width" => $parcelWidth,
+						  "height" => $parcelHeight,
+						  "weight" => $parcelWeight
+						));
+						
+					endif;
+				} // end foreach
+			} // end foreach
+
+			// C4. Create special shipment for each parcel
+			$shipmentLabels = array();
+			foreach ($parcels as $parcel) {
+				$shipment = \EasyPost\Shipment::create(
+			    array(
+			    	'carrier'			 => 'UPS',
+		        'to_address'   => $to_address,
+		        'from_address' => $from_address,
+		        'parcel'       => $parcel
+			    )
+				);
+				$shipmentLabels[] = $shipment->buy($shipment->lowest_rate());
+			}
+
+			/**
+			 *	Send HTML Email
+			 *	Send ADMIN email to notify that a shipment should be processed.
+			 *	Function formatting: http://codex.wordpress.org/Function_Reference/wp_mail
+			 */
+			foreach ($shipmentLabels as $shipmentLabel) {
+				add_filter( 'wp_mail_content_type', 'set_html_content_type' );
+				$htmlMessage = '<p>Logo</p><p>Order Number</p><p>New product(s) await to be shipped: '.$shipmentLabel->postage_label->label_url.'</p><p>Product details: '.$desc.'</p><p>Note: It may be beneficial if you verify this purchase at your <a href="https://manage.stripe.com">Stripe Dashboard</a> :)</p>';
+				wp_mail( 'jkhedani@gmail.com', 'A New Product(s) Requiree Shipping!', $htmlMessage );
+				remove_filter( 'wp_mail_content_type', 'set_html_content_type' ); // Reset content-type to avoid conflicts -- http://core.trac.wordpress.org/ticket/23578
+			}
+
+		} catch (Exception $e) {
+			// Troubleshooting
+		  // echo "Status: " . $e->getHttpStatus() . ":\n";
+		  // echo $e->getMessage();
+		  // if (!empty($e->param)) {
+		  //     echo "\nInvalid param: {$e->param}";
+		  // }
+		  $easyPostFailStatus  = $e->getHttpStatus();
+		  $easyPostFailMessage = $e->getMessage();
+		  $redirect = add_query_arg( array( 'shipping' => 'failed', 'reason' => $easyPostFailMessage ), $_POST['redirect'] );
+		}
+
+		/**
+		 * 	Early re-direct indicates easy post error (prevents charges from being made)
+		 */
+		if ( $redirect ) {
+			wp_redirect($redirect);
+			exit;
+		}
+
+ 		/**
+ 		 * 	Stripe Processing: Process payment for users who submit them
+ 		 */
 		// check if we are using test mode
 		if ( isset( $stripe_options['test_mode']) && $stripe_options['test_mode'] ) {
 			$secret_key = $stripe_options['test_secret_key'];
 		} else {
 			$secret_key = $stripe_options['live_secret_key'];
 		}
- 		
- 		/*
- 		 * Set Stripe API Key
- 		 */
+		// set proper api key
  		Stripe::setApiKey($secret_key);
 
-		/**
-		 * "Charging the Card via the User"
-		 *	Doing so allows us to store a customer's email on Stripe's servers.
-		 */
+ 		// Attempt to charge the user.
 		try {
 
 			// STEP ONE: Assume all users are guests and therefore have no customer_ids.
@@ -86,129 +189,22 @@ function stripe_process_payment() {
 					'customer' => $customer_id,
 					'description' => $desc
 				));
-			} else {
-				// the customer wasn't found or created, throw an error
-				throw new Exception( __( 'A customer could not be created, or no customer was found.', 'litton_bags' ) );
 			}
 
 			// redirect on successful payment
 			$redirect = add_query_arg('payment', 'paid', $_POST['redirect']);
-
-			/**
-			 *	Easy Post: Generate Purchase Label after confirming customer has purchased physical good.
-			 * 	NOTE: This should be ok to start here. May need more fringe case testing.
-			 */
-
-			// 	A. Confirm that a user has purchased a physical good.
-			//	If the function gets this far, they've probably successfully purchased their goods.
-			error_log('did their purchase go through?');
-
-			// B. Establish EasyPost API keys & load library
-			global $easypost_options;
-			require_once( get_stylesheet_directory() . '/lib/easypost.php' );
-			if ( isset($easypost_options['test_mode']) && $easypost_options['test_mode'] ) {
-				\EasyPost\EasyPost::setApiKey( $easypost_options['test_secret_key'] );
-			} else {
-				\EasyPost\EasyPost::setApiKey( $easypost_options['live_secret_key'] );
-			}
-
-			try {
-				// C1. Retrieve this customer's mailing address...
-				$to_address = array(
-				  "name"    => "Jon Calhoun",
-				  "street1" => strip_tags( trim( $_POST['shipping-address-line1'] ) ),
-				  "street2" => strip_tags( trim( $_POST['shipping-address-line2'] ) ),
-				  "city"    => strip_tags( trim( $_POST['shipping-address-city'] ) ),
-				  "state"   => strip_tags( trim( $_POST['shipping-address-state'] ) ),
-				  "zip"     => strip_tags( trim( $_POST['shipping-address-zip'] ) ),
-				);
-				
-				// C2. Retrieve poster's address ( Stored in settings )
-				$from_address = \EasyPost\Address::create( array(
-			    "company" => $easypost_options['company_name'],
-			    "street1" => $easypost_options['street_one'],
-			    "city"    => $easypost_options['city'],
-			    "state"   => $easypost_options['state'],
-			    "zip"     => $easypost_options['zip_code'],
-				));
-
-				// C3. Create a separate parcel for each product
-				$parcels = array();
-				foreach ($desiredProducts as $desiredProduct) {
-					$desiredProductValues = explode(',',$desiredProduct);
-					foreach ($desiredProductValues as $key => $value) {
-						// Returns PostID
-						if ( $key == 0 ) :
-							$parcelLength = get_post_meta( $value, 'shipping_length', true );
-							$parcelWidth = get_post_meta( $value, 'shipping_width', true );
-							$parcelHeight = get_post_meta( $value, 'shipping_height', true );
-							$parcelWeight = get_post_meta( $value, 'shipping_weight', true );
-
-							$parcels[] = \EasyPost\Parcel::create( array(
-						    "length" => $parcelLength,
-							  "width" => $parcelWidth,
-							  "height" => $parcelHeight,
-							  "weight" => $parcelWeight
-							));
-							
-						endif;
-					} // end foreach
-				} // end foreach
-
-				// C4. Create special shipment for each parcel
-				$shipmentLabels = array();
-				foreach ($parcels as $parcel) {
-					$shipment = \EasyPost\Shipment::create(
-				    array(
-				    	'carrier'			 => 'UPS',
-			        'to_address'   => $to_address,
-			        'from_address' => $from_address,
-			        'parcel'       => $parcel
-				    )
-					);
-					$shipmentLabels[] = $shipment->buy($shipment->lowest_rate());
-				}
-
-				/**
-				 *	Send HTML Email
-				 *	Send ADMIN email to notify that a shipment should be processed.
-				 *	Function formatting: http://codex.wordpress.org/Function_Reference/wp_mail
-				 */
-				foreach ($shipmentLabels as $shipmentLabel) {
-					add_filter( 'wp_mail_content_type', 'set_html_content_type' );
-					$htmlMessage = '<p>Logo</p><p>Order Number</p><p>New product(s) await to be shipped: '.$shipmentLabel->postage_label->label_url.'</p><p>Product details: '.$desc.'</p><p>Note: It may be beneficial if you verify this purchase at your <a href="https://manage.stripe.com">Stripe Dashboard</a> :)</p>';
-					wp_mail( 'jkhedani@gmail.com', 'A New Product(s) Requiree Shipping!', $htmlMessage );
-					remove_filter( 'wp_mail_content_type', 'set_html_content_type' ); // Reset content-type to avoid conflicts -- http://core.trac.wordpress.org/ticket/23578
-				}
-
-			} catch (Exception $e) {
-			  echo "Status: " . $e->getHttpStatus() . ":\n";
-			  echo $e->getMessage();
-			  if (!empty($e->param)) {
-			      echo "\nInvalid param: {$e->param}";
-			  }
-			  exit();
-			}
 
  		/*
  		 * Handle Card Errors
  		 * NOTE: Addresses seeme to get cashed even on failure :: https://support.stripe.com/questions/cvc-or-avs-failed-but-payment-succeeded
  		 * Important: https://support.stripe.com/questions/what-are-street-and-zip-checks-address-verification-or-avs-and-how-should-i-use-them
  		 */
-		} catch(Stripe_CardError $e) {
-			error_log('card');
-			// redirect on failed payment
-			$redirect = add_query_arg('payment', 'cardError', $_POST['redirect']);
+		} catch( Stripe_CardError $e ) {
 			// Since it's a decline, Stripe_CardError will be caught
   		$body = $e->getJsonBody();
   		$err  = $body['error'];
-
-		  print('Status is:' . $e->getHttpStatus() . "\n");
-		  print('Type is:' . $err['type'] . "\n");
-		  print('Code is:' . $err['code'] . "\n");
-		  // param is '' in this case
-		  print('Param is:' . $err['param'] . "\n");
-		  print('Message is:' . $err['message'] . "\n");
+			$stripeErrorCode = $err[ 'code' ];
+			$redirect = add_query_arg( array( 'payment' => 'card_error', 'reason' => $stripeErrorCode), $_POST['redirect']);
 		} catch (Stripe_InvalidRequestError $e) {
 			error_log('request');
 			$body = $e->getJsonBody();
@@ -222,20 +218,22 @@ function stripe_process_payment() {
 		  // (maybe you changed API keys recently)
 		} catch (Stripe_ApiConnectionError $e) {
 			error_log('api');
-			// "Cannot validate payment data with Stripe. Are you still connected to the internet."
+			// "Cannot validate payment data with Stripe. Are you still connected to the internet?"
 		  // Network communication with Stripe failed
 		} catch (Stripe_Error $e) {
 			error_log('genero');
 		  // Display a very generic error to the user, and maybe send
 		  // yourself an email
 		} catch (Exception $e) {
-			error_log('d');
 			// redirect on failed payment
 			$redirect = add_query_arg('payment', 'failed', $_POST['redirect']);
 		}
- 
-		// redirect back to our previous page with the added query variable
-		wp_redirect($redirect); exit;
+ 		
+ 		if ( $redirect ) {
+ 			// redirect back to our previous page with the added query variable
+			wp_redirect($redirect); exit;	
+ 		}
+		
 
 	} // Nonce check
 } // end function

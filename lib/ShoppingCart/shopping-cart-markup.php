@@ -29,9 +29,9 @@ function render_shopping_cart() {
 	echo 			'<div class="half-stache pink"></div>';
 	echo 		'</div>';
 
-	echo 		'<div class="checkoutThanks hide">';
+	echo 		'<div class="checkoutResult hide">';
 	echo    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
-	echo    	'<h3 class="checkoutTitle">'. __('Thanks For Purchasing','litton_bags') .'</h3>';
+	echo    	'<h3 class="checkoutTitle"></h3>';
 	echo 			'<div class="half-stache pink"></div>';
 	echo 		'</div>';
 	
@@ -154,7 +154,7 @@ function render_shopping_cart() {
 	echo  '</div>';
 
 	// Checkout Step Four: Thank You
-	echo 	'<div class="checkoutThanks hide">';
+	echo 	'<div class="checkoutResult hide">';
 	echo  '</div>';
 
 	echo  '</div>'; // .modal-body
@@ -169,7 +169,7 @@ function render_shopping_cart() {
 	echo  		'<img class="processing-spinner hide" src="'.get_stylesheet_directory_uri().'/images/ajax-loader-32.gif" alt="Your payment is processing."/>';
 	echo    	'<button class="btn btn-primary submitPayment">Submit Your Payment</button>';
 	echo  	'</div>';
-	echo 		'<div class="checkoutThanks checkoutControls hide">';
+	echo 		'<div class="checkoutResult checkoutControls hide">';
 	echo    	'<button class="btn btn-primary closeCheckout" data-dismiss="modal" aria-hidden="true">Close</button>';
 	echo  	'</div>';
 	echo  '</div>'; // .modal-footer
