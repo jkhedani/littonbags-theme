@@ -15,6 +15,8 @@
 @taupeAccent: rgb(188,177,161);
 @redAccent: rgb(226,60,90);
 @darkBrown: rgb(114,85,63);
+@beige: rgb(159, 125, 104);
+@lightBeige: rgb(228, 255, 219);
 
 /**
  *	Fonts
@@ -144,6 +146,10 @@ a.btn:visited { color: @white; } // Prevents buttons from turning purple :(
 	&:hover { background: url('../images/various-ribbons.png') 50% 0 no-repeat; .background-cover(); }
 	.background-cover();
 }
+.half-stache {
+	margin: 20px 0 0;
+	&.pink { width: 97px; height: 15px; background: url('../images/half-stache-pink-one.png') no-repeat; }
+}
 .fixed { position: fixed; width: 100%; } // used in tandem with modal to prevent page scrolling
 ::selection {
 	background: @beigeAccent; /* Safari */
@@ -157,6 +163,13 @@ a.btn:visited { color: @white; } // Prevents buttons from turning purple :(
  */
 form {
 	select { width: 100%; }
+	input[type="text"], input[type="email"], textarea {  border: none; background-color: #DEDEDE; color: #666; padding: 7px; #font-family > .raleway; border-radius: 0; }
+	.formHelperText { display: block; font-size: 13px; }
+	.form-row-single {
+		width: 100%;
+		.clearfix();
+		div { float: left; margin-right: 10px; }
+	}
 }
 
 /**
@@ -295,23 +308,25 @@ body.page-template-default.page-not-home {
 		// Featured Image
 		.attachment-post-thumbnail { position: absolute; margin: 0 0 0 125px; z-index: -99; right: 0; }
 		.entry-header {
-			h1 { #font-family > .georgia; text-transform: lowercase; font-style: italic; color: #D4D4D4; }
+			h1 { #font-family > .georgia; text-transform: lowercase; font-style: italic; color: #777; }
 			clear: left;
-			margin-top: 20px;
+			margin-top: 7px;
 			margin-left: 45px;
 		}
 		.entry-content {
-			h2 { #font-family > .learning-curve; }
+			h2 { #font-family > .learning-curve; color: @pinkAccent; }
+			p { color: #888; }
 			clear: left;
 			margin-top: 0px;
 			margin-left: 45px;
+			margin-bottom: 25px;
 		}
 	}
 	form {
 		text-transform: uppercase;
 		p { color: #888; font-size: 13px; }
 		input { width: 100%; padding: 10px; margin-top: 8px; color: #444; }
-		textarea { width: 100%; padding: 10px; margin-top: 8px; color: #444;  }
+		textarea { width: 100%; padding: 10px; margin-top: 8px; color: #444; }
 		#send-mail {
 			min-height: 32px;
 			width: 200px;
@@ -326,7 +341,7 @@ body.page-template-default.page-not-home {
 		margin-bottom: 20px;
 		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 		background-color: #fcf8e3;
-		border: 1px solid #fbeed5;
+		border: 1px solid @redAccent;
 		-webkit-border-radius: 4px;
 		-moz-border-radius: 4px;
 		border-radius: 4px;
@@ -337,14 +352,14 @@ body.page-template-default.page-not-home {
 		margin-bottom: 20px;
 		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 		background-color: #fcf8e3;
-		border: 1px solid #fbeed5;
+		border: 1px solid @redAccent;
 		-webkit-border-radius: 4px;
 		-moz-border-radius: 4px;
 		border-radius: 4px;
 
 		color: #b94a48;
 		background-color: #f2dede;
-		border-color: #eed3d7;
+		border-color: @redAccent;
 
 		top: -11px;
 		right: 0;
@@ -479,10 +494,10 @@ body.single-products {
 						position: fixed;
 						padding: 25px;
 						margin: 110px 0 0 745px;
-						h3.product-qty-title { float: left; }
+						h3.product-qty-title { float: left; margin: 4px 6px 0 0; }
 						h3 { margin: 0; font-size: 14px; line-height: 1.5; text-transform: lowercase; font-weight: normal; clear: both; }
-						hr { border-bottom: none; border-top: 1px dotted @taupeAccent; }
-						select { width: 50px; }
+						hr { border-bottom: none; border-top: 1px dotted @taupeAccent; margin-top: 17px; }
+						select { width: 50px; margin: 0 0 10px 0; }
 						.product-cost { #font-family > .georgia; display: block; color: @redAccent; font-size: 28px; margin: 0 0 11px 0; padding-bottom: 40px; border-bottom: 1px dotted @taupeAccent; }
 						a#addToCart { width: 160px; }
 					}
@@ -495,8 +510,8 @@ body.single-products {
 					}
 					.lookbook-container {
 						position: fixed;
-						left: 66px;
-						bottom: 20px;
+						left: 154px;
+						bottom: 50px;
 						a {
 							#font-family > .source-sans-pro;
 							padding-top: 3px;
@@ -526,7 +541,7 @@ body.single-products {
 					&.white { background-color: #FFF; color: #FFF; }
 					&.black { background-color: #000; color: #000; }
 					&.taupe { background-color: @taupeAccent; color: @taupeAccent; }
-					&.selected { color: #FFF; }
+					&.selected { color: #FFF; #font-family > .raleway; font-size: 12px; }
 					&:hover { text-decoration: none; }
 				}
 			}
@@ -543,7 +558,7 @@ body { // Some specificity to overwrite some hard to reach styles
 		position: fixed;
 		top: 174px !important;
 		margin-top: -15px;
-		margin-left: -160px;
+		margin-left: -164px;
 		min-width: 290px;
 		max-width: none;
 		background: rgba(228, 225, 219, 0.9);
@@ -561,9 +576,9 @@ body { // Some specificity to overwrite some hard to reach styles
 		#font-family > .raleway;
 		font-size: 16px;
 		font-weight: 300;
-		padding: 20px 20px 17px 20px;
+		padding: 19px 24px 15px 25px;
 		h1 {
-			margin: 0 0 10px 0;
+			margin: 0 0 20px 0;
 			color: #666;
 			font-family: 'Georgia', sans-serif;
 			font-weight: normal;
@@ -576,12 +591,13 @@ body { // Some specificity to overwrite some hard to reach styles
 		.shopping-cart-product {
 			margin: 10px 0;
 			color: #666;
+			.product-meta-title { display: none; }
 			.product-color { text-transform: capitalize; }
 			a.btn {
 				&.remove {
 					background: none;
 					border: none;
-					color: #FFF;
+					color: #666;
 					padding: 0;
 					text-shadow: none;
 					box-shadow: none;
@@ -598,13 +614,12 @@ body { // Some specificity to overwrite some hard to reach styles
  *	Checkout Modal
  */
 #checkoutModal {
-	.full-width-background-image ('../images/bg-radial-gradient-one.png', #FFF);
 	top: 0;
 	left: 0;
 	margin: 0;
 	width: 100%;
 	height: 100%;
-	padding: 100px;
+	padding: 40px 100px 100px 100px;
 	z-index: 99999;
 	border-radius: 0;
 	border: none;
@@ -612,14 +627,20 @@ body { // Some specificity to overwrite some hard to reach styles
 	moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
+	.close { font-size: 12px; text-transform: uppercase; margin-top: 50px; }
+	.full-width-background-image ('../images/bg-radial-gradient-one.png', #FFF);
+	.container { position: relative; }
 	.modal-header, .modal-body, .modal-footer {
-		width: 500px;
+		float: left;
+		clear: left;
+		width: 620px;
 		border: none;
 		background: none;
 		box-shadow: none;
 	}
 	.modal-header {
-		margin: 60px 0 0 0;
+		margin: 30px 0 0 0;
+		.step-count { font-size: 18px; font-style: italic; margin-bottom: 20px; #font-family > .georgia; color: rgba(159, 125, 104, 0.6); }
 		h3 {
 			color: @darkBrown;
 			font-family: 'Georgia', sans-serif;
@@ -633,16 +654,78 @@ body { // Some specificity to overwrite some hard to reach styles
 		color: @darkBrown;
 		#font-family > .raleway;
 		max-height: none;
+		form {
+			// Checkout specific styles
+			label { color: @darkBrown; text-transform: uppercase; font-size: 12px; }
+			legend { #font-family > .georgia; text-transform: lowercase; font-style: italic; color: @darkBrown; margin-bottom: 15px; }
+			#shippingIsDifferent {
+				float: left;
+				margin-right: 10px;
+				margin-bottom: 20px;
+			}
+			input.address { width: 80%; }
+			input.zip-code { max-width: 60px; }
+			input.state { max-width: 45px; }
+			input.country { max-width: 45px; }
+		}
+	}
+	.modal-footer {
+		padding-top: 0;
+		button.btn-primary { height: 31px; margin: 0; }
+		.processing-spinner { float: right; }
+	}
+
+	// Step One "Review Your Cart"
+	.checkoutReview {
 		.shopping-cart-product {
+			color: @darkBrown;
 			margin-bottom: 15px;
 			padding-bottom: 15px;
 			border-bottom: 1px solid fade(@darkBrown, 10%);
 			font-size: 18px;
-			span { color: @darkBrown; }
+			.product-title {
+				color: @darkBrown;
+				display: block;
+				font-weight: 600;
+				font-size: 21px;
+				margin-bottom: 7px;
+			}
+			.pipe { color: fadeout(@beige, 70%); }
+			.product-color { text-transform: capitalize; }
+			.product-cost { position: absolute; right: 57px; }
+			.btn.remove {
+				float: right;
+				background: none;
+				border: none;
+				color: #666;
+				padding: 0;
+				text-shadow: none;
+				box-shadow: none;
+				margin: -5px 0 0 10px;
+			}
+			// Hide the first pipe after the product title
+			.product-title + .pipe { display: none; }
+			// Hide pipe after the product qty
+			.product-qty + .pipe { display: none; }
+			// Hide the last pipe after the product cost
+			.product-cost + .pipe { display: none; }
+			// Hide Subtotal on inline items
+			.product-subtotal { display: none; }
 		}
-	}
-	.modal-footer {
-		button.btn-primary { height: 31px; }
+		.checkout-totals {
+			float: right;
+			font-size: 18px;
+			margin-right: 40px;
+			div { margin-bottom: 5px; }
+			.total-title { margin-right: 10px; font-size: 14px; }
+			.subtotal {
+				.total-title { margin-right: 43px; }
+			}
+			.total {
+				font-weight: 600;
+				.total-title { margin-right: 65px; font-weight: normal; }
+			}
+		}
 	}
 
 	// Cart Fluff
@@ -655,33 +738,39 @@ body { // Some specificity to overwrite some hard to reach styles
 		&.gray { width: 183px; height: 154px; top: 20px; left: -60px; background: url('../images/watercolor-blob-gray.png') no-repeat; }
 		&.gold-large { width: 370px; height: 479px; bottom: -80px; left: -400px; background: url('../images/watercolor-blob-gold-large.png') no-repeat; }
 	}
-	.half-stache {
-		margin: 20px 0;
-		&.pink { width: 97px; height: 15px; background: url('../images/half-stache-pink-one.png') no-repeat; }
-	}
 	.stamp-watermark {
 		position: absolute;
 		width: 193px;
 		height: 105px;
-		bottom: 400px;
 		right: 0;
+		top: 350px;
 		background: url('../images/stamp-watermark-one.png') no-repeat;
+		z-index: 8;
 	}
-	.tilted-frame { position: absolute; left: 720px; top: 110px; width: 462px; height: 575px; background: url('../images/tilted-frame-v2.png') no-repeat; }
-}
-
-/**
- * Checkout: Step One
- */
-.checkoutReview {
-	.shoppingcart{ }
+	.tilted-frame {
+		position: absolute;
+		right: 150px;
+		top: 30px;
+		width: 462px;
+		height: 575px;
+		background: url('../images/tilted-frame-v2.png') no-repeat;
+		z-index: 9;
+		}
+	.tilted-frame-deuce {
+		position: absolute;
+		right: 0;
+		top: 300px;
+		width: 352px;
+		height: 372px;
+		background: url('../images/tilted-frame-deuce.png') no-repeat;
+		z-index: 1;
+	}
 }
 
 /**
  * Checkout Styles
  */
-
-input.error { border: 1px solid #b94a48 !important; }
+input.error { border: 1px solid @redAccent !important; }
 
 
 /*

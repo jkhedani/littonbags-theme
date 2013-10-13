@@ -50,7 +50,7 @@ function refresh_shopping_cart() {
 				}
 				// Get Product Color
 				if($key == 'color') {
-					$html .= '<span class="product-color" data-product-color="'.$value.'">';
+					$html .= '<span class="product-color" data-product-color="'.$value.'"><span class="product-meta-title">Color: </span>';
 					if ($value == 'none') {
 						$html .= 'n/a';
 					} else {
@@ -61,7 +61,7 @@ function refresh_shopping_cart() {
 				}
 				// Get Product Qty
 				if($key == 'qty') {
-					$html .= '<span class="product-qty" data-product-qty="'.$value.'">'.$value.'</span>';
+					$html .= '<span class="product-qty" data-product-qty="'.$value.'"><span class="product-meta-title">Quantity: </span>'.$value.'</span>';
 					$itemQty = $value;
 					$productDescription = $productDescription . $value; // Add Quantity to product description;
 				}
@@ -118,9 +118,9 @@ function refresh_shopping_cart() {
 
 		// Display Subtotal, Add Tax/Fees/Whatever & show Grand Total
 		$html .= '<div class="checkout-totals">';
-		$html .= '<div class="subtotal">Subtotal: '.$subtotal_productPriceInDollars.'</div>';
-		$html .= '<div class="auxfees">Tax ('.$currenttaxrate.'%): '.$tax_productPriceInDollars.'</div>';
-		$html .= '<div class="total">Total: '.$grand_productPriceInDollars.'</div>';
+		$html .= '<div class="subtotal"><span class="total-title">Subtotal: </span>'.$subtotal_productPriceInDollars.'</div>';
+		$html .= '<div class="auxfees"><span class="total-title">Tax ('.$currenttaxrate.'%): </span>'.$tax_productPriceInDollars.'</div>';
+		$html .= '<div class="total"><span class="total-title">Total: </span>'.$grand_productPriceInDollars.'</div>';
 		$html .= '</div>';
 
 	} // If products are being set	

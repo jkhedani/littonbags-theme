@@ -14,6 +14,13 @@ function set_html_content_type() {
     return 'text/html';
 }
 
+// Generate Random Order Number
+function generateRandomOrderNumber( $length ) {
+    $chars = array_merge(range('A', 'Z'), range(0, 9));
+    shuffle($chars);
+    return implode(array_slice($chars, 0, $length));
+}
+
 
 /**
  *  Globals & Constants

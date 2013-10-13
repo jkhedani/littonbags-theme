@@ -5,6 +5,8 @@ function render_shopping_cart() {
 	 * "Checkout" Modal
 	 */
   echo '<div id="checkoutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">';
+  echo 	'<div class="container">';
+	echo  	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close   X</button>';
 	
 	/**
 	 *	Checkout Headers
@@ -12,27 +14,25 @@ function render_shopping_cart() {
 	echo  '<div class="modal-header">';
 
 	echo 		'<div class="checkoutReview checkoutControls show">';
-	echo    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+	echo  		'<div class="step-count">1 of 3</div>';
 	echo    	'<h3 class="checkoutTitle">'. __('Review Your Cart','litton_bags') .'</h3>';
 	echo 			'<div class="half-stache pink"></div>';
 	echo    '</div>';
 
 	echo 		'<div class="checkoutBasic hide">';
-	echo    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+	echo  		'<div class="step-count">2 of 3</div>';
 	echo    	'<h3 class="checkoutTitle">'. __('Basic Information','litton_bags') .'</h3>';
 	echo 			'<div class="half-stache pink"></div>';
 	echo 		'</div>';
 
 	echo 		'<div class="checkoutPay hide">';
-	echo    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
+	echo  		'<div class="step-count">3 of 3</div>';
 	echo    	'<h3 class="checkoutTitle">'. __('Submit Your Payment','litton_bags') .'</h3>';
 	echo 			'<div class="half-stache pink"></div>';
 	echo 		'</div>';
 
 	echo 		'<div class="checkoutResult hide">';
-	echo    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>';
 	echo    	'<h3 class="checkoutTitle"></h3>';
-	echo 			'<div class="half-stache pink"></div>';
 	echo 		'</div>';
 	
 	echo  '</div>';
@@ -61,12 +61,6 @@ function render_shopping_cart() {
 			echo '<p class="success">' . __('Thank you for your payment.', 'litton_bags') . '</p>';
 		} else {
 
-			//echo '<h2>Your Total Cost: &#36;<span class="total-english-notation"></span> USD</h2>';
-
-			echo 'We use a secure payment processing method powered by Stripe. Read more »';
-			echo '5% of your purchase will go to the charity WakaWaka Lights.';
-			echo 'We accept Visa, Mastercard, etc., etc.';
-
 			// "Stripe": Basic/Payment Form
 			echo '<form action="" method="POST" id="stripe-payment-form">';
 			
@@ -80,7 +74,7 @@ function render_shopping_cart() {
 			echo 	'<div class="form-row checkoutBasic basic-info" id="basic-info" >';
 			echo 	'<legend>Basic Information</legend>';
 			echo 		'<label>'. __('Full Name', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="name" />';
+			echo 		'<input type="text" size="20" autocomplete="off" name="customer-name" />';
 			echo 		'<label>'. __('Email Address', 'litton_bags') .'</label>';
 			echo 		'<input type="text" size="20" autocomplete="off" class="email" name="email" />'; // ARE WE DOING THIS CORRECTLY?!
 			echo 	'</div>';
@@ -89,18 +83,29 @@ function render_shopping_cart() {
 			echo 	'<div class="form-row checkoutBasic basic-info" id="addr-info">';
 			echo 		'<legend>Billing Address</legend>';
 			echo 		'<label>'. __('Address Line 1', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-line1" />';
+			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-line1" class="address" />';
 			echo 		'<label>'. __('Address Line 2', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-line2" class="optional" />';
-			echo 		'<label>'. __('City', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-city" />';
-			echo 		'<label>'. __('Zip Code', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-zip" />';
-			echo 		'<label>'. __('State', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-state" />';
-			echo 		'<label>'. __('Country', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-country" />';
-			echo   	'<span class="formHelperText">Currently, we are only shipping to the United States on our website. Email us for international purchases.</span>';
+			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="address-line2" class="optional address" />';
+			echo  	'<div class="form-row-single">';
+			echo 			'<div>';
+			echo 				'<label>'. __('City', 'litton_bags') .'</label>';
+			echo 				'<input type="text" size="20" autocomplete="off" data-stripe="address-city" />';
+			echo 			'</div>';
+			echo 			'<div>';
+			echo 				'<label>'. __('Zip Code', 'litton_bags') .'</label>';
+			echo 				'<input type="text" size="20" autocomplete="off" class="zip-code" data-stripe="address-zip" />';
+			echo 			'</div>';
+			echo 			'<div>';
+			echo 				'<label>'. __('State', 'litton_bags') .'</label>';
+			echo 				'<input type="text" size="20" autocomplete="off" class="state" data-stripe="address-state" />';
+			echo 			'</div>';
+			echo 			'<div>';
+			echo 				'<label>'. __('Country', 'litton_bags') .'</label>';
+			echo 				'<input type="text" size="20" autocomplete="off" class="country" data-stripe="address-country" />';
+			echo 			'</div>';
+			echo 		'</div>'; // .form-row-single
+
+			echo   	'<span class="formHelperText">Currently, we are only shipping to the United States on our website. Please email us for international purchases.</span>';
 			echo 		'<br />';
 			echo 		'<input id="shippingIsDifferent" type="checkbox" />';
 			echo   	'<span class="formHelperText">My shipping address is different from my billing address.</span>';
@@ -110,22 +115,37 @@ function render_shopping_cart() {
 			echo 	'<div class="form-row basic-info hide" id="addr-info-shipping">';
 			echo 		'<legend>Shipping Address</legend>';
 			echo 		'<label>'. __('Address Line 1', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-line1" name="shipping-address-line1" />';
+			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-line1" name="shipping-address-line1" class="address" />';
 			echo 		'<label>'. __('Address Line 2', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-line2" name="shipping-address-line2" class="optional" />';
-			echo 		'<label>'. __('City', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-city" name="shipping-address-city" />';
-			echo 		'<label>'. __('Zip Code', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-zip" name="shipping-address-zip" />';
-			echo 		'<label>'. __('State', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-state" name="shipping-address-state" />';
-			echo 		'<label>'. __('Country', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-country" name="shipping-address-country" />';
+			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-line2" name="shipping-address-line2" class="address optional" />';
+			echo  	'<div class="form-row-single">';
+			echo 			'<div>';
+			echo 				'<label>'. __('City', 'litton_bags') .'</label>';
+			echo 				'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-city" name="shipping-address-city" />';
+			echo 			'</div>';
+			echo 			'<div>';
+			echo 				'<label>'. __('Zip Code', 'litton_bags') .'</label>';
+			echo 				'<input type="text" size="20" autocomplete="off" class="zip-code" data-easypost="shipping-address-zip" name="shipping-address-zip" />';
+			echo 			'</div>';
+			echo 			'<div>';
+			echo 				'<label>'. __('State', 'litton_bags') .'</label>';
+			echo 				'<input type="text" size="20" autocomplete="off" class="state" data-easypost="shipping-address-state" name="shipping-address-state" />';
+			echo 			'</div>';
+			echo 			'<div>';
+			echo 				'<label>'. __('Country', 'litton_bags') .'</label>';
+			echo 				'<input type="text" size="20" autocomplete="off" class="country" data-easypost="shipping-address-country" name="shipping-address-country" />';
+			echo 			'</div>';
+			echo 		'</div>'; // .form-row-single
 			echo 	'</div>';
 
 			// 		CARD NUMBER
 			echo 	'<div class="form-row checkoutPay payment-info hide" id="cc-info">';
+			echo 		'We use a secure payment processing method powered by Stripe. Read more »';
+			echo 		'5% of your purchase will go to the charity WakaWaka Lights.';
+			echo 		'We accept Visa, Mastercard, etc., etc.';
 			echo 		'<legend>Card Information</legend>';
+			echo 		'<label>'. __('Name on Card', 'litton_bags') .'</label>';
+			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="name" />';
 			echo 		'<label>'. __('Card Number', 'litton_bags') .'</label>';
 			echo 		'<input type="text" size="20" autocomplete="off" class="cc-num" data-stripe="number" />';
 			echo 		'<label>'. __('CVC', 'litton_bags') .'</label>';
@@ -160,27 +180,34 @@ function render_shopping_cart() {
 	echo  '</div>'; // .modal-body
 	echo  '<div class="modal-footer">';
 	echo 		'<div class="checkoutReview checkoutControls show">';
-	echo    	'<button class="btn btn-primary choosePaymentMethod">Select Payment Method</button>';
+	echo    	'<a class="btn btn-primary choosePaymentMethod">Select Payment Method</a>';
 	echo 		'</div>';
 	echo 		'<div class="checkoutBasic checkoutControls hide">';
-	echo    	'<button id="submitBasicInfo" class="btn btn-primary">Submit Basic Info</button>'; // [completes step B.1]
+	echo    	'<a id="submitBasicInfo" class="btn btn-primary">Submit Basic Info</a>'; // [completes step B.1]
 	echo 		'</div>';
 	echo 		'<div class="checkoutPay checkoutControls hide">';
 	echo  		'<img class="processing-spinner hide" src="'.get_stylesheet_directory_uri().'/images/ajax-loader-32.gif" alt="Your payment is processing."/>';
-	echo    	'<button class="btn btn-primary submitPayment">Submit Your Payment</button>';
+	echo    	'<a class="btn btn-primary submitPayment">Submit Your Payment</a>';
 	echo  	'</div>';
 	echo 		'<div class="checkoutResult checkoutControls hide">';
-	echo    	'<button class="btn btn-primary closeCheckout" data-dismiss="modal" aria-hidden="true">Close</button>';
+	echo    	'<a class="btn btn-primary hide showBasicInfo">Review Basic Info Screen</a>'; // Review Basic Info
+	echo    	'<a class="btn btn-primary hide showSubmitPayment">Review Payment Screen</a>'; // Review Payment Screen
+	echo    	'<a class="btn btn-primary closeCheckout" data-dismiss="modal" aria-hidden="true">Close</a>';
 	echo  	'</div>';
 	echo  '</div>'; // .modal-footer
 
 	// Modal Fluff
-	echo '<div class="watercolor-blob pink"></div>';
-	echo '<div class="watercolor-blob gold"></div>';
-	echo '<div class="watercolor-blob gray"></div>';
 	echo '<div class="tilted-frame"></div>';
+	echo '<div class="tilted-frame-deuce"></div>';
 	echo '<div class="stamp-watermark"></div>';
 
+  echo '</div>'; // .container
+
+  // More Modal Fluff
+  echo '<div class="watercolor-blob pink"></div>';
+	echo '<div class="watercolor-blob gold"></div>';
+	echo '<div class="watercolor-blob gray"></div>';
+	
 	echo '</div>'; // .modal (#checkout)
 
 }

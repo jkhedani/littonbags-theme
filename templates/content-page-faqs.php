@@ -17,16 +17,16 @@
 		<h1 class="entry-title"><?php the_title(); ?></h1>
 		<?php
 			// Get a list of h2 elements from the content to create navigation
-			$str = get_the_content();
-			$DOM = new DOMDocument;
-			$DOM->loadHTML($str);
+			// $str = get_the_content();
+			// $DOM = new DOMDocument;
+			// $DOM->loadHTML($str);
 
-			$items = $DOM->getElementsByTagName('h2');
+			// $items = $DOM->getElementsByTagName('h2');
 
-			echo '<ul class="faqs-navigation">';
-			for ( $i = 0; $i < $items->length; $i++ )
-      	echo '<li>' . $items->item($i)->nodeValue . '</li>';
-      echo '</ul>';
+			// echo '<ul class="faqs-navigation">';
+			// for ( $i = 0; $i < $items->length; $i++ )
+   //    	echo '<li>' . $items->item($i)->nodeValue . '</li>';
+   //    echo '</ul>';
 		?>
 	</header><!-- .entry-header -->
 

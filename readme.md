@@ -5,16 +5,11 @@
 
 > " Just get a job? Why don’t I strap on my job helmet and squeeze down into a job cannon and fire off into job land, where jobs grow on little jobbies?!" -Charlie
 
-# 	Current Setup:
 
-Ensure "Tax" is set
-??Ensure Mail is being sent through gmail smtp through proper email address
-
-
-#		Handling Charges
+Handling Charges
+================
 
 It appears that handling invalid addresses can be tricky as read here:
-
 https://support.stripe.com/questions/cvc-or-avs-failed-but-payment-succeeded
 https://support.stripe.com/questions/what-are-street-and-zip-checks-address-verification-or-avs-and-how-should-i-use-them
 
@@ -25,3 +20,13 @@ should tell you this. If either the street address or CVC is not valid, proceed 
 •		Politely inform the customer that their purchase has been refunded and that information related to processing the payment was not valid.
 		NEVER, EVER ,EVER SEND CUSTOMER INFORMATION OR DETAILED REASONS WHY A PURCHASE HAS BEEN REFUNDED OVER EMAIL OR PHONE!
 •		You may also encourage them to try their purchase again and making sure billing address, zipcode and CVC are all inputed correctly.
+
+
+Current To Do (10092013)
+========================
+
++		Complete Error Checking
++ 	PayPal Checkout
++		Spend one hour tweaking typography, colors, shopping cart and checkout layout.
++		Style results modal for litton bags.
++		Complete User Documentation

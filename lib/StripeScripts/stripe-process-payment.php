@@ -2,6 +2,11 @@
 function stripe_process_payment() {
 	if ( isset($_POST['action']) && $_POST['action'] == 'stripe' && wp_verify_nonce($_POST['stripe_nonce'], 'stripe-nonce') ) {
  		
+		/**
+		 *	Generate a random order number.
+		 */
+		$orderNumber = generateRandomOrderNumber( 10 );
+
  		/**
 		 * 	"Stripe" Data Setup
 		 *	NOTE: http://pippinsplugins.com/stripe-integration-part-7-creating-and-storing-customers/
@@ -60,15 +65,15 @@ function stripe_process_payment() {
 
 		try {
 			// C1. Retrieve this customer's mailing address...
-			$to_address = array(
-			  "name"    => "Jon Calhoun",
+			$to_address = \EasyPost\Address::create( array(
+			  "name"    => strip_tags( trim( $_POST['customer-name'] ) ),
 			  "street1" => strip_tags( trim( $_POST['shipping-address-line1'] ) ),
 			  "street2" => strip_tags( trim( $_POST['shipping-address-line2'] ) ),
 			  "city"    => strip_tags( trim( $_POST['shipping-address-city'] ) ),
 			  "state"   => strip_tags( trim( $_POST['shipping-address-state'] ) ),
 			  "zip"     => strip_tags( trim( $_POST['shipping-address-zip'] ) ),
-			);
-			
+			));
+
 			// C2. Retrieve poster's address ( Stored in settings )
 			$from_address = \EasyPost\Address::create( array(
 		    "company" => $easypost_options['company_name'],
@@ -92,7 +97,7 @@ function stripe_process_payment() {
 
 						$parcels[] = \EasyPost\Parcel::create( array(
 					    "length" => $parcelLength,
-						  "width" => $parcelWidth,
+						  "width"	 => $parcelWidth,
 						  "height" => $parcelHeight,
 						  "weight" => $parcelWeight
 						));
@@ -101,6 +106,10 @@ function stripe_process_payment() {
 				} // end foreach
 			} // end foreach
 
+			/**
+			 *	EasyPost (step C4.) continued
+			 *	If charge is successful, create shipment
+			 */
 			// C4. Create special shipment for each parcel
 			$shipmentLabels = array();
 			foreach ($parcels as $parcel) {
@@ -116,15 +125,30 @@ function stripe_process_payment() {
 			}
 
 			/**
-			 *	Send HTML Email
+			 *	Send HTML Emails
 			 *	Send ADMIN email to notify that a shipment should be processed.
+			 *	Send USER email to send them tracking information.
 			 *	Function formatting: http://codex.wordpress.org/Function_Reference/wp_mail
 			 */
 			foreach ($shipmentLabels as $shipmentLabel) {
 				add_filter( 'wp_mail_content_type', 'set_html_content_type' );
+
+				// ADMIN Email
 				$htmlMessage = '<p>Logo</p><p>Order Number</p><p>New product(s) await to be shipped: '.$shipmentLabel->postage_label->label_url.'</p><p>Product details: '.$desc.'</p><p>Note: It may be beneficial if you verify this purchase at your <a href="https://manage.stripe.com">Stripe Dashboard</a> :)</p>';
-				wp_mail( 'jkhedani@gmail.com', 'A New Product(s) Requiree Shipping!', $htmlMessage );
+				wp_mail(  $easypost_options['shipping_confirmation_email'], 'A New Product(s) Requiree Shipping!', $htmlMessage );
+
+				// CUSTOMER Email
+				$customerEmail = strip_tags( trim( $_POST['email'] ) );
+				$htmlMessage = '
+					<p><img src="'.get_stylesheet_directory_uri().'/images/logo.png" alt="Litton Fine Camera Bags" /></p>
+					<p>Order Number: #'.$orderNumber.'</p>
+					<p>'.$shipmentLabel->rates->carrier.' Tracking Number: #'.$shipmentLabel->tracking_code.'</p>
+					<p>Product details: '.$desc.'</p>
+				';
+				wp_mail( $customerEmail, 'Thanks for shopping at Litton Bags!', $htmlMessage );
+				
 				remove_filter( 'wp_mail_content_type', 'set_html_content_type' ); // Reset content-type to avoid conflicts -- http://core.trac.wordpress.org/ticket/23578
+
 			}
 
 		} catch (Exception $e) {
@@ -142,7 +166,7 @@ function stripe_process_payment() {
 		/**
 		 * 	Early re-direct indicates easy post error (prevents charges from being made)
 		 */
-		if ( $redirect ) {
+		if ( isset( $redirect ) ) {
 			wp_redirect($redirect);
 			exit;
 		}
@@ -194,10 +218,10 @@ function stripe_process_payment() {
 			// redirect on successful payment
 			$redirect = add_query_arg('payment', 'paid', $_POST['redirect']);
 
- 		/*
- 		 * Handle Card Errors
- 		 * NOTE: Addresses seeme to get cashed even on failure :: https://support.stripe.com/questions/cvc-or-avs-failed-but-payment-succeeded
- 		 * Important: https://support.stripe.com/questions/what-are-street-and-zip-checks-address-verification-or-avs-and-how-should-i-use-them
+ 		/**
+ 		 * 	Handle Card Errors
+ 		 * 	NOTE: Addresses seeme to get cashed even on failure :: https://support.stripe.com/questions/cvc-or-avs-failed-but-payment-succeeded
+ 		 * 	Important: https://support.stripe.com/questions/what-are-street-and-zip-checks-address-verification-or-avs-and-how-should-i-use-them
  		 */
 		} catch( Stripe_CardError $e ) {
 			// Since it's a decline, Stripe_CardError will be caught
@@ -226,10 +250,13 @@ function stripe_process_payment() {
 		  // yourself an email
 		} catch (Exception $e) {
 			// redirect on failed payment
-			$redirect = add_query_arg('payment', 'failed', $_POST['redirect']);
+			$body = $e->getJsonBody();
+  		$err  = $body['error'];
+			$stripeErrorCode = $err[ 'code' ];
+			$redirect = add_query_arg( array( 'payment' => 'failed', 'reason' => $stripeErrorCode), $_POST['redirect']);
 		}
  		
- 		if ( $redirect ) {
+ 		if ( isset($redirect) ) {
  			// redirect back to our previous page with the added query variable
 			wp_redirect($redirect); exit;	
  		}

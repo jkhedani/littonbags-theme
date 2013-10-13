@@ -113,6 +113,22 @@ function easy_post_render_options_page() {
 					</tr>
 				</tbody>
 			</table>
+
+			<h3 class="title"><?php _e('Email Options', 'litton_bags'); ?></h3>
+			<table class="form-table">
+				<tbody>
+					<!-- Shipping Confirmation Email -->
+					<tr valign="top">	
+						<th scope="row" valign="top">
+							<?php _e('Shipping Confirmation Email', 'litton_bags'); ?>
+						</th>
+						<td>
+							<input id="easypost_settings[shipping_confirmation_email]" name="easypost_settings[shipping_confirmation_email]" type="text" class="regular-text" value="<?php echo $easypost_options['shipping_confirmation_email']; ?>"/>
+							<label class="description" for="easypost_settings[shipping_confirmation_email]"><?php _e('Email address to notify when a product has been purchased and is ready for shipping.', 'litton_bags'); ?></label>
+						</td>
+					</tr>
+				<tbody>
+			</table>
  
 			<p class="submit">
 				<input type="submit" class="button-primary" value="<?php _e('Save Options', 'litton_bags'); ?>" />

@@ -30,51 +30,51 @@
 
 	</header><!-- .entry-header -->
 
+	<!-- Product Details -->
 	<div class="product-content span2">
 	
-		<?php
+	<?php
+		/*
+		 * User Selected Options
+		 */
 
-			/*
-			 * User Selected Options
-			 */
+		// Price
+		if ( get_field('product_price') ) {
+			$priceInPennies = get_field('product_price');
+			$preTaxCost = money_format('%n', $priceInPennies/100);
+			echo '<span class="product-cost">$'.$preTaxCost.'</span>';
+		}
 
-			// Price
-			if ( get_field('product_price') ) {
-				$priceInPennies = get_field('product_price');
-				$preTaxCost = money_format('%n', $priceInPennies/100);
-				echo '<span class="product-cost">$'.$preTaxCost.'</span>';
-			}
+		// Quantity Options
+		echo '<h3 class="product-qty-title">Quantity</h3>';
+		echo '<select class="product-qty-selection">';
+		for($i = 1; $i < 11; $i++) {
+			echo '<option value="'.$i.'">'.$i.'</option>';	
+		}
+		echo '</select>';
 
-			// Quantity Options
-			echo '<h3 class="product-qty-title">Quantity</h3>';
-			echo '<select class="product-qty-selection">';
-			for($i = 1; $i < 11; $i++) {
-				echo '<option value="'.$i.'">'.$i.'</option>';	
+		// Color Options
+		if (get_field('product_color_options')) {
+			$colorOptions = get_field('product_color_options');
+			echo '<h3 class="product-color-title">Select a Color</h3>';
+			echo '<select class="product-color-selection">';
+			foreach ($colorOptions as $colorOption) {
+				echo '<option value="'.$colorOption.'">'.$colorOption.'</option>';
 			}
 			echo '</select>';
+		}
 
-			// Color Options
-			if (get_field('product_color_options')) {
-				$colorOptions = get_field('product_color_options');
-				echo '<h3 class="product-color-title">Color</h3>';
-				echo '<select class="product-color-selection">';
-				foreach ($colorOptions as $colorOption) {
-					echo '<option value="'.$colorOption.'">'.$colorOption.'</option>';
-				}
-				echo '</select>';
-			}
+		echo '<hr />';
+	
+		/*
+		 * "Add To Cart" Button
+		 */
+		echo '<a id="addToCart" role="button" href="javascript:void(0);" class="btn btn-primary" data-post-id="'.$post->ID.'">Add To Cart</a>'; ?>
 
-			echo '<hr />';
-		
-			/*
-			 * "Add To Cart" Button
-			 */
-			echo '<a id="addToCart" role="button" href="javascript:void(0);" class="btn btn-primary" data-post-id="'.$post->ID.'">Add To Cart</a>'; ?>
+	</div><!-- .product-content -->
 
-		</div><!-- .product-content -->
-
-		<div class="product-scroll">
-			<?php echo get_the_post_thumbnail(); ?>
-		</div>
+	<div class="product-scroll">
+		<?php echo get_the_post_thumbnail(); ?>
+	</div>
 
 </article><!-- #post-<?php the_ID(); ?> -->
