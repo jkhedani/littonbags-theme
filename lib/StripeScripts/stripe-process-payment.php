@@ -205,7 +205,10 @@ function stripe_process_payment() {
 				$customer_id = $customer->id;
 			}
 
-			// STEP THREE: Charge the new customers
+			// STEP THREE: Append the order number
+			$desc = $desc . ' #' . $orderNumber;
+
+			// STEP FOUR: Charge the new customers
 			if( $customer_id ) {
 				$charge = Stripe_Charge::create(array(
 					'amount' => $amount, // amount in cents

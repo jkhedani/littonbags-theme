@@ -80,5 +80,6 @@
 
     <!-- Background image -->
     <?php if ( is_front_page() ) : ?>
-      <div class="background-image"></div>
+      <?php $home_featured_image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full'); echo $post->ID; ?>
+      <div class="background-image" style="background-image:url(<?php echo $home_featured_image[0]; ?>);"></div>
     <?php endif; ?>

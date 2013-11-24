@@ -27,6 +27,8 @@ Current To Do (10092013)
 
 +		Complete Error Checking
 + 	PayPal Checkout
++		Create "Refund" Email Hook
++		Ensure address checks for both Stripe and EasyPost are working properly.
 +		Spend one hour tweaking typography, colors, shopping cart and checkout layout.
 +		Style results modal for litton bags.
 +		Complete User Documentation

@@ -18,6 +18,8 @@
 @beige: rgb(159, 125, 104);
 @lightBeige: rgb(228, 255, 219);
 
+@lightGray: rgb(237, 238, 237);
+
 /**
  *	Fonts
  */
@@ -178,24 +180,25 @@ form {
 html {
 	overflow-y: auto !important;
 	body {
-		background-color: #000 !important;
+		background-color: @lightGray !important;
 		#page {
 			header#navbar {
 				margin: 0 auto;
 				padding: 86px 0 15px 0;
-				background-color: #000;
+				background-color: @lightGray;
 				position: fixed;
 				top: 0;
 				width: 100%;
 				z-index: 1000;
 				.navbar-inner {
 					margin: 0 auto;
-					background: #000;
+					background: none;
 					border: none;
 					border-radius: 0;
+					box-shadow: none;
 					.site-title {
 						text-indent: -9999px;
-						background: url('../images/logo.png') no-repeat;
+						background: url('../images/litton-ludwig-logo.png') no-repeat;
 						float: left;
 						display: block;
 						width: 163px; 
@@ -227,7 +230,7 @@ html {
 		}
 		footer#colophon {
 			z-index: 9999;
-			background-color: #000;
+			background: none;
 			overflow: hidden;
 			position: relative;
 			h3.explore-title {
@@ -375,7 +378,7 @@ body.page-template-default.page-not-home {
 body.home {
 	#main {
 		.background-image {
-			background: url('../images/home-bg.jpg') 50% 0 no-repeat;
+			//background: url('../images/home-bg.jpg') 50% 0 no-repeat;
 			width: 100%;
 			height: 100%;
 			position: absolute;
@@ -510,7 +513,7 @@ body.single-products {
 					}
 					.lookbook-container {
 						position: fixed;
-						left: 154px;
+						left: 163px;
 						bottom: 50px;
 						a {
 							#font-family > .source-sans-pro;
@@ -624,6 +627,7 @@ body { // Some specificity to overwrite some hard to reach styles
 	border-radius: 0;
 	border: none;
 	overflow-y: scroll;
+	overflow-x: hidden;
 	moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
@@ -728,13 +732,103 @@ body { // Some specificity to overwrite some hard to reach styles
 		}
 	}
 
+	// Step Three: "Submit Your Payment"
+	.modal-body {
+		.cc-icons {
+			.clearfix();
+			margin-bottom: 15px;
+			.cc-icon {
+				width: 40px;
+				height: 25px;
+				float: left;
+				background: url('../images/cc-logos.png') no-repeat;
+				&.visa { background-position: 0 -173px; }
+				&.visa.bw { background-position: 0 -148px; }
+				&.discover { background-position: 0 -124px; }
+				&.discover.bw { background-position: 0 -99px; }
+				&.mastercard { background-position: 0 -75px; }
+				&.mastercard.bw { background-position: 0 -50px; }
+				&.amex { background-position: 0 -25px; }
+				&.amex.bw { background-position: 0 0; }
+				&.jcb { background-position: 0 -222px; }
+				&.jcb.bw { background-position: 0 -198px; }
+			}
+		}
+	}
+	.modal-footer {
+		.paypal-checkout {
+			float: left;
+			width: 150px;
+			margin: 16px 0 0 10px;
+			opacity: 0.5;
+			cursor: pointer;
+			&:hover { opacity: 1.0; }
+		}
+		.submitPayment {
+			float: left;
+		}
+	}
+
+	// Step "Four": "Processing"
+	.modal-body {
+		.checkoutProcessing {
+			.spinner-wrapper.hero {
+				width: 400px;
+				text-align: center;
+				img { margin: 0 auto; }
+			}
+			p { margin: 20px 0; max-width: 400px; text-align: center; }
+		}
+	}
+
+	// Step "Five": "Result"
+	.modal-header {
+		.checkoutResult {
+			h3 { margin-top: 15px; }
+		}
+	}
+	.modal-body {
+		.checkoutResult {
+			.result-wrapper {
+				width: 488px;
+				text-align: center;
+				margin: 15px 0;
+				img {
+					margin: 0 auto;
+				}
+			}
+			p { margin: 20px 0; max-width: 400px; padding: 0 44px; text-align: center; }
+		}
+	}
+	.modal-footer {
+		.checkoutResult {
+			width: 488px;
+			a { margin: 0 auto; }
+		}
+	}
+
+
 	// Cart Fluff
 	.watercolor-blob {
 		z-index: -99;
 		position: absolute;
 		opacity: 0.8; // GLOBAL DIMMING OCCURING!
-		&.pink { width: 425px; height: 405px; top: -30px; left: 80px; background: url('../images/watercolor-blob-pink.png') no-repeat; }
-		&.gold { width: 370px; height: 479px; top: -20px; left: -40px; background: url('../images/watercolor-blob-gold.png') no-repeat; }
+		&.pink {
+			width: 425px;
+			height: 405px;
+			top: -30px;
+			left: 80px;
+			background: url('../images/watercolor-blob-pink.png') no-repeat;
+			&.bottom { top: auto; left: auto; bottom: 0; right: 0; position: fixed; }
+		}
+		&.gold {
+			width: 370px;
+			height: 479px;
+			top: -20px;
+			left: -40px;
+			background: url('../images/watercolor-blob-gold.png') no-repeat;
+			&.bottom { top: auto; left: auto; bottom: -210px; right: -35px; position: fixed; }
+		}
 		&.gray { width: 183px; height: 154px; top: 20px; left: -60px; background: url('../images/watercolor-blob-gray.png') no-repeat; }
 		&.gold-large { width: 370px; height: 479px; bottom: -80px; left: -400px; background: url('../images/watercolor-blob-gold-large.png') no-repeat; }
 	}
@@ -764,6 +858,25 @@ body { // Some specificity to overwrite some hard to reach styles
 		height: 372px;
 		background: url('../images/tilted-frame-deuce.png') no-repeat;
 		z-index: 1;
+	}
+	.services-used-container {
+		position: absolute;
+		left: 210px;
+		bottom: 25px;
+		z-index: -99;
+		.clearfix();
+		.services-used {
+			float: left;
+			span { font-size: 12px; }
+			i {
+				opacity: 0.5;
+				display: block;
+				width: 150px;
+				height: 45px;
+				float: right;
+				&.stripe-icon { background: url('../images/stripe-outline.png') no-repeat; }
+			}
+		}
 	}
 }
 

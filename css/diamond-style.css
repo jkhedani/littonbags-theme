@@ -523,12 +523,12 @@ html {
   overflow-y: auto !important;
 }
 html body {
-  background-color: #000 !important;
+  background-color: #edeeed !important;
 }
 html body #page header#navbar {
   margin: 0 auto;
   padding: 86px 0 15px 0;
-  background-color: #000;
+  background-color: #edeeed;
   position: fixed;
   top: 0;
   width: 100%;
@@ -536,13 +536,14 @@ html body #page header#navbar {
 }
 html body #page header#navbar .navbar-inner {
   margin: 0 auto;
-  background: #000;
+  background: none;
   border: none;
   border-radius: 0;
+  box-shadow: none;
 }
 html body #page header#navbar .navbar-inner .site-title {
   text-indent: -9999px;
-  background: url('../images/logo.png') no-repeat;
+  background: url('../images/litton-ludwig-logo.png') no-repeat;
   float: left;
   display: block;
   width: 163px;
@@ -567,7 +568,7 @@ html body #page #main {
 }
 html body footer#colophon {
   z-index: 9999;
-  background-color: #000;
+  background: none;
   overflow: hidden;
   position: relative;
 }
@@ -746,7 +747,6 @@ body.page-template-default.page-not-home .wpcf7-not-valid-tip {
  * Front Page
  */
 body.home #main .background-image {
-  background: url('../images/home-bg.jpg') 50% 0 no-repeat;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -932,7 +932,7 @@ body.single-products #page #main #content article .product-scroll img {
 }
 body.single-products #page #main #content article .lookbook-container {
   position: fixed;
-  left: 154px;
+  left: 163px;
   bottom: 50px;
 }
 body.single-products #page #main #content article .lookbook-container a {
@@ -1081,6 +1081,7 @@ body .popover-content .checkout-totals {
   border-radius: 0;
   border: none;
   overflow-y: scroll;
+  overflow-x: hidden;
   moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -1241,6 +1242,103 @@ body .popover-content .checkout-totals {
   margin-right: 65px;
   font-weight: normal;
 }
+#checkoutModal .modal-body .cc-icons {
+  *zoom: 1;
+  margin-bottom: 15px;
+}
+#checkoutModal .modal-body .cc-icons:before,
+#checkoutModal .modal-body .cc-icons:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+#checkoutModal .modal-body .cc-icons:after {
+  clear: both;
+}
+#checkoutModal .modal-body .cc-icons .cc-icon {
+  width: 40px;
+  height: 25px;
+  float: left;
+  background: url('../images/cc-logos.png') no-repeat;
+}
+#checkoutModal .modal-body .cc-icons .cc-icon.visa {
+  background-position: 0 -173px;
+}
+#checkoutModal .modal-body .cc-icons .cc-icon.visa.bw {
+  background-position: 0 -148px;
+}
+#checkoutModal .modal-body .cc-icons .cc-icon.discover {
+  background-position: 0 -124px;
+}
+#checkoutModal .modal-body .cc-icons .cc-icon.discover.bw {
+  background-position: 0 -99px;
+}
+#checkoutModal .modal-body .cc-icons .cc-icon.mastercard {
+  background-position: 0 -75px;
+}
+#checkoutModal .modal-body .cc-icons .cc-icon.mastercard.bw {
+  background-position: 0 -50px;
+}
+#checkoutModal .modal-body .cc-icons .cc-icon.amex {
+  background-position: 0 -25px;
+}
+#checkoutModal .modal-body .cc-icons .cc-icon.amex.bw {
+  background-position: 0 0;
+}
+#checkoutModal .modal-body .cc-icons .cc-icon.jcb {
+  background-position: 0 -222px;
+}
+#checkoutModal .modal-body .cc-icons .cc-icon.jcb.bw {
+  background-position: 0 -198px;
+}
+#checkoutModal .modal-footer .paypal-checkout {
+  float: left;
+  width: 150px;
+  margin: 16px 0 0 10px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+#checkoutModal .modal-footer .paypal-checkout:hover {
+  opacity: 1.0;
+}
+#checkoutModal .modal-footer .submitPayment {
+  float: left;
+}
+#checkoutModal .modal-body .checkoutProcessing .spinner-wrapper.hero {
+  width: 400px;
+  text-align: center;
+}
+#checkoutModal .modal-body .checkoutProcessing .spinner-wrapper.hero img {
+  margin: 0 auto;
+}
+#checkoutModal .modal-body .checkoutProcessing p {
+  margin: 20px 0;
+  max-width: 400px;
+  text-align: center;
+}
+#checkoutModal .modal-header .checkoutResult h3 {
+  margin-top: 15px;
+}
+#checkoutModal .modal-body .checkoutResult .result-wrapper {
+  width: 488px;
+  text-align: center;
+  margin: 15px 0;
+}
+#checkoutModal .modal-body .checkoutResult .result-wrapper img {
+  margin: 0 auto;
+}
+#checkoutModal .modal-body .checkoutResult p {
+  margin: 20px 0;
+  max-width: 400px;
+  padding: 0 44px;
+  text-align: center;
+}
+#checkoutModal .modal-footer .checkoutResult {
+  width: 488px;
+}
+#checkoutModal .modal-footer .checkoutResult a {
+  margin: 0 auto;
+}
 #checkoutModal .watercolor-blob {
   z-index: -99;
   position: absolute;
@@ -1253,12 +1351,26 @@ body .popover-content .checkout-totals {
   left: 80px;
   background: url('../images/watercolor-blob-pink.png') no-repeat;
 }
+#checkoutModal .watercolor-blob.pink.bottom {
+  top: auto;
+  left: auto;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+}
 #checkoutModal .watercolor-blob.gold {
   width: 370px;
   height: 479px;
   top: -20px;
   left: -40px;
   background: url('../images/watercolor-blob-gold.png') no-repeat;
+}
+#checkoutModal .watercolor-blob.gold.bottom {
+  top: auto;
+  left: auto;
+  bottom: -210px;
+  right: -35px;
+  position: fixed;
 }
 #checkoutModal .watercolor-blob.gray {
   width: 183px;
@@ -1300,6 +1412,38 @@ body .popover-content .checkout-totals {
   height: 372px;
   background: url('../images/tilted-frame-deuce.png') no-repeat;
   z-index: 1;
+}
+#checkoutModal .services-used-container {
+  position: absolute;
+  left: 210px;
+  bottom: 25px;
+  z-index: -99;
+  *zoom: 1;
+}
+#checkoutModal .services-used-container:before,
+#checkoutModal .services-used-container:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+#checkoutModal .services-used-container:after {
+  clear: both;
+}
+#checkoutModal .services-used-container .services-used {
+  float: left;
+}
+#checkoutModal .services-used-container .services-used span {
+  font-size: 12px;
+}
+#checkoutModal .services-used-container .services-used i {
+  opacity: 0.5;
+  display: block;
+  width: 150px;
+  height: 45px;
+  float: right;
+}
+#checkoutModal .services-used-container .services-used i.stripe-icon {
+  background: url('../images/stripe-outline.png') no-repeat;
 }
 /**
  * Checkout Styles

@@ -6,7 +6,7 @@ function render_shopping_cart() {
 	 */
   echo '<div id="checkoutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">';
   echo 	'<div class="container">';
-	echo  	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close   X</button>';
+	echo  	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>';
 	
 	/**
 	 *	Checkout Headers
@@ -28,6 +28,12 @@ function render_shopping_cart() {
 	echo 		'<div class="checkoutPay hide">';
 	echo  		'<div class="step-count">3 of 3</div>';
 	echo    	'<h3 class="checkoutTitle">'. __('Submit Your Payment','litton_bags') .'</h3>';
+	echo 			'<div class="half-stache pink"></div>';
+	echo 		'</div>';
+
+	echo 		'<div class="checkoutProcessing hide">';
+	echo  		'<div class="step-count">Payment & Shipping Being Caluculated</div>';
+	echo    	'<h3 class="checkoutTitle">'. __('Submitting Cart Info','litton_bags') .'</h3>';
 	echo 			'<div class="half-stache pink"></div>';
 	echo 		'</div>';
 
@@ -112,7 +118,7 @@ function render_shopping_cart() {
 			echo 	'</div>';
 
 			//		SHIPPING ADDRESS COLLECTION
-			echo 	'<div class="form-row basic-info hide" id="addr-info-shipping">';
+			echo 	'<div class="form-row basic-info shippingInfo hide" id="addr-info-shipping">';
 			echo 		'<legend>Shipping Address</legend>';
 			echo 		'<label>'. __('Address Line 1', 'litton_bags') .'</label>';
 			echo 		'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-line1" name="shipping-address-line1" class="address" />';
@@ -140,10 +146,15 @@ function render_shopping_cart() {
 
 			// 		CARD NUMBER
 			echo 	'<div class="form-row checkoutPay payment-info hide" id="cc-info">';
-			echo 		'We use a secure payment processing method powered by Stripe. Read more »';
 			echo 		'5% of your purchase will go to the charity WakaWaka Lights.';
-			echo 		'We accept Visa, Mastercard, etc., etc.';
 			echo 		'<legend>Card Information</legend>';
+			echo 		'<div class="cc-icons">';
+			echo 			'<div class="cc-icon visa"></div>';
+			echo 			'<div class="cc-icon mastercard"></div>';
+			echo 			'<div class="cc-icon amex"></div>';
+			echo 			'<div class="cc-icon discover"></div>';
+			echo 			'<div class="cc-icon jcb"></div>';
+			echo 		'</div>';
 			echo 		'<label>'. __('Name on Card', 'litton_bags') .'</label>';
 			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="name" />';
 			echo 		'<label>'. __('Card Number', 'litton_bags') .'</label>';
@@ -169,12 +180,16 @@ function render_shopping_cart() {
 	// Checkout Step Three: "Processing..."
 	echo 	'<div class="checkoutProcessing hide">';
 	// Ajax gif: http://www.mytreedb.com/view_blog/a-33-high_quality_ajax_loader_images.html
-	echo  '<img src="'.get_stylesheet_directory_uri().'/images/ajax-loader-256.gif" alt="Your payment is processing."/>';
+	echo  '<div class="spinner-wrapper hero">';
+	echo  	'<img src="'.get_stylesheet_directory_uri().'/images/ajax-loader-256.gif" alt="Your payment is processing."/>';
+	echo  '</div>';
 	echo  '<p>Please wait for your payment to process. Refrain from closing this page to avoid multiple charges.</p>';
 	echo  '</div>';
 
 	// Checkout Step Four: Thank You
 	echo 	'<div class="checkoutResult hide">';
+	echo   '<div class="result-wrapper"><img class="success" src="'.get_stylesheet_directory_uri().'/images/payment-success-delta.png" /></div>';
+	echo   '<p class="result-message"></p>';
 	echo  '</div>';
 
 	echo  '</div>'; // .modal-body
@@ -188,6 +203,7 @@ function render_shopping_cart() {
 	echo 		'<div class="checkoutPay checkoutControls hide">';
 	echo  		'<img class="processing-spinner hide" src="'.get_stylesheet_directory_uri().'/images/ajax-loader-32.gif" alt="Your payment is processing."/>';
 	echo    	'<a class="btn btn-primary submitPayment">Submit Your Payment</a>';
+	echo 			'<a class="paypal-checkout"><img src="'.get_stylesheet_directory_uri().'/images/paypal-checkout.png" alt="Checkout via Paypal instead." /></a>';
 	echo  	'</div>';
 	echo 		'<div class="checkoutResult checkoutControls hide">';
 	echo    	'<a class="btn btn-primary hide showBasicInfo">Review Basic Info Screen</a>'; // Review Basic Info
@@ -207,6 +223,11 @@ function render_shopping_cart() {
   echo '<div class="watercolor-blob pink"></div>';
 	echo '<div class="watercolor-blob gold"></div>';
 	echo '<div class="watercolor-blob gray"></div>';
+	echo '<div class="watercolor-blob pink bottom"></div>';
+	echo '<div class="watercolor-blob gold bottom"></div>';
+	echo '<div class="services-used-container">';
+	echo 	'<div class="services-used stripe"><a href="http://stripe.com" target="_blank"><i class="stripe-icon"></i></a></div>';
+	echo '</div>';
 	
 	echo '</div>'; // .modal (#checkout)
 

@@ -15,14 +15,7 @@ get_header(); ?>
 			
 	<div id="primary" class="content-area container">
 		<div id="content" class="site-content" role="main">
-					
-			<?php
-				// wp_nav_menu(array(
-				// 	'menu' => 'highlight-menu',
-				// 	'menu_class' => 'pull-right',
-				// 	'link_before' => '<i class="tab brown"></i>'
-				// ));
-			?>
+
 			<div class="minster-type-treatment">
 				<h1><?php _e('The Minster','litton_bags'); ?></h1>
 				<span class="minster-flair">~</span>
