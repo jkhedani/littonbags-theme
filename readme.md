@@ -32,3 +32,6 @@ Current To Do (10092013)
 +		Spend one hour tweaking typography, colors, shopping cart and checkout layout.
 +		Style results modal for litton bags.
 +		Complete User Documentation
+
+
++		Icons needed @2X: footer social icons, primary logo, & shopping cart

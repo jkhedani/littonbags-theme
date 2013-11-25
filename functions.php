@@ -39,6 +39,8 @@ function diamond_scripts() {
 	wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css' );
     wp_enqueue_style( 'google-fonts-raleway', '//fonts.googleapis.com/css?family=Raleway:300', array(), false, true );
     wp_enqueue_style( 'google-fonts-source-sans-pro', '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', array(), false, true );
+    wp_enqueue_style( 'google-fonts-josefin-sans', '//fonts.googleapis.com/css?family=Josefin+Sans:300,400', array(), false, true );
+    wp_enqueue_style( 'google-fonts-droid-sans', '//fonts.googleapis.com/css?family=Droid+Sans', array(), false, true );
     // Activate line below for responsive layout
 	// Requires: Child theme style, resets, parent theme base style and bootstrap base style
 	// to load prior to responsive. Responsive styles should typically be loaded last.
@@ -186,6 +188,41 @@ if(function_exists("register_field_group"))
         'id' => 'acf_product-details',
         'title' => 'Product Details',
         'fields' => array (
+            // array (
+            //     'key' => 'field_5292ec4ae2a07',
+            //     'label' => 'Product Options',
+            //     'name' => 'product_options',
+            //     'type' => 'repeater',
+            //     'sub_fields' => array (
+            //         array (
+            //             'key' => 'field_5292ec62e2a08',
+            //             'label' => 'Product Color',
+            //             'name' => 'product_color',
+            //             'type' => 'text',
+            //             'column_width' => '',
+            //             'default_value' => '',
+            //             'placeholder' => '',
+            //             'prepend' => '',
+            //             'append' => '',
+            //             'formatting' => 'html',
+            //             'maxlength' => '',
+            //         ),
+            //         array (
+            //             'key' => 'field_5292ec76e2a09',
+            //             'label' => 'Product Image Preview',
+            //             'name' => 'product_image_preview',
+            //             'type' => 'image',
+            //             'column_width' => '',
+            //             'save_format' => 'url',
+            //             'preview_size' => 'thumbnail',
+            //             'library' => 'all',
+            //         ),
+            //     ),
+            //     'row_min' => 0,
+            //     'row_limit' => '',
+            //     'layout' => 'row',
+            //     'button_label' => 'Add Option',
+            // ),
             array (
                 'default_value' => '',
                 'key' => 'field_51760a56678b4',

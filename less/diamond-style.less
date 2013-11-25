@@ -19,6 +19,7 @@
 @lightBeige: rgb(228, 255, 219);
 
 @lightGray: rgb(237, 238, 237);
+@darkGray: rgb(115, 122, 125);
 
 /**
  *	Fonts
@@ -88,6 +89,9 @@
 	}
 	.raleway {
 		font-family: 'Raleway', serif; font-weight: normal;
+	}
+	.josefin {
+		font-family: 'Josefin Sans', sans-serif; font-weight: normal;
 	}
 }
 
@@ -208,16 +212,6 @@ html {
 						// margin-bottom: 15px;
 						// margin-left: 25px;
 					}
-					.shoppingcart {
-						a {
-							background: url('../images/cart-icon.png') no-repeat;
-							float: right;
-							width: 27px; 
-							height: 21px;
-							text-indent: -9999px;
-							margin-top: 15px;
-						}
-					}
 				}
 			}
 			#main {
@@ -233,52 +227,47 @@ html {
 			background: none;
 			overflow: hidden;
 			position: relative;
-			h3.explore-title {
-				position: absolute;
-				right: 381px;
-				margin: 37px 0 0 0;
-				width: 105px;
-				background: url('../images/explore-text-3.png') no-repeat;
-				.no-text();
-			}
-			#menu-footer-menu {
+			ul#menu-footer-menu {
 				min-width: 425px;
-				background: url('../images/footer-ribbon-2.png') no-repeat;
-				padding: 20px 20px 20px 50px;
-				margin: 45px 0 0 0;
+				margin: 15px 0;
+				float: right;
 				li {
+					float: left;
 					list-style: none;
+					&:first-child a { margin: 0; }
 					a {
 						font-family: 'Open Sans', sans-serif;
 						font-size: 9px;
 						letter-spacing: 2px;
 						text-transform: uppercase;
-						color: rgba(255, 255, 255, 0.6);						
+						color: @darkGray;
+						margin-left: 20px;
+						display: block;
 						&[title='Facebook'] {
 							width: 25px;
-							height: 28px;
+							height: 24px;
 							display: block;
 							padding: 0;
-							margin: -2px 0 0 10px;
-							background: url('../images/social-icons.png') no-repeat;
+							margin: -2px 0 0 20px;
+							background: url('../images/social-icons-mint.png') no-repeat;
 							.no-text();
 						}
 						&[title='Instagram'] {
 							width: 25px;
-							height: 28px;
+							height: 24px;
 							display: block;
 							padding: 0;
 							margin: -2px 0 0 10px;
-							background: url('../images/social-icons.png') -28px 0 no-repeat;
+							background: url('../images/social-icons-mint.png') -36px 0 no-repeat;
 							.no-text();
 						}
 						&[title='Pinterest'] {
 							width: 25px;
-							height: 28px;
+							height: 24px;
 							display: block;
 							padding: 0;
-							margin: -2px 0 0 10px;
-							background: url('../images/social-icons.png') -56px 0 no-repeat;
+							margin: -2px 0 0 8px;
+							background: url('../images/social-icons-mint.png') -70px 0 no-repeat;
 							.no-text();
 						}
 					}
@@ -419,7 +408,7 @@ body.home {
 	}
 	#primary {
 		position: relative;
-		min-height: 600px;
+		min-height: 650px;
 	}
 	// "The Minster" hard code type treatment
 	.minster-type-treatment {
@@ -555,62 +544,69 @@ body.single-products {
 /**
  *	Shopping Cart Styles
  */
-a.shoppingcartshow { cursor: pointer; }
+
+.shoppingcartshow { // "Shoppping Cart" icon
+	cursor: pointer;
+	background: url('../images/cart-icon.png') no-repeat;
+	float: right;
+	width: 27px; 
+	height: 21px;
+	text-indent: -9999px;
+	margin-top: 15px;
+}
 body { // Some specificity to overwrite some hard to reach styles
 	.popover.bottom {
 		position: fixed;
-		top: 174px !important;
+		top: 156px !important;
 		margin-top: -15px;
-		margin-left: -164px;
-		min-width: 290px;
+		margin-left: -447px;
+		min-width: 600px;
 		max-width: none;
-		background: rgba(228, 225, 219, 0.9);
+		background: #FFF;
 		border: none;
 		z-index: 9999;
 		.roundCorners(0px);
 		.arrow {
-			right: 10px;
-			left: auto;
-			 border-bottom-color: rgba(228, 225, 219, 0.9);
-			&:after { border-bottom-color: rgba(228, 225, 219, 0.9); opacity: 0.9; }
+			display: none;
 		}
-	}
-	.popover-content {
-		#font-family > .raleway;
-		font-size: 16px;
-		font-weight: 300;
-		padding: 19px 24px 15px 25px;
-		h1 {
-			margin: 0 0 20px 0;
-			color: #666;
-			font-family: 'Georgia', sans-serif;
-			font-weight: normal;
-			font-size: 48px;
-			font-style: italic;
-			text-transform: lowercase;
-		}
-		hr { border-bottom: none; border-top: 1px dotted #FFF; }
-		.checkout { margin: 0 auto; }
-		.shopping-cart-product {
-			margin: 10px 0;
-			color: #666;
-			.product-meta-title { display: none; }
-			.product-color { text-transform: capitalize; }
-			a.btn {
-				&.remove {
-					background: none;
-					border: none;
-					color: #666;
-					padding: 0;
-					text-shadow: none;
-					box-shadow: none;
-					margin: -5px 0 0 10px;
-				}
+		.popover-content {
+			#font-family > .raleway;
+			font-size: 16px;
+			font-weight: 300;
+			padding: 19px 24px 15px 25px;
+			h1 {
+				margin: 0 0 20px 0;
+				#font-family > .josefin;
+				color: @darkGray;
+				font-size: 18px;
+				font-weight: 300;
+				text-transform: uppercase;
+				text-decoration: underline;
 			}
-		} // .shopping-cart-product
-		.product-subtotal { display: none; }
-		.checkout-totals { display: none; }
-	} // .popover-content
+			hr { border-bottom: none; border-top: 1px dotted #FFF; }
+			.checkout { margin: 0 auto; }
+			.shopping-cart-product {
+				margin: 10px 0;
+				color: #666;
+				.product-meta-title { display: none; }
+				.product-color { text-transform: capitalize; }
+				a.btn {
+					&.remove {
+						background: none;
+						border: none;
+						color: #666;
+						padding: 0;
+						text-shadow: none;
+						box-shadow: none;
+						margin: -5px 0 0 10px;
+					}
+				}
+			} // .shopping-cart-product
+			//.product-subtotal { display: none; }
+			//.checkout-totals { display: none; }
+		} // .popover-content
+
+	}
 }
 
 /**
@@ -985,10 +981,8 @@ input.error { border: 1px solid @redAccent !important; }
 				header#navbar {
 					padding: 30px 0 0 0;
 					.navbar-inner {
-						.shoppingcart {
-							a {
-								float: none;
-							}
+						.shoppingcartshow {
+							float: none;
 						}
 					}
 				}

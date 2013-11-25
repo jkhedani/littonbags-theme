@@ -11,13 +11,14 @@
 
 	</div><!-- #main .site-main -->
 	<footer id="colophon" class="site-footer" role="contentinfo">
-		<h3 class="explore-title">Explore</h3>
+		<div class="container">
 		<?php
 			wp_nav_menu(array(
 				'menu' => 'footer-menu',
-				'menu_class' => 'nav-pills pull-right'
+				// 'menu_class' => 'nav-pills pull-right'
 			));
 		?>
+		</div>
 	</footer><!-- #colophon .site-footer -->
 	</div><!-- #page .hfeed .site -->
 

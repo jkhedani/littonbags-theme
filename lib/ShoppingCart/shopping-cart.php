@@ -31,7 +31,6 @@ function refresh_shopping_cart() {
 		foreach ( $products as $product ) {
 			$itemID = ""; // Grab the product ID for use outside this loop
 			$itemQty = ""; // Grab the product Qty for use outside this loop
-			$html .= '<div class="shopping-cart-product" data-jStorage-key="'.$product['key'].'">';
 			foreach ($product as $key => $value) { // For each individual product
 				//Get Product Name/Post Data
 				if ($key == 'postID') {
@@ -42,26 +41,23 @@ function refresh_shopping_cart() {
 					while($productsInCart->have_posts()) : $productsInCart->the_post();
 						$currentPostID = $post->ID;
 						$itemID = $currentPostID;
-						$html .= '<span class="product-title">'.get_the_title().'</span><span class="pipe">|</span>';
+						$itemTitle = get_the_title();
 						$productDescription = $productDescription . $currentPostID . ','; // Add ID to product description
 						$productDescription = $productDescription . get_the_title() . ','; // Add Title to product description
 					endwhile;
 					wp_reset_postdata();
 				}
 				// Get Product Color
-				if($key == 'color') {
-					$html .= '<span class="product-color" data-product-color="'.$value.'"><span class="product-meta-title">Color: </span>';
-					if ($value == 'none') {
-						$html .= 'n/a';
+				if ( $key == 'color' ) {
+					if ( $value == 'none' ) {
+						$itemColor = 'n/a';
 					} else {
-						$html .= $value;
+						$itemColor = $value;
 					}
-					$html .= '</span><span class="pipe">|</span>';
 					$productDescription = $productDescription . $value . ','; // Add Color to product description
 				}
 				// Get Product Qty
-				if($key == 'qty') {
-					$html .= '<span class="product-qty" data-product-qty="'.$value.'"><span class="product-meta-title">Quantity: </span>'.$value.'</span>';
+				if ( $key == 'qty' ) {
 					$itemQty = $value;
 					$productDescription = $productDescription . $value; // Add Quantity to product description;
 				}
@@ -72,18 +68,25 @@ function refresh_shopping_cart() {
 			 */
 
 			// Generate Individual Product Cost
-			//$productPrice = get_field('product_price', $itemID); // For some reason, get_field() doesn't work here.
-			$productPrice = get_post_meta( $itemID, 'product_price', true );
+			$productPrice = get_post_meta( $itemID, 'product_price', true ); // For some reason, get_field() doesn't work here.
 			$productPriceInDollars = money_format('%n', $productPrice/100); // in 'dollars'
-	    $html .= '<span class="pipe">|</span><span class="product-cost" data-product-cost="'.$productPrice.'">'.$productPriceInDollars.'</span>';
 
 	    // Generate Individual Product Subtotal
 	    $individualProductSubtotal = $productPrice * $itemQty;
 	    $productPriceInDollars = money_format('%n', $individualProductSubtotal/100); // in 'dollars'
-	    $html .= '<span class="pipe">|</span><span class="product-subtotal"> Subtotal: '.$productPriceInDollars.'</span>';
 
 	    // Generate Entire Shopping Cart Subtotal
 	    $grandSubtotal += $individualProductSubtotal;
+
+	    /**
+	     *	Popover Output
+	     */
+	    $html .= '<div class="shopping-cart-product" data-jStorage-key="'.$product['key'].'">';
+	    $html .= 	'<span class="product-title">'.$itemTitle.'</span>';
+	    $html .= 	'<span class="product-color" data-product-color="'.$itemColor.'"><span class="product-meta-title">Color: </span>'.$itemColor.'</span>';
+	    $html .= 	'<span class="product-price" data-product-price="'.$productPrice.'">'.$productPriceInDollars.'</span>';
+	    $html .= 	'<span class="product-qty" data-product-qty="'.$itemQty.'">'.$itemQty.'</span>';
+	    $html .= '<span class="product-subtotal">'.$productPriceInDollars.'</span>';
 
 			/*
 			 * Cleanup

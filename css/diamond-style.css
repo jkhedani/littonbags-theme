@@ -392,6 +392,10 @@
   font-family: 'Raleway', serif;
   font-weight: normal;
 }
+#font-family .josefin {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: normal;
+}
 /**
  *	Mixins
  */
@@ -551,14 +555,6 @@ html body #page header#navbar .navbar-inner .site-title {
   padding: 0;
   margin: -6px 0 0 0;
 }
-html body #page header#navbar .navbar-inner .shoppingcart a {
-  background: url('../images/cart-icon.png') no-repeat;
-  float: right;
-  width: 27px;
-  height: 21px;
-  text-indent: -9999px;
-  margin-top: 15px;
-}
 html body #page #main {
   overflow: hidden;
   margin: 141px 0 0 0;
@@ -572,61 +568,56 @@ html body footer#colophon {
   overflow: hidden;
   position: relative;
 }
-html body footer#colophon h3.explore-title {
-  position: absolute;
-  right: 381px;
-  margin: 37px 0 0 0;
-  width: 105px;
-  background: url('../images/explore-text-3.png') no-repeat;
-  text-indent: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-}
-html body footer#colophon #menu-footer-menu {
+html body footer#colophon ul#menu-footer-menu {
   min-width: 425px;
-  background: url('../images/footer-ribbon-2.png') no-repeat;
-  padding: 20px 20px 20px 50px;
-  margin: 45px 0 0 0;
+  margin: 15px 0;
+  float: right;
 }
-html body footer#colophon #menu-footer-menu li {
+html body footer#colophon ul#menu-footer-menu li {
+  float: left;
   list-style: none;
 }
-html body footer#colophon #menu-footer-menu li a {
+html body footer#colophon ul#menu-footer-menu li:first-child a {
+  margin: 0;
+}
+html body footer#colophon ul#menu-footer-menu li a {
   font-family: 'Open Sans', sans-serif;
   font-size: 9px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
+  color: #737a7d;
+  margin-left: 20px;
+  display: block;
 }
-html body footer#colophon #menu-footer-menu li a[title='Facebook'] {
+html body footer#colophon ul#menu-footer-menu li a[title='Facebook'] {
   width: 25px;
-  height: 28px;
+  height: 24px;
   display: block;
   padding: 0;
-  margin: -2px 0 0 10px;
-  background: url('../images/social-icons.png') no-repeat;
+  margin: -2px 0 0 20px;
+  background: url('../images/social-icons-mint.png') no-repeat;
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
 }
-html body footer#colophon #menu-footer-menu li a[title='Instagram'] {
+html body footer#colophon ul#menu-footer-menu li a[title='Instagram'] {
   width: 25px;
-  height: 28px;
+  height: 24px;
   display: block;
   padding: 0;
   margin: -2px 0 0 10px;
-  background: url('../images/social-icons.png') -28px 0 no-repeat;
+  background: url('../images/social-icons-mint.png') -36px 0 no-repeat;
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
 }
-html body footer#colophon #menu-footer-menu li a[title='Pinterest'] {
+html body footer#colophon ul#menu-footer-menu li a[title='Pinterest'] {
   width: 25px;
-  height: 28px;
+  height: 24px;
   display: block;
   padding: 0;
-  margin: -2px 0 0 10px;
-  background: url('../images/social-icons.png') -56px 0 no-repeat;
+  margin: -2px 0 0 8px;
+  background: url('../images/social-icons-mint.png') -70px 0 no-repeat;
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
@@ -785,7 +776,7 @@ body.home #menu-highlight-menu li a {
 }
 body.home #primary {
   position: relative;
-  min-height: 600px;
+  min-height: 650px;
 }
 body.home .minster-type-treatment {
   position: absolute;
@@ -993,17 +984,23 @@ body.single-products .jquery-color-selection ul li a:hover {
 /**
  *	Shopping Cart Styles
  */
-a.shoppingcartshow {
+.shoppingcartshow {
   cursor: pointer;
+  background: url('../images/cart-icon.png') no-repeat;
+  float: right;
+  width: 27px;
+  height: 21px;
+  text-indent: -9999px;
+  margin-top: 15px;
 }
 body .popover.bottom {
   position: fixed;
-  top: 174px !important;
+  top: 156px !important;
   margin-top: -15px;
-  margin-left: -164px;
-  min-width: 290px;
+  margin-left: -447px;
+  min-width: 600px;
   max-width: none;
-  background: rgba(228, 225, 219, 0.9);
+  background: #FFF;
   border: none;
   z-index: 9999;
   -webkit-border-radius: 0px;
@@ -1011,48 +1008,43 @@ body .popover.bottom {
   border-radius: 0px;
 }
 body .popover.bottom .arrow {
-  right: 10px;
-  left: auto;
-  border-bottom-color: rgba(228, 225, 219, 0.9);
+  display: none;
 }
-body .popover.bottom .arrow:after {
-  border-bottom-color: rgba(228, 225, 219, 0.9);
-  opacity: 0.9;
-}
-body .popover-content {
+body .popover.bottom .popover-content {
   font-family: 'Raleway', serif;
   font-weight: normal;
   font-size: 16px;
   font-weight: 300;
   padding: 19px 24px 15px 25px;
 }
-body .popover-content h1 {
+body .popover.bottom .popover-content h1 {
   margin: 0 0 20px 0;
-  color: #666;
-  font-family: 'Georgia', sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-weight: normal;
-  font-size: 48px;
-  font-style: italic;
-  text-transform: lowercase;
+  color: #737a7d;
+  font-size: 18px;
+  font-weight: 300;
+  text-transform: uppercase;
+  text-decoration: underline;
 }
-body .popover-content hr {
+body .popover.bottom .popover-content hr {
   border-bottom: none;
   border-top: 1px dotted #FFF;
 }
-body .popover-content .checkout {
+body .popover.bottom .popover-content .checkout {
   margin: 0 auto;
 }
-body .popover-content .shopping-cart-product {
+body .popover.bottom .popover-content .shopping-cart-product {
   margin: 10px 0;
   color: #666;
 }
-body .popover-content .shopping-cart-product .product-meta-title {
+body .popover.bottom .popover-content .shopping-cart-product .product-meta-title {
   display: none;
 }
-body .popover-content .shopping-cart-product .product-color {
+body .popover.bottom .popover-content .shopping-cart-product .product-color {
   text-transform: capitalize;
 }
-body .popover-content .shopping-cart-product a.btn.remove {
+body .popover.bottom .popover-content .shopping-cart-product a.btn.remove {
   background: none;
   border: none;
   color: #666;
@@ -1060,12 +1052,6 @@ body .popover-content .shopping-cart-product a.btn.remove {
   text-shadow: none;
   box-shadow: none;
   margin: -5px 0 0 10px;
-}
-body .popover-content .product-subtotal {
-  display: none;
-}
-body .popover-content .checkout-totals {
-  display: none;
 }
 /**
  *	Checkout Modal
@@ -1521,7 +1507,7 @@ input.error {
   html body #page header#navbar {
     padding: 30px 0 0 0;
   }
-  html body #page header#navbar .navbar-inner .shoppingcart a {
+  html body #page header#navbar .navbar-inner .shoppingcartshow {
     float: none;
   }
   html body #page #main {
