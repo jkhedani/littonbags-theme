@@ -21,23 +21,45 @@ function stripe_process_payment() {
 	   */
 		$subtotal = 0;
 		$quantity = 0;
-		$desiredProducts = explode('|', $desc);
+		$desiredProducts = explode('|', $desc); // Separates multiple products
 		foreach ($desiredProducts as $desiredProduct) {
 			$desiredProductValues = explode(',',$desiredProduct);
 			foreach ($desiredProductValues as $key => $value) {
 				// Returns PostID
 				if ( $key == 0 ) {
+					$postID = $value;
+				}
+				// Returns Color
+				if ( $key  == 2 ) {
+					// Use color to cross reference actual price (option based)
+					$productColor = $value;
+					$productOptions = get_field( 'product_options', $postID );
+					$standardPrice = get_field( 'product_price', $postID );
+					$optionPrice = "";
+					// Iterate through options to find the current options selected (looking for option based on color)
+					foreach ( $productOptions as $productOption ) {
+						if ( $productOption['product_color_name'] == $productColor ) {
+							$optionPrice = $productOption['product_option_price'];
+						}
+					}
+					// If cost of the option differs from the product price, set the product cost to the option amount
+					if ( ( $optionPrice != $standardPrice ) &&  ( $optionPrice != 0 ) ) {
+						$actualPrice = $optionPrice;
+					} else {
+						$actualPrice = $standardPrice;
+					}
+					$productPrice = $actualPrice;
 					//$productPrice = get_field('product_price', $value); // Individual product price
-					$productPrice = get_post_meta( $value, 'product_price', true );
+					//$productPrice = get_post_meta( $value, 'product_price', true );
+
 				}
 				// Returns Quantity
-				if($key == 3) {
-				$quantity = $value;
+				if ( $key == 3 ) {
+					$quantity = $value;
 				}
 				$temp = $productPrice * $quantity; // For each product, calculate total cost before tax
 			}
 			$subtotal += $temp; // Add each product total to the subtotal
-
 		}
 		$currenttaxrate = $stripe_options['tax_rate'];
 		$tax = round($subtotal * $currenttaxrate); // Round tax to an integer (rounds up after .5)

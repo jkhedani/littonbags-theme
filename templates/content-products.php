@@ -38,11 +38,13 @@
 		 * User Selected Options
 		 */
 
+		// Get Product Options (price, colors options, etc.)
+		$productOptions = get_field('product_options');
+
 		// Price
 		if ( get_field('product_price') ) {
-			$priceInPennies = get_field('product_price');
-			$preTaxCost = money_format('%n', $priceInPennies/100);
-			echo '<span class="product-cost">$'.$preTaxCost.'</span>';
+			$productPrice = get_field('product_price');
+			echo '<span class="product-price" data-standard-product-price="'.format_money( $productPrice, 'US' ).'">'.format_money( $productPrice, 'US' ).'</span>';
 		}
 
 		// Quantity Options
@@ -54,12 +56,12 @@
 		echo '</select>';
 
 		// Color Options
-		if (get_field('product_color_options')) {
-			$colorOptions = get_field('product_color_options');
+		if ( get_field('product_options') ) {
+			//$colorOptions = get_field('product_color_options');
 			echo '<h3 class="product-color-title">Select a Color</h3>';
 			echo '<select class="product-color-selection">';
-			foreach ($colorOptions as $colorOption) {
-				echo '<option value="'.$colorOption.'">'.$colorOption.'</option>';
+			foreach ($productOptions as $productOption) {
+				echo '<option value="'.$productOption['product_color_name'].'" data-background-color="'.$productOption['product_color'].'" data-option-price="'.format_money( $productOption['product_option_price'], 'US' ).'">'.$productOption['product_color_name'].'</option>';
 			}
 			echo '</select>';
 		}

@@ -67,15 +67,25 @@ function refresh_shopping_cart() {
 			 * Generate User-facing totals 
 			 */
 
-			// Generate Individual Product Cost
-			$productPrice = get_post_meta( $itemID, 'product_price', true ); // For some reason, get_field() doesn't work here.
-			$productPriceInDollars = money_format('%n', $productPrice/100); // in 'dollars'
+			$productOptions = get_field( 'product_options' );
+			$productPrice = get_field( 'product_price' );
+			// Iterate through options to find the current options selected (looking for option based on color)
+			foreach ( $productOptions as $productOption ) {
+				if ( $productOption['product_color_name'] == $itemColor ) {
+					$optionPrice = $productOption['product_option_price'];
+				}
+			}
+			// If cost of the option differs from the product price, set the product cost to the option amount
+			if ( ( $optionPrice != $productPrice ) &&  ( $optionPrice != 0 ) ) {
+				$actualPrice = $optionPrice;
+			} else {
+				$actualPrice = $productPrice;
+			}
 
 	    // Generate Individual Product Subtotal
-	    $individualProductSubtotal = $productPrice * $itemQty;
-	    $productPriceInDollars = money_format('%n', $individualProductSubtotal/100); // in 'dollars'
+	    $individualProductSubtotal = $actualPrice * $itemQty;
 
-	    // Generate Entire Shopping Cart Subtotal
+	    // Add individual product subtotal to the grand subtotal
 	    $grandSubtotal += $individualProductSubtotal;
 
 	    /**
@@ -84,9 +94,9 @@ function refresh_shopping_cart() {
 	    $html .= '<div class="shopping-cart-product" data-jStorage-key="'.$product['key'].'">';
 	    $html .= 	'<span class="product-title">'.$itemTitle.'</span>';
 	    $html .= 	'<span class="product-color" data-product-color="'.$itemColor.'"><span class="product-meta-title">Color: </span>'.$itemColor.'</span>';
-	    $html .= 	'<span class="product-price" data-product-price="'.$productPrice.'">'.$productPriceInDollars.'</span>';
+	    $html .= 	'<span class="product-price" data-product-price="'.$actualPrice.'">'.format_money($actualPrice,'US').'</span>';
 	    $html .= 	'<span class="product-qty" data-product-qty="'.$itemQty.'">'.$itemQty.'</span>';
-	    $html .= '<span class="product-subtotal">'.$productPriceInDollars.'</span>';
+	    $html .= '<span class="product-subtotal">'.format_money($individualProductSubtotal,'US').'</span>';
 
 			/*
 			 * Cleanup
@@ -108,22 +118,22 @@ function refresh_shopping_cart() {
 
 		// Generate user readable versions of Totals
 		// Subtotals
-		$subtotal_productPriceInDollars = money_format('%n', $grandSubtotal/100); // in 'dollars'
+		//$subtotal_productPriceInDollars = money_format('%n', $grandSubtotal/100); // in 'dollars'
 		
 		// Tax
 		$currenttaxrate = $stripe_options['tax_rate'];
 		$tax = round($grandSubtotal * $currenttaxrate);
-		$tax_productPriceInDollars = money_format('%n', $tax/100); // in 'dollars'
+		//$tax_productPriceInDollars = money_format('%n', $tax/100); // in 'dollars'
 
 		// Grand
 		$grandTotal = intval($grandSubtotal + $tax);
-		$grand_productPriceInDollars = money_format('%n', $grandTotal/100); // in 'dollars'
+		// $grand_productPriceInDollars = money_format('%n', $grandTotal/100); // in 'dollars'
 
 		// Display Subtotal, Add Tax/Fees/Whatever & show Grand Total
 		$html .= '<div class="checkout-totals">';
-		$html .= '<div class="subtotal"><span class="total-title">Subtotal: </span>'.$subtotal_productPriceInDollars.'</div>';
-		$html .= '<div class="auxfees"><span class="total-title">Tax ('.$currenttaxrate.'%): </span>'.$tax_productPriceInDollars.'</div>';
-		$html .= '<div class="total"><span class="total-title">Total: </span>'.$grand_productPriceInDollars.'</div>';
+		$html .= '<div class="subtotal"><span class="total-title">Subtotal: </span>'.format_money($grandSubtotal,'US').'</div>';
+		$html .= '<div class="auxfees"><span class="total-title">Tax ('.$currenttaxrate.'%): </span>'.format_money($tax,'US').'</div>';
+		$html .= '<div class="total"><span class="total-title">Total: </span>'.format_money($grandTotal,'US').'</div>';
 		$html .= '</div>';
 
 	} // If products are being set	

@@ -6,6 +6,174 @@
  */
 
 /**
+ *  Register Field Groups
+ *
+ *  The register_field_group function accepts 1 array which holds the relevant data to register a field group
+ *  You may edit the array as you see fit. However, this may result in errors if the array is not compatible with ACF
+ */
+
+if(function_exists("register_field_group"))
+{
+    register_field_group(array (
+        'id' => 'acf_product-details',
+        'title' => 'Product Details',
+        'fields' => array (
+            array (
+                'key' => 'field_5292ec4ae2a07',
+                'label' => 'Product Options',
+                'name' => 'product_options',
+                'type' => 'repeater',
+                'sub_fields' => array (
+                    array (
+                        'key' => 'field_5292ec62e2a08',
+                        'label' => 'Product Color Name',
+                        'name' => 'product_color_name',
+                        'type' => 'text',
+                        'column_width' => '',
+                        'default_value' => '',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'formatting' => 'html',
+                        'maxlength' => '',
+                    ),
+                    array (
+                        'key' => 'field_529ac9f2ab9c9',
+                        'label' => 'Product Color',
+                        'name' => 'product_color',
+                        'type' => 'color_picker',
+                        'instructions' => 'Select a close color for this option.',
+                        'default_value' => '',
+                    ),
+                    array (
+                        'key' => 'field_5292ec76e2a09',
+                        'label' => 'Product Checkout Image Preview',
+                        'name' => 'product_checkout_image_preview',
+                        'type' => 'image',
+                        'column_width' => '',
+                        'save_format' => 'url',
+                        'preview_size' => 'thumbnail',
+                        'library' => 'all',
+                    ),
+                    array (
+                        'key' => 'field_529ac989c7bcc',
+                        'label' => 'Product Option Price',
+                        'name' => 'product_option_price',
+                        'type' => 'number',
+                        'instructions' => 'Enter the price of the product in cents(USD) e.g. "34900"',
+                        'default_value' => '',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'min' => '',
+                        'max' => '',
+                        'step' => '',
+                    ),
+                ),
+                'row_min' => 0,
+                'row_limit' => '',
+                'layout' => 'row',
+                'button_label' => 'Add Option',
+            ),
+            array (
+                'default_value' => '',
+                'key' => 'field_51760a56678b4',
+                'label' => 'Product Price',
+                'name' => 'product_price',
+                'type' => 'number',
+                'instructions' => 'Enter the price of the product in cents(USD) e.g. "34900"',
+                'required' => 1,
+            ),
+            array (
+                'layout' => 'vertical',
+                'choices' => array (
+                    'black' => 'Black',
+                    'white' => 'White',
+                    'taupe' => 'Taupe',
+                ),
+                'default_value' => '',
+                'key' => 'field_517874920f218',
+                'label' => 'Color Options',
+                'name' => 'product_color_options',
+                'type' => 'checkbox',
+                'instructions' => 'If there are color options available for the product, check all that apply below. Otherwise, leave checkboxes blank.',
+            ),
+            array (
+                'default_value' => '',
+                'formatting' => 'html',
+                'key' => 'field_51da38849cb71',
+                'label' => 'Product Subtitle',
+                'name' => 'product_subtitle',
+                'type' => 'text',
+            ),
+            array (
+                'default_value' => '',
+                'key' => 'field_5240e5123eb58',
+                'label' => 'Shipping Weight',
+                'name' => 'shipping_weight',
+                'type' => 'number',
+                'instructions' => 'Input the weight of the parcel in OZ.',
+                'required' => 1,
+            ),
+            array (
+                'default_value' => '',
+                'key' => 'field_5240e59863d1c',
+                'label' => 'Shipping Length',
+                'name' => 'shipping_length',
+                'type' => 'number',
+                'instructions' => 'Input the length of the parcel in IN.',
+                'required' => 1,
+            ),
+            array (
+                'default_value' => '',
+                'key' => 'field_5240e5cc63d1d',
+                'label' => 'Shipping Width',
+                'name' => 'shipping_width',
+                'type' => 'number',
+                'instructions' => 'Input the width of the parcel in IN.',
+                'required' => 1,
+            ),
+            array (
+                'default_value' => '',
+                'key' => 'field_5240e5da63d1e',
+                'label' => 'Shipping Height',
+                'name' => 'shipping_height',
+                'type' => 'number',
+                'instructions' => 'Input the height of the parcel in IN.',
+                'required' => 1,
+            ),
+            array (
+                'default_value' => 0,
+                'message' => '',
+                'key' => 'field_52085b419ca0d',
+                'label' => 'Product Sold Out',
+                'name' => 'product_sold_out',
+                'type' => 'true_false',
+                'instructions' => 'Did you sell out of this product?',
+            ),
+        ),
+        'location' => array (
+            array (
+                array (
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'products',
+                    'order_no' => 0,
+                    'group_no' => 0,
+                ),
+            ),
+        ),
+        'options' => array (
+            'position' => 'normal',
+            'layout' => 'default',
+            'hide_on_screen' => array (
+            ),
+        ),
+        'menu_order' => 0,
+    ));
+}
+
+/**
  *  Helper Functions
  */
 
@@ -21,6 +189,17 @@ function generateRandomOrderNumber( $length ) {
     return implode(array_slice($chars, 0, $length));
 }
 
+// Money formatter
+// Accepts only cents
+function format_money( $amount, $currencyType ) {
+    // Format: US
+    if ( $currencyType == 'US' ) {
+        $nonos = array( '.', '$' ); // Set possible objects to strip
+        $priceInPennies = str_replace( $nonos, '', $amount); // ensure cents
+        $prettyMoney = money_format( '%n', $priceInPennies/100 ); // Format yo cash
+        return $prettyMoney;
+    }
+}
 
 /**
  *  Globals & Constants
@@ -175,152 +354,6 @@ function LTTNBAGS_taxonomies() {
   ));
 }
 add_action( 'init', 'LTTNBAGS_taxonomies');
-
-/**
- *  Register Field Groups
- *
- *  The register_field_group function accepts 1 array which holds the relevant data to register a field group
- *  You may edit the array as you see fit. However, this may result in errors if the array is not compatible with ACF
- */
-
-if(function_exists("register_field_group"))
-{
-    register_field_group(array (
-        'id' => 'acf_product-details',
-        'title' => 'Product Details',
-        'fields' => array (
-            array (
-                'key' => 'field_5292ec4ae2a07',
-                'label' => 'Product Options',
-                'name' => 'product_options',
-                'type' => 'repeater',
-                'sub_fields' => array (
-                    array (
-                        'key' => 'field_5292ec62e2a08',
-                        'label' => 'Product Color',
-                        'name' => 'product_color',
-                        'type' => 'text',
-                        'column_width' => '',
-                        'default_value' => '',
-                        'placeholder' => '',
-                        'prepend' => '',
-                        'append' => '',
-                        'formatting' => 'html',
-                        'maxlength' => '',
-                    ),
-                    array (
-                        'key' => 'field_5292ec76e2a09',
-                        'label' => 'Product Image Preview',
-                        'name' => 'product_image_preview',
-                        'type' => 'image',
-                        'column_width' => '',
-                        'save_format' => 'url',
-                        'preview_size' => 'thumbnail',
-                        'library' => 'all',
-                    ),
-                ),
-                'row_min' => 0,
-                'row_limit' => '',
-                'layout' => 'row',
-                'button_label' => 'Add Option',
-            ),
-            array (
-                'default_value' => '',
-                'key' => 'field_51760a56678b4',
-                'label' => 'Product Price',
-                'name' => 'product_price',
-                'type' => 'number',
-                'instructions' => 'Enter the price of the product in cents(USD) e.g. "34900"',
-                'required' => 1,
-            ),
-            array (
-                'layout' => 'vertical',
-                'choices' => array (
-                    'black' => 'Black',
-                    'white' => 'White',
-                    'taupe' => 'Taupe',
-                ),
-                'default_value' => '',
-                'key' => 'field_517874920f218',
-                'label' => 'Color Options',
-                'name' => 'product_color_options',
-                'type' => 'checkbox',
-                'instructions' => 'If there are color options available for the product, check all that apply below. Otherwise, leave checkboxes blank.',
-            ),
-            array (
-                'default_value' => '',
-                'formatting' => 'html',
-                'key' => 'field_51da38849cb71',
-                'label' => 'Product Subtitle',
-                'name' => 'product_subtitle',
-                'type' => 'text',
-            ),
-            array (
-                'default_value' => '',
-                'key' => 'field_5240e5123eb58',
-                'label' => 'Shipping Weight',
-                'name' => 'shipping_weight',
-                'type' => 'number',
-                'instructions' => 'Input the weight of the parcel in OZ.',
-                'required' => 1,
-            ),
-            array (
-                'default_value' => '',
-                'key' => 'field_5240e59863d1c',
-                'label' => 'Shipping Length',
-                'name' => 'shipping_length',
-                'type' => 'number',
-                'instructions' => 'Input the length of the parcel in IN.',
-                'required' => 1,
-            ),
-            array (
-                'default_value' => '',
-                'key' => 'field_5240e5cc63d1d',
-                'label' => 'Shipping Width',
-                'name' => 'shipping_width',
-                'type' => 'number',
-                'instructions' => 'Input the width of the parcel in IN.',
-                'required' => 1,
-            ),
-            array (
-                'default_value' => '',
-                'key' => 'field_5240e5da63d1e',
-                'label' => 'Shipping Height',
-                'name' => 'shipping_height',
-                'type' => 'number',
-                'instructions' => 'Input the height of the parcel in IN.',
-                'required' => 1,
-            ),
-            array (
-                'default_value' => 0,
-                'message' => '',
-                'key' => 'field_52085b419ca0d',
-                'label' => 'Product Sold Out',
-                'name' => 'product_sold_out',
-                'type' => 'true_false',
-                'instructions' => 'Did you sell out of this product?',
-            ),
-        ),
-        'location' => array (
-            array (
-                array (
-                    'param' => 'post_type',
-                    'operator' => '==',
-                    'value' => 'products',
-                    'order_no' => 0,
-                    'group_no' => 0,
-                ),
-            ),
-        ),
-        'options' => array (
-            'position' => 'normal',
-            'layout' => 'default',
-            'hide_on_screen' => array (
-            ),
-        ),
-        'menu_order' => 0,
-    ));
-}
 
 
 /**

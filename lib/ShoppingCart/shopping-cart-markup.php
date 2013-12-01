@@ -58,9 +58,9 @@ function render_shopping_cart() {
 	 */
 	echo 	'<div class="checkoutBasicAndPay hide">';
 		// "STRIPE Variables
-		$productPrice = get_field('product_price'); // in 'cents'
-		$productPriceInDollars = $productPrice/100; // in 'dollars'
-		$english_notation = number_format($productPriceInDollars,2,'.',''); // in eng notation 'dollars'
+		// $productPrice = get_field('product_price'); // in 'cents'
+		// $productPriceInDollars = $productPrice/100; // in 'dollars'
+		// $english_notation = number_format($productPriceInDollars,2,'.',''); // in eng notation 'dollars'
 
 		if( isset($_GET['payment']) && $_GET['payment'] == 'paid') {
 			echo '<p class="success">' . __('Thank you for your payment.', 'litton_bags') . '</p>';

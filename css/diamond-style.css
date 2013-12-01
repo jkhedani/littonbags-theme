@@ -1082,7 +1082,7 @@ body.single-products #page #main #content article .product-content select {
   width: 50px;
   margin: 0 0 10px 0;
 }
-body.single-products #page #main #content article .product-content .product-cost {
+body.single-products #page #main #content article .product-content .product-price {
   font-family: 'Georgia', serif;
   font-weight: normal;
   display: block;
@@ -1136,28 +1136,11 @@ body.single-products .jquery-color-selection ul li {
   list-style: none;
 }
 body.single-products .jquery-color-selection ul li a {
+  color: #FFF;
   display: block;
   text-transform: uppercase;
   margin-bottom: 5px;
   padding: 8px 10px;
-}
-body.single-products .jquery-color-selection ul li a.white {
-  background-color: #FFF;
-  color: #FFF;
-}
-body.single-products .jquery-color-selection ul li a.black {
-  background-color: #000;
-  color: #000;
-}
-body.single-products .jquery-color-selection ul li a.taupe {
-  background-color: #bcb1a1;
-  color: #bcb1a1;
-}
-body.single-products .jquery-color-selection ul li a.selected {
-  color: #FFF;
-  font-family: 'Raleway', serif;
-  font-weight: normal;
-  font-size: 12px;
 }
 body.single-products .jquery-color-selection ul li a:hover {
   text-decoration: none;
