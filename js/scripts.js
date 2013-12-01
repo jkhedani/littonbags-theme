@@ -12,6 +12,9 @@ jQuery(document).ready(function($){
 		}, 0);
 	});
 
+	// Carousel sliders
+	$('.carousel').carousel();
+
 	// "Shop"
 	if($('body').hasClass('shop')) {
 		$('#product-type-tabs').tab('show');

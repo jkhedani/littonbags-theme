@@ -21,7 +21,6 @@ get_header(); ?>
 				<span class="minster-flair">~</span>
 				<span class="subtitle"><?php _e('A Luxury Camera Bag','litton_bags'); ?></span>
 				<br />
-				<a class="btn btn-primary" href="<?php echo get_site_url(); ?>/products/the-minster">discover the bag</a>
 			</div>
 
 		</div><!-- #content .site-content -->

@@ -67,11 +67,17 @@
   	<header id="navbar" class="navbar navbar-fixed-top navbar-inverse">
     	<div class="navbar-inner">
         <div class="container">
+          <!-- Site Logo -->
           <a class="site-title" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>    
+
           <!-- Shopping Cart Trigger -->
           <div class="shoppingcart">
             <a href="javascript:void(0);" class="shoppingcartshow">Cart</a>
-          </div>          
+          </div>
+          <!-- Site Main Menu -->
+          <?php wp_nav_menu( array( 'menu' => 'main-menu',
+            // 'menu_class' => 'nav-pills pull-right'
+          )); ?>
         </div>
     	</div><!-- .navbar-inner -->
     </header><!-- #navbar -->
@@ -80,6 +86,19 @@
 
     <!-- Background image -->
     <?php if ( is_front_page() ) : ?>
-      <?php $home_featured_image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full'); ?>
-      <div class="background-image" style="background-image:url(<?php echo $home_featured_image[0]; ?>);"></div>
+      
+      <div id="homeCarousel" class="carousel slide">
+        <div class="carousel-inner">
+        <?php $home_featured_gallery = get_field('home_gallery'); ?>
+        <?php foreach ( $home_featured_gallery as $home_featured_gallery_meta ) { ?>
+            <div class="background-image item active" style="background-image:url(<?php echo $home_featured_gallery_meta['home_gallery_image']; ?>);"></div>
+        <?php } ?>
+        </div><!-- .carousel-inner -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+      </div><!-- .carousel -->
+
+      <!-- The Minster Call To Action -->
+      <a class="btn btn-primary btn-primary-home" href="<?php echo get_site_url(); ?>/products/the-minster">Shop The Bag</a>
+      
     <?php endif; ?>

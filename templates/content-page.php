@@ -9,8 +9,6 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('row'); ?>>
 
-	<div class="customer-service"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/customer-service-v1.jpg" alt="Customer Service" /></div>
-
 	<?php echo get_the_post_thumbnail(); ?>
 
 	<header class="entry-header span7">

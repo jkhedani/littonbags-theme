@@ -6,7 +6,10 @@ function render_shopping_cart() {
 	 */
   echo '<div id="checkoutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">';
   echo 	'<div class="container">';
-	echo  	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>';
+  echo 		'<div class="modal-meta">';
+  echo 			'<a class="site-title" href="'.home_url( '/' ).'" title="'. esc_attr( get_bloginfo( 'name', 'display' ) ) .'" rel="home">'.get_bloginfo( 'name' ).'</a>';
+	echo  		'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>';
+	echo 		'</div>'; // .modal-meta
 	
 	/**
 	 *	Checkout Headers
@@ -16,25 +19,21 @@ function render_shopping_cart() {
 	echo 		'<div class="checkoutReview checkoutControls show">';
 	echo  		'<div class="step-count">1 of 3</div>';
 	echo    	'<h3 class="checkoutTitle">'. __('Review Your Cart','litton_bags') .'</h3>';
-	echo 			'<div class="half-stache pink"></div>';
 	echo    '</div>';
 
 	echo 		'<div class="checkoutBasic hide">';
 	echo  		'<div class="step-count">2 of 3</div>';
 	echo    	'<h3 class="checkoutTitle">'. __('Basic Information','litton_bags') .'</h3>';
-	echo 			'<div class="half-stache pink"></div>';
 	echo 		'</div>';
 
 	echo 		'<div class="checkoutPay hide">';
 	echo  		'<div class="step-count">3 of 3</div>';
 	echo    	'<h3 class="checkoutTitle">'. __('Submit Your Payment','litton_bags') .'</h3>';
-	echo 			'<div class="half-stache pink"></div>';
 	echo 		'</div>';
 
 	echo 		'<div class="checkoutProcessing hide">';
 	echo  		'<div class="step-count">Payment & Shipping Being Caluculated</div>';
 	echo    	'<h3 class="checkoutTitle">'. __('Submitting Cart Info','litton_bags') .'</h3>';
-	echo 			'<div class="half-stache pink"></div>';
 	echo 		'</div>';
 
 	echo 		'<div class="checkoutResult hide">';
@@ -195,14 +194,14 @@ function render_shopping_cart() {
 	echo  '</div>'; // .modal-body
 	echo  '<div class="modal-footer">';
 	echo 		'<div class="checkoutReview checkoutControls show">';
-	echo    	'<a class="btn btn-primary choosePaymentMethod">Select Payment Method</a>';
+	echo    	'<a class="btn btn-primary btn-primary-checkout choosePaymentMethod">Select Payment Method</a>';
 	echo 		'</div>';
 	echo 		'<div class="checkoutBasic checkoutControls hide">';
-	echo    	'<a id="submitBasicInfo" class="btn btn-primary">Submit Basic Info</a>'; // [completes step B.1]
+	echo    	'<a id="submitBasicInfo" class="btn btn-primary btn-primary-checkout">Submit Basic Info</a>'; // [completes step B.1]
 	echo 		'</div>';
 	echo 		'<div class="checkoutPay checkoutControls hide">';
 	echo  		'<img class="processing-spinner hide" src="'.get_stylesheet_directory_uri().'/images/ajax-loader-32.gif" alt="Your payment is processing."/>';
-	echo    	'<a class="btn btn-primary submitPayment">Submit Your Payment</a>';
+	echo    	'<a class="btn btn-primary btn-primary-checkout submitPayment">Submit Your Payment</a>';
 	echo 			'<a class="paypal-checkout"><img src="'.get_stylesheet_directory_uri().'/images/paypal-checkout.png" alt="Checkout via Paypal instead." /></a>';
 	echo  	'</div>';
 	echo 		'<div class="checkoutResult checkoutControls hide">';
@@ -212,22 +211,12 @@ function render_shopping_cart() {
 	echo  	'</div>';
 	echo  '</div>'; // .modal-footer
 
-	// Modal Fluff
-	echo '<div class="tilted-frame"></div>';
-	echo '<div class="tilted-frame-deuce"></div>';
-	echo '<div class="stamp-watermark"></div>';
-
-  echo '</div>'; // .container
-
-  // More Modal Fluff
-  echo '<div class="watercolor-blob pink"></div>';
-	echo '<div class="watercolor-blob gold"></div>';
-	echo '<div class="watercolor-blob gray"></div>';
-	echo '<div class="watercolor-blob pink bottom"></div>';
-	echo '<div class="watercolor-blob gold bottom"></div>';
+	// Services Used (i.e. Stripe & EasyPost)
 	echo '<div class="services-used-container">';
 	echo 	'<div class="services-used stripe"><a href="http://stripe.com" target="_blank"><i class="stripe-icon"></i></a></div>';
 	echo '</div>';
+
+  echo '</div>'; // .container
 	
 	echo '</div>'; // .modal (#checkout)
 

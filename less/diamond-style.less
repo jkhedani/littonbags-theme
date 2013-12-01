@@ -7,19 +7,23 @@
 @import "../../bedrock/inc/bootstrap/less/modals.less";
 @import "../../bedrock/inc/bootstrap/less/tooltip.less";
 @import "../../bedrock/inc/bootstrap/less/popovers.less";
+@import "../../bedrock/inc/bootstrap/less/carousel.less";
 
 @pinkAccent: #F0BDB7;
 @beigeAccent: #F2E9E1;
 @mapleAccent: rgb(219,88,68);
 @brownAccent: rgb(96,55,55);
 @taupeAccent: rgb(188,177,161);
-@redAccent: rgb(226,60,90);
+@redAccent: rgb(232, 88, 70);
 @darkBrown: rgb(114,85,63);
 @beige: rgb(159, 125, 104);
 @lightBeige: rgb(228, 255, 219);
 
 @lightGray: rgb(237, 238, 237);
 @darkGray: rgb(115, 122, 125);
+@darkestGray: darken( @darkGray, 20%);
+@watermelon: rgb(255, 99, 104);
+@mint: rgb(155, 210, 203);
 
 /**
  *	Fonts
@@ -93,6 +97,9 @@
 	.josefin {
 		font-family: 'Josefin Sans', sans-serif; font-weight: normal;
 	}
+	.droid-sans {
+		font-family: 'Droid Sans', sans-serif; font-weight: normal;
+	}
 }
 
 /**
@@ -135,28 +142,44 @@
 .pipe { color: @grayLighter; padding: 0 7px; }
 a.btn:visited { color: @white; } // Prevents buttons from turning purple :(
 .btn.btn-primary, .btn.btn-primary:visited, .btn.btn-primary:focus {
-	background-color: transparent;
-	border: 0;
-	text-shadow: none;
-	border-radius: 0;
+	background: none;
+	position: relative;
 	box-shadow: none;
-	display: block;
-	#font-family > .georgia;
-	font-style: italic;
-	font-size: 14px;
-	background: url('../images/various-ribbons.png') 50% 0 no-repeat;
-	width: 190px;
-	height: 23px;
-	padding: 5px;
-	margin: 18px 0 0 0;
-	&:hover { background: url('../images/various-ribbons.png') 50% 0 no-repeat; .background-cover(); }
-	.background-cover();
+	border: none;
+	border-radius: 0;
+	padding: 0;
+	.no-text;
+	&.btn-primary-home, &.btn-primary-home:hover {
+		width: 205px;
+		height: 110px;
+		background: url('../images/btn-primary-home.png') no-repeat;
+	}
+	&.btn-primary-add-to-cart, &.btn-primary-add-to-cart:hover {
+		width: 138px;
+		height: 45px;
+		background: url('../images/btn-primary-add-to-cart.png') no-repeat;
+	}
+	&.btn-primary-checkout, &.btn-primary-checkout:hover {
+		width: 106px;
+		height: 45px;
+		background: url('../images/btn-primary-checkout.png') no-repeat;
+	}
 }
-.half-stache {
-	margin: 20px 0 0;
-	&.pink { width: 97px; height: 15px; background: url('../images/half-stache-pink-one.png') no-repeat; }
+.btn.btn-primary:hover {
+	background: inherit;
 }
 .fixed { position: fixed; width: 100%; } // used in tandem with modal to prevent page scrolling
+.site-title {
+	text-indent: -9999px;
+	background: url('../images/litton-ludwig-logo.png') no-repeat;
+	float: left;
+	display: block;
+	width: 163px; 
+	height: 44px;
+	padding: 0;
+	margin: -6px 0 0 0;
+	.no-text();
+}
 ::selection {
 	background: @beigeAccent; /* Safari */
 }
@@ -164,8 +187,32 @@ a.btn:visited { color: @white; } // Prevents buttons from turning purple :(
 	background: @beigeAccent; /* Firefox */
 }
 
-/*
- * General Form Styles
+/**
+ * 	Custom Carousel Styles
+ */
+.carousel { // currently being treated as a full-background gallery
+	margin: 0;
+	position: static;
+	.carousel-inner {
+		position: static;
+	}
+	.carousel-control {
+		height: 80px;
+		width: 30px;
+		color: #FFF;
+		background: rgba(255, 255, 255, 0.2);
+		border-radius: 0;
+		border: none;
+		opacity: 0.9;
+		font-size: 90px;
+		line-height: 60px;
+		&.left { left: 0; }
+		&.right { right: 0; }
+	}
+}
+
+/**
+ * 	General Form Styles
  */
 form {
 	select { width: 100%; }
@@ -200,17 +247,26 @@ html {
 					border: none;
 					border-radius: 0;
 					box-shadow: none;
-					.site-title {
-						text-indent: -9999px;
-						background: url('../images/litton-ludwig-logo.png') no-repeat;
-						float: left;
-						display: block;
-						width: 163px; 
-						height: 44px;
-						padding: 0;
-						margin: -6px 0 0 0;
-						// margin-bottom: 15px;
-						// margin-left: 25px;
+					.container { position: relative; }
+					.menu-main-menu-container {
+						position: absolute;
+						right: 55px;
+						top: 15px;
+						ul {
+							margin: 0;
+							li {
+								list-style: none; 
+								// Shop Link
+								a[title="shop"] {
+									width: 80px;
+									height: 83px;
+									display: block;
+									background: url('../images/menu-ribbon-shop.png') no-repeat;
+									.no-text();
+
+								}
+							}							
+						}
 					}
 				}
 			}
@@ -300,17 +356,15 @@ body.page-template-default.page-not-home {
 		// Featured Image
 		.attachment-post-thumbnail { position: absolute; margin: 0 0 0 125px; z-index: -99; right: 0; }
 		.entry-header {
-			h1 { #font-family > .georgia; text-transform: lowercase; font-style: italic; color: #777; }
+			h1 { #font-family > .learning-curve; font-style: italic; color: @pinkAccent; }
 			clear: left;
-			margin-top: 7px;
-			margin-left: 45px;
+			margin-top: 15px;
 		}
 		.entry-content {
 			h2 { #font-family > .learning-curve; color: @pinkAccent; }
 			p { color: #888; }
 			clear: left;
 			margin-top: 0px;
-			margin-left: 45px;
 			margin-bottom: 25px;
 		}
 	}
@@ -320,11 +374,7 @@ body.page-template-default.page-not-home {
 		input { width: 100%; padding: 10px; margin-top: 8px; color: #444; }
 		textarea { width: 100%; padding: 10px; margin-top: 8px; color: #444; }
 		#send-mail {
-			min-height: 32px;
-			width: 200px;
-			color: #FFF;
-			padding: 0;
-			text-transform: lowercase;
+			
 		}
 	}
 	// Contact Form Specific Styles
@@ -366,6 +416,7 @@ body.page-template-default.page-not-home {
  */
 body.home {
 	#main {
+		.btn-primary-home { position: absolute; right: 0; bottom: 1px; }
 		.background-image {
 			//background: url('../images/home-bg.jpg') 50% 0 no-repeat;
 			width: 100%;
@@ -418,7 +469,6 @@ body.home {
 		h1 { #font-family > .learning-curve; font-size: 95px; color: #FFF; margin-bottom: 20px; }
 		span.minster-flair { .no-text(); width: 102px; float: left; display: block; background: url('../images/minster-flair.png') no-repeat; }
 		span.subtitle { #font-family > .ostrich-light; text-transform: uppercase; font-size: 34px; color: rgba(255,255,255,0.6); float: right; margin-right: 10px; }
-		a.btn-primary { margin: 18px auto 0; }
 	}
 }
 
@@ -481,16 +531,14 @@ body.single-products {
 					}
 					.product-content {
 						#font-family > .source-sans-pro;
-						background-color: rgba(228, 225, 219, 0.6);
 						width: 170px;
 						position: fixed;
-						padding: 25px;
 						margin: 110px 0 0 745px;
-						h3.product-qty-title { float: left; margin: 4px 6px 0 0; }
+						h3.product-qty-title { float: left; margin: 4px 6px 0 0; color: @redAccent; text-transform: uppercase; }
 						h3 { margin: 0; font-size: 14px; line-height: 1.5; text-transform: lowercase; font-weight: normal; clear: both; }
 						hr { border-bottom: none; border-top: 1px dotted @taupeAccent; margin-top: 17px; }
 						select { width: 50px; margin: 0 0 10px 0; }
-						.product-cost { #font-family > .georgia; display: block; color: @redAccent; font-size: 28px; margin: 0 0 11px 0; padding-bottom: 40px; border-bottom: 1px dotted @taupeAccent; }
+						.product-cost { #font-family > .georgia; display: block; color: @redAccent; font-size: 21px; margin: 0 0 11px 0; padding-bottom: 20px; border-bottom: 2px dotted @darkGray; }
 						a#addToCart { width: 160px; }
 					}
 					.product-scroll {
@@ -584,7 +632,15 @@ body { // Some specificity to overwrite some hard to reach styles
 				text-decoration: underline;
 			}
 			hr { border-bottom: none; border-top: 1px dotted #FFF; }
-			.checkout { margin: 0 auto; }
+			.checkout {
+				font-size: 12px;
+				text-transform: uppercase;
+				margin: 0 auto;
+				color: #FFF;
+				background-color: @mint;
+				padding: 5px 45px;
+				float: right;
+			}
 			.shopping-cart-product {
 				margin: 10px 0;
 				color: #666;
@@ -627,37 +683,37 @@ body { // Some specificity to overwrite some hard to reach styles
 	moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	.close { font-size: 12px; text-transform: uppercase; margin-top: 50px; }
-	.full-width-background-image ('../images/bg-radial-gradient-one.png', #FFF);
+	.close { font-size: 12px; text-transform: uppercase; }
 	.container { position: relative; }
-	.modal-header, .modal-body, .modal-footer {
-		float: left;
-		clear: left;
+	.modal-meta, .modal-header, .modal-body, .modal-footer {
+		margin: 0 auto;
+		position: relative;
 		width: 620px;
 		border: none;
 		background: none;
 		box-shadow: none;
+		padding: 0;
+		.clearfix();
 	}
+	.modal-meta { margin: 20px auto 80px auto; }
 	.modal-header {
-		margin: 30px 0 0 0;
-		.step-count { font-size: 18px; font-style: italic; margin-bottom: 20px; #font-family > .georgia; color: rgba(159, 125, 104, 0.6); }
+		margin: 20px auto;
+		.step-count { font-size: 13px; margin-bottom: 20px; #font-family > .droid-sans; color: @mint; }
 		h3 {
-			color: @darkBrown;
-			font-family: 'Georgia', sans-serif;
+			#font-family > .learning-curve;
+			color: @mint;
 			font-weight: normal;
-			font-size: 48px;
-			font-style: italic;
-			text-transform: lowercase;
+			font-size: 68px;
+			
 		}
 	}
 	.modal-body {
-		color: @darkBrown;
-		#font-family > .raleway;
+		color: @darkestGray;
 		max-height: none;
 		form {
 			// Checkout specific styles
-			label { color: @darkBrown; text-transform: uppercase; font-size: 12px; }
-			legend { #font-family > .georgia; text-transform: lowercase; font-style: italic; color: @darkBrown; margin-bottom: 15px; }
+			label { text-transform: uppercase; font-size: 12px; }
+			legend { text-transform: lowercase; font-style: italic; margin-bottom: 15px; }
 			#shippingIsDifferent {
 				float: left;
 				margin-right: 10px;
@@ -674,17 +730,31 @@ body { // Some specificity to overwrite some hard to reach styles
 		button.btn-primary { height: 31px; margin: 0; }
 		.processing-spinner { float: right; }
 	}
+	.services-used-container {
+		margin: 0 auto;
+		width: 620px;
+		.services-used {
+			float: left;
+			span { font-size: 12px; }
+			i {
+				opacity: 0.5;
+				display: block;
+				width: 150px;
+				height: 45px;
+				float: right;
+				&.stripe-icon { background: url('../images/stripe-outline.png') no-repeat; }
+			}
+		}
+	}
 
 	// Step One "Review Your Cart"
 	.checkoutReview {
 		.shopping-cart-product {
-			color: @darkBrown;
 			margin-bottom: 15px;
 			padding-bottom: 15px;
-			border-bottom: 1px solid fade(@darkBrown, 10%);
+			border-bottom: 1px solid fade(@darkGray, 10%);
 			font-size: 18px;
 			.product-title {
-				color: @darkBrown;
 				display: block;
 				font-weight: 600;
 				font-size: 21px;
@@ -800,78 +870,6 @@ body { // Some specificity to overwrite some hard to reach styles
 		.checkoutResult {
 			width: 488px;
 			a { margin: 0 auto; }
-		}
-	}
-
-
-	// Cart Fluff
-	.watercolor-blob {
-		z-index: -99;
-		position: absolute;
-		opacity: 0.8; // GLOBAL DIMMING OCCURING!
-		&.pink {
-			width: 425px;
-			height: 405px;
-			top: -30px;
-			left: 80px;
-			background: url('../images/watercolor-blob-pink.png') no-repeat;
-			&.bottom { top: auto; left: auto; bottom: 0; right: 0; position: fixed; }
-		}
-		&.gold {
-			width: 370px;
-			height: 479px;
-			top: -20px;
-			left: -40px;
-			background: url('../images/watercolor-blob-gold.png') no-repeat;
-			&.bottom { top: auto; left: auto; bottom: -210px; right: -35px; position: fixed; }
-		}
-		&.gray { width: 183px; height: 154px; top: 20px; left: -60px; background: url('../images/watercolor-blob-gray.png') no-repeat; }
-		&.gold-large { width: 370px; height: 479px; bottom: -80px; left: -400px; background: url('../images/watercolor-blob-gold-large.png') no-repeat; }
-	}
-	.stamp-watermark {
-		position: absolute;
-		width: 193px;
-		height: 105px;
-		right: 0;
-		top: 350px;
-		background: url('../images/stamp-watermark-one.png') no-repeat;
-		z-index: 8;
-	}
-	.tilted-frame {
-		position: absolute;
-		right: 150px;
-		top: 30px;
-		width: 462px;
-		height: 575px;
-		background: url('../images/tilted-frame-v2.png') no-repeat;
-		z-index: 9;
-		}
-	.tilted-frame-deuce {
-		position: absolute;
-		right: 0;
-		top: 300px;
-		width: 352px;
-		height: 372px;
-		background: url('../images/tilted-frame-deuce.png') no-repeat;
-		z-index: 1;
-	}
-	.services-used-container {
-		position: absolute;
-		left: 210px;
-		bottom: 25px;
-		z-index: -99;
-		.clearfix();
-		.services-used {
-			float: left;
-			span { font-size: 12px; }
-			i {
-				opacity: 0.5;
-				display: block;
-				width: 150px;
-				height: 45px;
-				float: right;
-				&.stripe-icon { background: url('../images/stripe-outline.png') no-repeat; }
-			}
 		}
 	}
 }

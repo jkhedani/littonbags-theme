@@ -35,5 +35,3 @@ Current To Do (10092013)
 
 
 +		Icons needed @2X: footer social icons, primary logo, & shopping cart
-
-I'm on version two!
