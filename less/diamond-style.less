@@ -119,7 +119,7 @@
 	text-transform: capitalize;
 }
 .border-box {
-	moz-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
@@ -144,6 +144,7 @@ a.btn:visited { color: @white; } // Prevents buttons from turning purple :(
 .btn.btn-primary, .btn.btn-primary:visited, .btn.btn-primary:focus {
 	background: none;
 	position: relative;
+	-moz-box-shadow: none;
 	box-shadow: none;
 	border: none;
 	border-radius: 0;
@@ -246,6 +247,7 @@ html {
 					background: none;
 					border: none;
 					border-radius: 0;
+					-moz-box-shadow: none;
 					box-shadow: none;
 					.container { position: relative; }
 					.menu-main-menu-container {
@@ -384,7 +386,6 @@ body.page-template-default.page-not-home {
 		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 		background-color: #fcf8e3;
 		border: 1px solid @redAccent;
-		-webkit-border-radius: 4px;
 		-moz-border-radius: 4px;
 		border-radius: 4px;
 		color: #c09853;
@@ -395,7 +396,6 @@ body.page-template-default.page-not-home {
 		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 		background-color: #fcf8e3;
 		border: 1px solid @redAccent;
-		-webkit-border-radius: 4px;
 		-moz-border-radius: 4px;
 		border-radius: 4px;
 
@@ -651,6 +651,7 @@ body { // Some specificity to overwrite some hard to reach styles
 						color: #666;
 						padding: 0;
 						text-shadow: none;
+						-moz-box-shadow: none;
 						box-shadow: none;
 						margin: -5px 0 0 10px;
 					}
@@ -678,7 +679,7 @@ body { // Some specificity to overwrite some hard to reach styles
 	border: none;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	moz-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	.close { font-size: 12px; text-transform: uppercase; }
@@ -689,6 +690,7 @@ body { // Some specificity to overwrite some hard to reach styles
 		width: 620px;
 		border: none;
 		background: none;
+		-moz-box-shadow: none;
 		box-shadow: none;
 		padding: 0;
 		.clearfix();
@@ -768,6 +770,7 @@ body { // Some specificity to overwrite some hard to reach styles
 				color: #666;
 				padding: 0;
 				text-shadow: none;
+				-moz-box-shadow: none;
 				box-shadow: none;
 				margin: -5px 0 0 10px;
 			}
@@ -916,7 +919,7 @@ input.error { border: 1px solid @redAccent !important; }
 } // min1400
 
 
-// Large and above
+// // Large and above
 @media ( min-width: 1200px ) and ( max-width: 1400px ) {
 	body {
 		.navbar-fixed-top .container, .container { width: 1140px; }
@@ -942,91 +945,91 @@ input.error { border: 1px solid @redAccent !important; }
 	} // .single-products
 }
 
-// Large and below
-@media ( max-width: 1200px ) {
-	// body {
-	// 	#main { padding: 0 20px; }
-	// }
-}
+// // Large and below
+// @media ( max-width: 1200px ) {
+// 	// body {
+// 	// 	#main { padding: 0 20px; }
+// 	// }
+// }
 
-// Desktop & Below
-@media ( max-width: 979px ) {
-	body {
-		.navbar .container, .container { width: 767px; } // Hardcoded grid as default bootstrap goes auto width
-		.navbar-inner { padding: 0 !important; }
-	}
-}
+// // Desktop & Below
+// @media ( max-width: 979px ) {
+// 	body {
+// 		.navbar .container, .container { width: 767px; } // Hardcoded grid as default bootstrap goes auto width
+// 		.navbar-inner { padding: 0 !important; }
+// 	}
+// }
 
-// Tablet & Below
-@media ( max-width: 767px ) {
-	body {
-		padding: 0 !important;
-		.navbar .container, .container { width: 479px; } // Hardcoded grid as default bootstrap goes auto width	
-	}
-	body.home {
-		#primary { min-height: 440px; }
-	}
-}
+// // Tablet & Below
+// @media ( max-width: 767px ) {
+// 	body {
+// 		padding: 0 !important;
+// 		.navbar .container, .container { width: 479px; } // Hardcoded grid as default bootstrap goes auto width	
+// 	}
+// 	body.home {
+// 		#primary { min-height: 440px; }
+// 	}
+// }
 
-// Phones & Below
-@media (max-width: 479px) {
-	html {
-		// General
-		body {
-			#page {
-				header#navbar {
-					padding: 30px 0 0 0;
-					.navbar-inner {
-						.shoppingcartshow {
-							float: none;
-						}
-					}
-				}
-				#main {
-					margin: 104px 0 0 0;
-				}
-			}
-		}
-		// Home
-		body.home {
-			.minster-type-treatment {
-				position: relative;
-				width: 355px;
-				bottom: 0;
-				right: 0;
-				margin: 50px 0 0 25px;
-			}
-		}
-		// Products
-		body.single-products {
-			// Checkout
-			#checkoutModal {
-				padding: 0;
-				.modal-header {
-					width: 100%;
-				}
-				.modal-body {
-					width: 100%;
-					max-height: 0;
-					min-height: 200px;
-				}
-				.modal-footer {
-					width: 100%;
-				}
-			}
-			// Layout
-			#page {
-				#main {
-					#content {
-						article {
-							.product-content { margin: 0; }
-						}
-					}
-				}
-			}
-		}
-	}
-}
+// // Phones & Below
+// @media (max-width: 479px) {
+// 	html {
+// 		// General
+// 		body {
+// 			#page {
+// 				header#navbar {
+// 					padding: 30px 0 0 0;
+// 					.navbar-inner {
+// 						.shoppingcartshow {
+// 							float: none;
+// 						}
+// 					}
+// 				}
+// 				#main {
+// 					margin: 104px 0 0 0;
+// 				}
+// 			}
+// 		}
+// 		// Home
+// 		body.home {
+// 			.minster-type-treatment {
+// 				position: relative;
+// 				width: 355px;
+// 				bottom: 0;
+// 				right: 0;
+// 				margin: 50px 0 0 25px;
+// 			}
+// 		}
+// 		// Products
+// 		body.single-products {
+// 			// Checkout
+// 			#checkoutModal {
+// 				padding: 0;
+// 				.modal-header {
+// 					width: 100%;
+// 				}
+// 				.modal-body {
+// 					width: 100%;
+// 					max-height: 0;
+// 					min-height: 200px;
+// 				}
+// 				.modal-footer {
+// 					width: 100%;
+// 				}
+// 			}
+// 			// Layout
+// 			#page {
+// 				#main {
+// 					#content {
+// 						article {
+// 							.product-content { margin: 0; }
+// 						}
+// 					}
+// 				}
+// 			}
+// 		}
+// 	}
+// }
 
 
 // .repeatingPattern {

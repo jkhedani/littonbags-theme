@@ -80,7 +80,6 @@ function stripe_event_listener() {
 					wp_mail($email, $subject, $message, $headers);
 				}
 
-
 			} catch (Exception $e) {
 				// something failed, perhaps log a notice or email the site admin
 			}
@@ -88,6 +87,6 @@ function stripe_event_listener() {
 		} // isset $event_json
 	} // wps-listener
 }
-add_action('init', 'stripe_event_listener');
+// add_action('init', 'stripe_event_listener');
 
 ?>

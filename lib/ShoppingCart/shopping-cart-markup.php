@@ -197,6 +197,7 @@ function render_shopping_cart() {
 	echo    	'<a class="btn btn-primary btn-primary-checkout choosePaymentMethod">Select Payment Method</a>';
 	echo 		'</div>';
 	echo 		'<div class="checkoutBasic checkoutControls hide">';
+	echo  		'<img class="processing-spinner hide" src="'.get_stylesheet_directory_uri().'/images/ajax-loader-32.gif" alt="Your shipping address is being verified."/>';
 	echo    	'<a id="submitBasicInfo" class="btn btn-primary btn-primary-checkout">Submit Basic Info</a>'; // [completes step B.1]
 	echo 		'</div>';
 	echo 		'<div class="checkoutPay checkoutControls hide">';

@@ -1,4 +1,8 @@
-<?php 
+<?php
+
+/**
+ *	Process Payment
+ */
 function stripe_process_payment() {
 	if ( isset($_POST['action']) && $_POST['action'] == 'stripe' && wp_verify_nonce($_POST['stripe_nonce'], 'stripe-nonce') ) {
  		
@@ -24,6 +28,7 @@ function stripe_process_payment() {
 		$desiredProducts = explode('|', $desc); // Separates multiple products
 		foreach ($desiredProducts as $desiredProduct) {
 			$desiredProductValues = explode(',',$desiredProduct);
+			error_log(print_r($desiredProductValues,true));
 			foreach ($desiredProductValues as $key => $value) {
 				// Returns PostID
 				if ( $key == 0 ) {
@@ -156,7 +161,12 @@ function stripe_process_payment() {
 				add_filter( 'wp_mail_content_type', 'set_html_content_type' );
 
 				// ADMIN Email
-				$htmlMessage = '<p>Logo</p><p>Order Number</p><p>New product(s) await to be shipped: '.$shipmentLabel->postage_label->label_url.'</p><p>Product details: '.$desc.'</p><p>Note: It may be beneficial if you verify this purchase at your <a href="https://manage.stripe.com">Stripe Dashboard</a> :)</p>';
+				$htmlMessage = '
+					<p><img src="'.get_stylesheet_directory_uri().'/images/logo.png" alt="Litton Fine Camera Bags" /></p>
+					<p>Order Number: #'.$orderNumber.'</p>
+					<p>New product(s) await to be shipped: '.$shipmentLabel->postage_label->label_url.'</p>
+					<p>Product details: '.$desc.'</p><p>Note: It may be beneficial if you verify this purchase at your <a href="https://manage.stripe.com">Stripe Dashboard</a> :)</p>
+				';
 				wp_mail(  $easypost_options['shipping_confirmation_email'], 'A New Product(s) Requiree Shipping!', $htmlMessage );
 
 				// CUSTOMER Email

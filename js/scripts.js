@@ -15,63 +15,12 @@ jQuery(document).ready(function($){
 	// Carousel sliders
 	$('.carousel').carousel();
 
-	// "Shop"
-	if($('body').hasClass('shop')) {
-		$('#product-type-tabs').tab('show');
-	}
 	// "Product Pages"
 	if ( $('body').hasClass('single-products') ) {
 
 		/**
-		 * 	jQuery Click Color Selection modification
-		 */
-
- 		// Hide select element and title
-		$(".product-color-selection").hide();
-		// Create color container after quantity selection
-		$('.product-content .product-color-title').after('<div class="jquery-color-selection"><ul></ul></div>');
-		// Grab available color options and create buttons in color container
-		$(".product-color-selection option").each(function() {
-			$('.jquery-color-selection ul').append('<li><a href="#" data-color-value="'+$(this).val()+'" class="'+$(this).val()+'" style="background-color:'+$(this).data('background-color')+'">'+$(this).val()+'</a></li>').addClass('capitalize');
-		});
-		// Select the appropriate color value
-		$('.jquery-color-selection a').on('click',function() {
-			$('.jquery-color-selection a').removeClass('selected');
-			$(this).addClass('selected');
-			var colorValue = $(this).attr('data-color-value');
-			$('.product-color-selection').val(colorValue);
-			return false;
-		});
-
-		/**
-		 * 	jQuery Click Price Selection
-		 *	Changes front facing cost display values
-		 */
-		// If a product option selected is different than the current price and the price is not empty
-		$('.jquery-color-selection a').on('click',function() {
-			var standardPrice = $('body').find('.product-price').data('standard-product-price');
-			var optionPrice = $('.product-color-selection').find(':selected').data('option-price');
-			var displayedText = $('body .product-price').text();
-			// Animate price if current option price is different from the product standard price or if the displayed price is  and is not equal to zero dollars.
-			if ( ( ( standardPrice != optionPrice ) || ( displayedText != standardPrice ) ) && ( optionPrice != '$0.00' ) ) {
-				// If option price is showing, insert Standard Price
-				if ( displayedText ==  optionPrice ) {
-					var priceToDisplay = standardPrice;
-				// If standard price is showing, insert Option Price
-				} else if ( displayedText == standardPrice ) {
-					var priceToDisplay = optionPrice;
-				}
-				// Animate the price
-				$( "body .product-price" ).animate({
-					opacity: 0,
-				}, 400, function() {
-					$('body .product-price').html(optionPrice).css('opacity','1.0');
-				});
-			}
-		});
-
-		/**
 		 *	jQuery ScrollTo
+		 *	Allow users to scroll to pre-determined positions on a page.
 		 */
 
 		// Define scrollable object
@@ -92,12 +41,5 @@ jQuery(document).ready(function($){
     	}, 500);
 		});
 	}
-
-
-	/*
-	 * Form Validation
-	 * Utilizes: https://github.com/jzaefferer/jquery-validation
-     * Bootstrap integration with a little help from goldsky: https://gist.github.com/goldsky/4022619
-     */
 
 });

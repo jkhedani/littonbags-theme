@@ -1,5 +1,92 @@
 <?php
 
+/**
+ *	Check address at step two instead of at the end
+ */
+function easypost_verify_address() {
+	/**
+	 *	Setup
+	 */
+	do_action('init');
+	global $wpdb, $post, $easypost_options;
+	
+	// Nonce check
+	$nonce = $_REQUEST['nonce'];
+	if ( !wp_verify_nonce($nonce, 'shopping_cart_scripts_nonce')) die(__('Busted.') );
+
+	// Check some random variables to see if data is being sent...
+	if ( isset( $_REQUEST['name'] ) && isset( $_REQUEST['streetOne'] ) && isset( $_REQUEST['zip'] ) ) :
+		$name = strip_tags( trim( $_REQUEST['name'] ) );
+		$streetOne = strip_tags( trim( $_REQUEST['streetOne'] ) );
+		$streetTwo = strip_tags( trim( $_REQUEST['streetTwo'] ) );
+		$city = strip_tags( trim( $_REQUEST['city'] ) );
+		$state = strip_tags( trim( $_REQUEST['state'] ) );
+		$zip = strip_tags( trim( $_REQUEST['zip'] ) );
+	endif;
+
+	/**
+	 * Verify Address
+	 */
+	$errors = false;
+	$success = false;
+
+	// A. Establish EasyPost API keys & load library
+	require_once( get_stylesheet_directory() . '/lib/easypost.php' );
+	if ( isset($easypost_options['test_mode']) && $easypost_options['test_mode'] ) {
+		\EasyPost\EasyPost::setApiKey( $easypost_options['test_secret_key'] );
+	} else {
+		\EasyPost\EasyPost::setApiKey( $easypost_options['live_secret_key'] );
+	}
+
+	try {
+	
+			// B. Retrieve this customer's mailing address...
+			$to_address = \EasyPost\Address::create( array(
+			  "name"    => $name,
+			  "street1" => $streetOne,
+			  "street2" => $streetTwo,
+			  "city"    => $city,
+			  "state"   => $state,
+			  "zip"     => $zip,
+			));
+
+			// C. Attempt to verify shipping address
+			$verfied_address = $to_address->verify();
+			$success = true;
+
+	} catch ( Exception $e ) {
+		// Error Notes:
+	  // bad State = Invalid State Code.
+	  // bad City = Invalid City.
+	  // bad address = Address Not Found.
+	  $easyPostFailStatus  = $e->getHttpStatus();
+	  $easyPostFailMessage = $e->getMessage();
+	  $errors = strval( $easyPostFailMessage );
+	  error_log($easyPostFailMessage);
+	}
+
+	/*
+	 * Build the response...
+	 */
+	$response = json_encode(array(
+		'success' => $success,
+		'errors' => $errors,
+	));
+	
+	// Construct and send the response
+	header("content-type: application/json");
+	echo $response;
+	exit;
+}
+add_action('wp_ajax_nopriv_easypost_verify_address', 'easypost_verify_address');
+add_action('wp_ajax_easypost_verify_address', 'easypost_verify_address');
+
+//Run Ajax calls even if user is logged in
+if ( isset($_REQUEST['action']) && ($_REQUEST['action']=='easypost_verify_address') ):
+	do_action( 'wp_ajax_' . $_REQUEST['action'] );
+  do_action( 'wp_ajax_nopriv_' . $_REQUEST['action'] );
+endif;
+
 function refresh_shopping_cart() {
 
 	do_action('init');

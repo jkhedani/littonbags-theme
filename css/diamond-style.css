@@ -539,7 +539,7 @@
   text-transform: capitalize;
 }
 .border-box {
-  moz-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
@@ -563,6 +563,7 @@ a.btn:visited {
 .btn.btn-primary:focus {
   background: none;
   position: relative;
+  -moz-box-shadow: none;
   box-shadow: none;
   border: none;
   border-radius: 0;
@@ -719,6 +720,7 @@ html body #page header#navbar .navbar-inner {
   background: none;
   border: none;
   border-radius: 0;
+  -moz-box-shadow: none;
   box-shadow: none;
 }
 html body #page header#navbar .navbar-inner .container {
@@ -890,7 +892,6 @@ body.page-template-default.page-not-home div.wpcf7-validation-errors {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #fcf8e3;
   border: 1px solid #e85846;
-  -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   color: #c09853;
@@ -901,7 +902,6 @@ body.page-template-default.page-not-home .wpcf7-not-valid-tip {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #fcf8e3;
   border: 1px solid #e85846;
-  -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   color: #b94a48;
@@ -1220,6 +1220,7 @@ body .popover.bottom .popover-content .shopping-cart-product a.btn.remove {
   color: #666;
   padding: 0;
   text-shadow: none;
+  -moz-box-shadow: none;
   box-shadow: none;
   margin: -5px 0 0 10px;
 }
@@ -1238,7 +1239,7 @@ body .popover.bottom .popover-content .shopping-cart-product a.btn.remove {
   border: none;
   overflow-y: scroll;
   overflow-x: hidden;
-  moz-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
@@ -1258,6 +1259,7 @@ body .popover.bottom .popover-content .shopping-cart-product a.btn.remove {
   width: 620px;
   border: none;
   background: none;
+  -moz-box-shadow: none;
   box-shadow: none;
   padding: 0;
   *zoom: 1;
@@ -1388,6 +1390,7 @@ body .popover.bottom .popover-content .shopping-cart-product a.btn.remove {
   color: #666;
   padding: 0;
   text-shadow: none;
+  -moz-box-shadow: none;
   box-shadow: none;
   margin: -5px 0 0 10px;
 }
@@ -1568,64 +1571,5 @@ input.error {
   }
   body.single-products #page #main #content article .product-scroll {
     margin: 0 auto;
-  }
-}
-@media (max-width: 1200px) {
-  
-}
-@media (max-width: 979px) {
-  body .navbar .container,
-  body .container {
-    width: 767px;
-  }
-  body .navbar-inner {
-    padding: 0 !important;
-  }
-}
-@media (max-width: 767px) {
-  body {
-    padding: 0 !important;
-  }
-  body .navbar .container,
-  body .container {
-    width: 479px;
-  }
-  body.home #primary {
-    min-height: 440px;
-  }
-}
-@media (max-width: 479px) {
-  html body #page header#navbar {
-    padding: 30px 0 0 0;
-  }
-  html body #page header#navbar .navbar-inner .shoppingcartshow {
-    float: none;
-  }
-  html body #page #main {
-    margin: 104px 0 0 0;
-  }
-  html body.home .minster-type-treatment {
-    position: relative;
-    width: 355px;
-    bottom: 0;
-    right: 0;
-    margin: 50px 0 0 25px;
-  }
-  html body.single-products #checkoutModal {
-    padding: 0;
-  }
-  html body.single-products #checkoutModal .modal-header {
-    width: 100%;
-  }
-  html body.single-products #checkoutModal .modal-body {
-    width: 100%;
-    max-height: 0;
-    min-height: 200px;
-  }
-  html body.single-products #checkoutModal .modal-footer {
-    width: 100%;
-  }
-  html body.single-products #page #main #content article .product-content {
-    margin: 0;
   }
 }

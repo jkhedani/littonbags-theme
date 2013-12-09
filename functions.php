@@ -223,7 +223,7 @@ function diamond_scripts() {
     // Activate line below for responsive layout
 	// Requires: Child theme style, resets, parent theme base style and bootstrap base style
 	// to load prior to responsive. Responsive styles should typically be loaded last.
-	wp_enqueue_style( 'diamond-style-responsive', get_stylesheet_directory_uri().'/css/diamond-style-responsive.css', array('diamond-style','resets','bootstrap-base-styles','bootstrap-parent-style'));
+	// wp_enqueue_style( 'diamond-style-responsive', get_stylesheet_directory_uri().'/css/diamond-style-responsive.css', array('diamond-style','resets','bootstrap-base-styles','bootstrap-parent-style'));
     
     /*
      * Set proper API keys based on Stripe Settings in wordpress
@@ -244,20 +244,20 @@ function diamond_scripts() {
     wp_enqueue_script( 'jquery-validate', get_stylesheet_directory_uri().'/js/jquery.validate.js', array('jquery') );
     wp_enqueue_script( 'jquery-payment', get_stylesheet_directory_uri().'/js/jquery.payment.js', array('jquery') );
 
-    wp_enqueue_script( 'json2'); // Is this necessary?
-    wp_enqueue_script( 'jquery'); // Is this necessary?
+    //wp_enqueue_script( 'json2'); // Is this necessary?
+    //wp_enqueue_script( 'jquery'); // Is this necessary?
     
     // Stripe
     // https://stripe.com/
-    wp_enqueue_script('stripe-processing', get_stylesheet_directory_uri().'/lib/StripeScripts/stripe-processing.js');
+    wp_enqueue_script('stripe-processing', get_stylesheet_directory_uri().'/lib/StripeScripts/stripe-processing.js', array('jquery') );
     wp_localize_script('stripe-processing', 'stripe_vars', array(
             'publishable_key' => $publishable,
     ));
 
     // jStorage
     // http://www.jstorage.info/
-    wp_enqueue_script('jstorage-script', get_stylesheet_directory_uri().'/js/jstorage.js');
-    wp_enqueue_script('diamond-custom-script', get_stylesheet_directory_uri().'/js/scripts.js', array(), false, true);
+    wp_enqueue_script('jstorage-script', get_stylesheet_directory_uri().'/js/jstorage.js', array('jquery','json2'));
+    wp_enqueue_script('diamond-custom-script', get_stylesheet_directory_uri().'/js/scripts.js', array('jquery'), false, true);
 
     // Shopping Cart  
     wp_enqueue_script('shopping-cart-scripts', get_stylesheet_directory_uri().'/lib/ShoppingCart/shopping-cart.js', array('jquery','json2'), true);
