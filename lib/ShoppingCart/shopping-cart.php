@@ -1,7 +1,7 @@
 <?php
 
 /**
- *	Check address at step two instead of at the end
+ *	Verify address using EasyPost API
  */
 function easypost_verify_address() {
 	/**
@@ -87,6 +87,10 @@ if ( isset($_REQUEST['action']) && ($_REQUEST['action']=='easypost_verify_addres
   do_action( 'wp_ajax_nopriv_' . $_REQUEST['action'] );
 endif;
 
+
+/**
+ *	Refresh/Build Shopping Cart
+ */
 function refresh_shopping_cart() {
 
 	do_action('init');

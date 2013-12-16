@@ -191,6 +191,8 @@ a.btn:visited { color: @white; } // Prevents buttons from turning purple :(
 /**
  * 	Custom Carousel Styles
  */
+
+ // General
 .carousel { // currently being treated as a full-background gallery
 	margin: 0;
 	position: static;
@@ -336,9 +338,10 @@ html {
 }
 
 /*
- * Default: Page
+ * Default: Page / Archive Page
  */
-body.page-template-default.page-not-home {
+body.page-template-default.page-not-home,
+body.post-type-archive.page-not-home {
 	p { font-size: 14px; #font-family > .source-sans-pro; color: #444; }
 	#main {
 		min-height: 600px;
@@ -408,6 +411,41 @@ body.page-template-default.page-not-home {
 		left: auto;
 		min-width: 150px;
 		width: auto;
+	}
+}
+
+/**
+ *	"Shop" page
+ *	archive-products.php
+ */
+body.post-type-archive-products {
+	#main {
+		background: url('../images/sticks-bg.jpg') no-repeat;
+		/**
+		 *	View Master
+		 */
+		.view-master {
+			.view-master-reel {
+				.slide { margin: 0 auto; float: left; }
+			}
+			.view-master-controls {
+				clear: both;
+			}
+		}
+		/**
+		 *	View Master Custom
+		 */
+		
+		// Center title slide
+		.center-slide {
+			.slide-content {
+				width: 500px;
+				margin: 0 auto;
+				h1 a { color: #DD4AA7; #font-family > .learning-curve; border-bottom: 1px dotted #BBB; }
+				h1.bags { float: left; }
+				h1.accessories { float: right; }
+			}
+		}
 	}
 }
 
@@ -531,7 +569,7 @@ body.single-products {
 					}
 					.product-content {
 						#font-family > .source-sans-pro;
-						width: 170px;
+						width: 142px;
 						position: fixed;
 						margin: 110px 0 0 745px;
 						h3.product-qty-title { float: left; margin: 4px 6px 0 0; color: @redAccent; text-transform: uppercase; }
@@ -576,6 +614,7 @@ body.single-products {
 				a {
 					color: #FFF;
 					display: block;
+					text-align: center;
 					text-transform: uppercase;
 					margin-bottom: 5px;
 					padding: 8px 10px;

@@ -814,79 +814,95 @@ html body footer#colophon ul#menu-footer-menu li a[title='Pinterest'] {
   overflow: hidden;
 }
 /*
- * Default: Page
+ * Default: Page / Archive Page
  */
-body.page-template-default.page-not-home p {
+body.page-template-default.page-not-home p,
+body.post-type-archive.page-not-home p {
   font-size: 14px;
   font-family: 'Source Sans Pro', 'serif';
   font-weight: normal;
   color: #444;
 }
-body.page-template-default.page-not-home #main {
+body.page-template-default.page-not-home #main,
+body.post-type-archive.page-not-home #main {
   min-height: 600px;
   background-color: #fefefd;
 }
-body.page-template-default.page-not-home article {
+body.page-template-default.page-not-home article,
+body.post-type-archive.page-not-home article {
   position: relative;
   z-index: 10;
 }
-body.page-template-default.page-not-home article .customer-service {
+body.page-template-default.page-not-home article .customer-service,
+body.post-type-archive.page-not-home article .customer-service {
   width: 516px;
   height: 111px;
   float: left;
 }
-body.page-template-default.page-not-home article .customer-service img {
+body.page-template-default.page-not-home article .customer-service img,
+body.post-type-archive.page-not-home article .customer-service img {
   width: 100%;
 }
-body.page-template-default.page-not-home article .attachment-post-thumbnail {
+body.page-template-default.page-not-home article .attachment-post-thumbnail,
+body.post-type-archive.page-not-home article .attachment-post-thumbnail {
   position: absolute;
   margin: 0 0 0 125px;
   z-index: -99;
   right: 0;
 }
-body.page-template-default.page-not-home article .entry-header {
+body.page-template-default.page-not-home article .entry-header,
+body.post-type-archive.page-not-home article .entry-header {
   clear: left;
   margin-top: 15px;
 }
-body.page-template-default.page-not-home article .entry-header h1 {
+body.page-template-default.page-not-home article .entry-header h1,
+body.post-type-archive.page-not-home article .entry-header h1 {
   font-family: 'Learning Curve Pro', 'serif';
   font-weight: normal;
   font-style: italic;
   color: #f0bdb7;
 }
-body.page-template-default.page-not-home article .entry-content {
+body.page-template-default.page-not-home article .entry-content,
+body.post-type-archive.page-not-home article .entry-content {
   clear: left;
   margin-top: 0px;
   margin-bottom: 25px;
 }
-body.page-template-default.page-not-home article .entry-content h2 {
+body.page-template-default.page-not-home article .entry-content h2,
+body.post-type-archive.page-not-home article .entry-content h2 {
   font-family: 'Learning Curve Pro', 'serif';
   font-weight: normal;
   color: #f0bdb7;
 }
-body.page-template-default.page-not-home article .entry-content p {
+body.page-template-default.page-not-home article .entry-content p,
+body.post-type-archive.page-not-home article .entry-content p {
   color: #888;
 }
-body.page-template-default.page-not-home form {
+body.page-template-default.page-not-home form,
+body.post-type-archive.page-not-home form {
   text-transform: uppercase;
 }
-body.page-template-default.page-not-home form p {
+body.page-template-default.page-not-home form p,
+body.post-type-archive.page-not-home form p {
   color: #888;
   font-size: 13px;
 }
-body.page-template-default.page-not-home form input {
+body.page-template-default.page-not-home form input,
+body.post-type-archive.page-not-home form input {
   width: 100%;
   padding: 10px;
   margin-top: 8px;
   color: #444;
 }
-body.page-template-default.page-not-home form textarea {
+body.page-template-default.page-not-home form textarea,
+body.post-type-archive.page-not-home form textarea {
   width: 100%;
   padding: 10px;
   margin-top: 8px;
   color: #444;
 }
-body.page-template-default.page-not-home div.wpcf7-validation-errors {
+body.page-template-default.page-not-home div.wpcf7-validation-errors,
+body.post-type-archive.page-not-home div.wpcf7-validation-errors {
   padding: 8px 35px 8px 14px;
   margin-bottom: 20px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -896,7 +912,8 @@ body.page-template-default.page-not-home div.wpcf7-validation-errors {
   border-radius: 4px;
   color: #c09853;
 }
-body.page-template-default.page-not-home .wpcf7-not-valid-tip {
+body.page-template-default.page-not-home .wpcf7-not-valid-tip,
+body.post-type-archive.page-not-home .wpcf7-not-valid-tip {
   padding: 8px 35px 8px 14px;
   margin-bottom: 20px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -912,6 +929,44 @@ body.page-template-default.page-not-home .wpcf7-not-valid-tip {
   left: auto;
   min-width: 150px;
   width: auto;
+}
+/**
+ *	"Shop" page
+ *	archive-products.php
+ */
+body.post-type-archive-products #main {
+  background: url('../images/sticks-bg.jpg') no-repeat;
+  /**
+		 *	View Master
+		 */
+
+  /**
+		 *	View Master Custom
+		 */
+
+}
+body.post-type-archive-products #main .view-master .view-master-reel .slide {
+  margin: 0 auto;
+  float: left;
+}
+body.post-type-archive-products #main .view-master .view-master-controls {
+  clear: both;
+}
+body.post-type-archive-products #main .center-slide .slide-content {
+  width: 500px;
+  margin: 0 auto;
+}
+body.post-type-archive-products #main .center-slide .slide-content h1 a {
+  color: #DD4AA7;
+  font-family: 'Learning Curve Pro', 'serif';
+  font-weight: normal;
+  border-bottom: 1px dotted #BBB;
+}
+body.post-type-archive-products #main .center-slide .slide-content h1.bags {
+  float: left;
+}
+body.post-type-archive-products #main .center-slide .slide-content h1.accessories {
+  float: right;
 }
 /**
  * Front Page
@@ -1055,7 +1110,7 @@ body.single-products #page #main #content article .product-header .product-speci
 body.single-products #page #main #content article .product-content {
   font-family: 'Source Sans Pro', 'serif';
   font-weight: normal;
-  width: 170px;
+  width: 142px;
   position: fixed;
   margin: 110px 0 0 745px;
 }
@@ -1138,6 +1193,7 @@ body.single-products .jquery-color-selection ul li {
 body.single-products .jquery-color-selection ul li a {
   color: #FFF;
   display: block;
+  text-align: center;
   text-transform: uppercase;
   margin-bottom: 5px;
   padding: 8px 10px;

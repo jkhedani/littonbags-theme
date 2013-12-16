@@ -107,6 +107,15 @@ if(function_exists("register_field_group"))
                 'type' => 'text',
             ),
             array (
+                'key' => 'field_52ad1f2b67e5a',
+                'label' => 'Product "Shop" Image',
+                'name' => 'product_shop_image',
+                'type' => 'image',
+                'save_format' => 'url',
+                'preview_size' => 'thumbnail',
+                'library' => 'all',
+            ),
+            array (
                 'default_value' => '',
                 'key' => 'field_5240e5123eb58',
                 'label' => 'Shipping Weight',
@@ -321,10 +330,69 @@ function LTTNBAGS_post_types() {
     	'public' => true,
     	'supports' => array('title', 'editor', 'thumbnail'),
     	'labels' => $labels,
+        'has_archive' => true,
+        'rewrite' => array(
+            'slug' => 'shop',
+        )
+    )
+  );
+  // "Look Book"
+  $labels = array(
+    'name' => __( 'Look Books' ),
+    'singular_name' => __( 'Look Book' ),
+    'add_new' => __( 'Add New Look Book' ),
+    'add_new_item' => __( 'Add New Look Book' ),
+    'edit_name' => __( 'Edit This Look Book' ),
+    'view_item' => __( 'View This Look Book' ),
+    'search_items' => __('Search Look Books'),
+    'not_found' => __('No Look Books found.'),
+  );
+  register_post_type( 'look_books',
+    array(
+        'menu_position' => 5,
+        'public' => true,
+        'supports' => array('title', 'editor', 'thumbnail'),
+        'labels' => $labels,
+        'has_archive' => true,
+        // 'rewrite' => array(
+        //     'slug' => 'shop',
+        // )
     )
   );
 }
 add_action( 'init', 'LTTNBAGS_post_types' );
+
+/**
+ *  P2P Connections
+ */
+function LTTNBAGS_connection_types() {
+
+  // Connect 
+  p2p_register_connection_type( array(
+    // Connnection Attributes
+    'name' => 'look_books_to_products',
+    'from' => 'look_books',
+    'to' => 'products',
+    // 'reciprocol' => true,
+    // 'admin_box' => 'from',
+    'sortable' => 'any',
+    // 'title' => array( 'from' => __( 'Connected Modules', 'my-textdomain' ), 'to' => __( 'Connected Unit', 'my-textdomain' ) ),
+    // 'from_labels' => array(
+    //   'singular_name' => __( 'Unit', 'my-textdomain' ),
+    //   'search_items' => __( 'Search Units', 'my-textdomain' ),
+    //   'not_found' => __( 'No Units found.', 'my-textdomain' ),
+    //   'create' => __( 'Connect to a Unit', 'my-textdomain' ),
+    // ),
+    // 'to_labels' => array(
+    //   'singular_name' => __( 'Module', 'my-textdomain' ),
+    //   'search_items' => __( 'Search Modules', 'my-textdomain' ),
+    //   'not_found' => __( 'No Modules found.', 'my-textdomain' ),
+    //   'create' => __( 'Connect a Module', 'my-textdomain' ),
+    // ),
+  ));
+
+}
+add_action( 'p2p_init', 'LTTNBAGS_connection_types' );
 
 /**
  * Custom Taxonomies (e.g. Product Type, etc.)
