@@ -10,11 +10,11 @@ get_header(); ?>
 
 		<div id="primary" class="content-area container">
 			<div id="content" class="site-content" role="main">
-
+				
 			<?php while ( have_posts() ) : the_post(); 
 
 				// Use appropriate templates for specific content types
-				if(get_post_type() === 'products'):
+				if ( get_post_type() === 'products' ):
 					get_template_part( 'templates/content', 'products' );
 				else:
 					get_template_part( 'content', 'single' );
@@ -30,6 +30,7 @@ get_header(); ?>
 
 			</div><!-- #content .site-content -->
 		</div><!-- #primary .content-area -->
-		<?php //get_sidebar(); ?>
+
+		<div class="content-fluff stamp-watermark"></div>
 
 <?php get_footer(); ?>

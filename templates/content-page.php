@@ -15,7 +15,7 @@
 		<h1 class="entry-title"><?php the_title(); ?></h1>
 	</header><!-- .entry-header -->
 
-	<div class="entry-content span6">
+	<div class="entry-content span7">
 		<?php the_content(); ?>
 	</div><!-- .entry-content -->
 

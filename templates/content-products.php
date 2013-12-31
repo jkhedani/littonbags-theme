@@ -23,10 +23,26 @@
 			<li><a href="#modular-storage" data-scroll-position="2200">Modular Storage</a></li>
 		</ul>
 
-		<!-- Product Lookbook -->
-		<div class="lookbook-container">
-			<a class="lookbook-link" href="">View The Lookbook</a>
-		</div>
+		<!-- Product Lookbook Link -->
+		<?php
+			// Here we want to check if a lookbook is available. If so, let's render the gallery.
+			$lookbook = new WP_Query( array(
+				'post_type' => 'look_books',
+				'connected_type' => 'look_books_to_products',
+  			'connected_items' => get_queried_object(),
+  			'nopaging' => true,
+			));
+		?>
+		<?php if ( $lookbook->have_posts() ) : ?>
+		<?php 	while ( $lookbook->have_posts() ) : $lookbook->the_post(); ?>
+
+			<div id="generate-lookbook" class="lookbook-link-container">
+				<a class="lookbook-link" href="#generate-lookbook" data-look-book-id="<?php echo $post->ID; ?>">View The Lookbook</a>
+			</div>
+
+		<?php 	endwhile; ?>
+		<?php 	wp_reset_postdata(); ?>
+		<?php endif; ?>
 
 	</header><!-- .entry-header -->
 

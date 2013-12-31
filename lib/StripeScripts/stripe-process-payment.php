@@ -61,6 +61,8 @@ function purchase_shipping_label( $orderNumber ) {
 			} // end foreach
 		} // end foreach
 
+		error_log('Parcels:' . print_r($parcels,true));
+
 		// C4. Create special shipment for each parcel
 		$shipmentLabels = array();
 		foreach ($parcels as $parcel) {
@@ -71,7 +73,8 @@ function purchase_shipping_label( $orderNumber ) {
 	        'parcel'       => $parcel
 		    )
 			);
-			error_log(print_r($shipment->rates,true));
+			error_log('Shipment Object:' . $shipment);
+			error_log('Shipment Rates:'.print_r($shipment->rates,true));
 			$shipmentLabels[] = $shipment->buy($shipment->lowest_rate());
 		}
 
@@ -115,6 +118,8 @@ function purchase_shipping_label( $orderNumber ) {
 	  // }
 	  $easyPostFailStatus  = $e->getHttpStatus();
 	  $easyPostFailMessage = $e->getMessage();
+	  error_log('failstatus' . $easyPostFailStatus);
+	  error_log('failmessage' . $easyPostFailMessage);
 	  $redirect = add_query_arg( array( 'shipping' => 'failed', 'reason' => $easyPostFailMessage ), $_POST['redirect'] );
 	}
 } // .purchase_shipping_label

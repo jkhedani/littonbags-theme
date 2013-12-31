@@ -129,12 +129,12 @@ function render_shopping_cart() {
 			echo 				'<input type="text" size="20" autocomplete="off" data-easypost="shipping-address-city" name="shipping-address-city" />';
 			echo 			'</div>';
 			echo 			'<div>';
-			echo 				'<label>'. __('Zip Code', 'litton_bags') .'</label>';
-			echo 				'<input type="text" size="20" autocomplete="off" class="zip-code" data-easypost="shipping-address-zip" name="shipping-address-zip" />';
-			echo 			'</div>';
-			echo 			'<div>';
 			echo 				'<label>'. __('State', 'litton_bags') .'</label>';
 			echo 				'<input type="text" size="20" autocomplete="off" class="state" data-easypost="shipping-address-state" name="shipping-address-state" />';
+			echo 			'</div>';
+			echo 			'<div>';
+			echo 				'<label>'. __('Zip Code', 'litton_bags') .'</label>';
+			echo 				'<input type="text" size="20" autocomplete="off" class="zip-code" data-easypost="shipping-address-zip" name="shipping-address-zip" />';
 			echo 			'</div>';
 			echo 			'<div>';
 			echo 				'<label>'. __('Country', 'litton_bags') .'</label>';
@@ -187,7 +187,7 @@ function render_shopping_cart() {
 
 	// Checkout Step Four: Thank You
 	echo 	'<div class="checkoutResult hide">';
-	echo   '<div class="result-wrapper"><img class="success" src="'.get_stylesheet_directory_uri().'/images/payment-success-delta.png" /></div>';
+	echo   '<div class="result-wrapper"><img class="success" src="'.get_stylesheet_directory_uri().'/images/payment-success-alpha.jpg" /></div>';
 	echo   '<p class="result-message"></p>';
 	echo  '</div>';
 

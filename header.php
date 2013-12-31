@@ -84,18 +84,19 @@
 
   	<div id="main" role="main" class="site-main">
 
-    <!-- Background image -->
     <?php if ( is_front_page() ) : ?>
-      
+
+      <!-- Background image -->
       <div id="homeCarousel" class="carousel slide">
         <div class="carousel-inner">
+        <?php $i = 0; ?>
         <?php $home_featured_gallery = get_field('home_gallery'); ?>
         <?php foreach ( $home_featured_gallery as $home_featured_gallery_meta ) { ?>
-            <div class="background-image item active" style="background-image:url(<?php echo $home_featured_gallery_meta['home_gallery_image']; ?>);"></div>
+            <div class="background-image item <?php if (!$i++) echo 'active'; ?>" style="background-image:url(<?php echo $home_featured_gallery_meta['home_gallery_image']; ?>);"></div>
         <?php } ?>
         </div><!-- .carousel-inner -->
-        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+        <a class="carousel-control left" href="#homeCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#homeCarousel" data-slide="next">&rsaquo;</a>
       </div><!-- .carousel -->
 
       <!-- The Minster Call To Action -->

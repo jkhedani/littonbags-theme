@@ -111,54 +111,70 @@ function refresh_shopping_cart() {
 	// Set subtotal of all product costs combined
 	$grandSubtotal = 0;
 
-	/*
-	 * Let's build the Shopping Cart!
-	 */
 	$html = "";
 	$success = false;
 	$productDescription = ""; // Build annotated description to pass to Stripe pipe(|) separated
 
 	if ( isset($products) ) {
 		foreach ( $products as $product ) {
-			$itemID = ""; // Grab the product ID for use outside this loop
-			$itemQty = ""; // Grab the product Qty for use outside this loop
-			foreach ($product as $key => $value) { // For each individual product
-				//Get Product Name/Post Data
-				if ($key == 'postID') {
-					$productsInCart = new WP_Query(array(
-						'p' => $value,
-						'post_type' => 'products',
-					));	
-					while($productsInCart->have_posts()) : $productsInCart->the_post();
-						$currentPostID = $post->ID;
-						$itemID = $currentPostID;
-						$itemTitle = get_the_title();
-						$productDescription = $productDescription . $currentPostID . ','; // Add ID to product description
-						$productDescription = $productDescription . get_the_title() . ','; // Add Title to product description
-					endwhile;
-					wp_reset_postdata();
-				}
-				// Get Product Color
-				if ( $key == 'color' ) {
-					if ( $value == 'none' ) {
-						$itemColor = 'n/a';
-					} else {
-						$itemColor = $value;
-					}
-					$productDescription = $productDescription . $value . ','; // Add Color to product description
-				}
-				// Get Product Qty
-				if ( $key == 'qty' ) {
-					$itemQty = $value;
-					$productDescription = $productDescription . $value; // Add Quantity to product description;
+
+			/**
+			 *	Let's build the Shopping Cart!
+			 */
+			$itemID = ''; // Grab the product ID for use outside this loop
+			$itemQty = ''; // Grab the product Qty for use outside this loop
+
+			/**
+			 *	Get Product Name/Post Data
+			 */
+			$postID = $product['postID'];
+			$productsInCart = new WP_Query(array(
+				'p' => $postID,
+				'post_type' => 'products',
+			));	
+			while($productsInCart->have_posts()) : $productsInCart->the_post();
+				$currentPostID = $post->ID;
+				$itemID = $currentPostID;
+				$itemTitle = get_the_title();
+				$productDescription = $productDescription . $currentPostID . ','; // Add ID to product description
+				$productDescription = $productDescription . get_the_title() . ','; // Add Title to product description
+			endwhile;
+			wp_reset_postdata();
+
+			/**
+			 *	Get Product Options
+			 */
+			$productOptions = get_field( 'product_options' );	
+
+			/**
+			 *	Get Product Color
+			 */
+			$itemColor = $product['color'];
+			if ( $itemColor == 'none' || $itemColor == 'undefined' ) {
+				$itemColor = 'n/a';
+			}
+			$productDescription = $productDescription . $itemColor . ','; // Add Color to product description
+
+			/**
+			 *	Get Product Qty
+			 */
+			$itemQty = $product['qty'];
+			$productDescription = $productDescription . $itemQty; // Add Quantity to product description;
+
+			/**
+			 *	Get Product Thumbnail
+			 */
+			$optionPreview = ''; // Clear variable during loop
+			foreach ( $productOptions as $productOption ) {
+				if ( $productOption['product_color_name'] == $itemColor ) {
+					$optionPreview = $productOption['product_checkout_image_preview'];
 				}
 			}
 
 			/*
 			 * Generate User-facing totals 
 			 */
-
-			$productOptions = get_field( 'product_options' );
+			$optionPrice = ''; // Clear variable during loop
 			$productPrice = get_field( 'product_price' );
 			// Iterate through options to find the current options selected (looking for option based on color)
 			foreach ( $productOptions as $productOption ) {
@@ -167,7 +183,7 @@ function refresh_shopping_cart() {
 				}
 			}
 			// If cost of the option differs from the product price, set the product cost to the option amount
-			if ( ( $optionPrice != $productPrice ) &&  ( $optionPrice != 0 ) ) {
+			if ( ( $optionPrice != $productPrice ) && ( $optionPrice != 0 ) ) {
 				$actualPrice = $optionPrice;
 			} else {
 				$actualPrice = $productPrice;
@@ -183,8 +199,11 @@ function refresh_shopping_cart() {
 	     *	Popover Output
 	     */
 	    $html .= '<div class="shopping-cart-product" data-jStorage-key="'.$product['key'].'">';
-	    $html .= 	'<span class="product-title">'.$itemTitle.'</span>';
-	    $html .= 	'<span class="product-color" data-product-color="'.$itemColor.'"><span class="product-meta-title">Color: </span>'.$itemColor.'</span>';
+	    $html .= 	'<span class="product-preview"><img src="'.$optionPreview.'" /></span>';
+	    $html .=	'<div class="product-description">';
+	    $html .= 		'<span class="product-title">'.$itemTitle.'</span>';
+	    $html .= 		'<span class="product-color" data-product-color="'.$itemColor.'"><span class="product-meta-title">Color: </span>'.$itemColor.'</span>';
+	    $html .= 	'</div>';
 	    $html .= 	'<span class="product-price" data-product-price="'.$actualPrice.'">'.format_money($actualPrice,'US').'</span>';
 	    $html .= 	'<span class="product-qty" data-product-qty="'.$itemQty.'">'.$itemQty.'</span>';
 	    $html .= '<span class="product-subtotal">'.format_money($individualProductSubtotal,'US').'</span>';
@@ -194,14 +213,15 @@ function refresh_shopping_cart() {
 			 */
 
 			// Generate a pipe between products; never at the beginning or the end
-			if ($product != end($products)) {
+			if ( $product != end( $products ) ) {
 				$productDescription = $productDescription . '|';	
 			}
 
 			// Create delete cart item key
 			$html .= '<a href="javascript:void(0);" class="btn remove">x</a>';
 			$html .= '</div>';
-		}
+
+		} // foreach product
 
 		/*
 		 * Let's build the Review Totals!

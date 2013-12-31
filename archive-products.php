@@ -1,5 +1,6 @@
 <?php
 /**
+ * "Shop Page"
  * The template for displaying Archive pages.
  *
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
@@ -30,10 +31,10 @@ get_header(); ?>
 			?>
 			<div id="productViewer" class="view-master">
 
-				<!-- <div class="view-master-controls">
-		    	<a class="view-master-control left" href="#productViewer" >&lsaquo;</a>
+				<div class="view-master-controls">
+		    	<a class="view-master-control left" href="#productViewer" data-slide="prev">&lsaquo;</a>
 		    	<a class="view-master-control right" href="#productViewer" data-slide="next">&rsaquo;</a>
-		    </div> -->
+		    </div>
 
 		    <div class="view-master-reel">
 		    <?php 
@@ -41,11 +42,13 @@ get_header(); ?>
 		    	while ( $cameraBags->have_posts() ) : $cameraBags->the_post();
 		    ?>
 		    	<div class="slide bag-slide">
-		    		<?php echo get_the_title(); ?>
-		    		<?php echo get_field('product_subtitle'); ?>
-		    		<a href="<?php echo get_permalink(); ?>">View Bag</a>
+		    		<div class="slide-content">
+		    			<h1 class="slide-title"><?php echo get_the_title(); ?></h1>
+		    			<h2 class="slide-subtitle"><?php echo get_field('product_subtitle'); ?></h2>
+		    			<a class="slide-view-more" href="<?php echo get_permalink(); ?>">View Bag</a>
+		    		</div>
 		    		<?php if ( get_field('product_shop_image') ) { ?>
- 		    			<img src="<?php echo get_field('product_shop_image'); ?>" />
+ 		    			<img class="featured-image" src="<?php echo get_field('product_shop_image'); ?>" />
  		    		<?php } ?>
 		    	</div>
 		    <?php
@@ -65,10 +68,14 @@ get_header(); ?>
 		    	// Third load all bags in a descending order
 		    	while ( $accessories->have_posts() ) : $accessories->the_post();
 		    ?>
-		    	<div class="slide accesories-slide">
-		    		<?php echo get_the_title(); ?>
+		    	<div class="slide accessories-slide">
+		    		<div class="slide-content">
+		    			<h1 class="slide-title"><?php echo get_the_title(); ?></h1>
+		    			<h2 class="slide-subtitle"><?php echo get_field('product_subtitle'); ?></h2>
+		    			<a class="slide-view-more" href="<?php echo get_permalink(); ?>">View</a>
+		    		</div>
 		    		<?php if ( get_field('product_shop_image') ) { ?>
- 		    			<img src="<?php echo get_field('product_shop_image'); ?>" />
+ 		    			<img class="featured-image" src="<?php echo get_field('product_shop_image'); ?>" />
  		    		<?php } ?>
 		    	</div>
 		    <?php
@@ -76,8 +83,8 @@ get_header(); ?>
 		    	wp_reset_postdata();
 		    ?>
 
-		    </div><!-- .carousel-inner -->
-		  </div><!-- .carousel -->
+		    </div><!-- .view-master-reel -->
+		  </div><!-- .view-master -->
 
 
 		<?php else : ?>

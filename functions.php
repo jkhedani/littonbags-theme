@@ -12,8 +12,8 @@
  *  You may edit the array as you see fit. However, this may result in errors if the array is not compatible with ACF
  */
 
-if(function_exists("register_field_group"))
-{
+if( function_exists("register_field_group") ) {
+    // Product Details
     register_field_group(array (
         'id' => 'acf_product-details',
         'title' => 'Product Details',
@@ -84,20 +84,20 @@ if(function_exists("register_field_group"))
                 'instructions' => 'Enter the price of the product in cents(USD) e.g. "34900"',
                 'required' => 1,
             ),
-            array (
-                'layout' => 'vertical',
-                'choices' => array (
-                    'black' => 'Black',
-                    'white' => 'White',
-                    'taupe' => 'Taupe',
-                ),
-                'default_value' => '',
-                'key' => 'field_517874920f218',
-                'label' => 'Color Options',
-                'name' => 'product_color_options',
-                'type' => 'checkbox',
-                'instructions' => 'If there are color options available for the product, check all that apply below. Otherwise, leave checkboxes blank.',
-            ),
+            // array (
+            //     'layout' => 'vertical',
+            //     'choices' => array (
+            //         'black' => 'Black',
+            //         'white' => 'White',
+            //         'taupe' => 'Taupe',
+            //     ),
+            //     'default_value' => '',
+            //     'key' => 'field_517874920f218',
+            //     'label' => 'Color Options',
+            //     'name' => 'product_color_options',
+            //     'type' => 'checkbox',
+            //     'instructions' => 'If there are color options available for the product, check all that apply below. Otherwise, leave checkboxes blank.',
+            // ),
             array (
                 'default_value' => '',
                 'formatting' => 'html',
@@ -180,6 +180,54 @@ if(function_exists("register_field_group"))
         ),
         'menu_order' => 0,
     ));
+    
+    // Look Books
+    register_field_group(array (
+        'id' => 'acf_lookbooks',
+        'title' => 'Lookbooks',
+        'fields' => array (
+            array (
+                'key' => 'field_52c0f694e4e3c',
+                'label' => 'Look Book',
+                'name' => 'look_book',
+                'type' => 'repeater',
+                'sub_fields' => array (
+                    array (
+                        'key' => 'field_52c0f764e4e3d',
+                        'label' => 'Look Book Page',
+                        'name' => 'look_book_page',
+                        'type' => 'image',
+                        'column_width' => '',
+                        'save_format' => 'url',
+                        'preview_size' => 'thumbnail',
+                        'library' => 'all',
+                    ),
+                ),
+                'row_min' => 1,
+                'row_limit' => 99,
+                'layout' => 'row',
+                'button_label' => 'Add Look Book Page',
+            ),
+        ),
+        'location' => array (
+            array (
+                array (
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'look_books',
+                    'order_no' => 0,
+                    'group_no' => 0,
+                ),
+            ),
+        ),
+        'options' => array (
+            'position' => 'normal',
+            'layout' => 'no_box',
+            'hide_on_screen' => array (
+            ),
+        ),
+        'menu_order' => 0,
+    ));
 }
 
 /**
@@ -225,10 +273,10 @@ function diamond_scripts() {
     if(!empty($_SERVER['HTTPS'])) $protocol='https:';
 	// Enqueue Styles
 	wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css' );
-    wp_enqueue_style( 'google-fonts-raleway', '//fonts.googleapis.com/css?family=Raleway:300', array(), false, true );
-    wp_enqueue_style( 'google-fonts-source-sans-pro', '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', array(), false, true );
-    wp_enqueue_style( 'google-fonts-josefin-sans', '//fonts.googleapis.com/css?family=Josefin+Sans:300,400', array(), false, true );
-    wp_enqueue_style( 'google-fonts-droid-sans', '//fonts.googleapis.com/css?family=Droid+Sans', array(), false, true );
+    wp_enqueue_style( 'google-fonts-raleway', '//fonts.googleapis.com/css?family=Raleway:300', array(), false, 'all' );
+    wp_enqueue_style( 'google-fonts-source-sans-pro', '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', array(), false, 'all' );
+    wp_enqueue_style( 'google-fonts-josefin-sans', '//fonts.googleapis.com/css?family=Josefin+Sans:300,400', array(), false, 'all' );
+    wp_enqueue_style( 'google-fonts-droid-sans', '//fonts.googleapis.com/css?family=Droid+Sans', array(), false, 'all' );
     // Activate line below for responsive layout
 	// Requires: Child theme style, resets, parent theme base style and bootstrap base style
 	// to load prior to responsive. Responsive styles should typically be loaded last.
@@ -274,6 +322,13 @@ function diamond_scripts() {
         'ajaxurl' => admin_url('admin-ajax.php',$protocol),
         'nonce' => wp_create_nonce('shopping_cart_scripts_nonce')
     ));
+
+  // Ajax Post Fetcher
+  wp_enqueue_script('look-book-fetcher-scripts', get_stylesheet_directory_uri().'/lib/LookBookFetcher/look-book-fetcher-scripts.js', array('jquery','json2'), true);
+  wp_localize_script('look-book-fetcher-scripts', 'look_book_fetcher_data', array(
+      'ajaxurl' => admin_url('admin-ajax.php',$protocol),
+      'nonce' => wp_create_nonce('look_book_fetcher_nonce')
+  ));
     
 }
 add_action( 'wp_enqueue_scripts', 'diamond_scripts' );
@@ -351,7 +406,7 @@ function LTTNBAGS_post_types() {
     array(
         'menu_position' => 5,
         'public' => true,
-        'supports' => array('title', 'editor', 'thumbnail'),
+        'supports' => array('title'),
         'labels' => $labels,
         'has_archive' => true,
         // 'rewrite' => array(
@@ -393,6 +448,12 @@ function LTTNBAGS_connection_types() {
 
 }
 add_action( 'p2p_init', 'LTTNBAGS_connection_types' );
+
+/**
+ *  Look Book Fetcher
+ *  Include function after P2P so connections are availabled
+ */
+require_once( get_stylesheet_directory() . '/lib/LookBookFetcher/look-book-fetcher-functions.php');
 
 /**
  * Custom Taxonomies (e.g. Product Type, etc.)
