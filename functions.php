@@ -69,6 +69,15 @@ if( function_exists("register_field_group") ) {
                         'max' => '',
                         'step' => '',
                     ),
+                    array (
+                        'default_value' => 0,
+                        'message' => 'Product option sold out.',
+                        'key' => 'field_52c60bb9cd0cc',
+                        'label' => 'Product Option Sold Out',
+                        'name' => 'product_option_sold_out',
+                        'type' => 'true_false',
+                        'instructions' => 'Did you sell out of this option?',
+                    ),
                 ),
                 'row_min' => 0,
                 'row_limit' => '',
@@ -153,12 +162,21 @@ if( function_exists("register_field_group") ) {
             ),
             array (
                 'default_value' => 0,
-                'message' => '',
+                'message' => 'Product sold out.',
                 'key' => 'field_52085b419ca0d',
                 'label' => 'Product Sold Out',
                 'name' => 'product_sold_out',
                 'type' => 'true_false',
                 'instructions' => 'Did you sell out of this product?',
+            ),
+            array (
+                'default_value' => 0,
+                'message' => 'Enable Throw In Shipping.',
+                'key' => 'field_52c608a22b940',
+                'label' => 'Throw In Shipping',
+                'name' => 'throw_in_shipping',
+                'type' => 'true_false',
+                'instructions' => 'Is this product small enough to fit in the shipment parcel of a larger order?',
             ),
         ),
         'location' => array (
@@ -512,7 +530,23 @@ function page_not_home_class( $classes ) {
 }
 add_filter('body_class','page_not_home_class');
 
+/**
+ *  Page Jump Short Codes
+ */
 
+// [jumppage title="" px="" anchor="" ]
+function jumppage_function( $atts ) {
+    extract( shortcode_atts( array(
+        'title' => 'Some Title',
+        'px' => '100',
+        'anchor' => '',
+    ), $atts ) );
+    return "<a class='jumppage' href='' data-jump-coordinates='{$px}'>{$title}</a>";
+}
+function register_shortcodes() {
+    add_shortcode( 'jumppage', 'jumppage_function' );
+}
+add_action('init','register_shortcodes');
 
 
 ?>

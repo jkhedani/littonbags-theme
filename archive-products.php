@@ -45,10 +45,12 @@ get_header(); ?>
 		    		<div class="slide-content">
 		    			<h1 class="slide-title"><?php echo get_the_title(); ?></h1>
 		    			<h2 class="slide-subtitle"><?php echo get_field('product_subtitle'); ?></h2>
-		    			<a class="slide-view-more" href="<?php echo get_permalink(); ?>">View Bag</a>
+		    			<a class="slide-view-more" href="<?php echo get_permalink(); ?>">View Bag >>></a>
 		    		</div>
 		    		<?php if ( get_field('product_shop_image') ) { ?>
- 		    			<img class="featured-image" src="<?php echo get_field('product_shop_image'); ?>" />
+		    			<div class="slide-image-container">
+ 		    				<img class="featured-image" src="<?php echo get_field('product_shop_image'); ?>" />
+ 		    			</div>
  		    		<?php } ?>
 		    	</div>
 		    <?php
@@ -59,8 +61,8 @@ get_header(); ?>
 		    <?php // Insert Landing slide here ?>
 		    <div class="slide center-slide active">
 		    	<div class="slide-content">
-		    		<h1 class="bags"><a class="view-master-control left" data-slide="prev" href="#productViewer">Bags</a></h1>
-		    		<h1 class="accessories"><a class="view-master-control right" data-slide="next" href="#productViewer">Accessories</a></h1>
+		    		<h1 class="bags"><a class="view-master-control left" data-slide="prev" href="#productViewer"><span>Bags</span><span class="content-fluff pink-arrow left"></span></a></h1>
+		    		<h1 class="accessories"><a class="view-master-control right" data-slide="next" href="#productViewer"><span>Accessories</span><span class="content-fluff pink-arrow right"></span></a></h1>
 		    	</div>
 		    </div>
 
@@ -75,7 +77,9 @@ get_header(); ?>
 		    			<a class="slide-view-more" href="<?php echo get_permalink(); ?>">View</a>
 		    		</div>
 		    		<?php if ( get_field('product_shop_image') ) { ?>
- 		    			<img class="featured-image" src="<?php echo get_field('product_shop_image'); ?>" />
+		    			<div class="slide-image-container">
+ 		    				<img class="featured-image" src="<?php echo get_field('product_shop_image'); ?>" />
+ 		    			</div>
  		    		<?php } ?>
 		    	</div>
 		    <?php

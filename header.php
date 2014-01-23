@@ -75,9 +75,19 @@
             <a href="javascript:void(0);" class="shoppingcartshow">Cart</a>
           </div>
           <!-- Site Main Menu -->
-          <?php wp_nav_menu( array( 'menu' => 'main-menu',
-            // 'menu_class' => 'nav-pills pull-right'
-          )); ?>
+          <div class="menu-main-menu-container">
+            <a class="mobile-menu-toggle hide" href="#menu-main-menu" title="Toggle menu view for smaller devices.">Menu</a>
+            <?php wp_nav_menu( array(
+              'menu' => 'mobile-menu',
+              'menu_class' => 'mobile-menu',
+              'container' => false,
+            )); ?>
+            <?php wp_nav_menu( array(
+              'menu' => 'main-menu',
+              'menu_class' => 'main-menu',
+              'container' => false,
+            )); ?>
+          </div>
         </div>
     	</div><!-- .navbar-inner -->
     </header><!-- #navbar -->

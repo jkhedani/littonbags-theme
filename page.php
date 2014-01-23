@@ -21,7 +21,7 @@ get_header(); ?>
 				if ( $post->ID === 19 ) : // "Shop"
 					get_template_part( 'templates/content', 'shop' );
 				else:
-					get_template_part( 'templates/content', 'page' );
+					get_template_part( 'templates/page', 'default' );
 				endif;
 
 				comments_template( '', true ); ?>

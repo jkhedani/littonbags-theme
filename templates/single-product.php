@@ -13,15 +13,8 @@
 		<?php if ( $post->post_content=="" && is_user_logged_in() ) : ?>
 			<p class="muted helper-text">You currently have no description. Add some <a href="'.get_edit_post_link().'" title="Edit this piece of content">here.</a></p>
 		<?php else : ?>
-		<p class="product-details"><?php echo get_the_content(); ?></p>
+		<p class="product-details"><?php echo do_shortcode( get_the_content() ); ?></p>
 		<?php endif; ?>
-
-		<!-- Product Specifications -->
-		<ul class="product-specifications">
-			<li><a href="#features" data-scroll-position="500">Features</a></li>
-			<li><a href="#interior" data-scroll-position="1500">Interior & Material</a></li>
-			<li><a href="#modular-storage" data-scroll-position="2200">Modular Storage</a></li>
-		</ul>
 
 		<!-- Product Lookbook Link -->
 		<?php
@@ -73,11 +66,12 @@
 
 		// Color Options
 		if ( get_field('product_options') ) {
-			//$colorOptions = get_field('product_color_options');
 			echo '<h3 class="product-color-title">Select a Color</h3>';
-			echo '<select class="product-color-selection">';
+			echo '<select class="product-color-selection" data-product-sold-out="';
+			if (get_field( 'product_sold_out' )) echo '1';
+			echo '">';
 			foreach ($productOptions as $productOption) {
-				echo '<option value="'.$productOption['product_color_name'].'" data-background-color="'.$productOption['product_color'].'" data-option-price="'.format_money( $productOption['product_option_price'], 'US' ).'">'.$productOption['product_color_name'].'</option>';
+				echo '<option value="'.$productOption['product_color_name'].'" data-background-color="'.$productOption['product_color'].'" data-option-price="'.format_money( $productOption['product_option_price'], 'US' ).'" data-option-sold-out="'.$productOption['product_option_sold_out'].'">'.$productOption['product_color_name'].'</option>';
 			}
 			echo '</select>';
 		}
@@ -85,9 +79,19 @@
 		echo '<hr />';
 	
 		/*
-		 * "Add To Cart" Button
+		 * "Add To Cart" Button or "Sold Out"
 		 */
-		echo '<a id="addToCart" role="button" href="javascript:void(0);" class="btn btn-primary btn-primary-add-to-cart" data-post-id="'.$post->ID.'">Add To Cart</a>'; ?>
+
+		if ( get_field( 'product_sold_out' ) ) {
+			// Sold Out
+			echo '<a id="soldOut" href="javascript:void(0);" class="btn btn-primary btn-primary-sold-out show">Sold Out</a>';
+			echo '<a id="addToCart" role="button" href="javascript:void(0);" class="btn btn-primary btn-primary-add-to-cart hide" data-post-id="'.$post->ID.'">Add To Cart</a>';
+		} else {
+			// Add To Cart
+			echo '<a id="soldOut" href="javascript:void(0);" class="btn btn-primary btn-primary-sold-out hide">Sold Out</a>';
+			echo '<a id="addToCart" role="button" href="javascript:void(0);" class="btn btn-primary btn-primary-add-to-cart show" data-post-id="'.$post->ID.'">Add To Cart</a>'; 
+		}
+		?>
 
 	</div><!-- .product-content -->
 

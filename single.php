@@ -14,10 +14,10 @@ get_header(); ?>
 			<?php while ( have_posts() ) : the_post(); 
 
 				// Use appropriate templates for specific content types
-				if(get_post_type() === 'products'):
-					get_template_part( 'templates/content', 'products' );
+				if ( get_post_type() === 'products' ):
+					get_template_part( 'templates/single', 'product' );
 				else:
-					get_template_part( 'content', 'single' );
+					get_template_part( 'single', 'default' );
 				endif;
 
 				// If comments are open or we have at least one comment, load up the comment template
@@ -30,6 +30,7 @@ get_header(); ?>
 
 			</div><!-- #content .site-content -->
 		</div><!-- #primary .content-area -->
-		<?php //get_sidebar(); ?>
+		
+		<div class="content-fluff stamp-watermark"></div>
 
 <?php get_footer(); ?>

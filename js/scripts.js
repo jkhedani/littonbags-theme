@@ -13,6 +13,16 @@ jQuery(document).ready(function($){
 	});
 
 	/**
+	 *	Mobile Menu
+	 *	Toggle must be right above menu you wish to affect.
+	 */
+
+	$('.mobile-menu-toggle').on( 'click', function() {
+		$(this).next('.mobile-menu').toggle();
+		return false;
+	});
+
+	/**
 	 *	View Master
 	 *	By Justin Hedani
 	 */
@@ -75,7 +85,9 @@ jQuery(document).ready(function($){
 	 */
 	if ( $('body').hasClass('home') ) {
 		// "Carousel" Sliders
-		$('.carousel').carousel();
+		$('.carousel').carousel({
+			'interval' : false,
+		});
 	} // .hasClass home
 
 
@@ -132,19 +144,21 @@ jQuery(document).ready(function($){
 		// Define scrollable object
 		var SCROLL_TO_OBJECT = $('.product-scroll img');
 		// Define scrollto navigation
-		var SCROLL_TO_NAV = $('.product-specifications');
+		var SCROLL_TO_TRIGGER = $('.jumppage');
 		// Find scrollable object distance from page top
 		var DISTANCE_FROM_TOP = parseInt( SCROLL_TO_OBJECT.offset().top );
 		// On scroll to navigation click
-		$(SCROLL_TO_NAV).find('a').on( 'click', function() {
+		$(SCROLL_TO_TRIGGER).on( 'click', function() {
 			// Get desired scroll location
-			var desiredScrollLocation = parseInt( $(this).attr('data-scroll-position') );
+			var desiredScrollLocation = parseInt( $(this).attr('data-jump-coordinates') );
 			// Calculate exact page scroll location by taking into consideration the scroll objects position from the top
 			var exactPageScrollToPosition = DISTANCE_FROM_TOP + desiredScrollLocation;
 			// scroll page to scroll location
 			$('html, body').animate({
         scrollTop: exactPageScrollToPosition
     	}, 500);
+    	// Disable <a> tag actions
+    	return false;
 		});
 	}
 
