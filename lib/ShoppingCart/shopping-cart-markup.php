@@ -178,10 +178,7 @@ function render_shopping_cart() {
 
 	// Checkout Step Three: "Processing..."
 	echo 	'<div class="checkoutProcessing hide">';
-	// Ajax gif: http://www.mytreedb.com/view_blog/a-33-high_quality_ajax_loader_images.html
-	echo  '<div class="spinner-wrapper hero">';
-	echo  	'<img src="'.get_stylesheet_directory_uri().'/images/ajax-loader-256.gif" alt="Your payment is processing."/>';
-	echo  '</div>';
+	echo  '<div class="spinner large"></div>';
 	echo  '<p>Please wait for your payment to process. Refrain from closing this page to avoid multiple charges.</p>';
 	echo  '</div>';
 
@@ -197,12 +194,12 @@ function render_shopping_cart() {
 	echo    	'<a class="btn btn-primary btn-primary-checkout choosePaymentMethod">Select Payment Method</a>';
 	echo 		'</div>';
 	echo 		'<div class="checkoutBasic checkoutControls hide">';
-	echo  		'<img class="processing-spinner hide" src="'.get_stylesheet_directory_uri().'/images/ajax-loader-32.gif" alt="Your shipping address is being verified."/>';
 	echo    	'<a id="submitBasicInfo" class="btn btn-primary btn-primary-checkout">Submit Basic Info</a>'; // [completes step B.1]
+	echo  		'<div class="spinner"></div>';
 	echo 		'</div>';
 	echo 		'<div class="checkoutPay checkoutControls hide">';
-	echo  		'<img class="processing-spinner hide" src="'.get_stylesheet_directory_uri().'/images/ajax-loader-32.gif" alt="Your payment is processing."/>';
 	echo    	'<a class="btn btn-primary btn-primary-checkout submitPayment">Submit Your Payment</a>';
+	echo  		'<div class="spinner"></div>';
 	echo 			'<a class="paypal-checkout"><img src="'.get_stylesheet_directory_uri().'/images/paypal-checkout.png" alt="Checkout via Paypal instead." /></a>';
 	echo  	'</div>';
 	echo 		'<div class="checkoutResult checkoutControls hide">';

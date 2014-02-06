@@ -203,6 +203,42 @@ a.btn:visited { color: @white; } // Prevents buttons from turning purple :(
 ::-moz-selection {
 	background: @beigeAccent; /* Firefox */
 }
+// Courtesy of: http://tobiasahlin.com/spinkit/
+.spinner {
+  width: 30px;
+  height: 30px;
+  background-color: @mint;
+  display: none;
+  float: right;
+  margin-right: 20px;
+  -webkit-animation: rotateplane 1.2s infinite ease-in-out;
+  animation: rotateplane 1.2s infinite ease-in-out;
+  &.large {
+  	width: 130px;
+  	height: 130px;
+  	float: none;
+  	margin: 40px auto
+  }
+}
+
+@-webkit-keyframes rotateplane {
+  0% { -webkit-transform: perspective(120px) }
+  50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+  100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+}
+
+@keyframes rotateplane {
+  0% { 
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg) 
+  } 50% { 
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg) 
+  } 100% { 
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
 
 /**
  *	View Master
@@ -588,7 +624,7 @@ body.post-type-archive-products {
 			position: relative;
 			.slide-content {
 				height: 40px;
-				width: 500px;
+				width: 300px;
 				margin: 250px auto 0;
 				h1 a { color: #DD4AA7; #font-family > .learning-curve; }
 				h1.bags {
@@ -730,7 +766,7 @@ body.single-products {
 						#font-family > .source-sans-pro;
 						width: 142px;
 						position: fixed;
-						margin: 110px 0 0 745px;
+						margin: 110px 0 0 858px;
 						h3.product-qty-title { float: left; margin: 4px 6px 0 0; color: @redAccent; text-transform: uppercase; }
 						h3 { margin: 0; font-size: 14px; line-height: 1.5; text-transform: lowercase; font-weight: normal; clear: both; }
 						hr { border-bottom: none; border-top: 1px dotted @taupeAccent; margin-top: 17px; }
@@ -769,13 +805,13 @@ body.single-products {
 			li {
 				list-style: none;
 				a {
-					color: #FFF;
+					color: #CCC;
 					display: block;
 					text-align: center;
 					text-transform: uppercase;
 					margin-bottom: 5px;
 					padding: 8px 10px;
-					&.selected {  }
+					&.selected { color: #FFF; }
 					&:hover { text-decoration: none; }
 				}
 			}
@@ -934,7 +970,7 @@ body { // Some specificity to overwrite some hard to reach styles
 			color: @mint;
 			font-weight: normal;
 			font-size: 68px;
-			margin: 45px 0 10px 0;
+			margin: 29px 0 0 0;
 		}
 	}
 	.modal-body {
@@ -957,8 +993,8 @@ body { // Some specificity to overwrite some hard to reach styles
 	}
 	.modal-footer {
 		padding-top: 0;
+		.btn-primary { float: right; }
 		button.btn-primary { height: 31px; margin: 0; }
-		.processing-spinner { float: right; }
 	}
 	.services-used-container {
 		margin: 0 auto;
@@ -1086,32 +1122,30 @@ body { // Some specificity to overwrite some hard to reach styles
 		.paypal-checkout {
 			float: left;
 			width: 150px;
-			margin: 16px 0 0 10px;
+			margin: -8px 0 10px -6px;
 			opacity: 0.5;
 			cursor: pointer;
 			&:hover { opacity: 1.0; }
 		}
-		.submitPayment {
-			float: left;
-		}
 	}
 
 	// Step "Four": "Processing"
+	.modal-header {
+		.checkoutProcessing {
+			.step-count { text-align: center; }
+			h3 { text-align: center; }
+		}
+	}
 	.modal-body {
 		.checkoutProcessing {
-			.spinner-wrapper.hero {
-				width: 400px;
-				text-align: center;
-				img { margin: 0 auto; }
-			}
-			p { margin: 20px 0; max-width: 400px; text-align: center; }
+			p { margin: 20px auto; max-width: 400px; text-align: center; clear: both; }
 		}
 	}
 
 	// Step "Five": "Result"
 	.modal-header {
 		.checkoutResult {
-			h3 { margin-top: 15px; }
+			h3 { margin-top: 15px; text-align: center; }
 		}
 	}
 	.modal-body {
@@ -1119,12 +1153,12 @@ body { // Some specificity to overwrite some hard to reach styles
 			.result-wrapper {
 				width: 488px;
 				text-align: center;
-				margin: 15px 0;
+				margin: 15px auto;
 				img {
 					margin: 0 auto;
 				}
 			}
-			p { margin: 20px 0; max-width: 400px; padding: 0 44px; text-align: center; }
+			p { margin: 20px auto; max-width: 400px; padding: 0 44px; text-align: center; }
 		}
 	}
 	.modal-footer {

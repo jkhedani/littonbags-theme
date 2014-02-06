@@ -58,7 +58,8 @@
       }
     </style>';
   }
-?></head>
+?>
+</head>
 
 <body <?php body_class(); ?>>
   
@@ -83,6 +84,7 @@
               'container' => false,
             )); ?>
             <?php wp_nav_menu( array(
+              'theme_location' => 'primary',
               'menu' => 'main-menu',
               'menu_class' => 'main-menu',
               'container' => false,

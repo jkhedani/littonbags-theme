@@ -71,7 +71,11 @@
 			if (get_field( 'product_sold_out' )) echo '1';
 			echo '">';
 			foreach ($productOptions as $productOption) {
-				echo '<option value="'.$productOption['product_color_name'].'" data-background-color="'.$productOption['product_color'].'" data-option-price="'.format_money( $productOption['product_option_price'], 'US' ).'" data-option-sold-out="'.$productOption['product_option_sold_out'].'">'.$productOption['product_color_name'].'</option>';
+				echo '<option value="'.$productOption['product_color_name'].'"';
+				if ($productOption === reset($productOptions)) {
+					echo 'data-selected="1"';
+				}
+				echo ' data-background-color="'.$productOption['product_color'].'" data-option-price="'.format_money( $productOption['product_option_price'], 'US' ).'" data-option-sold-out="'.$productOption['product_option_sold_out'].'">'.$productOption['product_color_name'].'</option>';
 			}
 			echo '</select>';
 		}

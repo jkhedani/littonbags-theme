@@ -31,20 +31,7 @@ jQuery(document).ready(function($){
 	   $.fn.viewmaster = function() {
 			// Variables
 			var viewmaster = this;
-			// Helper Functions
-			function showActive( animate ) {
-				var activeIndex = $('.active').index();
-				var activePostion = masterWidth * activeIndex;
-				if ( animate ) {
-					viewmaster.find('.view-master-reel').animate({
-						marginLeft: '-' + activePostion + 'px',
-					}, 500);
-				} else {
-					// No animation
-					viewmaster.find('.view-master-reel').css( 'margin-left', '-' + activePostion + 'px' );
-				}
-			}
-
+			
 			/*
 			 *	Setup
 			 */
@@ -56,6 +43,32 @@ jQuery(document).ready(function($){
 			// II. Find the total amount of slides and set the reel to the sum of all slide widths.
 			var slideCount = viewmaster.find('.slide').length;
 			viewmaster.find('.view-master-reel').width( masterWidth * slideCount );
+
+			/*
+			 * Helper Functions
+			 */
+			function showActive( animate ) {
+				var activeIndex = $('.active').index();
+				var activePostion = masterWidth * activeIndex;
+				if ( animate ) {
+					viewmaster.find('.view-master-reel').animate({
+						marginLeft: '-' + activePostion + 'px',
+					}, 500);
+				} else {
+					// No animation
+					viewmaster.find('.view-master-reel').css( 'margin-left', '-' + activePostion + 'px' );
+				}
+				// If there are no next/prev slides after click, hide next/prev controls
+				if( activeIndex == 0 ) {
+					viewmaster.find('.view-master-control.left').hide();
+				} else if ( activeIndex == ( slideCount - 1 ) ) {
+					viewmaster.find('.view-master-control.right').hide();
+				} else {
+					// If there are more items to be viewed, show controls. Also reveals hidden controls on next click.
+					viewmaster.find('.view-master-control').show();
+				}
+
+			}
 
 			/*
 			 *	Movement
@@ -76,6 +89,7 @@ jQuery(document).ready(function($){
 				showActive(true);
 				return false;
 			});
+
 		} // . viewmaster();
 
 	} ( jQuery ));
