@@ -4,6 +4,58 @@
 		"selected_items":
 		[
 			[
+				"end",
+				"endwhile"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
+				"curr",
+				"currentPostID"
+			],
+			[
+				"erro",
+				"error_log"
+			],
+			[
+				"f",
+				"float"
+			],
+			[
+				"tex",
+				"text-align"
+			],
+			[
+				"mar",
+				"margin-right"
+			],
+			[
+				"add",
+				"addClass"
+			],
+			[
+				"jqer",
+				"jquery-color-selection"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"slid",
+				"slideCount"
+			],
+			[
+				"view-mast",
+				"view-master-control"
+			],
+			[
+				"activ",
+				"activeIndex"
+			],
+			[
 				"bt",
 				"btn-primary"
 			],
@@ -14,10 +66,6 @@
 			[
 				"add_",
 				"add_default_categories"
-			],
-			[
-				"mar",
-				"margin-top"
 			],
 			[
 				"ma",
@@ -40,16 +88,8 @@
 				"border"
 			],
 			[
-				"tex",
-				"text-decoration"
-			],
-			[
 				"co",
 				"color"
-			],
-			[
-				"bac",
-				"background"
 			],
 			[
 				"fun",
@@ -96,13 +136,17 @@
 	},
 	"file_history":
 	[
-		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/lib/easypost.php",
-		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/lib/ShoppingCart/shopping-cart.js",
-		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/lib/ShoppingCart/shopping-cart-markup.php",
-		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/less/diamond-style.less",
-		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/header.php",
 		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/lib/ShoppingCart/shopping-cart.php",
+		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/lib/ShoppingCart/shopping-cart-markup.php",
+		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/lib/StripeScripts/stripe-listener.php",
+		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/lib/StripeScripts/stripe-process-payment.php",
+		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/less/diamond-style.less",
+		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/lib/ShoppingCart/shopping-cart.js",
 		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/functions.php",
+		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/js/scripts.js",
+		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/templates/single-product.php",
+		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/lib/easypost.php",
+		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/header.php",
 		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/lib/EasyPostScripts/backup-functioning-easypost.php",
 		"/Users/coeuser/Sites/litton-bags/www/wp-content/themes/littonbags/style.css",
 		"/Users/coeuser/Sites/soest/www/wp-content/themes/soest/functions.php",
@@ -170,6 +214,7 @@
 		"height": 0.0,
 		"where_history":
 		[
+			"/Users/coeuser/Sites/litton-bags/www/wp-content/themes",
 			"/Users/coeuser/Google Drive/tsi/css"
 		]
 	},
@@ -178,6 +223,25 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"error",
+			"mail",
+			"field_5292ec4ae2a07",
+			"[",
+			"customer-name",
+			"customer",
+			"input",
+			"checkoutTit",
+			"dcdc_walker",
+			"large",
+			"checkoutTitle",
+			"submitPayment",
+			"modal-header",
+			"color",
+			"jquery",
+			"color",
+			"showActive",
+			"center",
+			"post-type-archive",
 			"checkout",
 			"spinner",
 			"wrapper",

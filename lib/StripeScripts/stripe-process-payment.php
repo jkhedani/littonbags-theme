@@ -94,7 +94,7 @@ function purchase_shipping_label( $orderNumber ) {
 				<p>New product(s) await to be shipped: '.$shipmentLabel->postage_label->label_url.'</p>
 				<p>Product details: '.$desc.'</p><p>Note: It may be beneficial if you verify this purchase at your <a href="https://manage.stripe.com">Stripe Dashboard</a> :)</p>
 			';
-			wp_mail(  $easypost_options['shipping_confirmation_email'], 'A New Product(s) Requiree Shipping!', $htmlMessage );
+			wp_mail(  $easypost_options['shipping_confirmation_email'], 'A New Product(s) Requires Shipping!', $htmlMessage );
 
 			// CUSTOMER Email
 			$customerEmail = strip_tags( trim( $_POST['email'] ) );

@@ -949,7 +949,7 @@ html body footer#colophon ul#menu-footer-menu li a {
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #737a7d;
-  margin-left: 20px;
+  margin-left: 32px;
   display: block;
 }
 html body footer#colophon ul#menu-footer-menu li a[title='Facebook'] {
@@ -1375,7 +1375,7 @@ body.single-products #page #main #content article .product-header {
 body.single-products #page #main #content article .product-header .product-title {
   font-family: 'Learning Curve Pro', 'serif';
   font-weight: normal;
-  font-size: 84px;
+  font-size: 78px;
   color: #603737;
   margin: 0 0 -7px 0;
 }
@@ -1390,12 +1390,12 @@ body.single-products #page #main #content article .product-header .product-subti
   text-align: center;
   margin: 0 0 15px -142px;
   padding: 14px 0 0 0;
-  font-size: 28px;
+  font-size: 25px;
 }
 body.single-products #page #main #content article .product-header .product-details {
   font-family: 'Droid Sans', sans-serif;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.5;
   font-weight: 300;
   color: #555;
@@ -1490,7 +1490,7 @@ body.single-products .jquery-color-selection ul li a {
   text-align: center;
   text-transform: uppercase;
   margin-bottom: 5px;
-  padding: 8px 10px;
+  padding: 5px 10px;
 }
 body.single-products .jquery-color-selection ul li a.selected {
   color: #FFF;
@@ -1765,8 +1765,8 @@ body .popover.bottom .popover-content .checkout {
   font-family: 'Learning Curve Pro', 'serif';
   color: #9bd2cb;
   font-weight: normal;
-  font-size: 68px;
-  margin: 29px 0 0 0;
+  font-size: 50px;
+  margin: 20px 0 0 0;
 }
 #checkoutModal .modal-body {
   color: #424648;
