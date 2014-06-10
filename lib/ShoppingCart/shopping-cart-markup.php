@@ -191,7 +191,9 @@ function render_shopping_cart() {
 	echo  '</div>'; // .modal-body
 	echo  '<div class="modal-footer">';
 	echo 		'<div class="checkoutReview checkoutControls show">';
-	echo    	'<a class="btn btn-primary btn-primary-checkout choosePaymentMethod">Select Payment Method</a>';
+	//				PayPal Checkout Option
+	echo 			'<a class="paypal-checkout"><img src="'.get_stylesheet_directory_uri().'/images/paypal-checkout.png" alt="Checkout via Paypal instead." /></a>';
+	//echo    '<a class="btn btn-primary btn-primary-checkout choosePaymentMethod">Select Payment Method</a>';
 	echo 		'</div>';
 	echo 		'<div class="checkoutBasic checkoutControls hide">';
 	echo    	'<a id="submitBasicInfo" class="btn btn-primary btn-primary-checkout">Submit Basic Info</a>'; // [completes step B.1]
@@ -212,6 +214,7 @@ function render_shopping_cart() {
 	// Services Used (i.e. Stripe & EasyPost)
 	echo '<div class="services-used-container">';
 	echo 	'<div class="services-used stripe"><a href="http://stripe.com" target="_blank"><i class="stripe-icon"></i></a></div>';
+	echo 	'<div class="services-used support">Having trouble with your checkout? <a href="mailto:support@littonbags.com">Contact our support team.</a></div>';
 	echo '</div>';
 
   echo '</div>'; // .container

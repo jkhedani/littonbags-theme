@@ -161,9 +161,9 @@ a.btn:visited { color: @white; } // Prevents buttons from turning purple :(
 		background: url('../images/btn-primary-add-to-cart.png') no-repeat;
 	}
 	&.btn-primary-sold-out, &.btn-primary-sold-out:hover {
-		width: 138px;
-		height: 46px;
-		background: url('../images/btn-primary-sold-out-hollow.png') no-repeat;
+		width: 172px;
+		height: 56px;
+		background: url('../images/btn-primary-sold-out.png') no-repeat;
 	}
 	&.btn-primary-checkout, &.btn-primary-checkout:hover {
 		width: 106px;
@@ -764,15 +764,15 @@ body.single-products {
 					}
 					.product-content {
 						#font-family > .source-sans-pro;
-						width: 142px;
+						width: 172px;
 						position: fixed;
-						margin: 110px 0 0 858px;
+						margin: 110px 0 0 828px;
 						h3.product-qty-title { float: left; margin: 4px 6px 0 0; color: @redAccent; text-transform: uppercase; }
 						h3 { margin: 0; font-size: 14px; line-height: 1.5; text-transform: lowercase; font-weight: normal; clear: both; }
 						hr { border-bottom: none; border-top: 1px dotted @taupeAccent; margin-top: 17px; }
 						select { width: 50px; margin: 0 0 10px 0; }
 						.product-price { #font-family > .georgia; display: block; color: @redAccent; font-size: 21px; margin: 0 0 11px 0; padding-bottom: 20px; border-bottom: 2px dotted @darkGray; }
-						a#addToCart { width: 160px; }
+						a#addToCart { width: 172px; height: 56px; }
 					}
 					.product-scroll {
 						width: 960px;
@@ -964,13 +964,13 @@ body { // Some specificity to overwrite some hard to reach styles
 	.modal-meta { margin: 20px auto 80px auto; }
 	.modal-header {
 		margin: 20px auto;
-		.step-count { font-size: 13px; margin-bottom: 20px; #font-family > .droid-sans; color: @mint; }
+		.step-count { font-size: 13px; margin-bottom: 15px; #font-family > .droid-sans; color: @mint; }
 		h3 {
 			#font-family > .learning-curve;
 			color: @mint;
 			font-weight: normal;
-			font-size: 50px;
-			margin: 20px 0 0 0;
+			font-size: 45px;
+			margin: 0;
 		}
 	}
 	.modal-body {
@@ -1006,10 +1006,11 @@ body { // Some specificity to overwrite some hard to reach styles
 				opacity: 0.5;
 				display: block;
 				width: 150px;
-				height: 45px;
+				height: 27px;
 				float: right;
 				&.stripe-icon { background: url('../images/stripe-outline.png') no-repeat; }
 			}
+			&.support { font-size: 11px; color: @darkGray; clear: both; float: none; }
 		}
 	}
 
@@ -1120,12 +1121,12 @@ body { // Some specificity to overwrite some hard to reach styles
 	}
 	.modal-footer {
 		.paypal-checkout {
-			float: left;
+			float: right;
 			width: 150px;
 			margin: -8px 0 10px -6px;
-			opacity: 0.5;
+			// opacity: 0.5;
 			cursor: pointer;
-			&:hover { opacity: 1.0; }
+			// &:hover { opacity: 1.0; }
 		}
 	}
 
@@ -1229,6 +1230,10 @@ input.error { border: 1px solid @redAccent !important; }
 	body {
 		.navbar-fixed-top .container, .container { width: 1280px; }
 	}
+	/**
+	 *	Single Products Page
+	 */
+	body.single-products #page #main #content article .product-content { margin-left: 1128px; }
 }
 
 // Large and above
@@ -1254,6 +1259,10 @@ input.error { border: 1px solid @redAccent !important; }
 		#page header#navbar { padding-top: 56px; }
 		#page #main { margin-top: 105px; }
 	}
+	/**
+	 *	Single Products Page
+	 */
+	body.single-products #page #main #content article .product-content { margin-left: 568px; }
 }
 
 @media ( max-width: 770px ) {

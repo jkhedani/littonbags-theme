@@ -9,7 +9,7 @@
 
 	<header class="product-header span3">		
 		<h1 class="product-title"><?php the_title(); ?></h1>
-		<h2 class="product-subtitle"><?php echo get_field('product_subtitle'); ?></h2>
+		<h2 class="product-subtitle"><?php echo get_field( 'product_subtitle' ); ?></h2>
 		<?php if ( $post->post_content=="" && is_user_logged_in() ) : ?>
 			<p class="muted helper-text">You currently have no description. Add some <a href="'.get_edit_post_link().'" title="Edit this piece of content">here.</a></p>
 		<?php else : ?>

@@ -598,9 +598,9 @@ a.btn:visited {
 .btn.btn-primary.btn-primary-sold-out:hover,
 .btn.btn-primary:visited.btn-primary-sold-out:hover,
 .btn.btn-primary:focus.btn-primary-sold-out:hover {
-  width: 138px;
-  height: 46px;
-  background: url('../images/btn-primary-sold-out-hollow.png') no-repeat;
+  width: 172px;
+  height: 56px;
+  background: url('../images/btn-primary-sold-out.png') no-repeat;
 }
 .btn.btn-primary.btn-primary-checkout,
 .btn.btn-primary:visited.btn-primary-checkout,
@@ -1406,9 +1406,9 @@ body.single-products #page #main #content article .product-header .product-detai
 body.single-products #page #main #content article .product-content {
   font-family: 'Source Sans Pro', 'serif';
   font-weight: normal;
-  width: 142px;
+  width: 172px;
   position: fixed;
-  margin: 110px 0 0 858px;
+  margin: 110px 0 0 828px;
 }
 body.single-products #page #main #content article .product-content h3.product-qty-title {
   float: left;
@@ -1444,7 +1444,8 @@ body.single-products #page #main #content article .product-content .product-pric
   border-bottom: 2px dotted #737a7d;
 }
 body.single-products #page #main #content article .product-content a#addToCart {
-  width: 160px;
+  width: 172px;
+  height: 56px;
 }
 body.single-products #page #main #content article .product-scroll {
   width: 960px;
@@ -1756,7 +1757,7 @@ body .popover.bottom .popover-content .checkout {
 }
 #checkoutModal .modal-header .step-count {
   font-size: 13px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   font-family: 'Droid Sans', sans-serif;
   font-weight: normal;
   color: #9bd2cb;
@@ -1765,8 +1766,8 @@ body .popover.bottom .popover-content .checkout {
   font-family: 'Learning Curve Pro', 'serif';
   color: #9bd2cb;
   font-weight: normal;
-  font-size: 50px;
-  margin: 20px 0 0 0;
+  font-size: 45px;
+  margin: 0;
 }
 #checkoutModal .modal-body {
   color: #424648;
@@ -1824,11 +1825,17 @@ body .popover.bottom .popover-content .checkout {
   opacity: 0.5;
   display: block;
   width: 150px;
-  height: 45px;
+  height: 27px;
   float: right;
 }
 #checkoutModal .services-used-container .services-used i.stripe-icon {
   background: url('../images/stripe-outline.png') no-repeat;
+}
+#checkoutModal .services-used-container .services-used.support {
+  font-size: 11px;
+  color: #737a7d;
+  clear: both;
+  float: none;
 }
 #checkoutModal .checkoutReview {
   font-family: 'Josefin Sans', sans-serif !important;
@@ -2040,14 +2047,10 @@ body .popover.bottom .popover-content .checkout {
   background-position: 0 -198px;
 }
 #checkoutModal .modal-footer .paypal-checkout {
-  float: left;
+  float: right;
   width: 150px;
   margin: -8px 0 10px -6px;
-  opacity: 0.5;
   cursor: pointer;
-}
-#checkoutModal .modal-footer .paypal-checkout:hover {
-  opacity: 1.0;
 }
 #checkoutModal .modal-header .checkoutProcessing .step-count {
   text-align: center;
@@ -2150,6 +2153,12 @@ input.error {
   body .container {
     width: 1280px;
   }
+  /**
+  	 *	Single Products Page
+  	 */
+  body.single-products #page #main #content article .product-content {
+    margin-left: 1128px;
+  }
 }
 @media (max-width: 1400px) {
   body .navbar-fixed-top .container,
@@ -2176,6 +2185,12 @@ input.error {
   }
   html body #page #main {
     margin-top: 105px;
+  }
+  /**
+  	 *	Single Products Page
+  	 */
+  body.single-products #page #main #content article .product-content {
+    margin-left: 568px;
   }
 }
 @media (max-width: 770px) {

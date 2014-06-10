@@ -3,7 +3,6 @@ jQuery(document).ready(function($){
 	/**
 	 *	General Scripts
 	 */
-
  	// Hide address bar for iOS devices
  	// http://davidwalsh.name/hide-address-bar
 	window.addEventListener("load",function() {

@@ -148,10 +148,6 @@ function refresh_shopping_cart() {
 			/**
 			 *	Get Product Options
 			 */
-			//$productOptions = get_field( 'product_options', $postID );
-			$productOptions = have_rows( 'product_options', $postID );
-			
-			error_log( print_r( $productOptions, true ) );
 
 			/**
 			 *	Get Product Color
@@ -172,11 +168,13 @@ function refresh_shopping_cart() {
 			 *	Get Product Thumbnail
 			 */
 			$optionPreview = ''; // Clear variable during loop
-			while ( $productOptions ) : the_row();
-				if ( $productOption['product_color_name'] == $itemColor ) {
-					$optionPreview = $productOption['product_checkout_image_preview'];
+			if ( have_rows( 'product_options', $postID ) ) :
+			while ( have_rows( 'product_options', $postID ) ) : the_row();
+				if ( get_sub_field('product_color_name') == $itemColor ) {
+					$optionPreview = get_sub_field('product_checkout_image_preview');
 				}
 			endwhile;
+			endif;
 
 			/*
 			 * Generate User-facing totals 
@@ -184,11 +182,14 @@ function refresh_shopping_cart() {
 			$optionPrice = ''; // Clear variable during loop
 			$productPrice = get_field( 'product_price' );
 			// Iterate through options to find the current options selected (looking for option based on color)
-			while ( $productOptions ) : the_row();
-				if ( $productOption['product_color_name'] == $itemColor ) {
-					$optionPrice = $productOption['product_option_price'];
+			if ( have_rows( 'product_options', $postID ) ) :
+			while ( have_rows( 'product_options', $postID ) ) : the_row();
+				if ( get_sub_field('product_color_name') == $itemColor ) {
+					$optionPrice = get_sub_field('product_option_price');
 				}
 			endwhile;
+			endif;
+
 			// If cost of the option differs from the product price, set the product cost to the option amount
 			if ( ( $optionPrice != $productPrice ) && ( $optionPrice != 0 ) ) {
 				$actualPrice = $optionPrice;
