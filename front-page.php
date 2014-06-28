@@ -13,8 +13,24 @@
 
 get_header(); ?>
 			
-	<div id="primary" class="content-area container">
+	<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
+
+			<!-- Background image -->
+      <div id="homeCarousel" class="carousel slide">
+        <div class="carousel-inner">
+        <?php $i = 0; ?>
+        <?php $home_featured_gallery = get_field('home_gallery'); ?>
+        <?php foreach ( $home_featured_gallery as $home_featured_gallery_meta ) { ?>
+          <img class="item <?php if (!$i++) echo 'active'; ?>" src="<?php echo $home_featured_gallery_meta['home_gallery_image']; ?>" />
+        <?php } ?>
+        </div><!-- .carousel-inner -->
+        <a class="carousel-control left" href="#homeCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#homeCarousel" data-slide="next">&rsaquo;</a>
+      </div><!-- .carousel -->
+
+      <!-- The Minster Call To Action -->
+      <a class="btn btn-primary btn-primary-home" href="<?php echo get_site_url(); ?>/products/the-minster">Shop The Bag</a>
 
 			<div class="minster-type-treatment">
 				<h1><?php _e('The Minster','litton_bags'); ?></h1>
@@ -25,6 +41,5 @@ get_header(); ?>
 
 		</div><!-- #content .site-content -->
 	</div><!-- #primary .content-area -->
-	<?php //get_sidebar(); ?>
 
 <?php get_footer(); ?>

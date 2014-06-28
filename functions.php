@@ -295,6 +295,7 @@ function diamond_scripts() {
     wp_enqueue_style( 'google-fonts-source-sans-pro', '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', array(), false, 'all' );
     wp_enqueue_style( 'google-fonts-josefin-sans', '//fonts.googleapis.com/css?family=Josefin+Sans:300,400', array(), false, 'all' );
     wp_enqueue_style( 'google-fonts-droid-sans', '//fonts.googleapis.com/css?family=Droid+Sans', array(), false, 'all' );
+    wp_enqueue_style( 'font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css', array(), false, 'all' );
     // Activate line below for responsive layout
 	// Requires: Child theme style, resets, parent theme base style and bootstrap base style
 	// to load prior to responsive. Responsive styles should typically be loaded last.
@@ -371,6 +372,11 @@ if ( is_admin() ) {
     require_once( get_stylesheet_directory() . '/lib/StripeScripts/stripe-process-payment.php' );
     require_once( get_stylesheet_directory() . '/lib/StripeScripts/stripe-listener.php' );
 }
+
+/**
+ *  PayPal Integration
+ */
+//require_once( get_stylesheet_directory() . '/lib/PayPal/sample/sdk_config.ini' );
 
 /**
  *  "Easy Post" Integration

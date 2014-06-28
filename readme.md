@@ -35,3 +35,20 @@ Current To Do (10092013)
 
 
 +		Icons needed @2X: footer social icons, primary logo, & shopping cart
+
+
+
+PayPal Checkout Routine
+=======================
+
+https://developer.paypal.com/webapps/developer/docs/integration/web/web-checkout/
+https://www.sandbox.paypal.com/
+https://developer.paypal.com/
+
+https://devtools-paypal.com/guide/pay_paypal/php?interactive=ON&env=sandbox
+
+Classic API
+https://apps.paypal.com
+
+This appears to be the type of REST API call we want to make:
+https://devtools-paypal.com/guide/pay_paypal/php?interactive=ON&env=sandbox

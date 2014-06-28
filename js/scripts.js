@@ -15,7 +15,6 @@ jQuery(document).ready(function($){
 	 *	Mobile Menu
 	 *	Toggle must be right above menu you wish to affect.
 	 */
-
 	$('.mobile-menu-toggle').on( 'click', function() {
 		$(this).next('.mobile-menu').toggle();
 		return false;
