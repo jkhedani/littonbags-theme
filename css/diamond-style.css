@@ -2676,10 +2676,17 @@ html body .shopping-cart-product .product-subtotal {
     min-height: 600px;
   }
   html body.post-type-archive-products #main .bag-slide .slide-content {
-    position: relative;
+    position: fixed;
+    margin-top: 250px;
   }
   html body.post-type-archive-products #main .first-bags img.featured-image {
     margin-right: -300px;
+  }
+  html body.post-type-archive-products #main .accessories-slide .slide-content {
+    position: inherit;
+    text-align: left;
+    width: 26%;
+    margin-top: 250px;
   }
   html body.post-type-archive-products #main .first-accessories img.featured-image {
     margin-left: -300px;
