@@ -1030,7 +1030,6 @@ html body footer#colophon ul#menu-footer-menu li a[title='Pinterest'] {
 body.page-template-templatespage-customer-service-php a.mobile-menu-toggle,
 body.page-template-default.page-not-home a.mobile-menu-toggle,
 body.post-type-archive.page-not-home a.mobile-menu-toggle {
-  display: block;
   color: #999999;
   font-size: 23px;
   margin: -9px 14px 0 0;
@@ -2371,12 +2370,14 @@ html body.single-products #page #main #content article .product-content {
 html body.single-products #page #main #content article .product-header {
   width: 100%;
   margin-top: 20px;
+  max-width: 400px;
 }
 html body.single-products #page #main #content article .product-header .lookbook-link {
   margin-left: 31px;
 }
 html body.single-products #page #main #content article .product-content {
-  width: 300px;
+  width: 100%;
+  max-width: 400px;
   margin-top: 15px;
   *zoom: 1;
 }
@@ -2391,9 +2392,12 @@ html body.single-products #page #main #content article .product-content:after {
 }
 html body.single-products #page #main #content article .product-content .product-left-col {
   float: left;
+  width: 38%;
+  margin-right: 15px;
 }
 html body.single-products #page #main #content article .product-content .product-right-col {
   float: right;
+  width: 56%;
 }
 html body.single-products #page #main #content article .product-content .product-right-col .jquery-color-selection a {
   width: 50px;
@@ -2444,6 +2448,19 @@ body.page-template-templatespage-customer-service-php.page-not-home .entry-conte
 body.post-type-archive-products #main {
   margin-top: 0;
 }
+body.post-type-archive-products #main .slide h2.slide-subtitle {
+  margin-top: 0;
+}
+body.post-type-archive-products #main .bag-slide .slide-content,
+body.post-type-archive-products #main .accessories-slide .slide-content {
+  position: absolute;
+  margin-top: 50px;
+  width: 85%;
+}
+body.post-type-archive-products #main .accessories-slide .slide-content {
+  width: 85%;
+  text-align: right;
+}
 body.post-type-archive-products #main .first-bags img.featured-image {
   margin-right: -300px;
 }
@@ -2454,6 +2471,12 @@ html body .popover.bottom {
   min-width: 100%;
   left: auto !important;
   right: 0;
+}
+html body .shopping-cart-preview-legend {
+  display: none;
+}
+html body .shopping-cart-product .product-subtotal {
+  display: none !important;
 }
 /**
  * RESPONSIVE CSS
@@ -2468,10 +2491,10 @@ html body .popover.bottom {
     margin-left: -230px;
   }
   html body .shopping-cart-preview-legend {
-    display: none;
+    display: block;
   }
   html body .shopping-cart-product .product-subtotal {
-    display: none !important;
+    display: block !important;
   }
   html body.single-products #page #main #content article .product-scroll {
     width: 100%;
@@ -2603,12 +2626,14 @@ html body .popover.bottom {
   html body.single-products #page #main #content article .product-header {
     width: 350px;
     margin-top: 78px;
+    max-width: none;
   }
   html body.single-products #page #main #content article .product-header .lookbook-link {
     margin-left: 0;
   }
   html body.single-products #page #main #content article .product-content {
     margin-top: 370px;
+    max-width: none;
   }
   html body.single-products #page #main #content article .product-content {
     width: 172px;
@@ -2625,9 +2650,11 @@ html body .popover.bottom {
   }
   html body.single-products #page #main #content article .product-content .product-left-col {
     float: none;
+    width: auto;
   }
   html body.single-products #page #main #content article .product-content .product-right-col {
     float: none;
+    width: auto;
   }
   html body.single-products #page #main #content article .product-content .product-right-col .jquery-color-selection a {
     width: auto;
@@ -2647,6 +2674,9 @@ html body .popover.bottom {
   body.page-template-default.page-not-home #content,
   body.post-type-archive.page-not-home #content {
     min-height: 600px;
+  }
+  html body.post-type-archive-products #main .bag-slide .slide-content {
+    position: relative;
   }
   html body.post-type-archive-products #main .first-bags img.featured-image {
     margin-right: -300px;
@@ -2717,16 +2747,21 @@ html body .popover.bottom {
 @media (max-width: 615px) {
   
 }
+@media (max-width: 400px) {
+  html body.single-products #page #main #content article .product-header .product-title {
+    text-align: center;
+    margin: 0 0 -7px -20px;
+  }
+  html body.single-products #page #main #content article .product-header .product-subtitle {
+    margin: 0 0 15px -20px;
+    width: 106%;
+    background-position: center center;
+  }
+}
 @media (max-width: 500px) {
   /**
   	 *	All Products page
   	 */
-  body.post-type-archive-products #main .slide {
-    overflow: hidden;
-  }
-  body.post-type-archive-products #main .slide .slide-content {
-    margin: 0;
-  }
   body.post-type-archive-products #main .center-slide .slide-content {
     width: auto;
     margin: 0;
@@ -2752,9 +2787,6 @@ html body .popover.bottom {
     display: block;
     margin: 0 auto;
   }
-  /**
-  	 *	Shopping Cart
-  	 */
   /**
   	 * Checkout Modal
   	 */

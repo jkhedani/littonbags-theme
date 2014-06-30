@@ -119,15 +119,36 @@ jQuery(document).ready(function($){
 			$('.view-master-control').on( 'click', function() {
 				// next slide has class first-accessories
 				if ( $('.view-master .active.slide').hasClass('first-accessories') ) {
-					$('.view-master .active.slide img.featured-image').animate({
-						marginLeft: '0px',
-					}, 500);
+
+					if ( window.innerWidth <= 400 ) {
+						$('.view-master .active.slide img.featured-image').animate({
+							marginLeft: '-400px',
+						}, 500);
+					} else if ( window.innerWidth <= 768 ) {
+						$('.view-master .active.slide img.featured-image').animate({
+							marginLeft: '-275px',
+						}, 500);
+					} else {
+						$('.view-master .active.slide img.featured-image').animate({
+							marginLeft: '0px',
+						}, 500);
+					}
 				}
 				// next slide has class first-bags
 				if ( $('.view-master .active.slide').hasClass('first-bags') ) {
-					$('.view-master .active.slide img.featured-image').animate({
-						marginRight: '0px',
-					}, 500);
+					if ( window.innerWidth <= 400 ) {
+						$('.view-master .active.slide img.featured-image').animate({
+							marginRight: '-400px',
+						}, 500);
+					} else if ( window.innerWidth <= 768 ) {
+						$('.view-master .active.slide img.featured-image').animate({
+							marginRight: '-275px',
+						}, 500);
+					} else {
+						$('.view-master .active.slide img.featured-image').animate({
+							marginRight: '0px',
+						}, 500);
+					}
 				}
 				// next slide is center slide
 				if ( $('.view-master .active.slide').hasClass('center-slide') ) {
