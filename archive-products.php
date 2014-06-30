@@ -74,7 +74,7 @@ get_header(); ?>
 		    		<div class="slide-content">
 		    			<h1 class="slide-title"><?php echo get_the_title(); ?></h1>
 		    			<h2 class="slide-subtitle"><?php echo get_field('product_subtitle'); ?></h2>
-		    			<a class="slide-view-more" href="<?php echo get_permalink(); ?>">View</a>
+		    			<a class="slide-view-more" href="<?php echo get_permalink(); ?>">View >>></a>
 		    		</div>
 		    		<?php if ( get_field('product_shop_image') ) { ?>
 		    			<div class="slide-image-container">

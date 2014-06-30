@@ -50,22 +50,28 @@
 		// Get Product Options (price, colors options, etc.)
 		$productOptions = get_field('product_options');
 
+		echo '<div class="product-left-col">';
 		// Price
 		if ( get_field('product_price') ) {
 			$productPrice = get_field('product_price');
 			echo '<span class="product-price" data-standard-product-price="'.format_money( $productPrice, 'US' ).'">'.format_money( $productPrice, 'US' ).'</span>';
 		}
+		echo '</div>';
 
 		// Quantity Options
+		echo '<div class="product-right-col">';
+		echo '<div class="product-quantity-container">';
 		echo '<h3 class="product-qty-title">Quantity</h3>';
 		echo '<select class="product-qty-selection">';
 		for($i = 1; $i < 11; $i++) {
 			echo '<option value="'.$i.'">'.$i.'</option>';	
 		}
 		echo '</select>';
+		echo '</div>'; // .product-quantity-container
 
 		// Color Options
 		if ( get_field('product_options') ) {
+			echo '<div class="product-color-container">';
 			echo '<h3 class="product-color-title">Select a Color</h3>';
 			echo '<select class="product-color-selection" data-product-sold-out="';
 			if (get_field( 'product_sold_out' )) echo '1';
@@ -78,6 +84,7 @@
 				echo ' data-background-color="'.$productOption['product_color'].'" data-option-price="'.format_money( $productOption['product_option_price'], 'US' ).'" data-option-sold-out="'.$productOption['product_option_sold_out'].'">'.$productOption['product_color_name'].'</option>';
 			}
 			echo '</select>';
+			echo '</div>'; // .product-color-container
 		}
 
 		echo '<hr />';
@@ -85,7 +92,6 @@
 		/*
 		 * "Add To Cart" Button or "Sold Out"
 		 */
-
 		if ( get_field( 'product_sold_out' ) ) {
 			// Sold Out
 			echo '<a id="soldOut" href="javascript:void(0);" class="btn btn-primary btn-primary-sold-out show">Sold Out</a>';
@@ -95,6 +101,9 @@
 			echo '<a id="soldOut" href="javascript:void(0);" class="btn btn-primary btn-primary-sold-out hide">Sold Out</a>';
 			echo '<a id="addToCart" role="button" href="javascript:void(0);" class="btn btn-primary btn-primary-add-to-cart show" data-post-id="'.$post->ID.'">Add To Cart</a>'; 
 		}
+
+		echo '</div>'; // .product-right-col
+
 		?>
 
 	</div><!-- .product-content -->
