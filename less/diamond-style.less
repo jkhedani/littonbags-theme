@@ -164,7 +164,7 @@ a.btn:visited { color: @white; }
 		background-repeat: no-repeat;
 	}
 	&.btn-primary-add-to-cart, &.btn-primary-add-to-cart:hover {
-		width: 138px;
+		// width: 138px;
 		height: 45px;
 		background: url('../images/btn-primary-add-to-cart.png') no-repeat;
 	}
@@ -500,7 +500,8 @@ html {
  */
 body.page-template-templatespage-customer-service-php,
 body.page-template-default.page-not-home,
-body.post-type-archive.page-not-home {
+body.post-type-archive.page-not-home,
+body.error404.page-not-home {
 	a.mobile-menu-toggle {
 		color: @grayLight;
 		font-size: 23px;
@@ -531,7 +532,7 @@ body.post-type-archive.page-not-home {
 			clear: left;
 		}
 		.entry-content {
-			h2 { #font-family > .learning-curve; color: @watermelon; }
+			h2, h3, h4, h5 { #font-family > .learning-curve; color: @watermelon; }
 			p { color: #888; }
 			b, i, strong, em { color: @grayDark; }
 			a { color: @watermelon; }
@@ -615,6 +616,15 @@ body.page-template-templatespage-customer-service-php {
 				&:nth-child(4) a { background-position: -235px -235px; }
 			}
 		} // #menu-customer-service
+	}
+}
+
+/**
+ *	404 Error Page
+ */
+body.error404.page-not-home {
+	#primary {
+		margin: 40px auto;
 	}
 }
 
@@ -738,8 +748,7 @@ body.home {
 		right: 151px;
 		bottom: 54px;
 		h1 { #font-family > .learning-curve; font-size: 95px; color: #FFF; margin-bottom: 20px; }
-		span.minster-flair { .no-text(); width: 102px; float: left; display: block; background: url('../images/minster-flair.png') no-repeat; }
-		span.subtitle { #font-family > .ostrich-light; font-weight: 600; text-transform: uppercase; font-size: 34px; color: rgba(255,255,255,0.6); float: right; margin-right: 10px; }
+		span.subtitle { #font-family > .ostrich-light; font-weight: 600; text-transform: uppercase; font-size: 34px; float: right; margin-right: 10px; }
 	}
 }
 
@@ -801,7 +810,7 @@ body.single-products {
 						h3 { margin: 0; font-size: 14px; line-height: 1.5; text-transform: lowercase; font-weight: normal; clear: both; }
 						hr { border-bottom: none; border-top: 1px dotted @taupeAccent; margin-top: 17px; }
 						select { width: 50px; margin: 0 0 10px 0; }
-						.product-price { #font-family > .georgia; display: block; color: @redAccent; font-size: 21px; margin: 0 0 11px 0; padding-bottom: 20px; border-bottom: 2px dotted @darkGray; }
+						.product-price { #font-family > .georgia; display: block; color: @redAccent; font-size: 21px; margin: 0 0 11px 0;  }
 						a#addToCart { width: 172px; height: 56px; }
 					}
 					.product-scroll {
@@ -1310,10 +1319,12 @@ html body.home {
 	}
 	
 	.minster-type-treatment {
-		right: 35px;
-		bottom: 60px;
-		h1 { font-size: 76px; margin-bottom: 0; }
-		span.subtitle { font-size: 21px; }
+		left: 60px;
+		right: auto;
+		bottom: 30px;
+		h1 { font-size: 56px; margin-bottom: 0; }
+		span.minster-flair { .no-text(); width: 52px; float: left; display: block; background: url('../images/minster-flair.png') no-repeat; background-size: 100%; }
+		span.subtitle { font-size: 16px; font-weight: bold; color: rgba(255,255,255,1.0); }
 	}
 }
 // SINGLE PRODUCTS
@@ -1329,17 +1340,34 @@ html body.single-products {
 			max-width: 400px;
 			margin-top: 15px;
 			.clearfix();
-			.product-left-col { float: left; width: 38%; margin-right: 15px; }
-			.product-right-col { float: right; width: 56%;
+			.product-price { border-bottom: none; padding: 0; }
+			.product-left-col {
+				width: 172px;
 				.jquery-color-selection a {
-					width: 50px;
-					height: 50px;
+					width: 31%;
+					height: 53px;
 					float: left;
-					margin-left: 10px;
+					margin-left: 3%;
 					display: block;
 					.no-text();
 				}
 				.jquery-color-selection ul li:first-child a { margin-left: 0; }
+				.product-quantity-container {
+					padding-top: 10px;
+				}
+			}
+			.product-right-col {
+				width: 100%;
+				a#addToCart {
+					background: @watermelon;
+					text-indent: 0;
+					width: 93%;
+					height: auto;
+					text-shadow: none;
+					text-transform: uppercase;
+					text-align: center;
+					padding: 8px 0;
+				}
 			}
 		}
 	}
@@ -1456,14 +1484,55 @@ html body {
 			position: absolute;
 			right: 151px;
 			bottom: 54px;
+			left: auto;
 			h1 { #font-family > .learning-curve; font-size: 95px; color: #FFF; margin-bottom: 20px; }
 			span.minster-flair { .no-text(); width: 102px; float: left; display: block; background: url('../images/minster-flair.png') no-repeat; }
-			span.subtitle { #font-family > .ostrich-light; font-weight: 600; text-transform: uppercase; font-size: 34px; color: rgba(255,255,255,0.6); float: right; margin-right: 10px; }
+			span.subtitle { #font-family > .ostrich-light; font-size: 26px; font-weight: 600; text-transform: uppercase; color: rgba(255,255,255,0.8); float: right; margin-right: 10px; }
 		}
 	}
 	// BASIC PAGES
 	body.page-template-default.page-not-home {
 
+	}
+	// SINGLE PRODUCTS
+	html body.single-products {
+		#page #main #content article {
+			.product-header, .product-content { position: fixed; }
+						.product-header { width: 350px; margin-top: 78px; max-width: none;
+				.lookbook-link { margin-left: 0; }
+			}
+			.product-content { margin-top: 370px; max-width: none; }
+			// UNHACK! Product Content Formatting
+			.product-content {
+				width: 172px;
+				.clearfix();
+				.product-price { padding-bottom: 20px; border-bottom: 2px dotted @darkGray; }
+				.product-left-col { float: none; width: auto;
+					.jquery-color-selection a {
+						width: auto;
+						height: auto;
+						float: none;
+						margin-left: 0;
+						display: block;
+						text-indent: 0;
+					}
+					.jquery-color-selection ul li:first-child a { margin-left: 0; }
+				}
+				.product-right-col {
+					float: none;
+					width: 172px;
+
+					a#addToCart {
+						background: url('../images/btn-primary-add-to-cart.png') no-repeat;
+						width: 172px;
+						height: 56px;
+						padding: 0;
+						.no-text();
+					}
+
+				}
+			}
+		}
 	}
 
 } // @media 500px
@@ -1538,34 +1607,13 @@ html body {
 			}
 		}
 		&.page-id-14 {
-			.entry-content { width: 75%; }
+			.entry-content { width: 98%; }
 		}
 	}
 	// SINGLE PRODUCTS
 	html body.single-products {
 		#page #main #content article {
-			.product-header, .product-content { position: fixed; }
-			.product-header { width: 350px; margin-top: 78px; max-width: none;
-				.lookbook-link { margin-left: 0; }
-			}
-			.product-content { margin-top: 370px; max-width: none; }
-			// UNHACK! Product Content Formatting
-			.product-content {
-				width: 172px;
-				.clearfix();
-				.product-left-col { float: none; width: auto; }
-				.product-right-col { float: none; width: auto;
-					.jquery-color-selection a {
-						width: auto;
-						height: auto;
-						float: none;
-						margin-left: 0;
-						display: block;
-						text-indent: 0;
-					}
-					.jquery-color-selection ul li:first-child a { margin-left: 0; }
-				}
-			}
+
 		}
 	}
 	// BASIC PAGES
@@ -1758,16 +1806,46 @@ html body {
 	}
 }
 
+/**
+ *	Retina Screens
+ */
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+	.btn.btn-primary, .btn.btn-primary:visited, .btn.btn-primary:focus {
+		// background: none;
+		// position: relative;
+		// -moz-box-shadow: none;
+		// box-shadow: none;
+		// border: none;
+		// border-radius: 0;
+		// padding: 0;
+		// .no-text;
+		// &.btn-primary-home, &.btn-primary-home:hover {
+		// 	width: 205px;
+		// 	height: 110px;
+		// 	background-image: url('../images/btn-primary-home.png');
+		// 	background-repeat: no-repeat;
+		// }
+		&.btn-primary-add-to-cart, &.btn-primary-add-to-cart:hover {
+			background-size: 100%;
+			background-repeat: no-repeat;
+			background-image: url('../images/btn-primary-add-to-cart@2X.png');
+		}
+		// &.btn-primary-sold-out, &.btn-primary-sold-out:hover {
+		// 	width: 172px;
+		// 	height: 56px;
+		// 	background: url('../images/btn-primary-sold-out.png') no-repeat;
+		// }
+		// &.btn-primary-checkout, &.btn-primary-checkout:hover {
+		// 	width: 106px;
+		// 	height: 45px;
+		// 	background: url('../images/btn-primary-checkout.png') no-repeat;
+		// }
+	}
+} // @media
 
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+     .repeatingPattern {
+          background: url(../images/bgPattern@2x.png) repeat;
+     }
+}
 
-
-// .repeatingPattern {
-//      background: url(../images/bgPattern.png) repeat;
-//      background-size: 100px 100px;
-// }
-
-// @media only screen and (-webkit-min-device-pixel-ratio: 2) {
-//      .repeatingPattern {
-//           background: url(../images/bgPattern@2x.png) repeat;
-//      }
-// }

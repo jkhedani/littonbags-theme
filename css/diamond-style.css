@@ -618,7 +618,6 @@ a.btn:visited {
 .btn.btn-primary.btn-primary-add-to-cart:hover,
 .btn.btn-primary:visited.btn-primary-add-to-cart:hover,
 .btn.btn-primary:focus.btn-primary-add-to-cart:hover {
-  width: 138px;
   height: 45px;
   background: url('../images/btn-primary-add-to-cart.png') no-repeat;
 }
@@ -1029,28 +1028,34 @@ html body footer#colophon ul#menu-footer-menu li a[title='Pinterest'] {
  */
 body.page-template-templatespage-customer-service-php a.mobile-menu-toggle,
 body.page-template-default.page-not-home a.mobile-menu-toggle,
-body.post-type-archive.page-not-home a.mobile-menu-toggle {
+body.post-type-archive.page-not-home a.mobile-menu-toggle,
+body.error404.page-not-home a.mobile-menu-toggle {
   color: #999999;
   font-size: 23px;
   margin: -9px 14px 0 0;
 }
 body.page-template-templatespage-customer-service-php ul.mobile-menu a,
 body.page-template-default.page-not-home ul.mobile-menu a,
-body.post-type-archive.page-not-home ul.mobile-menu a {
+body.post-type-archive.page-not-home ul.mobile-menu a,
+body.error404.page-not-home ul.mobile-menu a {
   color: #FFF;
 }
 body.page-template-templatespage-customer-service-php p,
 body.page-template-default.page-not-home p,
 body.post-type-archive.page-not-home p,
+body.error404.page-not-home p,
 body.page-template-templatespage-customer-service-php a,
 body.page-template-default.page-not-home a,
 body.post-type-archive.page-not-home a,
+body.error404.page-not-home a,
 body.page-template-templatespage-customer-service-php ul li,
 body.page-template-default.page-not-home ul li,
 body.post-type-archive.page-not-home ul li,
+body.error404.page-not-home ul li,
 body.page-template-templatespage-customer-service-php ol li,
 body.page-template-default.page-not-home ol li,
-body.post-type-archive.page-not-home ol li {
+body.post-type-archive.page-not-home ol li,
+body.error404.page-not-home ol li {
   font-size: 14px;
   font-family: 'Source Sans Pro', 'serif';
   font-weight: normal;
@@ -1061,44 +1066,52 @@ body.post-type-archive.page-not-home ol li {
 body.page-template-templatespage-customer-service-php #main,
 body.page-template-default.page-not-home #main,
 body.post-type-archive.page-not-home #main,
+body.error404.page-not-home #main,
 body.page-template-templatespage-customer-service-php #content,
 body.page-template-default.page-not-home #content,
-body.post-type-archive.page-not-home #content {
+body.post-type-archive.page-not-home #content,
+body.error404.page-not-home #content {
   background-color: #fefefd;
 }
 body.page-template-templatespage-customer-service-php article,
 body.page-template-default.page-not-home article,
-body.post-type-archive.page-not-home article {
+body.post-type-archive.page-not-home article,
+body.error404.page-not-home article {
   position: relative;
   z-index: 10;
 }
 body.page-template-templatespage-customer-service-php article .customer-service,
 body.page-template-default.page-not-home article .customer-service,
-body.post-type-archive.page-not-home article .customer-service {
+body.post-type-archive.page-not-home article .customer-service,
+body.error404.page-not-home article .customer-service {
   width: 516px;
   height: 111px;
   float: left;
 }
 body.page-template-templatespage-customer-service-php article .customer-service img,
 body.page-template-default.page-not-home article .customer-service img,
-body.post-type-archive.page-not-home article .customer-service img {
+body.post-type-archive.page-not-home article .customer-service img,
+body.error404.page-not-home article .customer-service img {
   width: 100%;
 }
 body.page-template-templatespage-customer-service-php article .attachment-post-thumbnail,
 body.page-template-default.page-not-home article .attachment-post-thumbnail,
-body.post-type-archive.page-not-home article .attachment-post-thumbnail {
+body.post-type-archive.page-not-home article .attachment-post-thumbnail,
+body.error404.page-not-home article .attachment-post-thumbnail {
   position: absolute;
   z-index: -99;
   right: 0;
 }
 body.page-template-templatespage-customer-service-php article .entry-header,
 body.page-template-default.page-not-home article .entry-header,
-body.post-type-archive.page-not-home article .entry-header {
+body.post-type-archive.page-not-home article .entry-header,
+body.error404.page-not-home article .entry-header {
   clear: left;
 }
 body.page-template-templatespage-customer-service-php article .entry-header h1,
 body.page-template-default.page-not-home article .entry-header h1,
-body.post-type-archive.page-not-home article .entry-header h1 {
+body.post-type-archive.page-not-home article .entry-header h1,
+body.error404.page-not-home article .entry-header h1 {
   font-family: 'Learning Curve Pro', 'serif';
   font-weight: normal;
   -webkit-font-smoothing: antialiased;
@@ -1109,14 +1122,28 @@ body.post-type-archive.page-not-home article .entry-header h1 {
 }
 body.page-template-templatespage-customer-service-php article .entry-content,
 body.page-template-default.page-not-home article .entry-content,
-body.post-type-archive.page-not-home article .entry-content {
+body.post-type-archive.page-not-home article .entry-content,
+body.error404.page-not-home article .entry-content {
   clear: left;
   margin-top: 0px;
   padding-bottom: 25px;
 }
 body.page-template-templatespage-customer-service-php article .entry-content h2,
 body.page-template-default.page-not-home article .entry-content h2,
-body.post-type-archive.page-not-home article .entry-content h2 {
+body.post-type-archive.page-not-home article .entry-content h2,
+body.error404.page-not-home article .entry-content h2,
+body.page-template-templatespage-customer-service-php article .entry-content h3,
+body.page-template-default.page-not-home article .entry-content h3,
+body.post-type-archive.page-not-home article .entry-content h3,
+body.error404.page-not-home article .entry-content h3,
+body.page-template-templatespage-customer-service-php article .entry-content h4,
+body.page-template-default.page-not-home article .entry-content h4,
+body.post-type-archive.page-not-home article .entry-content h4,
+body.error404.page-not-home article .entry-content h4,
+body.page-template-templatespage-customer-service-php article .entry-content h5,
+body.page-template-default.page-not-home article .entry-content h5,
+body.post-type-archive.page-not-home article .entry-content h5,
+body.error404.page-not-home article .entry-content h5 {
   font-family: 'Learning Curve Pro', 'serif';
   font-weight: normal;
   -webkit-font-smoothing: antialiased;
@@ -1125,50 +1152,61 @@ body.post-type-archive.page-not-home article .entry-content h2 {
 }
 body.page-template-templatespage-customer-service-php article .entry-content p,
 body.page-template-default.page-not-home article .entry-content p,
-body.post-type-archive.page-not-home article .entry-content p {
+body.post-type-archive.page-not-home article .entry-content p,
+body.error404.page-not-home article .entry-content p {
   color: #888;
 }
 body.page-template-templatespage-customer-service-php article .entry-content b,
 body.page-template-default.page-not-home article .entry-content b,
 body.post-type-archive.page-not-home article .entry-content b,
+body.error404.page-not-home article .entry-content b,
 body.page-template-templatespage-customer-service-php article .entry-content i,
 body.page-template-default.page-not-home article .entry-content i,
 body.post-type-archive.page-not-home article .entry-content i,
+body.error404.page-not-home article .entry-content i,
 body.page-template-templatespage-customer-service-php article .entry-content strong,
 body.page-template-default.page-not-home article .entry-content strong,
 body.post-type-archive.page-not-home article .entry-content strong,
+body.error404.page-not-home article .entry-content strong,
 body.page-template-templatespage-customer-service-php article .entry-content em,
 body.page-template-default.page-not-home article .entry-content em,
-body.post-type-archive.page-not-home article .entry-content em {
+body.post-type-archive.page-not-home article .entry-content em,
+body.error404.page-not-home article .entry-content em {
   color: #333333;
 }
 body.page-template-templatespage-customer-service-php article .entry-content a,
 body.page-template-default.page-not-home article .entry-content a,
-body.post-type-archive.page-not-home article .entry-content a {
+body.post-type-archive.page-not-home article .entry-content a,
+body.error404.page-not-home article .entry-content a {
   color: #ff6368;
 }
 body.page-template-templatespage-customer-service-php article .entry-content ul li,
 body.page-template-default.page-not-home article .entry-content ul li,
 body.post-type-archive.page-not-home article .entry-content ul li,
+body.error404.page-not-home article .entry-content ul li,
 body.page-template-templatespage-customer-service-php article .entry-content ol li,
 body.page-template-default.page-not-home article .entry-content ol li,
-body.post-type-archive.page-not-home article .entry-content ol li {
+body.post-type-archive.page-not-home article .entry-content ol li,
+body.error404.page-not-home article .entry-content ol li {
   color: #888888;
 }
 body.page-template-templatespage-customer-service-php form,
 body.page-template-default.page-not-home form,
-body.post-type-archive.page-not-home form {
+body.post-type-archive.page-not-home form,
+body.error404.page-not-home form {
   text-transform: uppercase;
 }
 body.page-template-templatespage-customer-service-php form p,
 body.page-template-default.page-not-home form p,
-body.post-type-archive.page-not-home form p {
+body.post-type-archive.page-not-home form p,
+body.error404.page-not-home form p {
   color: #888;
   font-size: 13px;
 }
 body.page-template-templatespage-customer-service-php form input,
 body.page-template-default.page-not-home form input,
-body.post-type-archive.page-not-home form input {
+body.post-type-archive.page-not-home form input,
+body.error404.page-not-home form input {
   width: 100%;
   padding: 20px 10px;
   margin-top: 8px;
@@ -1176,7 +1214,8 @@ body.post-type-archive.page-not-home form input {
 }
 body.page-template-templatespage-customer-service-php form textarea,
 body.page-template-default.page-not-home form textarea,
-body.post-type-archive.page-not-home form textarea {
+body.post-type-archive.page-not-home form textarea,
+body.error404.page-not-home form textarea {
   width: 100%;
   padding: 20px 10px;
   margin-top: 8px;
@@ -1184,7 +1223,8 @@ body.post-type-archive.page-not-home form textarea {
 }
 body.page-template-templatespage-customer-service-php div.wpcf7-validation-errors,
 body.page-template-default.page-not-home div.wpcf7-validation-errors,
-body.post-type-archive.page-not-home div.wpcf7-validation-errors {
+body.post-type-archive.page-not-home div.wpcf7-validation-errors,
+body.error404.page-not-home div.wpcf7-validation-errors {
   padding: 8px 35px 8px 14px;
   margin-bottom: 20px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -1196,7 +1236,8 @@ body.post-type-archive.page-not-home div.wpcf7-validation-errors {
 }
 body.page-template-templatespage-customer-service-php .wpcf7-not-valid-tip,
 body.page-template-default.page-not-home .wpcf7-not-valid-tip,
-body.post-type-archive.page-not-home .wpcf7-not-valid-tip {
+body.post-type-archive.page-not-home .wpcf7-not-valid-tip,
+body.error404.page-not-home .wpcf7-not-valid-tip {
   padding: 8px 35px 8px 14px;
   margin-bottom: 20px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -1215,7 +1256,8 @@ body.post-type-archive.page-not-home .wpcf7-not-valid-tip {
 }
 body.page-template-templatespage-customer-service-php .wpcf7-submit,
 body.page-template-default.page-not-home .wpcf7-submit,
-body.post-type-archive.page-not-home .wpcf7-submit {
+body.post-type-archive.page-not-home .wpcf7-submit,
+body.error404.page-not-home .wpcf7-submit {
   width: 80px;
   height: 62px;
   background: url('../images/btn-primary-send.png') no-repeat;
@@ -1261,6 +1303,12 @@ body.page-template-templatespage-customer-service-php div.menu-customer-service-
 }
 body.page-template-templatespage-customer-service-php div.menu-customer-service-container ul#menu-customer-service li:nth-child(4) a {
   background-position: -235px -235px;
+}
+/**
+ *	404 Error Page
+ */
+body.error404.page-not-home #primary {
+  margin: 40px auto;
 }
 /**
  *	"Shop" page
@@ -1448,15 +1496,6 @@ body.home .minster-type-treatment h1 {
   color: #FFF;
   margin-bottom: 20px;
 }
-body.home .minster-type-treatment span.minster-flair {
-  text-indent: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 102px;
-  float: left;
-  display: block;
-  background: url('../images/minster-flair.png') no-repeat;
-}
 body.home .minster-type-treatment span.subtitle {
   font-family: 'Ostrich Light', 'serif';
   font-weight: normal;
@@ -1465,7 +1504,6 @@ body.home .minster-type-treatment span.subtitle {
   font-weight: 600;
   text-transform: uppercase;
   font-size: 34px;
-  color: rgba(255, 255, 255, 0.6);
   float: right;
   margin-right: 10px;
 }
@@ -1563,8 +1601,6 @@ body.single-products #page #main #content article .product-content .product-pric
   color: #e85846;
   font-size: 21px;
   margin: 0 0 11px 0;
-  padding-bottom: 20px;
-  border-bottom: 2px dotted #737a7d;
 }
 body.single-products #page #main #content article .product-content a#addToCart {
   width: 172px;
@@ -2353,15 +2389,28 @@ html body.home .btn.btn-primary.btn-primary-home:focus {
   background-size: 100%;
 }
 html body.home .minster-type-treatment {
-  right: 35px;
-  bottom: 60px;
+  left: 60px;
+  right: auto;
+  bottom: 30px;
 }
 html body.home .minster-type-treatment h1 {
-  font-size: 76px;
+  font-size: 56px;
   margin-bottom: 0;
 }
+html body.home .minster-type-treatment span.minster-flair {
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 52px;
+  float: left;
+  display: block;
+  background: url('../images/minster-flair.png') no-repeat;
+  background-size: 100%;
+}
 html body.home .minster-type-treatment span.subtitle {
-  font-size: 21px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
 }
 html body.single-products #page #main #content article .product-header,
 html body.single-products #page #main #content article .product-content {
@@ -2390,27 +2439,41 @@ html body.single-products #page #main #content article .product-content:after {
 html body.single-products #page #main #content article .product-content:after {
   clear: both;
 }
+html body.single-products #page #main #content article .product-content .product-price {
+  border-bottom: none;
+  padding: 0;
+}
 html body.single-products #page #main #content article .product-content .product-left-col {
-  float: left;
-  width: 38%;
-  margin-right: 15px;
+  width: 172px;
 }
-html body.single-products #page #main #content article .product-content .product-right-col {
-  float: right;
-  width: 56%;
-}
-html body.single-products #page #main #content article .product-content .product-right-col .jquery-color-selection a {
-  width: 50px;
-  height: 50px;
+html body.single-products #page #main #content article .product-content .product-left-col .jquery-color-selection a {
+  width: 31%;
+  height: 53px;
   float: left;
-  margin-left: 10px;
+  margin-left: 3%;
   display: block;
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
 }
-html body.single-products #page #main #content article .product-content .product-right-col .jquery-color-selection ul li:first-child a {
+html body.single-products #page #main #content article .product-content .product-left-col .jquery-color-selection ul li:first-child a {
   margin-left: 0;
+}
+html body.single-products #page #main #content article .product-content .product-left-col .product-quantity-container {
+  padding-top: 10px;
+}
+html body.single-products #page #main #content article .product-content .product-right-col {
+  width: 100%;
+}
+html body.single-products #page #main #content article .product-content .product-right-col a#addToCart {
+  background: #ff6368;
+  text-indent: 0;
+  width: 93%;
+  height: auto;
+  text-shadow: none;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 8px 0;
 }
 body.page-template-default.page-not-home article {
   height: 100%;
@@ -2510,6 +2573,7 @@ html body .shopping-cart-product .product-subtotal {
     position: absolute;
     right: 151px;
     bottom: 54px;
+    left: auto;
   }
   html body.home .minster-type-treatment h1 {
     font-family: 'Learning Curve Pro', 'serif';
@@ -2534,12 +2598,73 @@ html body .shopping-cart-product .product-subtotal {
     font-weight: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: 26px;
     font-weight: 600;
     text-transform: uppercase;
-    font-size: 34px;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.8);
     float: right;
     margin-right: 10px;
+  }
+  html body.single-products #page #main #content article .product-header,
+  html body.single-products #page #main #content article .product-content {
+    position: fixed;
+  }
+  html body.single-products #page #main #content article .product-header {
+    width: 350px;
+    margin-top: 78px;
+    max-width: none;
+  }
+  html body.single-products #page #main #content article .product-header .lookbook-link {
+    margin-left: 0;
+  }
+  html body.single-products #page #main #content article .product-content {
+    margin-top: 370px;
+    max-width: none;
+  }
+  html body.single-products #page #main #content article .product-content {
+    width: 172px;
+    *zoom: 1;
+  }
+  html body.single-products #page #main #content article .product-content:before,
+  html body.single-products #page #main #content article .product-content:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+  html body.single-products #page #main #content article .product-content:after {
+    clear: both;
+  }
+  html body.single-products #page #main #content article .product-content .product-price {
+    padding-bottom: 20px;
+    border-bottom: 2px dotted #737a7d;
+  }
+  html body.single-products #page #main #content article .product-content .product-left-col {
+    float: none;
+    width: auto;
+  }
+  html body.single-products #page #main #content article .product-content .product-left-col .jquery-color-selection a {
+    width: auto;
+    height: auto;
+    float: none;
+    margin-left: 0;
+    display: block;
+    text-indent: 0;
+  }
+  html body.single-products #page #main #content article .product-content .product-left-col .jquery-color-selection ul li:first-child a {
+    margin-left: 0;
+  }
+  html body.single-products #page #main #content article .product-content .product-right-col {
+    float: none;
+    width: 172px;
+  }
+  html body.single-products #page #main #content article .product-content .product-right-col a#addToCart {
+    background: url('../images/btn-primary-add-to-cart.png') no-repeat;
+    width: 172px;
+    height: 56px;
+    padding: 0;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
   }
 }
 @media (min-width: 768px) {
@@ -2617,55 +2742,7 @@ html body .shopping-cart-product .product-subtotal {
     opacity: 0.4;
   }
   body.page-template-default.page-not-home.page-id-14 .entry-content {
-    width: 75%;
-  }
-  html body.single-products #page #main #content article .product-header,
-  html body.single-products #page #main #content article .product-content {
-    position: fixed;
-  }
-  html body.single-products #page #main #content article .product-header {
-    width: 350px;
-    margin-top: 78px;
-    max-width: none;
-  }
-  html body.single-products #page #main #content article .product-header .lookbook-link {
-    margin-left: 0;
-  }
-  html body.single-products #page #main #content article .product-content {
-    margin-top: 370px;
-    max-width: none;
-  }
-  html body.single-products #page #main #content article .product-content {
-    width: 172px;
-    *zoom: 1;
-  }
-  html body.single-products #page #main #content article .product-content:before,
-  html body.single-products #page #main #content article .product-content:after {
-    display: table;
-    content: "";
-    line-height: 0;
-  }
-  html body.single-products #page #main #content article .product-content:after {
-    clear: both;
-  }
-  html body.single-products #page #main #content article .product-content .product-left-col {
-    float: none;
-    width: auto;
-  }
-  html body.single-products #page #main #content article .product-content .product-right-col {
-    float: none;
-    width: auto;
-  }
-  html body.single-products #page #main #content article .product-content .product-right-col .jquery-color-selection a {
-    width: auto;
-    height: auto;
-    float: none;
-    margin-left: 0;
-    display: block;
-    text-indent: 0;
-  }
-  html body.single-products #page #main #content article .product-content .product-right-col .jquery-color-selection ul li:first-child a {
-    margin-left: 0;
+    width: 98%;
   }
   body.page-template-templatespage-customer-service-php #main,
   body.page-template-default.page-not-home #main,
@@ -2805,5 +2882,25 @@ html body .shopping-cart-product .product-subtotal {
   html body #checkoutModal .modal-body,
   html body #checkoutModal .modal-footer {
     width: 100%;
+  }
+}
+/**
+ *	Retina Screens
+ */
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .btn.btn-primary.btn-primary-add-to-cart,
+  .btn.btn-primary:visited.btn-primary-add-to-cart,
+  .btn.btn-primary:focus.btn-primary-add-to-cart,
+  .btn.btn-primary.btn-primary-add-to-cart:hover,
+  .btn.btn-primary:visited.btn-primary-add-to-cart:hover,
+  .btn.btn-primary:focus.btn-primary-add-to-cart:hover {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url('../images/btn-primary-add-to-cart@2X.png');
+  }
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .repeatingPattern {
+    background: url(../images/bgPattern@2x.png) repeat;
   }
 }
