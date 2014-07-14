@@ -1479,16 +1479,22 @@ html body {
 	html body.single-products {
 		#page #main #content article {
 			.product-header, .product-content { position: fixed; }
-						.product-header { width: 350px; margin-top: 78px; max-width: none;
+			.product-header {
+				width: 350px;
+				margin-top: 48px;
+				max-width: none;
+				.product-details { padding-top: 0; }
+				.lookbook-link-container { margin-top: -15px; }	
 				.lookbook-link { margin-left: 0; }
 			}
-			.product-content { margin-top: 336px; max-width: none; }
+			.product-content { margin-top: 280px; max-width: none; }
 			// UNHACK! Product Content Formatting
 			.product-content {
 				width: 172px;
 				.clearfix();
 				.product-price { padding-bottom: 20px; border-bottom: 2px dotted @darkGray; }
 				.product-left-col { float: none; width: auto;
+					hr { display: none; }
 					.jquery-color-selection a {
 						width: auto;
 						height: auto;

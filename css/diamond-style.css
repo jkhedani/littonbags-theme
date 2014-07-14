@@ -2597,14 +2597,20 @@ html body .shopping-cart-product .product-subtotal {
   }
   html body.single-products #page #main #content article .product-header {
     width: 350px;
-    margin-top: 78px;
+    margin-top: 48px;
     max-width: none;
+  }
+  html body.single-products #page #main #content article .product-header .product-details {
+    padding-top: 0;
+  }
+  html body.single-products #page #main #content article .product-header .lookbook-link-container {
+    margin-top: -15px;
   }
   html body.single-products #page #main #content article .product-header .lookbook-link {
     margin-left: 0;
   }
   html body.single-products #page #main #content article .product-content {
-    margin-top: 336px;
+    margin-top: 280px;
     max-width: none;
   }
   html body.single-products #page #main #content article .product-content {
@@ -2627,6 +2633,9 @@ html body .shopping-cart-product .product-subtotal {
   html body.single-products #page #main #content article .product-content .product-left-col {
     float: none;
     width: auto;
+  }
+  html body.single-products #page #main #content article .product-content .product-left-col hr {
+    display: none;
   }
   html body.single-products #page #main #content article .product-content .product-left-col .jquery-color-selection a {
     width: auto;
