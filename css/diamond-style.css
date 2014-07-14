@@ -2415,8 +2415,7 @@ html body.home .minster-type-treatment span.minster-flair {
 }
 html body.home .minster-type-treatment span.subtitle {
   font-size: 16px;
-  font-weight: bold;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.8);
 }
 html body.single-products #page #main #content article .product-header,
 html body.single-products #page #main #content article .product-content {
