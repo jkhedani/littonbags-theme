@@ -35,50 +35,50 @@ function fetch_look_book() {
 
 	while ( $lookbook->have_posts() ) : $lookbook->the_post();
 
+		if ( get_field('look_book', $post->ID) ) {
+			$lookbookPages = get_field('look_book', $post->ID);
 
-	if ( get_field('look_book', $post->ID) ) {
-		$lookbookPages = get_field('look_book', $post->ID);
-		$html .=  '<div id="lookBookModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-		// $html .=    '<div class="modal-header">';
-		// $html .=    	'<h2>'.get_the_title().'</h2>';
-		// $html .=    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">Back</button>';
-		// $html .=			'<div class="content-fluff stamp-watermark"></div>';
-		// $html .=   '</div>';
-		$html .=   '<div class="modal-body">';
-		$html .= 	 	'<div id="lookBookViewer" class="view-master">';
-		$html .=			'<div class="view-master-controls">';
-	  $html .=  			'<a class="view-master-control left" href="#productViewer" data-slide="prev">&lsaquo;</a>';
-	  $html .=  			'<a class="view-master-control right" href="#productViewer" data-slide="next">&rsaquo;</a>';
-	  // Construct counter
-		$i = 0;
-	  $lookbookPages = get_field('look_book', $post->ID);
-		$html .= 				'<div class="view-master-counters">';
-		foreach ( $lookbookPages as $lookbookPage ) {
-			$html .= 				'<span class="view-master-counter"></span>';
-		}
-		$html .= 				'</div>';
-	  $html .=  		'</div><!-- .view-master-controls -->';
-	  $html .=  		'<div class="view-master-reel">';
-	  
-	  // Construct slides
-    foreach ( $lookbookPages as $lookbookPage ) {
-		  if ( !$i++ ) {
-		  $html .=  			'<div class="slide active">';
-		  } else {
-		  $html .=  			'<div class="slide">';
-		  }	
-		  // $html .=  				'<div class="slide-content">';  
-		  $html .=						'<img src="'.$lookbookPage['look_book_page'].'" />';
-		  //$html .=				'<div class="background-image item" style="background-image:url('.$lookbookPage['look_book_page'].');"></div>';  
-		  // $html .=  		'</div>';
-		  $html .=  			'</div>';
-	 	}
-	  $html .=			'</div><!-- .view-master-reel -->';
+			$html .=  '<div id="lookBookModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+			// $html .=    '<div class="modal-header">';
+			// $html .=    	'<h2>'.get_the_title().'</h2>';
+			// $html .=    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">Back</button>';
+			// $html .=			'<div class="content-fluff stamp-watermark"></div>';
+			// $html .=   '</div>';
+			$html .=   '<div class="modal-body">';
+			$html .= 	 	'<div id="lookBookViewer" class="view-master">';
+			$html .=			'<div class="view-master-controls">';
+		  $html .=  			'<a class="view-master-control left" href="#productViewer" data-slide="prev">&lsaquo;</a>';
+		  $html .=  			'<a class="view-master-control right" href="#productViewer" data-slide="next">&rsaquo;</a>';
+		  // Construct counter
+			$i = 0;
+		  $lookbookPages = get_field('look_book', $post->ID);
+			$html .= 				'<div class="view-master-counters">';
+			foreach ( $lookbookPages as $lookbookPage ) {
+				$html .= 				'<span class="view-master-counter"></span>';
+			}
+			$html .= 				'</div>';
+		  $html .=  		'</div><!-- .view-master-controls -->';
+		  $html .=  		'<div class="view-master-reel">';
+		  
+		  // Construct slides
+	    foreach ( $lookbookPages as $lookbookPage ) {
+			  if ( !$i++ ) {
+			  $html .=  			'<div class="slide active">';
+			  } else {
+			  $html .=  			'<div class="slide">';
+			  }	
+			  // $html .=  				'<div class="slide-content">';  
+			  $html .=						'<img src="'.$lookbookPage['look_book_page'].'" />';
+			  //$html .=				'<div class="background-image item" style="background-image:url('.$lookbookPage['look_book_page'].');"></div>';  
+			  // $html .=  		'</div>';
+			  $html .=  			'</div>';
+		 	}
+		  $html .=			'</div><!-- .view-master-reel -->';
 
-		$html .=		'</div><!-- .view-master -->';
-		$html .=   '</div>'; // .modal-body
-		$html .= '</div>'; // .modal
-  }
+			$html .=		'</div><!-- .view-master -->';
+			$html .=   '</div>'; // .modal-body
+			$html .= '</div>'; // .modal
+	  }
 
 	endwhile;
 	wp_reset_postdata();

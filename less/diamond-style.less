@@ -619,7 +619,7 @@ body.post-type-archive-products {
 		.slide {
 			height: 600px;
 			h1.slide-title { #font-family > .learning-curve; font-size: 75px; color: #696969; margin-bottom: 0; }
-			h2.slide-subtitle { #font-family > .oswald; text-transform: uppercase; font-size: 34px; color: #696969; margin-bottom: 5px; }
+			h2.slide-subtitle { #font-family > .oswald; text-transform: uppercase; font-weight: 300; font-size: 27px; color: #696969; margin-bottom: 5px; opacity: 0.8; }
 			a.slide-view-more { color: #DD4AA7; }
 			.slide-content { width: 26%; }
 			.slide-image-container {
@@ -785,7 +785,7 @@ body.single-products {
 						position: fixed;
 						h3.product-qty-title { float: left; margin: 4px 6px 0 0; color: @redAccent; text-transform: uppercase; }
 						h3 { margin: 0; font-size: 14px; line-height: 1.5; text-transform: lowercase; font-weight: normal; clear: both; }
-						hr { border-bottom: none; border-top: 1px dotted @taupeAccent; margin-top: 17px; }
+						hr { border-bottom: none; border-top: 1px dotted @taupeAccent; margin-top: 11px; }
 						select { width: 50px; margin: 0 0 10px 0; }
 						.product-price { #font-family > .georgia; display: block; color: @redAccent; font-size: 21px; margin: 0 0 11px 0;  }
 						a#addToCart { width: 172px; height: 56px; }
@@ -1369,7 +1369,11 @@ body.page-template-default.page-not-home {
 	}
 	// "CONTACT"
 	&.page-id-14 {
-		.entry-content { width: 94%; }
+		.attachment-post-thumbnail { right: 385px; }
+		.entry-content {
+			width: 94%;
+			.wpcf7 { margin-top: 170px; }
+		}
 	}
 }
 // CUSTOMER SERVICE
@@ -1478,7 +1482,7 @@ html body {
 						.product-header { width: 350px; margin-top: 78px; max-width: none;
 				.lookbook-link { margin-left: 0; }
 			}
-			.product-content { margin-top: 370px; max-width: none; }
+			.product-content { margin-top: 336px; max-width: none; }
 			// UNHACK! Product Content Formatting
 			.product-content {
 				width: 172px;

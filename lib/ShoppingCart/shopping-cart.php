@@ -251,7 +251,7 @@ function refresh_shopping_cart() {
 		// Display Subtotal, Add Tax/Fees/Whatever & show Grand Total
 		$html .= '<div class="checkout-totals">';
 		$html .= '<div class="subtotal"><span class="total-title">Subtotal: </span><span class="line-item-cost">'.format_money($grandSubtotal,'US').'</span></div>';
-		$html .= '<div class="auxfees"><span class="total-title">Tax ('.$currenttaxrate.'%): </span><span class="line-item-cost">'.format_money($tax,'US').'</span></div>';
+		$html .= '<div class="auxfees"><span class="total-title">Tax ('.round((float)$currenttaxrate * 100, 3).'%): </span><span class="line-item-cost">'.format_money($tax,'US').'</span></div>';
 		$html .= '<div class="auxfees"><span class="total-title">Shipping: </span><span class="line-item-cost">Free</span></div>';
 		$html .= '<div class="total"><span class="total-title">Total: </span><span class="line-item-cost">'.format_money($grandTotal,'US').'</span></div>';
 		$html .= '</div>';
@@ -261,7 +261,7 @@ function refresh_shopping_cart() {
 		 */
 
 		$html .= '<hr />';
-		$html .= '<span class="donation-promo-text">5% of profits donated to P&G PUR packets to provide safe drinking water around the world.</span>';
+		$html .= '<span class="donation-promo-text">A portion of the profits donated to P&G PUR packets to provide safe drinking water around the world.</span>';
 		$html .= '<a class="checkout">Checkout</a>';
 
 	} // If products are being set

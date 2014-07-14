@@ -343,7 +343,7 @@ function diamond_scripts() {
         'nonce' => wp_create_nonce('shopping_cart_scripts_nonce')
     ));
 
-  // Ajax Post Fetcher
+  // Look Book Fetcher
   wp_enqueue_script('look-book-fetcher-scripts', get_stylesheet_directory_uri().'/lib/LookBookFetcher/look-book-fetcher-scripts.js', array('jquery','json2'), true);
   wp_localize_script('look-book-fetcher-scripts', 'look_book_fetcher_data', array(
       'ajaxurl' => admin_url('admin-ajax.php',$protocol),

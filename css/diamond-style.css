@@ -1321,9 +1321,11 @@ body.post-type-archive-products #main .slide h2.slide-subtitle {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-transform: uppercase;
-  font-size: 34px;
+  font-weight: 300;
+  font-size: 27px;
   color: #696969;
   margin-bottom: 5px;
+  opacity: 0.8;
 }
 body.post-type-archive-products #main .slide a.slide-view-more {
   color: #DD4AA7;
@@ -1565,7 +1567,7 @@ body.single-products #page #main #content article .product-content h3 {
 body.single-products #page #main #content article .product-content hr {
   border-bottom: none;
   border-top: 1px dotted #bcb1a1;
-  margin-top: 17px;
+  margin-top: 11px;
 }
 body.single-products #page #main #content article .product-content select {
   width: 50px;
@@ -2477,8 +2479,14 @@ body.page-template-default.page-not-home.page-id-100 #main {
 body.page-template-default.page-not-home.page-id-100 h1.entry-title {
   margin-top: 20px;
 }
+body.page-template-default.page-not-home.page-id-14 .attachment-post-thumbnail {
+  right: 385px;
+}
 body.page-template-default.page-not-home.page-id-14 .entry-content {
   width: 94%;
+}
+body.page-template-default.page-not-home.page-id-14 .entry-content .wpcf7 {
+  margin-top: 170px;
 }
 body.page-template-templatespage-customer-service-php.page-not-home h1.entry-title {
   margin-top: 20px;
@@ -2596,7 +2604,7 @@ html body .shopping-cart-product .product-subtotal {
     margin-left: 0;
   }
   html body.single-products #page #main #content article .product-content {
-    margin-top: 370px;
+    margin-top: 336px;
     max-width: none;
   }
   html body.single-products #page #main #content article .product-content {
