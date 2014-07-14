@@ -497,6 +497,12 @@
   font-weight: normal;
   font-style: normal;
 }
+#font-family .oswald {
+  font-family: 'Oswald', 'sans-serif';
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 #font-family .ever-after {
   font-family: 'Ever After', 'sans-serif';
   font-weight: normal;
@@ -1337,7 +1343,7 @@ body.post-type-archive-products #main .slide h1.slide-title {
   margin-bottom: 0;
 }
 body.post-type-archive-products #main .slide h2.slide-subtitle {
-  font-family: 'Ostrich Light', 'serif';
+  font-family: 'Oswald', 'sans-serif';
   font-weight: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1497,11 +1503,11 @@ body.home .minster-type-treatment h1 {
   margin-bottom: 20px;
 }
 body.home .minster-type-treatment span.subtitle {
-  font-family: 'Ostrich Light', 'serif';
+  font-family: 'Oswald', 'sans-serif';
   font-weight: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-weight: 600;
+  font-weight: 300;
   text-transform: uppercase;
   font-size: 34px;
   float: right;
@@ -2594,14 +2600,14 @@ html body .shopping-cart-product .product-subtotal {
     background: url('../images/minster-flair.png') no-repeat;
   }
   html body.home .minster-type-treatment span.subtitle {
-    font-family: 'Ostrich Light', 'serif';
+    font-family: 'Oswald', 'sans-serif';
     font-weight: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 26px;
-    font-weight: 600;
+    font-size: 25px;
+    font-weight: 300;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.7);
     float: right;
     margin-right: 10px;
   }
