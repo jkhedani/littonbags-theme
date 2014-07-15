@@ -37,8 +37,8 @@ function getApiContext() {
 
 		$apiContext = new ApiContext(
 			new OAuthTokenCredential(
-				'ASRpcBCKDEFmfuax8xaXY8VfKSO5QyWM12SsOOpyyksiOqH3xA32nb_OeT7F',
-				'EPFRVBC8fiMpm0RvQ8ZcTkoYX0pk37ycnGSpPYWief4qE2XqVzxFM71iDutf'
+				get_field('paypal_live_client_id','option'),
+				get_field('paypal_live_secret','option')
 			)
 		);
 		// #### SDK configuration
@@ -47,7 +47,7 @@ function getApiContext() {
 		// based configuration
 		$apiContext->setConfig(
 			array(
-				'mode' => 'sandbox',
+				'mode' => 'live',
 				'http.ConnectionTimeOut' => 30,
 				'log.LogEnabled' => true,
 				'log.FileName' => '../PayPal.log',
