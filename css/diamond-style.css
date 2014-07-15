@@ -1359,6 +1359,7 @@ body.post-type-archive-products #main .center-slide .slide-content {
   margin: 250px auto 0;
 }
 body.post-type-archive-products #main .center-slide .slide-content h1 a {
+  display: block;
   color: #232323;
   font-family: 'Oswald', 'sans-serif';
   font-weight: normal;
@@ -1366,36 +1367,34 @@ body.post-type-archive-products #main .center-slide .slide-content h1 a {
   -moz-osx-font-smoothing: grayscale;
   text-transform: uppercase;
   letter-spacing: 3px;
+  width: 100%;
+  padding: 61px;
+  background-color: rgba(188, 177, 161, 0.8);
 }
 body.post-type-archive-products #main .center-slide .slide-content h1.bags {
   float: left;
-  margin-top: -49px;
+  width: 100%;
+  margin-top: 20px;
 }
 body.post-type-archive-products #main .center-slide .slide-content h1.bags a > span {
   font-size: 23px;
   display: block;
-  float: right;
-  clear: both;
+  text-align: center;
 }
 body.post-type-archive-products #main .center-slide .slide-content h1.bags a .content-fluff {
-  float: left;
-  border: none;
-  margin: 5px 7px 0 0;
+  display: none;
 }
 body.post-type-archive-products #main .center-slide .slide-content h1.accessories {
-  float: right;
+  float: left;
+  width: 100%;
 }
 body.post-type-archive-products #main .center-slide .slide-content h1.accessories a > span {
   font-size: 23px;
   display: block;
-  float: left;
-  clear: both;
+  text-align: center;
 }
 body.post-type-archive-products #main .center-slide .slide-content h1.accessories a .content-fluff {
-  float: right;
-  border: none;
-  margin: 5px 0 0 7px;
-  background-position: -40px 0;
+  display: none;
 }
 body.post-type-archive-products #main .bag-slide {
   background: url('../images/transparent-sticks-bg.png') no-repeat;
@@ -1596,6 +1595,10 @@ body.single-products #page #main #content article .product-content .product-pric
 body.single-products #page #main #content article .product-content a#addToCart {
   width: 172px;
   height: 56px;
+}
+body.single-products #page #main #content article .product-scroll {
+  width: 500px;
+  margin-left: -95px;
 }
 body.single-products #page #main #content article .product-scroll img {
   width: 100%;
@@ -2439,6 +2442,9 @@ html body.single-products #page #main #content article .product-content .product
 html body.single-products #page #main #content article .product-content .product-left-col {
   width: 172px;
 }
+html body.single-products #page #main #content article .product-content .product-left-col hr {
+  display: none;
+}
 html body.single-products #page #main #content article .product-content .product-left-col .jquery-color-selection a {
   width: 31%;
   height: 53px;
@@ -2458,8 +2464,8 @@ html body.single-products #page #main #content article .product-content .product
 html body.single-products #page #main #content article .product-content .product-right-col {
   width: 100%;
 }
-html body.single-products #page #main #content article .product-content .product-right-col a#addToCart {
-  background: #ff6368;
+html body.single-products #page #main #content article .product-content .product-right-col a#addToCart,
+html body.single-products #page #main #content article .product-content .product-right-col a#soldOut {
   text-indent: 0;
   width: 93%;
   height: auto;
@@ -2467,6 +2473,14 @@ html body.single-products #page #main #content article .product-content .product
   text-transform: uppercase;
   text-align: center;
   padding: 8px 0;
+}
+html body.single-products #page #main #content article .product-content .product-right-col a#addToCart {
+  background: #ff6368;
+}
+html body.single-products #page #main #content article .product-content .product-right-col a#soldOut {
+  border: 1px solid #ff6368;
+  color: #ff6368;
+  background: none;
 }
 body.page-template-default.page-not-home article {
   height: 100%;
@@ -2669,9 +2683,6 @@ html body .shopping-cart-product .product-subtotal {
     float: none;
     width: auto;
   }
-  html body.single-products #page #main #content article .product-content .product-left-col hr {
-    display: none;
-  }
   html body.single-products #page #main #content article .product-content .product-left-col .jquery-color-selection a {
     width: auto;
     height: auto;
@@ -2696,8 +2707,21 @@ html body .shopping-cart-product .product-subtotal {
     white-space: nowrap;
     overflow: hidden;
   }
+  html body.single-products #page #main #content article .product-content .product-right-col a#soldOut {
+    background: url('../images/btn-primary-sold-out.png') no-repeat;
+    width: 172px;
+    height: 56px;
+    padding: 0;
+    border: none;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+  }
   body.page-template-default.page-not-home.page-id-119 article .attachment-post-thumbnail {
     display: none;
+  }
+  html body.post-type-archive-products #main .center-slide .slide-content {
+    margin-top: 0;
   }
 }
 @media (min-width: 768px) {
@@ -2786,6 +2810,59 @@ html body .shopping-cart-product .product-subtotal {
   body.post-type-archive.page-not-home #content {
     min-height: 600px;
   }
+  html body.post-type-archive-products #main .center-slide .slide-content {
+    margin-top: 250px;
+  }
+  html body.post-type-archive-products #main .center-slide .slide-content h1 a {
+    color: #232323;
+    font-family: 'Oswald', 'sans-serif';
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background: none;
+    padding: 0;
+    width: auto;
+  }
+  html body.post-type-archive-products #main .center-slide .slide-content h1.bags {
+    float: left;
+    padding: 0;
+    width: auto;
+    margin-top: -49px;
+  }
+  html body.post-type-archive-products #main .center-slide .slide-content h1.bags a > span {
+    font-size: 23px;
+    display: block;
+    float: left;
+    clear: both;
+    text-align: right;
+  }
+  html body.post-type-archive-products #main .center-slide .slide-content h1.bags a .content-fluff {
+    float: left;
+    border: none;
+    margin: 5px 7px 0 0;
+    display: block;
+  }
+  html body.post-type-archive-products #main .center-slide .slide-content h1.accessories {
+    float: right;
+    padding: 0;
+    width: auto;
+  }
+  html body.post-type-archive-products #main .center-slide .slide-content h1.accessories a > span {
+    font-size: 23px;
+    display: block;
+    float: right;
+    clear: both;
+    text-align: right;
+  }
+  html body.post-type-archive-products #main .center-slide .slide-content h1.accessories a .content-fluff {
+    float: right;
+    border: none;
+    margin: 5px 0 0 7px;
+    background-position: -40px 0;
+    display: block;
+  }
   html body.post-type-archive-products #main .bag-slide .slide-content {
     position: fixed;
     margin-top: 250px;
@@ -2815,6 +2892,9 @@ html body .shopping-cart-product .product-subtotal {
   }
   html body.single-products #page #main #content article .product-content {
     margin-left: 20px;
+  }
+  html body.single-products #page #main #content article .product-content .product-left-col hr {
+    display: block;
   }
   body.page-template-default.page-not-home h1 {
     margin: 71px 0 15px 0;
