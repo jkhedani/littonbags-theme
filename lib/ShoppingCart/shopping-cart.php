@@ -114,6 +114,7 @@ function refresh_shopping_cart() {
 	$html = "";
 	$success = false;
 	$productDescription = ""; // Build annotated description to pass to Stripe pipe(|) separated
+	$cartDescription = ""; // Build a description of the cart containing the product and ID (comma and pipe separated)
 
 	if ( isset($products) ) {
 		foreach ( $products as $product ) {
@@ -137,9 +138,10 @@ function refresh_shopping_cart() {
 				'post_type' => 'products',
 			));	
 			while($productsInCart->have_posts()) : $productsInCart->the_post();
-				$currentPostID = $post->ID;
-				$itemID = $currentPostID;
-				$itemTitle = get_the_title();
+				$currentPostID 			= $post->ID;
+				$itemID 						= $currentPostID;
+				$itemTitle 					= get_the_title();
+				$cartDescription    = $cartDescription . $currentPostID . ','; // Add ID to cart description
 				$productDescription = $productDescription . $currentPostID . ','; // Add ID to product description
 				$productDescription = $productDescription . get_the_title() . ','; // Add Title to product description
 			endwhile;
@@ -149,24 +151,20 @@ function refresh_shopping_cart() {
 			 *	Get Product Options
 			 */
 
-			/**
-			 *	Get Product Color
-			 */
+			// # Product Color
 			$itemColor = $product['color'];
 			if ( $itemColor == 'none' || $itemColor == 'undefined' ) {
 				$itemColor = 'n/a';
 			}
+			$cartDescription 		= $cartDescription . $itemColor . ',';
 			$productDescription = $productDescription . $itemColor . ','; // Add Color to product description
 
-			/**
-			 *	Get Product Qty
-			 */
+			// # Product Quantity
 			$itemQty = $product['qty'];
-			$productDescription = $productDescription . $itemQty; // Add Quantity to product description;
+			$cartDescription		= $cartDescription . $itemQty; // Add quantity to cart description
+			$productDescription = $productDescription . $itemQty; // Add Quantity to product description
 
-			/**
-			 *	Get Product Thumbnail
-			 */
+			// # Product Thumbnail
 			$optionPreview = ''; // Clear variable during loop
 			if ( have_rows( 'product_options', $postID ) ) :
 			while ( have_rows( 'product_options', $postID ) ) : the_row();
@@ -220,9 +218,10 @@ function refresh_shopping_cart() {
 			 * Cleanup
 			 */
 
-			// Generate a pipe between products; never at the beginning or the end
+			// Generate a pipe between products & cart descriptors; never at the beginning or the end
 			if ( $product != end( $products ) ) {
-				$productDescription = $productDescription . '|';	
+				$cartDescription = $cartDescription . '|';
+				$productDescription = $productDescription . '|';
 			}
 
 			// Create delete cart item key
@@ -269,10 +268,11 @@ function refresh_shopping_cart() {
 	 * Build the response...
 	 */
 	$success = true;
-	$response = json_encode(array(
-		'success' => $success,
-		'html' => $html,
-		'desc' => $productDescription
+	$response = json_encode( array(
+		'success' 				=> $success,
+		'html' 						=> $html,
+		'desc' 						=> $productDescription,
+		'cartdescription' => $cartDescription
 	));
 	
 	// Construct and send the response

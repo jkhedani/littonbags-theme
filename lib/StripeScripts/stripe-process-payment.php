@@ -130,8 +130,6 @@ function purchase_shipping_label( $orderNumber ) {
  */
 function stripe_process_payment() {
 	if ( isset($_POST['action']) && $_POST['action'] == 'stripe' && wp_verify_nonce($_POST['stripe_nonce'], 'stripe-nonce') ) {
- 			
-		error_log('Stripe Test Start');
 
  		/**
  		 *	STEP A.

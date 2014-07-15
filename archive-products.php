@@ -61,8 +61,18 @@ get_header(); ?>
 		    <?php // Insert Landing slide here ?>
 		    <div class="slide center-slide active">
 		    	<div class="slide-content">
-		    		<h1 class="bags"><a class="view-master-control left" data-slide="prev" href="#productViewer"><span>Bags</span><span class="content-fluff pink-arrow left"></span></a></h1>
-		    		<h1 class="accessories"><a class="view-master-control right" data-slide="next" href="#productViewer"><span>Accessories</span><span class="content-fluff pink-arrow right"></span></a></h1>
+		    		<h1 class="bags">
+		    			<a class="view-master-control left" data-slide="prev" href="#productViewer">
+		    			<span class="content-fluff pink-arrow left"></span>
+		    			<span>Bags</span>
+		    			</a>
+		    		</h1>
+		    		<h1 class="accessories">
+		    			<a class="view-master-control right" data-slide="next" href="#productViewer">
+		    				<span>Accessories</span>
+		    				<span class="content-fluff pink-arrow right"></span>
+		    			</a>
+		    		</h1>
 		    	</div>
 		    </div>
 

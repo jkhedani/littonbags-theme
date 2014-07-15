@@ -328,7 +328,14 @@ function diamond_scripts() {
     // https://stripe.com/
     wp_enqueue_script('stripe-processing', get_stylesheet_directory_uri().'/lib/StripeScripts/stripe-processing.js', array('jquery') );
     wp_localize_script('stripe-processing', 'stripe_vars', array(
-            'publishable_key' => $publishable,
+        'publishable_key' => $publishable,
+    ));
+
+    // PayPal
+    wp_enqueue_script('paypal-scripts', get_stylesheet_directory_uri().'/lib/paypal/payments/paypal-payment-scripts.js', array('jquery','json2'), true);
+    wp_localize_script('paypal-scripts', 'paypal_data', array(
+        'ajaxurl' => admin_url('admin-ajax.php',$protocol),
+        'nonce' => wp_create_nonce('paypal_nonce')
     ));
 
     // jStorage
@@ -343,12 +350,12 @@ function diamond_scripts() {
         'nonce' => wp_create_nonce('shopping_cart_scripts_nonce')
     ));
 
-  // Look Book Fetcher
-  wp_enqueue_script('look-book-fetcher-scripts', get_stylesheet_directory_uri().'/lib/LookBookFetcher/look-book-fetcher-scripts.js', array('jquery','json2'), true);
-  wp_localize_script('look-book-fetcher-scripts', 'look_book_fetcher_data', array(
+    // Look Book Fetcher
+    wp_enqueue_script('look-book-fetcher-scripts', get_stylesheet_directory_uri().'/lib/LookBookFetcher/look-book-fetcher-scripts.js', array('jquery','json2'), true);
+    wp_localize_script('look-book-fetcher-scripts', 'look_book_fetcher_data', array(
       'ajaxurl' => admin_url('admin-ajax.php',$protocol),
       'nonce' => wp_create_nonce('look_book_fetcher_nonce')
-  ));
+    ));
     
 }
 add_action( 'wp_enqueue_scripts', 'diamond_scripts' );
@@ -375,9 +382,44 @@ if ( is_admin() ) {
 }
 
 /**
- *  PayPal Integration
+ *  PayPal Functions
  */
-//require_once( get_stylesheet_directory() . '/lib/PayPal/sample/sdk_config.ini' );
+require_once( get_stylesheet_directory() . '/lib/paypal/payments/method-paypal.php' );
+
+// function submit_welcome_form() {
+//     global $wpdb, $current_user;
+//     $nonce = $_REQUEST['nonce'];
+//     if ( ! wp_verify_nonce( $nonce, 'ajax_interactions_nonce' ) ) {
+//         die( __('Busted.') ); // Nonce check
+//     }
+//     $html = "";
+//     $success = false;
+//     $params = array();
+//     parse_str( $_REQUEST['postdata'], $params ); // Unserialize post data
+
+//     // Update our user meta
+//     update_user_meta( $current_user->ID, 'registration-reason', $params['registration-reason'] );
+//     update_user_meta( $current_user->ID, 'education-level', $params['education-level'] );
+//     update_user_meta( $current_user->ID, 'location', $params['location'] );
+//     update_user_meta( $current_user->ID, 'allow-data-access', $params['allow-data-access'] );
+
+//     $success = true;
+//     $response = json_encode( array(
+//         'success' => $success,
+//         'html' => $html,
+//     ));
+
+//     header( 'content-type: application/json' );
+//     echo $response;
+//     exit;
+// }
+// add_action( 'wp_ajax_nopriv_submit_welcome_form', 'submit_welcome_form' );
+// add_action( 'wp_ajax_submit_welcome_form', 'submit_welcome_form' );
+
+// if ( isset( $_REQUEST['action'] ) && ( $_REQUEST['action'] == 'submit_welcome_form' )  ) {
+//     do_action( 'wp_ajax_' . $_REQUEST['action'] );
+//     do_action( 'wp_ajax_nopriv_' . $_REQUEST['action'] );
+// }
 
 /**
  *  "Easy Post" Integration
@@ -554,6 +596,5 @@ function register_shortcodes() {
     add_shortcode( 'jumppage', 'jumppage_function' );
 }
 add_action('init','register_shortcodes');
-
 
 ?>

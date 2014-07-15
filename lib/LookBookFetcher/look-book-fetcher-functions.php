@@ -33,9 +33,11 @@ function fetch_look_book() {
 		'nopaging' => true,
 	));
 
+	//error_log($lookBookID);
+
 	while ( $lookbook->have_posts() ) : $lookbook->the_post();
 
-		if ( get_field('look_book', $post->ID) ) {
+		if ( have_rows('look_book', $post->ID) ) {
 			$lookbookPages = get_field('look_book', $post->ID);
 
 			$html .=  '<div id="lookBookModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
@@ -61,18 +63,18 @@ function fetch_look_book() {
 		  $html .=  		'<div class="view-master-reel">';
 		  
 		  // Construct slides
-	    foreach ( $lookbookPages as $lookbookPage ) {
+		  while ( have_rows('look_book',$post->ID) ) : the_row();
 			  if ( !$i++ ) {
 			  $html .=  			'<div class="slide active">';
 			  } else {
 			  $html .=  			'<div class="slide">';
 			  }	
 			  // $html .=  				'<div class="slide-content">';  
-			  $html .=						'<img src="'.$lookbookPage['look_book_page'].'" />';
+			  $html .=						'<img src="'.get_sub_field('look_book_page').'" />';
 			  //$html .=				'<div class="background-image item" style="background-image:url('.$lookbookPage['look_book_page'].');"></div>';  
 			  // $html .=  		'</div>';
 			  $html .=  			'</div>';
-		 	}
+			endwhile;
 		  $html .=			'</div><!-- .view-master-reel -->';
 
 			$html .=		'</div><!-- .view-master -->';

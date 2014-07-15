@@ -171,6 +171,7 @@ function render_shopping_cart() {
 			echo 	'<input type="hidden" name="redirect" value="'. get_permalink() .'"/>';
 			echo 	'<input type="hidden" name="stripe_nonce" value="'. wp_create_nonce('stripe-nonce').'"/>';
 			echo 	'<input type="hidden" name="description" value=""/>';
+			echo 	'<input type="hidden" name="cartdescription" value=""/>';
 			echo 	'<button type="submit hidden" class="hide" id="stripe-submit">'. __('Submit Payment', 'litton_bags') .'</button>';
 			echo '</form>';
 		}
@@ -192,7 +193,7 @@ function render_shopping_cart() {
 	echo  '<div class="modal-footer">';
 	echo 		'<div class="checkoutReview checkoutControls show">';
 	//				PayPal Checkout Option
-	echo 			'<a class="paypal-checkout" href="'.get_stylesheet_directory_uri().'/lib//paypal/sample/payments/CreatePaymentPayPalLittonBags.php"><img src="'.get_stylesheet_directory_uri().'/images/paypal-checkout.png" alt="Checkout via Paypal instead." /></a>';
+	echo 			'<a class="paypal-checkout" href="javascript:void(0);" alt="Checkout via Paypal instead." /><img src="'.get_stylesheet_directory_uri().'/images/paypal-checkout.png" alt="Checkout via Paypal instead." /></a>';
 	//echo    '<a class="btn btn-primary btn-primary-checkout choosePaymentMethod">Select Payment Method</a>';
 	echo 		'</div>';
 	echo 		'<div class="checkoutBasic checkoutControls hide">';
@@ -207,13 +208,13 @@ function render_shopping_cart() {
 	echo 		'<div class="checkoutResult checkoutControls hide">';
 	echo    	'<a class="btn btn-primary hide showBasicInfo">Review Basic Info Screen</a>'; // Review Basic Info
 	echo    	'<a class="btn btn-primary hide showSubmitPayment">Review Payment Screen</a>'; // Review Payment Screen
-	echo    	'<a class="btn btn-primary closeCheckout" data-dismiss="modal" aria-hidden="true">Close</a>';
+	//echo    	'<a class="btn btn-primary closeCheckout" data-dismiss="modal" aria-hidden="true">Close</a>';
 	echo  	'</div>';
 	echo  '</div>'; // .modal-footer
 
 	// Services Used (i.e. Stripe & EasyPost)
 	echo '<div class="services-used-container">';
-	echo 	'<div class="services-used stripe"><a href="http://stripe.com" target="_blank"><i class="stripe-icon"></i></a></div>';
+	//echo 	'<div class="services-used stripe"><a href="http://stripe.com" target="_blank"><i class="stripe-icon"></i></a></div>';
 	echo 	'<div class="services-used support">Having trouble with your checkout? <a href="mailto:support@littonbags.com">Contact our support team.</a></div>';
 	echo '</div>';
 

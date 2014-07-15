@@ -123,6 +123,7 @@
 .navbar-fixed-top .container, .container { width: 980px; }
 .pipe { color: @grayLighter; padding: 0 7px; }
 a.btn:visited { color: @white; }
+img { color: transparent; border-color: transparent; }
 .btn.btn-primary, .btn.btn-primary:visited, .btn.btn-primary:focus {
 	background: none;
 	position: relative;
@@ -356,10 +357,12 @@ form {
 		background: url('../images/stamp-watermark.png') no-repeat;
 	}
 	&.pink-arrow {
-		width: 20px;
-		height: 32px;
+		width: 50px;
+		height: 54px;
 		display: block;
-		background: url('../images/pink-arrows.png') no-repeat;
+		background-size: auto 100%;
+		background-repeat: no-repeat;
+		background-image: url('../images/pink-arrows.png');
 		&.right { background-position: -20px 0; }
 	}
 }
@@ -402,7 +405,7 @@ html {
 								width: 80px;
 								height: 83px;
 								display: block;
-								background: url('../images/menu-ribbon-shop.png') no-repeat;
+								background: url('../images/menu-ribbon-shop.png') -2px 0 no-repeat;
 								.no-text();
 
 							}
@@ -638,16 +641,17 @@ body.post-type-archive-products {
 				height: 40px;
 				width: 300px;
 				margin: 250px auto 0;
-				h1 a { color: #DD4AA7; #font-family > .learning-curve; }
+				h1 a { color: #232323; #font-family > .oswald; text-transform: uppercase; letter-spacing: 3px; }
 				h1.bags {
 					float: left;
-					& a > span { font-size: 40px; display: block; float: right; border-bottom: 1px dotted #BBB; }
+					margin-top: -49px;
+					& a > span { font-size: 23px; display: block; float: right; clear: both; }
 					& a .content-fluff { float: left; border: none; margin: 5px 7px 0 0; }
 				}
 				h1.accessories {
 					float: right;
-					& a > span { font-size: 40px; display: block; float: left; border-bottom: 1px dotted #BBB; }
-					& a .content-fluff { float: right; border: none; margin: 5px 0 0 7px; }
+					& a > span { font-size: 23px; display: block; float: left; clear: both; }
+					& a .content-fluff { float: right; border: none; margin: 5px 0 0 7px; background-position: -40px 0; }
 				}
 			}
 		}
@@ -1158,6 +1162,7 @@ html body { // Some specificity to overwrite some hard to reach styles
 	}
 	.modal-body {
 		.checkoutResult {
+			margin-bottom: 80px;
 			.result-wrapper {
 				width: 488px;
 				text-align: center;
@@ -1369,10 +1374,9 @@ body.page-template-default.page-not-home {
 	}
 	// "CONTACT"
 	&.page-id-14 {
-		.attachment-post-thumbnail { right: 385px; }
+		.attachment-post-thumbnail { display: none; }
 		.entry-content {
 			width: 94%;
-			.wpcf7 { margin-top: 170px; }
 		}
 	}
 }
@@ -1421,6 +1425,19 @@ html body {
 /**
  * RESPONSIVE CSS
  */
+@media ( min-width: 200px ) and ( max-width: 400px ) { // and up
+	html body.home {
+		.minster-type-treatment {
+			left: 50px;
+			right: auto;
+			bottom: 20px;
+			h1 { font-size: 47px; margin-bottom: -6px; }
+			span.minster-flair { .no-text(); width: 39px; float: left; display: block; background: url('../images/minster-flair.png') no-repeat; background-size: 100%; }
+			span.subtitle { font-size: 14px; color: rgba(255,255,255,0.8); }
+		}
+	}
+}
+
 @media ( min-width: 400px ) { // and up
 	// BASIC PAGES
 	body.page-template-default.page-not-home {
@@ -1521,6 +1538,15 @@ html body {
 			}
 		}
 	}
+	// BASIC PAGES
+	body.page-template-default.page-not-home {
+		// "SMALL PRINT"
+		&.page-id-119 {
+			article {
+				.attachment-post-thumbnail { display: none; }
+			}
+		}
+	}
 
 } // @media 500px
 
@@ -1568,7 +1594,7 @@ html body {
 		// "SMALL PRINT"
 		&.page-id-119 {
 			article {
-				.attachment-post-thumbnail { right: -100px; opacity: 1.0; }
+				.attachment-post-thumbnail { right: -100px; opacity: 1.0; display: block; }
 			}
 		}
 		// "CARE INFO"
@@ -1639,6 +1665,9 @@ html body {
 	// SINGLE PRODUCTS
 	html body.single-products {
 		#page #main #content article {
+			.product-header {
+				// .product-details { padding-top: 20px; }
+			}
 			.product-content {
 				margin-left: 20px;
 			}
@@ -1697,6 +1726,7 @@ html body {
 	html body.single-products {
 		#page #main #content {
 			article .product-content { margin: 110px 0 0 932px; }
+			article .product-header { margin-top: 109px; }
 		}
 	}
 }
