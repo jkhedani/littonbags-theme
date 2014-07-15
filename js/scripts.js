@@ -121,6 +121,7 @@ jQuery(document).ready(function($){
 				if ( $('.view-master .active.slide').hasClass('first-accessories') ) {
 
 					if ( window.innerWidth <= 400 ) {
+						$('.view-master h1.bags').hide();
 						$('.view-master .active.slide img.featured-image').animate({
 							marginLeft: '-400px',
 						}, 500);
@@ -137,6 +138,7 @@ jQuery(document).ready(function($){
 				// next slide has class first-bags
 				if ( $('.view-master .active.slide').hasClass('first-bags') ) {
 					if ( window.innerWidth <= 400 ) {
+						$('.view-master h1.accessories').hide();
 						$('.view-master .active.slide img.featured-image').animate({
 							marginRight: '-400px',
 						}, 500);
@@ -152,36 +154,10 @@ jQuery(document).ready(function($){
 				}
 				// next slide is center slide
 				if ( $('.view-master .active.slide').hasClass('center-slide') ) {
+					// Show buttons
+					$('.view-master h1.accessories').show();
+					$('.view-master h1.bags').show();
 					// Animate both images
-
-					// if ( window.innerWidth <= 400 ) {
-					// 	$('.view-master .first-accessories.slide img.featured-image').animate({
-					// 		marginRight: '-400px',
-					// 	}, 500);
-					// } else if ( window.innerWidth <= 768 ) {
-					// 	$('.view-master .first-accessories.slide img.featured-image').animate({
-					// 		marginRight: '-275px',
-					// 	}, 500);
-					// } else {
-					// 	$('.view-master .first-accessories.slide img.featured-image').animate({
-					// 		marginRight: '0px',
-					// 	}, 500);
-					// }
-
-					// if ( window.innerWidth <= 400 ) {
-					// 	$('.view-master .first-bags.slide img.featured-image').animate({
-					// 		marginRight: '-400px',
-					// 	}, 500);
-					// } else if ( window.innerWidth <= 768 ) {
-					// 	$('.view-master .first-bags.slide img.featured-image').animate({
-					// 		marginRight: '-275px',
-					// 	}, 500);
-					// } else {
-					// 	$('.view-master .first-bags.slide img.featured-image').animate({
-					// 		marginRight: '0px',
-					// 	}, 500);
-					// }
-
 					$('.view-master .first-accessories.slide  img.featured-image').animate({
 						marginLeft: '-400px',
 					}, 500);
