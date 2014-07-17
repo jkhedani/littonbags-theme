@@ -13,7 +13,7 @@
 		<?php if ( $post->post_content=="" && is_user_logged_in() ) : ?>
 			<p class="muted helper-text">You currently have no description. Add some <a href="'.get_edit_post_link().'" title="Edit this piece of content">here.</a></p>
 		<?php else : ?>
-		<p class="product-details"><?php echo do_shortcode( get_the_content() ); ?></p>
+			<div class="product-details"><?php the_content(); ?></div>
 		<?php endif; ?>
 
 		<!-- Product Lookbook Link -->
