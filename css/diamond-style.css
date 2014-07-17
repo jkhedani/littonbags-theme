@@ -2938,7 +2938,7 @@ html body .shopping-cart-product .product-subtotal {
     width: 1124px;
   }
   html body.single-products #page #main #content article .product-header {
-    margin-top: 109px;
+    margin-top: 49px;
   }
   html body.single-products #page #main #content article .product-content {
     width: 172px;
@@ -2964,12 +2964,6 @@ html body .shopping-cart-product .product-subtotal {
   html body.single-products #page #main #content article .product-content .product-right-col a#soldOut {
     width: 172px;
   }
-}
-/**
- *	OBSCURE RESPONSIVE
- */
-@media (max-width: 615px) {
-  
 }
 @media (max-width: 400px) {
   html body.single-products #page #main #content article .product-header .product-title {
