@@ -1236,7 +1236,7 @@ input.error { border: 1px solid @redAccent !important; }
 	}
 	.modal-body {
 		max-height: none;
-		height: 475px;
+		// height: 475px;
 		width: 100%;
 		overflow-y: hidden;
 		padding: 0;
@@ -1341,7 +1341,7 @@ html body.single-products {
 				hr { display: none; }
 				.jquery-color-selection a {
 					width: 31%;
-					height: 53px;
+					height: 39px;
 					float: left;
 					margin-left: 3%;
 					display: block;
@@ -1519,36 +1519,34 @@ html body {
 				.lookbook-link-container { margin-top: -15px; }	
 				.lookbook-link { margin-left: 0; }
 			}
-			.product-content { margin-top: 280px; max-width: none; }
+			.product-content { margin: 95px 0 0 565px; max-width: none; }
 			// UNHACK! Product Content Formatting
 			.product-content {
-				width: 172px;
+				width: 125px;
 				.clearfix();
 				.product-price { padding-bottom: 20px; border-bottom: 2px dotted @darkGray; }
 				.product-left-col { float: none; width: auto;
-					.jquery-color-selection a {
-						width: auto;
-						height: auto;
-						float: none;
-						margin-left: 0;
-						display: block;
-						text-indent: 0;
-					}
-					.jquery-color-selection ul li:first-child a { margin-left: 0; }
+					
 				}
 				.product-right-col {
 					float: none;
 					width: 172px;
 
 					a#addToCart {
-						background: url('../images/btn-primary-add-to-cart.png') no-repeat;
-						width: 172px;
+						background-size: 100% auto;
+						background-image: url('../images/btn-primary-add-to-cart.png');
+						background-repeat: no-repeat;
+						background-color: transparent;
+						width: 125px;
 						height: 56px;
 						padding: 0;
 						.no-text();
 					}
 					a#soldOut {
-						background: url('../images/btn-primary-sold-out.png') no-repeat;
+						background-size: 100% auto;
+						background-image: url('../images/btn-primary-sold-out.png');
+						background-repeat: no-repeat;
+						background-color: transparent;
 						width: 172px;
 						height: 56px;
 						padding: 0;
@@ -1659,6 +1657,7 @@ html body {
 	html body.single-products {
 		#page #main #content article {
 
+
 		}
 	}
 	// BASIC PAGES
@@ -1680,7 +1679,7 @@ html body {
 						float: left;
 						padding: 0;
 						width: auto;
-						margin-top: -49px;
+						margin-top: 0;
 						& a > span { font-size: 23px; display: block; float: left; clear: both; text-align: right; }
 						& a .content-fluff { float: left; border: none; margin: 5px 7px 0 0; display: block; }
 					}
@@ -1688,6 +1687,7 @@ html body {
 						float: right;
 						padding: 0;
 						width: auto;
+						margin-top: 59px;
 						& a > span { font-size: 23px; display: block; float: right; clear: both; text-align: right; }
 						& a .content-fluff { float: right; border: none; margin: 5px 0 0 7px; background-position: -40px 0; display: block; }
 					}
@@ -1701,7 +1701,7 @@ html body {
 			}
 			.accessories-slide .slide-content { position: inherit; text-align: left; width: 26%; margin-top: 250px; }
 			.first-accessories {
-				img.featured-image { margin-left: -300px; }
+				img.featured-image { margin-left: -275px; }
 			}
 		} // main
 	}
@@ -1721,12 +1721,12 @@ html body {
 	html body.single-products {
 		#page #main #content article {
 			.product-header {
-				// .product-details { padding-top: 20px; }
+				//margin-top: 109px; 
 			}
 			.product-content {
-				margin-left: 20px;
+				margin: 95px 0 0 825px;
 				.product-left-col {
-					hr { display: block; }
+					hr { display: block; margin: 7px 0 16px; }
 				}
 			}
 		}
@@ -1767,24 +1767,40 @@ html body {
 	}
 }
 
-@media ( min-width: 1025px ) { // and up
-	// GENERAL
-	html body {
-		#page header#navbar { padding-top: 86px; }
-		#page #main { margin-top: 140px; }
-	}
-}
-
 @media ( min-width: 1240px ) { // and up
 	html body {
+		header#navbar { position: fixed; padding: 36px 0 15px 0; }
+		#main { margin-top: 91px; }
+
 		#primary { margin: 0 auto; width: 1124px; }
 		.navbar-fixed-top .container, .container { width: 1124px; }
 	}
 	// Single Products Page
 	html body.single-products {
-		#page #main #content {
-			article .product-content { margin: 110px 0 0 932px; }
-			article .product-header { margin-top: 109px; }
+		#page #main #content article {
+			.product-header {
+				margin-top: 109px; 
+			}
+			.product-content {
+				width: 172px;
+				margin: 110px 0 0 932px;
+				hr { margin: 11px 0 20px; }
+				.product-left-col {
+					.jquery-color-selection a {
+						width: auto;
+						height: auto;
+						float: none;
+						margin-left: 0;
+						display: block;
+						text-indent: 0;
+					}
+					.jquery-color-selection ul li:first-child a { margin-left: 0; }
+				}
+				.product-right-col {
+					a#addToCart { width: 172px; }
+					a#soldOut { width: 172px; }
+				}
+			}
 		}
 	}
 }

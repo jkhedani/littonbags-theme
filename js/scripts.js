@@ -29,18 +29,6 @@ jQuery(document).ready(function($){
 	   $.fn.viewmaster = function() {
 			// Variables
 			var viewmaster = this;
-			
-			/*
-			 *	Setup
-			 */
-			// I. Set the width of each slide to the width of the view master wrapper.
-			var masterWidth = viewmaster.width();
-			viewmaster.find('.slide').each( function() {
-				$(this).width(masterWidth);
-			});
-			// II. Find the total amount of slides and set the reel to the sum of all slide widths.
-			var slideCount = viewmaster.find('.slide').length;
-			viewmaster.find('.view-master-reel').width( masterWidth * slideCount );
 
 			/*
 			 * Helper Functions
@@ -57,13 +45,21 @@ jQuery(document).ready(function($){
 					viewmaster.find('.view-master-reel').css( 'margin-left', '-' + activePostion + 'px' );
 				}
 				// If there are no next/prev slides after click, hide next/prev controls
-				if( activeIndex == 0 ) {
-					viewmaster.find('.view-master-control.left').hide();
-				} else if ( activeIndex == ( slideCount - 1 ) ) {
-					viewmaster.find('.view-master-control.right').hide();
+				if ( activeIndex == 0 ) { // when at the FARTHEST LEFT
+					viewmaster.find('.view-master-controls .view-master-control.left').hide();
+					viewmaster.find('.view-master-controls .view-master-control.right').show();
+				} else if ( activeIndex == ( slideCount - 1 ) ) { // when at the FARTHEST RIGHT
+					viewmaster.find('.view-master-controls .view-master-control.left').show();
+					viewmaster.find('.view-master-controls .view-master-control.right').hide();
 				} else {
-					// If there are more items to be viewed, show controls. Also reveals hidden controls on next click.
-					viewmaster.find('.view-master-control').show();
+					if ( $('.view-master .active.slide').hasClass('center-slide') && window.innerWidth <= 768 ) {
+						// If there are more items to be viewed, show controls. Also reveals hidden controls on next click.
+						viewmaster.find('.view-master-controls .view-master-control').hide();
+						console.log('asdf');
+					} else {
+						// If there are more items to be viewed, show controls. Also reveals hidden controls on next click.
+						viewmaster.find('.view-master-control').show();	
+					}
 				}
 
 			}
@@ -71,15 +67,43 @@ jQuery(document).ready(function($){
 			/*
 			 *	Movement
 			 */
-			// I. Ensure that active slide is shown first by moving the slide reel left the
+			// I. Set the widths of the slides based on view master reel width
+			var masterWidth = viewmaster.width();
+			viewmaster.find('.slide').each( function() {
+				$(this).width(masterWidth);
+			});
+			// I.i Find the total amount of slides and set the reel to the sum of all slide widths.
+			var slideCount = viewmaster.find('.slide').length;
+			viewmaster.find('.view-master-reel').width( masterWidth * slideCount );
+
+			// I.ii Also, recalculate the widths on window resize with a bit of a delay to prevent
+			// multiple resize calls.
+			// $(window).on('resize',function(){
+			// 	setTimeout( function() {
+			// 		// I. Set the widths of the slides based on view master reel width
+			// 		var masterWidth = viewmaster.width();
+			// 		viewmaster.find('.slide').each( function() {
+			// 			$(this).width(masterWidth);
+			// 		});
+			// 		// I.i Find the total amount of slides and set the reel to the sum of all slide widths.
+			// 		var slideCount = viewmaster.find('.slide').length;
+			// 		console.log(masterWidth);
+			// 		viewmaster.find('.view-master-reel').width( masterWidth * slideCount );
+					
+			// 	},1500);
+			// });
+
+			// II. Ensure that active slide is shown first by moving the slide reel left the
 			// length of single slide multiplied by the active position
 			showActive();
 
-			// II. Allow user to move between slides on the reel by moving active class...
+			// III. Allow user to move between slides on the reel by moving active class...
 			viewmaster.find('.view-master-control').on( 'click', function() {
+				// # when clicking prev...
 				if ( $(this).data('slide') == 'prev' ) {
 					if ( viewmaster.find('.active.slide').prev().length )
 						viewmaster.find('.active.slide').removeClass('active').prev().addClass('active');
+				// # when clicking next...
 				} else if ( $(this).data('slide') == 'next' ) {
 					if ( viewmaster.find('.active.slide').next().length )
 						viewmaster.find('.active.slide').removeClass('active').next().addClass('active');
@@ -98,7 +122,7 @@ jQuery(document).ready(function($){
 	if ( $('body').hasClass('home') ) {
 		// "Carousel" Sliders
 		$('.carousel').carousel({
-			'interval' : false,
+			'interval' : 4000,
 		});
 	} // .hasClass home
 
@@ -107,17 +131,23 @@ jQuery(document).ready(function($){
 	if ( $('body').hasClass('post-type-archive-products') ) {
 
 		if ( $('.view-master').length ) {
+
+			// # Run view master
 			$('#productViewer').viewmaster();
-			/*
-			 * Custom View Master Functions
-			 */
-			// Since we will always be starting in the midde here, we can just look before and after
-			// on page load.
-			$('.view-master .active.slide').next().addClass('first-accessories');
-			$('.view-master .active.slide').prev().addClass('first-bags');
-			// Remove margins on featured images, when ...
-			$('.view-master-control').on( 'click', function() {
-				// next slide has class first-accessories
+
+			// # Custom View Master Functions
+			// Primarily using these functions to help set and postion elements on the page
+
+			var setFirstViewMasterElements = function() {
+				// # Since we will always be starting in the midde here, we can just look before and after
+				// on page load.
+				$('.view-master .active.slide').next().addClass('first-accessories');
+				$('.view-master .active.slide').prev().addClass('first-bags');	
+			}
+
+			var positionViewMasterElements = function() {
+
+				// # when moving to an ACCESSORIES slide
 				if ( $('.view-master .active.slide').hasClass('first-accessories') ) {
 
 					if ( window.innerWidth <= 400 ) {
@@ -131,11 +161,12 @@ jQuery(document).ready(function($){
 						}, 500);
 					} else {
 						$('.view-master .active.slide img.featured-image').animate({
-							marginLeft: '0px',
+							marginLeft: '-110px',
 						}, 500);
 					}
 				}
-				// next slide has class first-bags
+
+				// # when moving to an BAG slide
 				if ( $('.view-master .active.slide').hasClass('first-bags') ) {
 					if ( window.innerWidth <= 400 ) {
 						$('.view-master h1.accessories').hide();
@@ -152,7 +183,8 @@ jQuery(document).ready(function($){
 						}, 500);
 					}
 				}
-				// next slide is center slide
+
+				// # when moving to the CENTER slide
 				if ( $('.view-master .active.slide').hasClass('center-slide') ) {
 					// Show buttons
 					$('.view-master h1.accessories').show();
@@ -161,12 +193,29 @@ jQuery(document).ready(function($){
 					$('.view-master .first-accessories.slide  img.featured-image').animate({
 						marginLeft: '-400px',
 					}, 500);
-
 					$('.view-master .first-bags.slide img.featured-image').animate({
 						marginRight: '-400px',
 					}, 500);
 				}
+
+			} // positionViewMasterElements()
+
+			// # Page LOAD
+			setFirstViewMasterElements();
+
+			// # On CLICK
+			$('.view-master-control').on( 'click', function() {
+				positionViewMasterElements();
 			});
+
+			// # On RESIZE
+			// $(window).on( 'resize', function() {
+			// 	setTimeout( function() {
+			// 		positionViewMasterElements();
+			// 	}, 1500);
+			// });
+
+
 		} // .view-master
 
 	}
