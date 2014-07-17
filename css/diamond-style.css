@@ -2446,7 +2446,7 @@ html body.single-products #page #main #content article .product-content .product
 }
 html body.single-products #page #main #content article .product-content .product-left-col .jquery-color-selection a {
   width: 31%;
-  height: 39px;
+  height: 51px;
   float: left;
   margin-left: 3%;
   display: block;
@@ -2660,6 +2660,7 @@ html body .shopping-cart-product .product-subtotal {
   html body.single-products #page #main #content article .product-content {
     margin: 95px 0 0 565px;
     max-width: none;
+    right: 25px;
   }
   html body.single-products #page #main #content article .product-content {
     width: 125px;
@@ -2681,6 +2682,9 @@ html body .shopping-cart-product .product-subtotal {
   html body.single-products #page #main #content article .product-content .product-left-col {
     float: none;
     width: auto;
+  }
+  html body.single-products #page #main #content article .product-content .product-left-col .jquery-color-selection a {
+    height: 39px;
   }
   html body.single-products #page #main #content article .product-content .product-right-col {
     float: none;
@@ -2795,6 +2799,9 @@ html body .shopping-cart-product .product-subtotal {
   }
   body.page-template-default.page-not-home.page-id-14 .entry-content {
     width: 98%;
+  }
+  html body.single-products #page #main #content article .product-content {
+    right: auto;
   }
   body.page-template-templatespage-customer-service-php #main,
   body.page-template-default.page-not-home #main,

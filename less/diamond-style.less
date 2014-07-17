@@ -1341,7 +1341,7 @@ html body.single-products {
 				hr { display: none; }
 				.jquery-color-selection a {
 					width: 31%;
-					height: 39px;
+					height: 51px;
 					float: left;
 					margin-left: 3%;
 					display: block;
@@ -1519,14 +1519,21 @@ html body {
 				.lookbook-link-container { margin-top: -15px; }	
 				.lookbook-link { margin-left: 0; }
 			}
-			.product-content { margin: 95px 0 0 565px; max-width: none; }
+			.product-content {
+				margin: 95px 0 0 565px;
+				max-width: none;
+				right: 25px;
+
+			}
 			// UNHACK! Product Content Formatting
 			.product-content {
 				width: 125px;
 				.clearfix();
 				.product-price { padding-bottom: 20px; border-bottom: 2px dotted @darkGray; }
 				.product-left-col { float: none; width: auto;
-					
+					.jquery-color-selection a {
+						height: 39px;
+					}
 				}
 				.product-right-col {
 					float: none;
@@ -1656,8 +1663,9 @@ html body {
 	// SINGLE PRODUCTS
 	html body.single-products {
 		#page #main #content article {
-
-
+			.product-content {
+				right: auto;
+			}
 		}
 	}
 	// BASIC PAGES
