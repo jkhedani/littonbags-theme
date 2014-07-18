@@ -554,6 +554,13 @@
   overflow: hidden;
 }
 /**
+ *	Rush Jobs
+ */
+.shipping-popover-trigger i {
+  font-size: 13px;
+  padding-left: 2px;
+}
+/**
  * Global Styles
  */
 .navbar-fixed-top .container,
@@ -1792,7 +1799,7 @@ html body .popover.bottom .popover-content .shopping-cart-product a.btn.remove:h
 }
 html body .popover.bottom .popover-content .checkout-totals {
   float: right;
-  width: 200px;
+  width: 240px;
   margin-bottom: 14px;
 }
 html body .popover.bottom .popover-content .checkout-totals div {
@@ -2889,8 +2896,8 @@ html body .shopping-cart-product .product-subtotal {
   }
   html body .popover.bottom {
     top: 156px !important;
-    margin-right: 95px;
-    margin-top: -15px;
+    margin-right: 230px;
+    margin-top: -65px;
   }
   html body.single-products #page #main #content article .product-content {
     margin: 95px 0 0 825px;

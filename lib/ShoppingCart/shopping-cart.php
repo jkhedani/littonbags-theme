@@ -251,7 +251,7 @@ function refresh_shopping_cart() {
 		$html .= '<div class="checkout-totals">';
 		$html .= '<div class="subtotal"><span class="total-title">Subtotal: </span><span class="line-item-cost">'.format_money($grandSubtotal,'US').'</span></div>';
 		$html .= '<div class="auxfees"><span class="total-title">Tax ('.round((float)$currenttaxrate * 100, 3).'%): </span><span class="line-item-cost">'.format_money($tax,'US').'</span></div>';
-		$html .= '<div class="auxfees"><span class="total-title">Shipping: </span><span class="line-item-cost">Free</span></div>';
+		$html .= '<div class="auxfees"><span class="total-title">Shipping: </span><span class="line-item-cost">Free Domestic Shipping<a class="shipping-popover-trigger" href="'.get_home_url().'/delivery" target="_blank"><i class="fa fa-info-circle"></i></a></span></div>';
 		$html .= '<div class="total"><span class="total-title">Total: </span><span class="line-item-cost">'.format_money($grandTotal,'US').'</span></div>';
 		$html .= '</div>';
 
