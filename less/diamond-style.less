@@ -26,8 +26,8 @@
 @mint: rgb(155, 210, 203);
 
 *, *:before, *:after {
-	-moz-box-sizing: border-box; 
-	-webkit-box-sizing: border-box; 
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
@@ -105,9 +105,9 @@
 	box-sizing: border-box;
 }
 .roundCorners(@radius) {
-  -webkit-border-radius: @radius; 
-  -moz-border-radius: @radius; 
-  border-radius: @radius; 
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
 }
 .no-text {
 	// Modern approach: http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/
@@ -185,7 +185,7 @@ img { color: transparent; border-color: transparent; }
 	background: url('../images/litton-ludwig-logo.png') no-repeat;
 	float: left;
 	display: block;
-	width: 163px; 
+	width: 163px;
 	height: 44px;
 	padding: 0;
 	margin: -6px 0 0 0;
@@ -197,6 +197,8 @@ img { color: transparent; border-color: transparent; }
 ::-moz-selection {
 	background: @beigeAccent; /* Firefox */
 }
+
+// CSS Spinners
 // Courtesy of: http://tobiasahlin.com/spinkit/
 .spinner {
   width: 30px;
@@ -215,6 +217,30 @@ img { color: transparent; border-color: transparent; }
   }
 }
 
+// CSS Shapes
+.shape {
+	&.flag {
+		-webkit-backface-visibility: hidden;
+		position: absolute;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    line-height: 0;
+		border-left: 34px solid rgba(155, 210, 203, 1.0);
+    border-right: 34px solid rgba(155, 210, 203, 1.0);
+		border-top: 50px solid rgba(155, 210, 203, 1.0);
+		border-bottom: 22px solid rgba(255, 255, 255, 0);
+    left: 0;
+    top: 0;
+		z-index: -99;
+		-webkit-transform: rotate(360deg);
+		-moz-transform: scale(1.1);
+		-o-transform: rotate(360deg); /* Didn't check Opera yet */
+		transform: rotate(360deg);
+	}
+}
+
+
 @-webkit-keyframes rotateplane {
   0% { -webkit-transform: perspective(120px) }
   50% { -webkit-transform: perspective(120px) rotateY(180deg) }
@@ -222,13 +248,13 @@ img { color: transparent; border-color: transparent; }
 }
 
 @keyframes rotateplane {
-  0% { 
+  0% {
     transform: perspective(120px) rotateX(0deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg) 
-  } 50% { 
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+  } 50% {
     transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg) 
-  } 100% { 
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+  } 100% {
     transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
     -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
   }
@@ -407,17 +433,23 @@ html {
 					ul {
 						margin: -9px 15px 0 0;
 						li {
-							list-style: none; 
+							list-style: none;
 							// Shop Link
+							a { position: relative; }
 							a[title="shop"] {
 								width: 80px;
 								height: 83px;
 								display: block;
-								background: url('../images/menu-ribbon-shop.png') -2px 0 no-repeat;
-								.no-text();
-
+								color: #FFF;
+								text-transform: uppercase;
+								padding: 15px 0 0 14px;
+								#font-family > .oswald;
+								font-size: 20px;
+								font-weight: 200;
+								//background: url('../images/menu-ribbon-shop.png') -2px 0 no-repeat;
+								//.no-text();
 							}
-						}							
+						}
 					}
 				}
 			}
@@ -536,7 +568,7 @@ body.error404.page-not-home {
 		input { width: 100%; padding: 20px 10px; margin-top: 8px; color: #444; }
 		textarea { width: 100%; padding: 20px 10px; margin-top: 8px; color: #444; }
 		#send-mail {
-			
+
 		}
 	}
 	// Contact Form Specific Styles
@@ -864,7 +896,7 @@ body.single-products {
 	cursor: pointer;
 	background: url('../images/cart-icon.png') no-repeat;
 	float: right;
-	width: 27px; 
+	width: 27px;
 	height: 21px;
 	text-indent: -9999px;
 	margin-top: 5px;
@@ -1320,7 +1352,7 @@ html body.home {
 		height: 64px;
 		background-size: 100%;
 	}
-	
+
 	.minster-type-treatment {
 		left: 60px;
 		right: auto;
@@ -1524,7 +1556,7 @@ html body {
 				margin-top: 48px;
 				max-width: none;
 				.product-details { padding-top: 0; }
-				.lookbook-link-container { margin-top: -15px; }	
+				.lookbook-link-container { margin-top: -15px; }
 				.lookbook-link { margin-left: 0; }
 			}
 			.product-content {
@@ -1737,7 +1769,7 @@ html body {
 	html body.single-products {
 		#page #main #content article {
 			.product-header {
-				//margin-top: 109px; 
+				//margin-top: 109px;
 			}
 			.product-content {
 				margin: 95px 0 0 825px;
@@ -1795,7 +1827,7 @@ html body {
 	html body.single-products {
 		#page #main #content article {
 			.product-header {
-				margin-top: 49px; 
+				margin-top: 49px;
 			}
 			.product-content {
 				width: 172px;
@@ -1865,7 +1897,7 @@ html body {
 	 *	Aux Pages
 	 *	About, Customer Service, Contact
 	 */
-	
+
 	/**
 	 *	Customer Service Page
 	 */
@@ -1882,7 +1914,7 @@ html body {
 						margin: 0 auto;
 					}
 				}
-			}			
+			}
 		}
 	}
 
@@ -1941,4 +1973,3 @@ html body {
           background: url(../images/bgPattern@2x.png) repeat;
      }
 }
-

@@ -691,6 +691,27 @@ img {
   float: none;
   margin: 40px auto;
 }
+.shape.flag {
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  border-left: 34px solid #9bd2cb;
+  border-right: 34px solid #9bd2cb;
+  border-top: 50px solid #9bd2cb;
+  border-bottom: 22px solid rgba(255, 255, 255, 0);
+  left: 0;
+  top: 0;
+  z-index: -99;
+  -webkit-transform: rotate(360deg);
+  -moz-transform: scale(1.1);
+  -o-transform: rotate(360deg);
+  /* Didn't check Opera yet */
+
+  transform: rotate(360deg);
+}
 @-webkit-keyframes rotateplane {
   0% {
     -webkit-transform: perspective(120px);
@@ -940,14 +961,22 @@ html body header#navbar .navbar-inner .menu-main-menu-container ul {
 html body header#navbar .navbar-inner .menu-main-menu-container ul li {
   list-style: none;
 }
+html body header#navbar .navbar-inner .menu-main-menu-container ul li a {
+  position: relative;
+}
 html body header#navbar .navbar-inner .menu-main-menu-container ul li a[title="shop"] {
   width: 80px;
   height: 83px;
   display: block;
-  background: url('../images/menu-ribbon-shop.png') -2px 0 no-repeat;
-  text-indent: 150%;
-  white-space: nowrap;
-  overflow: hidden;
+  color: #FFF;
+  text-transform: uppercase;
+  padding: 15px 0 0 14px;
+  font-family: 'Oswald', 'sans-serif';
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 20px;
+  font-weight: 200;
 }
 html body #main {
   overflow: hidden;

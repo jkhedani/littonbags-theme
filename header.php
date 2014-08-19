@@ -14,26 +14,28 @@
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title><?php
-	//Print the <title> tag based on what is being viewed. 
-	global $page, $paged;
+<title>
+	<?php
+		// Print the <title> tag based on what is being viewed.
+		global $page, $paged;
 
-  //Add page/content title
-	wp_title( '|', true, 'right' );
+  	// Add page/content title
+		wp_title( '|', true, 'right' );
 
-	// Add the site name.
-	bloginfo( 'name' );
+		// Add the site name.
+		bloginfo( 'name' );
 
-	// Add the site description for the home/front page.
-	$site_description = get_bloginfo( 'description', 'display' );
-	if ( $site_description && ( is_home() || is_front_page() ) )
-		echo " | $site_description";
+		// Add the site description for the home/front page.
+		$site_description = get_bloginfo( 'description', 'display' );
+		if ( $site_description && ( is_home() || is_front_page() ) )
+			echo " | $site_description";
 
-	// Add a page number if necessary:
-	if ( $paged >= 2 || $page >= 2 )
-		echo ' | ' . sprintf( __( 'Page %s', '_s' ), max( $paged, $page ) );
+		// Add a page number if necessary:
+		if ( $paged >= 2 || $page >= 2 )
+			echo ' | ' . sprintf( __( 'Page %s', '_s' ), max( $paged, $page ) );
 
-?></title>
+	?>
+</title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <link rel="shortcut icon" href="<?php bloginfo( 'stylesheet_directory' ); ?>/images/favicon.png" />
@@ -42,11 +44,14 @@
 <script src="<?php echo get_template_directory_uri(); ?>/inc/js/html5.js" type="text/javascript"></script>
 <![endif]-->
 
-<?php wp_head(); ?>
-
 <?php
-  // ADMIN: Move navbar down from under admin when user is
-  // logged in but not in the theme customizer previewer
+
+	wp_head();
+
+	/*
+	 * ADMIN: Move navbar down from under admin when user is
+   * logged in but not in the theme customizer previewer
+	 */
   global $wp_customize;
   if ( is_user_logged_in() && ! isset( $wp_customize ) ) {
     echo '
@@ -60,6 +65,7 @@
   }
 ?>
 
+<!-- Google Analytics Script -->
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -74,40 +80,54 @@
 </head>
 
 <body <?php body_class(); ?>>
-  
+
   <div id="page" class="hfeed site">
 
   	<header id="navbar" class="navbar navbar-fixed-top navbar-inverse">
     	<div class="navbar-inner">
         <div class="container">
+
           <!-- Site Logo -->
-          <a class="site-title" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>    
+          <a class="site-title" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
 
           <!-- Shopping Cart Trigger -->
           <div class="shoppingcart">
             <a href="javascript:void(0);" class="shoppingcartshow">Cart</a>
           </div>
+
           <!-- Site Main Menu -->
           <div class="menu-main-menu-container">
             <a class="mobile-menu-toggle hide" href="#menu-main-menu" title="Toggle menu view for smaller devices."><i class="fa fa-bars"></i></a>
-            <?php wp_nav_menu( array(
-              'menu' => 'mobile-menu',
-              'menu_class' => 'mobile-menu',
-              'container' => false,
-            )); ?>
-            <?php wp_nav_menu( array(
-              'theme_location' => 'primary',
-              'menu' => 'main-menu',
-              'menu_class' => 'main-menu',
-              'container' => false,
-            )); ?>
+            <?php
+							wp_nav_menu( array (
+	              'menu' => 'mobile-menu',
+	              'menu_class' => 'mobile-menu',
+	              'container' => false,
+	            ));
+						?>
+            <?php
+							$locations = get_nav_menu_locations();
+							$menu = wp_get_nav_menu_object( $locations['main-menu'] );
+							$menu_items = wp_get_nav_menu_items( $menu->term_id );
+						?>
+						<ul id="menu-<?php echo $menu->slug; ?>" class="main-menu">
+							<?php foreach ( $menu_items as $menu_item ) { ?>
+								<li>
+									<a title="<?php echo $menu_item->attr_title; ?>" href="<?php echo $menu_item->url; ?>">
+										<?php echo $menu_item->post_title; ?>
+										<i class="shape flag"></i>
+									</a>
+								</li>
+							<?php }?>
+						</ul>
           </div>
-        </div>
+
+        </div><!-- container -->
     	</div><!-- .navbar-inner -->
     </header><!-- #navbar -->
 
   	<div id="main" role="main" class="site-main">
 
     <?php if ( is_front_page() ) : ?>
-      
+
     <?php endif; ?>

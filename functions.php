@@ -198,7 +198,7 @@
     //     ),
     //     'menu_order' => 0,
     // ));
-    
+
     // Look Books
     // register_field_group(array (
     //     'id' => 'acf_lookbooks',
@@ -301,7 +301,7 @@ function diamond_scripts() {
 	// Requires: Child theme style, resets, parent theme base style and bootstrap base style
 	// to load prior to responsive. Responsive styles should typically be loaded last.
 	// wp_enqueue_style( 'diamond-style-responsive', get_stylesheet_directory_uri().'/css/diamond-style-responsive.css', array('diamond-style','resets','bootstrap-base-styles','bootstrap-parent-style'));
-    
+
     /*
      * Set proper API keys based on Stripe Settings in wordpress
      */
@@ -324,7 +324,7 @@ function diamond_scripts() {
 
     //wp_enqueue_script( 'json2'); // Is this necessary?
     //wp_enqueue_script( 'jquery'); // Is this necessary?
-    
+
     // Stripe
     // https://stripe.com/
     wp_enqueue_script('stripe-processing', get_stylesheet_directory_uri().'/lib/StripeScripts/stripe-processing.js', array('jquery') );
@@ -344,7 +344,7 @@ function diamond_scripts() {
     wp_enqueue_script('jstorage-script', get_stylesheet_directory_uri().'/js/jstorage.js', array('jquery','json2'));
     wp_enqueue_script('diamond-custom-script', get_stylesheet_directory_uri().'/js/scripts.js', array('jquery'), false, true);
 
-    // Shopping Cart  
+    // Shopping Cart
     wp_enqueue_script('shopping-cart-scripts', get_stylesheet_directory_uri().'/lib/ShoppingCart/shopping-cart.js', array('jquery','json2'), true);
     wp_localize_script('shopping-cart-scripts', 'shopping_cart_scripts', array(
         'ajaxurl' => admin_url('admin-ajax.php',$protocol),
@@ -357,7 +357,7 @@ function diamond_scripts() {
       'ajaxurl' => admin_url('admin-ajax.php',$protocol),
       'nonce' => wp_create_nonce('look_book_fetcher_nonce')
     ));
-    
+
 }
 add_action( 'wp_enqueue_scripts', 'diamond_scripts' );
 
@@ -490,7 +490,7 @@ add_action( 'init', 'LTTNBAGS_post_types' );
  */
 function LTTNBAGS_connection_types() {
 
-  // Connect 
+  // Connect
   p2p_register_connection_type( array(
     // Connnection Attributes
     'name' => 'look_books_to_products',
@@ -535,12 +535,12 @@ function LTTNBAGS_taxonomies() {
     'all_items' => __( 'All Product Types' ),
     'parent_item' => __( 'Parent Product Type' ),
     'parent_item_colon' => __( 'Parent Product Type:' ),
-    'edit_item' => __( 'Edit Product Type' ), 
+    'edit_item' => __( 'Edit Product Type' ),
     'update_item' => __( 'Update Product Type' ),
     'add_new_item' => __( 'Add New Product Type' ),
     'new_item_name' => __( 'New Product Type' ),
     'menu_name' => __( ' Edit Product Types' ),
-  ); 	
+  );
   register_taxonomy('product_type',array('products'), array(
     'hierarchical' => true,
     'labels' => $labels,
@@ -556,6 +556,15 @@ add_action( 'init', 'LTTNBAGS_taxonomies');
 /**
  * Create Litton Bags Menu Structure
  */
+
+// Designate menu locations
+function LTTNBAGS_designate_menu_locations() {
+  register_nav_menu( 'main-menu', __( 'Main Menu' ) );
+  register_nav_menu( 'footer-menu', __( 'Footer Menu' ) );
+}
+add_action( 'init', 'LTTNBAGS_designate_menu_locations' );
+
+/** DEPRECIATED? */
 function LTTNBAGS_primary_menu() {
     global $post;
     $productcount = wp_count_posts('products'); // Total products
@@ -575,7 +584,7 @@ add_action('bedrock_abovepostcontent','LTTNBAGS_primary_menu');
 function page_not_home_class( $classes ) {
     if ( ! is_front_page() ) {
         $classes[] = 'page-not-home';
-    }    
+    }
     return $classes;
 }
 add_filter('body_class','page_not_home_class');
