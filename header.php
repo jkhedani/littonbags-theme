@@ -1,7 +1,6 @@
 <?php
 /**
- * The Header for our theme.
- *
+ * The Header For Our Theme.
  * Displays all of the <head> section and everything up till <div id="main">
  *
  * @package _s
