@@ -12,14 +12,12 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
-<meta charset="<?php bloginfo( 'charset' ); ?>" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>
 	<?php
 		// Print the <title> tag based on what is being viewed.
 		global $page, $paged;
 
-  	// Add page/content title
+		// Add page/content title
 		wp_title( '|', true, 'right' );
 
 		// Add the site name.
@@ -36,6 +34,11 @@
 
 	?>
 </title>
+
+<meta charset="<?php bloginfo( 'charset' ); ?>" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="<?php echo $site_description; ?>" />
+
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <link rel="shortcut icon" href="<?php bloginfo( 'stylesheet_directory' ); ?>/images/favicon.png" />
