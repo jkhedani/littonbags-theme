@@ -1,7 +1,6 @@
 <?php
 /**
- * The template for displaying the footer.
- *
+ * The Template For Displaying The Footer.
  * Contains the closing of the id=main div and all content after
  *
  * @package _s
