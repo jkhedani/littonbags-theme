@@ -1,12 +1,7 @@
 <?php
 
 /**
- * Place any hand-crafted Wordpress
- * Please read the documentation on how to use this file within child theme (README.md)
- */
-
-/**
- *  Helper Functions
+ * Helper Functions
  */
 
 // HTML set content type for sending html through WP_Mail
@@ -34,7 +29,7 @@ function format_money( $amount, $currencyType ) {
 }
 
 /**
- *  Globals & Constants
+ * Globals & Constants
  */
 $stripe_options = get_option('stripe_settings');
 $easypost_options = get_option('easypost_settings');
@@ -55,20 +50,6 @@ function diamond_scripts() {
     // Enqueue Styles
 	  wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css' );
 
-    // Activate line below for responsive layout
-	  // Requires: Child theme style, resets, parent theme base style and bootstrap base style
-	  // to load prior to responsive. Responsive styles should typically be loaded last.
-	  // wp_enqueue_style( 'diamond-style-responsive', get_stylesheet_directory_uri().'/css/diamond-style-responsive.css', array('diamond-style','resets','bootstrap-base-styles','bootstrap-parent-style'));
-
-    /*
-     * Set proper API keys based on Stripe Settings in wordpress
-     */
-    global $stripe_options;
-    if ( isset($stripe_options['test_mode']) && $stripe_options['test_mode'] ) {
-        $publishable = $stripe_options['test_publishable_key']; // Use Test API Key for Stripe Processing
-    } else {
-        $publishable = $stripe_options['live_publishable_key']; // Use Test API Key for Stripe Processing
-    }
     // Enqueue Scripts
     wp_enqueue_script( 'bootstrap-transition-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-transition.js', array(), false, true );
     wp_enqueue_script( 'bootstrap-modal-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-modal.js', array(), false, true );
@@ -131,6 +112,17 @@ require_once( get_stylesheet_directory() . '/lib/ShoppingCart/shopping-cart-mark
  * "Stripe" Integration
  * With lots of love from: http://pippinsplugins.com/series/integrating-stripe-com-with-wordpress/
  */
+
+// Set appropirate API keys based on Stripe Settings in wordpress
+function stripe_set_api_key() {
+  global $stripe_options;
+  if ( isset($stripe_options['test_mode']) && $stripe_options['test_mode'] ) {
+      $publishable = $stripe_options['test_publishable_key']; // Use Test API Key for Stripe Processing
+  } else {
+      $publishable = $stripe_options['live_publishable_key']; // Use Test API Key for Stripe Processing
+  }
+}
+add_action( 'init', 'stripe_set_api_key' );
 
 // Load "Stripe" settings & Payment processors
 if ( is_admin() ) {
