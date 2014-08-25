@@ -44,20 +44,23 @@ $easypost_options = get_option('easypost_settings');
  * http://codex.wordpress.org/Plugin_API/Action_Reference/wp_enqueue_scripts
  */
 function diamond_scripts() {
-    $protocol = 'http:'; // discover the correct protocol to use
+    // Assign the appropriate protocol
+    $protocol = 'http:';
     if ( !empty($_SERVER['HTTPS']) ) $protocol = 'https:';
-	// Enqueue Styles
-	wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css' );
+	  // Enqueue Fonts
     wp_enqueue_style( 'google-fonts-oswald', '//fonts.googleapis.com/css?family=Oswald:300,400', array(), false, 'all' );
     wp_enqueue_style( 'google-fonts-raleway', '//fonts.googleapis.com/css?family=Raleway:300', array(), false, 'all' );
     wp_enqueue_style( 'google-fonts-source-sans-pro', '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', array(), false, 'all' );
     wp_enqueue_style( 'google-fonts-josefin-sans', '//fonts.googleapis.com/css?family=Josefin+Sans:300,400', array(), false, 'all' );
     wp_enqueue_style( 'google-fonts-droid-sans', '//fonts.googleapis.com/css?family=Droid+Sans', array(), false, 'all' );
     wp_enqueue_style( 'font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css', array(), false, 'all' );
+    // Enqueue Styles
+	  wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css' );
+
     // Activate line below for responsive layout
-	// Requires: Child theme style, resets, parent theme base style and bootstrap base style
-	// to load prior to responsive. Responsive styles should typically be loaded last.
-	// wp_enqueue_style( 'diamond-style-responsive', get_stylesheet_directory_uri().'/css/diamond-style-responsive.css', array('diamond-style','resets','bootstrap-base-styles','bootstrap-parent-style'));
+	  // Requires: Child theme style, resets, parent theme base style and bootstrap base style
+	  // to load prior to responsive. Responsive styles should typically be loaded last.
+	  // wp_enqueue_style( 'diamond-style-responsive', get_stylesheet_directory_uri().'/css/diamond-style-responsive.css', array('diamond-style','resets','bootstrap-base-styles','bootstrap-parent-style'));
 
     /*
      * Set proper API keys based on Stripe Settings in wordpress
