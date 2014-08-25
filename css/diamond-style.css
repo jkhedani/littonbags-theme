@@ -513,20 +513,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-#font-family .raleway {
-  font-family: 'Raleway', serif;
-  font-weight: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 #font-family .josefin {
   font-family: 'Josefin Sans', sans-serif !important;
-  font-weight: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-#font-family .droid-sans {
-  font-family: 'Droid Sans', sans-serif;
   font-weight: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -864,12 +852,13 @@ form input[type="email"],
 form textarea {
   border: none;
   background-color: #DEDEDE;
-  color: #666;
+  color: #AAA;
   padding: 7px;
-  font-family: 'Raleway', serif;
+  font-family: 'Source Sans Pro', 'serif';
   font-weight: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 200;
   border-radius: 0;
 }
 form .formHelperText {
@@ -1231,7 +1220,7 @@ body.error404.page-not-home form input {
   width: 100%;
   padding: 20px 10px;
   margin-top: 8px;
-  color: #444;
+  color: #555;
 }
 body.page-template-templatespage-customer-service-php form textarea,
 body.page-template-default.page-not-home form textarea,
@@ -1575,7 +1564,7 @@ body.single-products #page #main #content article .product-header .product-subti
   font-size: 25px;
 }
 body.single-products #page #main #content article .product-header .product-details {
-  font-family: 'Droid Sans', sans-serif;
+  font-family: 'Source Sans Pro', 'serif';
   font-weight: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1753,7 +1742,7 @@ body.single-products .jquery-color-selection ul li a:hover {
 #checkoutModal .modal-header .step-count {
   font-size: 13px;
   margin-bottom: 15px;
-  font-family: 'Droid Sans', sans-serif;
+  font-family: 'Source Sans Pro', 'serif';
   font-weight: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1777,7 +1766,7 @@ body.single-products .jquery-color-selection ul li a:hover {
   font-size: 12px;
 }
 #checkoutModal .modal-body form legend {
-  font-family: 'Droid Sans', sans-serif;
+  font-family: 'Source Sans Pro', 'serif';
   font-weight: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -1880,7 +1869,7 @@ body.single-products .jquery-color-selection ul li a:hover {
 }
 #checkoutModal .checkoutReview .shopping-cart-product {
   *zoom: 1;
-  font-family: 'Droid Sans', sans-serif;
+  font-family: 'Source Sans Pro', 'serif';
   font-weight: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -2231,7 +2220,7 @@ html body .popover.bottom .popover-content .shopping-cart-preview-legend .produc
 }
 html body .popover.bottom .popover-content .shopping-cart-product {
   *zoom: 1;
-  font-family: 'Droid Sans', sans-serif;
+  font-family: 'Source Sans Pro', 'serif';
   font-weight: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
