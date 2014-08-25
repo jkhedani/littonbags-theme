@@ -39,14 +39,17 @@ $easypost_options = get_option('easypost_settings');
  * http://codex.wordpress.org/Plugin_API/Action_Reference/wp_enqueue_scripts
  */
 function diamond_scripts() {
+
     // Assign the appropriate protocol
     $protocol = 'http:';
     if ( !empty($_SERVER['HTTPS']) ) $protocol = 'https:';
-	  // Enqueue Fonts
+
+    // Enqueue Fonts
     wp_enqueue_style( 'google-fonts-oswald', '//fonts.googleapis.com/css?family=Oswald:300,400', array(), false, 'all' );
     wp_enqueue_style( 'google-fonts-source-sans-pro', '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', array(), false, 'all' );
     wp_enqueue_style( 'google-fonts-josefin-sans', '//fonts.googleapis.com/css?family=Josefin+Sans:300,400', array(), false, 'all' );
     wp_enqueue_style( 'font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css', array(), false, 'all' );
+
     // Enqueue Styles
 	  wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css' );
 
@@ -61,11 +64,14 @@ function diamond_scripts() {
     wp_enqueue_script( 'jquery-validate', get_stylesheet_directory_uri().'/js/jquery.validate.js', array('jquery') );
     wp_enqueue_script( 'jquery-payment', get_stylesheet_directory_uri().'/js/jquery.payment.js', array('jquery') );
 
-    //wp_enqueue_script( 'json2'); // Is this necessary?
-    //wp_enqueue_script( 'jquery'); // Is this necessary?
-
     // Stripe
     // https://stripe.com/
+    global $stripe_options;
+    if ( isset($stripe_options['test_mode']) && $stripe_options['test_mode'] ) {
+        $publishable = $stripe_options['test_publishable_key']; // Use Test API Key for Stripe Processing
+    } else {
+        $publishable = $stripe_options['live_publishable_key']; // Use Test API Key for Stripe Processing
+    }
     wp_enqueue_script('stripe-processing', get_stylesheet_directory_uri().'/lib/StripeScripts/stripe-processing.js', array('jquery') );
     wp_localize_script('stripe-processing', 'stripe_vars', array(
         'publishable_key' => $publishable,
@@ -112,17 +118,6 @@ require_once( get_stylesheet_directory() . '/lib/ShoppingCart/shopping-cart-mark
  * "Stripe" Integration
  * With lots of love from: http://pippinsplugins.com/series/integrating-stripe-com-with-wordpress/
  */
-
-// Set appropirate API keys based on Stripe Settings in wordpress
-function stripe_set_api_key() {
-  global $stripe_options;
-  if ( isset($stripe_options['test_mode']) && $stripe_options['test_mode'] ) {
-      $publishable = $stripe_options['test_publishable_key']; // Use Test API Key for Stripe Processing
-  } else {
-      $publishable = $stripe_options['live_publishable_key']; // Use Test API Key for Stripe Processing
-  }
-}
-add_action( 'init', 'stripe_set_api_key' );
 
 // Load "Stripe" settings & Payment processors
 if ( is_admin() ) {
