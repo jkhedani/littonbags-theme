@@ -55,6 +55,8 @@ function diamond_scripts() {
 	  wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css' );
 
     // Enqueue Scripts
+    # Modal
+    # Tooltip (required for popovers)
     wp_enqueue_script( 'bootstrap-transition-script', get_stylesheet_directory_uri().'/js/bootstrap/transition.js', array(), false, true );
     wp_enqueue_script( 'bootstrap-modal-script', get_stylesheet_directory_uri().'/js/bootstrap/modal.js', array(), false, true );
     wp_enqueue_script( 'bootstrap-tooltip-script', get_stylesheet_directory_uri().'/js/bootstrap/tooltip.js', array(), false, true );
