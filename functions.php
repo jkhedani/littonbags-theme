@@ -51,16 +51,16 @@ function diamond_scripts() {
     wp_enqueue_style( 'font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css', array(), false, 'all' );
 
     // Enqueue Styles
+    wp_enqueue_style( 'bootstrap-styles', get_stylesheet_directory_uri().'/css/bootstrap/bootstrap.css' );
 	  wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css' );
 
     // Enqueue Scripts
-    wp_enqueue_script( 'bootstrap-transition-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-transition.js', array(), false, true );
-    wp_enqueue_script( 'bootstrap-modal-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-modal.js', array(), false, true );
-    wp_enqueue_script( 'bootstrap-tooltip-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-tooltip.js', array(), false, true );
-    wp_enqueue_script( 'bootstrap-popover-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-popover.js', array(), false, true );
-    // wp_enqueue_script( 'bootstrap-popover-tooltip-script', get_stylesheet_directory_uri().'/js/popover-tooltip-bootstrap.js', array(), false, true );
-    wp_enqueue_script( 'bootstrap-tab-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-tab.js', array(), false, true );
-    wp_enqueue_script( 'bootstrap-carousel-script', get_template_directory_uri().'/inc/bootstrap/js/bootstrap-carousel.js', array(), false, true );
+    wp_enqueue_script( 'bootstrap-transition-script', get_stylesheet_directory_uri().'/js/bootstrap/transition.js', array(), false, true );
+    wp_enqueue_script( 'bootstrap-modal-script', get_stylesheet_directory_uri().'/js/bootstrap/modal.js', array(), false, true );
+    wp_enqueue_script( 'bootstrap-tooltip-script', get_stylesheet_directory_uri().'/js/bootstrap/tooltip.js', array(), false, true );
+    wp_enqueue_script( 'bootstrap-popover-script', get_stylesheet_directory_uri().'/js/bootstrap/popover.js', array(), false, true );
+    wp_enqueue_script( 'bootstrap-tab-script', get_stylesheet_directory_uri().'/js/bootstrap/tab.js', array(), false, true );
+    wp_enqueue_script( 'bootstrap-carousel-script', get_stylesheet_directory_uri().'/js/bootstrap/carousel.js', array(), false, true );
     wp_enqueue_script( 'jquery-validate', get_stylesheet_directory_uri().'/js/jquery.validate.js', array('jquery') );
     wp_enqueue_script( 'jquery-payment', get_stylesheet_directory_uri().'/js/jquery.payment.js', array('jquery') );
 
