@@ -4,13 +4,13 @@ function render_shopping_cart() {
 	/*
 	 * "Checkout" Modal
 	 */
-  echo '<div id="checkoutModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">';
+  echo '<div id="checkoutModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">';
   echo 	'<div class="container">';
   echo 		'<div class="modal-meta">';
   echo 			'<a class="site-title" href="'.home_url( '/' ).'" title="'. esc_attr( get_bloginfo( 'name', 'display' ) ) .'" rel="home">'.get_bloginfo( 'name' ).'</a>';
 	echo  		'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>';
 	echo 		'</div>'; // .modal-meta
-	
+
 	/**
 	 *	Checkout Headers
 	 */
@@ -39,7 +39,7 @@ function render_shopping_cart() {
 	echo 		'<div class="checkoutResult hide">';
 	echo    	'<h3 class="checkoutTitle"></h3>';
 	echo 		'</div>';
-	
+
 	echo  '</div>';
 
 
@@ -68,7 +68,7 @@ function render_shopping_cart() {
 
 			// "Stripe": Basic/Payment Form
 			echo '<form action="" method="POST" id="stripe-payment-form">';
-			
+
 			// 		FORM ERRORS
 			echo '<div class="payment-errors alert hide"></div>';
 
@@ -166,7 +166,7 @@ function render_shopping_cart() {
 			echo 		'<input type="text" size="4" data-stripe="exp-year" class="cc-exp-year" data-numeric />';
 			echo 	'</div>';
 
-			//		WORDPRESS DATA VALUES (NO SENSITIVE FORMS BELOW THIS LINE!)	
+			//		WORDPRESS DATA VALUES (NO SENSITIVE FORMS BELOW THIS LINE!)
 			echo 	'<input type="hidden" name="action" value="stripe"/>';
 			echo 	'<input type="hidden" name="redirect" value="'. get_permalink() .'"/>';
 			echo 	'<input type="hidden" name="stripe_nonce" value="'. wp_create_nonce('stripe-nonce').'"/>';
@@ -219,7 +219,7 @@ function render_shopping_cart() {
 	echo '</div>';
 
   echo '</div>'; // .container
-	
+
 	echo '</div>'; // .modal (#checkout)
 
 }
