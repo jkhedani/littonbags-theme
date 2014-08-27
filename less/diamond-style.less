@@ -1944,7 +1944,9 @@ html body {
 				#font-family > .source-sans-pro;
 				font-size: 13px;
 				color: #666;
-				margin: 10px 0 20px;
+				margin: 15px 0 0;
+				padding-bottom: 20px;
+				border-bottom: 1px solid #F6F6F6;
 				.product-preview { width: 105px; display: block; float: left; }
 				.product-description {
 					width: 112px;
@@ -1979,13 +1981,14 @@ html body {
 				float: right;
 				width: 240px;
 				margin-bottom: 14px;
-				div { .clearfix(); }
+				padding-top: 18px;
+				div { .clearfix(); margin-bottom: 3px; }
 				span.total-title { float: left; }
 				span.line-item-cost { float: right; }
-
+				.total span.line-item-cost { font-weight: 600; } // Grand total
 			}
-			hr { .clearfix(); clear: both; }
-			.donation-promo-text { width: 340px; font-size: 13px; display: block; float: left; margin-top: -2px; }
+			hr { border-top-color: #EFEFEF; .clearfix(); clear: both; }
+			.donation-promo-text { width: 340px; font-size: 13px; display: block; float: left; margin-top: -2px; margin-bottom: 15px; }
 			.checkout {
 				font-size: 12px;
 				text-transform: uppercase;
@@ -2022,12 +2025,19 @@ html body {
 	}
 }
 
-@media ( min-width: 500px ) { // and up
+@media ( min-width: 200px ) and ( max-width: 500px ) {
 	html body {
 		.popover.bottom {
-			//top: 104px !important;
-			//margin-top: -25px;
-			//margin-left: -230px;
+			.popover-content {
+				.shopping-cart-product {
+					.product-preview { width: 70px; }
+					.product-description { width: 80px; margin-right: 0; }
+					.product-qty { margin-left: 2px; }
+					a.btn.remove { margin-left: 20px; }
+				} // .shopping-cart-product
+				.checkout-totals { width: 100%; }
+				.donation-promo-text { width: 100%; }
+			}
 		}
 	}
 }

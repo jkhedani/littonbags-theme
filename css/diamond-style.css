@@ -2957,7 +2957,9 @@ html body .popover.bottom .popover-content .shopping-cart-product {
   -moz-osx-font-smoothing: grayscale;
   font-size: 13px;
   color: #666;
-  margin: 10px 0 20px;
+  margin: 15px 0 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #F6F6F6;
 }
 html body .popover.bottom .popover-content .shopping-cart-product:before,
 html body .popover.bottom .popover-content .shopping-cart-product:after {
@@ -3033,9 +3035,11 @@ html body .popover.bottom .popover-content .checkout-totals {
   float: right;
   width: 240px;
   margin-bottom: 14px;
+  padding-top: 18px;
 }
 html body .popover.bottom .popover-content .checkout-totals div {
   *zoom: 1;
+  margin-bottom: 3px;
 }
 html body .popover.bottom .popover-content .checkout-totals div:before,
 html body .popover.bottom .popover-content .checkout-totals div:after {
@@ -3052,7 +3056,11 @@ html body .popover.bottom .popover-content .checkout-totals span.total-title {
 html body .popover.bottom .popover-content .checkout-totals span.line-item-cost {
   float: right;
 }
+html body .popover.bottom .popover-content .checkout-totals .total span.line-item-cost {
+  font-weight: 600;
+}
 html body .popover.bottom .popover-content hr {
+  border-top-color: #EFEFEF;
   *zoom: 1;
   clear: both;
 }
@@ -3071,6 +3079,7 @@ html body .popover.bottom .popover-content .donation-promo-text {
   display: block;
   float: left;
   margin-top: -2px;
+  margin-bottom: 15px;
 }
 html body .popover.bottom .popover-content .checkout {
   font-size: 12px;
@@ -3090,6 +3099,24 @@ html body .popover.bottom .popover-content .checkout {
     min-width: 565px;
   }
 }
-@media (min-width: 500px) {
-  
+@media (min-width: 200px) and (max-width: 500px) {
+  html body .popover.bottom .popover-content .shopping-cart-product .product-preview {
+    width: 70px;
+  }
+  html body .popover.bottom .popover-content .shopping-cart-product .product-description {
+    width: 80px;
+    margin-right: 0;
+  }
+  html body .popover.bottom .popover-content .shopping-cart-product .product-qty {
+    margin-left: 2px;
+  }
+  html body .popover.bottom .popover-content .shopping-cart-product a.btn.remove {
+    margin-left: 20px;
+  }
+  html body .popover.bottom .popover-content .checkout-totals {
+    width: 100%;
+  }
+  html body .popover.bottom .popover-content .donation-promo-text {
+    width: 100%;
+  }
 }
