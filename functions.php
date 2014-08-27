@@ -301,15 +301,35 @@ add_action( 'init', 'LTTNBAGS_taxonomies');
 
 
 /**
- * Create Litton Bags Menu Structure
+ * Designate Litton Bags Menu Locations
  */
-
-// Designate menu locations
 function LTTNBAGS_designate_menu_locations() {
   register_nav_menu( 'main-menu', __( 'Main Menu' ) );
   register_nav_menu( 'footer-menu', __( 'Footer Menu' ) );
 }
 add_action( 'init', 'LTTNBAGS_designate_menu_locations' );
+
+/**
+ * SEO: Create a more descriptive <title>
+ */
+function LTTNBAGS_improved_wp_title( $title, $sep ) {
+	if ( is_feed() ) {
+		return $title;
+	}
+
+	// Append the page / post name instead of prepending it.
+	$title = get_bloginfo( 'name', 'display' ) . $title;
+
+	// Add the blog description for the home/front page.
+	$site_description = get_bloginfo( 'description', 'display' );
+	if ( $site_description && ( is_home() || is_front_page() ) ) {
+		$title .= " $sep $site_description";
+	}
+
+	return $title;
+}
+add_filter( 'wp_title', 'LTTNBAGS_improved_wp_title', 10, 2 );
+
 
 /** DEPRECIATED? */
 function LTTNBAGS_primary_menu() {

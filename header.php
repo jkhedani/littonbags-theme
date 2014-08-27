@@ -6,37 +6,29 @@
  * @package _s
  * @since _s 1.0
  */
+
+/**
+ * Metadata Generation
+ * Generate various pieces of meta data for the site's head
+ */
+
+// # <meta name="description">
+if ( get_field('product_description') ) :
+	$page_description = get_field('product_description');
+else :
+	$page_description = get_bloginfo( 'description', 'display' );
+endif;
+
 ?>
 
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
-<title>
-	<?php
-		// Print the <title> tag based on what is being viewed.
-		global $page, $paged;
 
-		// Add page/content title
-		wp_title( '|', true, 'right' );
-
-		// Add the site name.
-		bloginfo( 'name' );
-
-		// Add the site description for the home/front page.
-		$site_description = get_bloginfo( 'description', 'display' );
-		if ( $site_description && ( is_home() || is_front_page() ) )
-			echo " | $site_description";
-
-		// Add a page number if necessary:
-		if ( $paged >= 2 || $page >= 2 )
-			echo ' | ' . sprintf( __( 'Page %s', '_s' ), max( $paged, $page ) );
-
-	?>
-</title>
-
+	<title><?php wp_title( '|' ); ?></title>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="description" content="<?php echo $site_description; ?>" />
+<meta name="description" content="<?php echo $page_description; ?>" />
 
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
