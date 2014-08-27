@@ -1,5 +1,5 @@
 jQuery(document).ready(function($){
-	
+
 	/**
 	 *	General Scripts
 	 */
@@ -58,7 +58,7 @@ jQuery(document).ready(function($){
 						console.log('asdf');
 					} else {
 						// If there are more items to be viewed, show controls. Also reveals hidden controls on next click.
-						viewmaster.find('.view-master-control').show();	
+						viewmaster.find('.view-master-control').show();
 					}
 				}
 
@@ -89,7 +89,7 @@ jQuery(document).ready(function($){
 			// 		var slideCount = viewmaster.find('.slide').length;
 			// 		console.log(masterWidth);
 			// 		viewmaster.find('.view-master-reel').width( masterWidth * slideCount );
-					
+
 			// 	},1500);
 			// });
 
@@ -142,7 +142,7 @@ jQuery(document).ready(function($){
 				// # Since we will always be starting in the midde here, we can just look before and after
 				// on page load.
 				$('.view-master .active.slide').next().addClass('first-accessories');
-				$('.view-master .active.slide').prev().addClass('first-bags');	
+				$('.view-master .active.slide').prev().addClass('first-bags');
 			}
 
 			var positionViewMasterElements = function() {

@@ -35,10 +35,18 @@ $stripe_options = get_option('stripe_settings');
 $easypost_options = get_option('easypost_settings');
 
 /**
+ * Dequeue some parent theme scripts
+ */
+function LTTNBAGS_dequeue_scripts() {
+   wp_dequeue_script( 'bootstrap-tooltip' );
+}
+add_action( 'wp_print_scripts', 'LTTNBAGS_dequeue_scripts', 100 );
+
+/**
  * Properly add new script files using this function.
  * http://codex.wordpress.org/Plugin_API/Action_Reference/wp_enqueue_scripts
  */
-function diamond_scripts() {
+function LTTNBAGS_enqueue_scripts() {
 
     // Assign the appropriate protocol
     $protocol = 'http:';
@@ -106,7 +114,7 @@ function diamond_scripts() {
     ));
 
 }
-add_action( 'wp_enqueue_scripts', 'diamond_scripts' );
+add_action( 'wp_enqueue_scripts', 'LTTNBAGS_enqueue_scripts' );
 
 /**
  * Shopping Cart

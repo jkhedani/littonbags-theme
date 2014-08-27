@@ -9,7 +9,7 @@ function easypost_verify_address() {
 	 */
 	do_action('init');
 	global $wpdb, $post, $easypost_options;
-	
+
 	// Nonce check
 	$nonce = $_REQUEST['nonce'];
 	if ( !wp_verify_nonce($nonce, 'shopping_cart_scripts_nonce')) die(__('Busted.') );
@@ -39,7 +39,7 @@ function easypost_verify_address() {
 	}
 
 	try {
-	
+
 			// B. Retrieve this customer's mailing address...
 			$to_address = \EasyPost\Address::create( array(
 			  "name"    => $name,
@@ -72,7 +72,7 @@ function easypost_verify_address() {
 		'success' => $success,
 		'errors' => $errors,
 	));
-	
+
 	// Construct and send the response
 	header("content-type: application/json");
 	echo $response;
@@ -95,11 +95,11 @@ function refresh_shopping_cart() {
 
 	do_action('init');
 	global $wpdb, $post, $stripe_options;
-	
+
 	// Nonce check
 	$nonce = $_REQUEST['nonce'];
 	if (!wp_verify_nonce($nonce, 'shopping_cart_scripts_nonce')) die(__('Busted.'));
-	
+
 	// http://www.php.net/manual/en/function.money-format.php
 	setlocale(LC_MONETARY, 'en_US');
 
@@ -136,7 +136,7 @@ function refresh_shopping_cart() {
 			$productsInCart = new WP_Query(array(
 				'p' => $postID,
 				'post_type' => 'products',
-			));	
+			));
 			while($productsInCart->have_posts()) : $productsInCart->the_post();
 				$currentPostID 			= $post->ID;
 				$itemID 						= $currentPostID;
@@ -175,7 +175,7 @@ function refresh_shopping_cart() {
 			endif;
 
 			/*
-			 * Generate User-facing totals 
+			 * Generate User-facing totals
 			 */
 			$optionPrice = ''; // Clear variable during loop
 			$productPrice = get_field( 'product_price' );
@@ -237,7 +237,7 @@ function refresh_shopping_cart() {
 		// Generate user readable versions of Totals
 		// Subtotals
 		//$subtotal_productPriceInDollars = money_format('%n', $grandSubtotal/100); // in 'dollars'
-		
+
 		// Tax
 		$currenttaxrate = $stripe_options['tax_rate'];
 		$tax = round($grandSubtotal * $currenttaxrate);
@@ -247,11 +247,14 @@ function refresh_shopping_cart() {
 		$grandTotal = intval($grandSubtotal + $tax);
 		// $grand_productPriceInDollars = money_format('%n', $grandTotal/100); // in 'dollars'
 
+		// Shipping information
+		$shippingInfo = 'Free shipping for bags shipped within the U.S. offer valid on bags purchased from 192.168.10.40 only. Product ships from our warehouse within 1-2 business days via FedEx Home Delivery from Honolulu, Hawaii. We do not ship to PO boxes, please provide a physical address. Signature required upon delivery.';
+
 		// Display Subtotal, Add Tax/Fees/Whatever & show Grand Total
 		$html .= '<div class="checkout-totals">';
 		$html .= '<div class="subtotal"><span class="total-title">Subtotal: </span><span class="line-item-cost">'.format_money($grandSubtotal,'US').'</span></div>';
 		$html .= '<div class="auxfees"><span class="total-title">Tax ('.round((float)$currenttaxrate * 100, 3).'%): </span><span class="line-item-cost">'.format_money($tax,'US').'</span></div>';
-		$html .= '<div class="auxfees"><span class="total-title">Shipping: </span><span class="line-item-cost">Free Domestic Shipping<a class="shipping-popover-trigger" href="'.get_home_url().'/delivery" target="_blank"><i class="fa fa-info-circle"></i></a></span></div>';
+		$html .= '<div class="auxfees"><span class="total-title">Shipping: </span><span class="line-item-cost">Free Domestic Shipping<a class="shipping-popover-trigger" data-toggle="tooltip" title="'.$shippingInfo.'" href="javascript:void(0);" ><i class="fa fa-info-circle"></i></a></span></div>';
 		$html .= '<div class="total"><span class="total-title">Total: </span><span class="line-item-cost">'.format_money($grandTotal,'US').'</span></div>';
 		$html .= '</div>';
 
@@ -274,7 +277,7 @@ function refresh_shopping_cart() {
 		'desc' 						=> $productDescription,
 		'cartdescription' => $cartDescription
 	));
-	
+
 	// Construct and send the response
 	header("content-type: application/json");
 	echo $response;

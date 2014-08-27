@@ -2986,12 +2986,6 @@ html body .popover.bottom .checkoutReview .checkout-totals span.line-item-cost,
 html body .modal .checkoutReview .checkout-totals span.line-item-cost {
   float: right;
 }
-html body .popover.bottom .popover-content .checkout-totals .total span.line-item-cost,
-html body .modal .popover-content .checkout-totals .total span.line-item-cost,
-html body .popover.bottom .checkoutReview .checkout-totals .total span.line-item-cost,
-html body .modal .checkoutReview .checkout-totals .total span.line-item-cost {
-  font-weight: 600;
-}
 html body .popover.bottom .popover-content .checkout-totals a.shipping-popover-trigger i,
 html body .modal .popover-content .checkout-totals a.shipping-popover-trigger i,
 html body .popover.bottom .checkoutReview .checkout-totals a.shipping-popover-trigger i,
