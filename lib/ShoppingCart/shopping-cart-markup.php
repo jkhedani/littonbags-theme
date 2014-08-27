@@ -194,7 +194,7 @@ function render_shopping_cart() {
 	echo 		'<div class="checkoutReview checkoutControls show">';
 	//				PayPal Checkout Option
 	echo 			'<a class="paypal-checkout" href="javascript:void(0);" alt="Checkout via Paypal instead." /><img src="'.get_stylesheet_directory_uri().'/images/paypal-checkout.png" alt="Checkout via Paypal instead." /></a>';
-	//echo    '<a class="btn btn-primary btn-primary-checkout choosePaymentMethod">Select Payment Method</a>';
+  //echo    '<a class="btn btn-primary btn-primary-checkout choosePaymentMethod">Select Payment Method</a>';
 	echo 		'</div>';
 	echo 		'<div class="checkoutBasic checkoutControls hide">';
 	echo    	'<a id="submitBasicInfo" class="btn btn-primary btn-primary-checkout">Submit Basic Info</a>'; // [completes step B.1]
@@ -219,6 +219,9 @@ function render_shopping_cart() {
 	echo '</div>';
 
   echo '</div>'; // .container
+
+  // Loading Overlay
+  echo '<div class="overlay loading"><i class="spinner medium"></i><div class="overlay-message-container"><h4>Preparing to go to PayPal</h4></div></div>';
 
 	echo '</div>'; // .modal (#checkout)
 
