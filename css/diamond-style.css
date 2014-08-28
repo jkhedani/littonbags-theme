@@ -2732,6 +2732,17 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
 /**
  * Tooltip Styles
  */
+.tooltip {
+  font-size: 13px;
+}
+.tooltip .tooltip-inner {
+  padding: 15px;
+  color: #555555 !important;
+  background: rgba(237, 238, 237, 0.95);
+}
+.tooltip .tooltip-arrow {
+  border-left-color: rgba(237, 238, 237, 0.95) !important;
+}
 /**
  * Popover Styles a.k.a. Shopping Cart
  */
