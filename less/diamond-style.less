@@ -723,17 +723,22 @@ body.post-type-archive-products {
  */
 body.home {
 	background: @lightGray;
+	header#navbar {
+		z-index: 99999;
+	}
 	#homeCarousel {
 		img.item {
 			width: 100%;
 		}
 	}
 	#main {
+		overflow: visible;
+		z-index: 9999;
 		background: @lightGray;
 		.btn-primary-home { position: absolute; right: 0; bottom: 0; z-index: 99; }
 	}
 	#primary {
-		overflow: hidden;
+		overflow: visible;
 		position: relative;
 	}
 	i.tab.brown {
@@ -1889,6 +1894,9 @@ body.post-type-archive-products {
      }
 }
 
+/**
+ * Tooltip Styles
+ */
 
 /**
  * Popover Styles a.k.a. Shopping Cart

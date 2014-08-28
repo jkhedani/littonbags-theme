@@ -19,6 +19,9 @@ else :
 	$page_description = get_bloginfo( 'description', 'display' );
 endif;
 
+// # <meta name="keywords">
+$page_keywords = 'women\'s camera bags, women\'s camera purse, leather camera bags, premium camera bags, stylish camera bags, lens case, lens holder, lens bag, padded camera bag, designer camera bag, designer camera purse, dslr bag, dslr camera bag, dslr padded bag, lens cloth, camera bag, Litton photography bag, Litton camera bag, photo bag, photography bag';
+
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +32,7 @@ endif;
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="description" content="<?php echo $page_description; ?>" />
-
+<meta name="keywords" content="<?php echo $page_keywords; ?>" />
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <link rel="shortcut icon" href="<?php bloginfo( 'stylesheet_directory' ); ?>/images/favicon.png" />

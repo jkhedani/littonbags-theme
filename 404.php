@@ -19,7 +19,7 @@ get_header(); ?>
 
 					<div class="entry-content">
 						<p><?php _e( 'It looks like nothing was found at this location.', '_s' ); ?></p>
-						<p><a href="<?php get_home_url(); ?>" title="Take me back to the home page."><?php _e( 'Take me back home.', '_s' ); ?></a></p>
+						<p><a href="<?php echo get_home_url(); ?>" title="Take me back to the home page."><?php _e( 'Take me back home.', '_s' ); ?></a></p>
 
 						<?php // get_search_form(); ?>
 

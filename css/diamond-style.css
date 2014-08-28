@@ -1451,10 +1451,15 @@ body.post-type-archive-products #main .first-bags img.featured-image {
 body.home {
   background: #edeeed;
 }
+body.home header#navbar {
+  z-index: 99999;
+}
 body.home #homeCarousel img.item {
   width: 100%;
 }
 body.home #main {
+  overflow: visible;
+  z-index: 9999;
   background: #edeeed;
 }
 body.home #main .btn-primary-home {
@@ -1464,7 +1469,7 @@ body.home #main .btn-primary-home {
   z-index: 99;
 }
 body.home #primary {
-  overflow: hidden;
+  overflow: visible;
   position: relative;
 }
 body.home i.tab.brown {
@@ -2724,6 +2729,9 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
     background: url(../images/bgPattern@2x.png) repeat;
   }
 }
+/**
+ * Tooltip Styles
+ */
 /**
  * Popover Styles a.k.a. Shopping Cart
  */
