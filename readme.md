@@ -6,9 +6,14 @@ Child Theme of [Bedrock v1.2](https://github.com/jkhedani/Wordpress-Bedrock-Them
 
 ## Release Notes
 
-**1.1 (upcoming)**
-- SEO improvements
--
+**1.2 (upcoming)**
+
+
+**1.1**
+- Ensure mobile users can scroll through their shopping cart
+- Update all Bootstrap .js scripts
+- General SEO improvements
+- General Bug fixes
 
 **1.0**
 
