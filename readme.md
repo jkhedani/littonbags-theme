@@ -1,4 +1,3 @@
-
 #	Litton Bags Child Theme
 Child Theme of [Bedrock v1.2](https://github.com/jkhedani/Wordpress-Bedrock-Theme)
 > Just get a job? Why don’t I strap on my job helmet and squeeze down into a job
