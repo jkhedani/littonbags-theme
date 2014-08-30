@@ -29,8 +29,24 @@ function format_money( $amount, $currencyType ) {
 }
 
 /**
- * Globals & Constants
+ * Globals, Constants, Options and Settings
  */
+
+// ACF Options
+if( function_exists('acf_add_options_sub_page') ) {
+  function LTTNBAGS_options_config() {
+    // acf_set_options_page_menu( __('Extra') );
+    acf_set_options_page_title( __('Shop Settings') ); // Changes menu name
+    // acf_set_options_page_capability( 'manage_options' );
+  }
+  function LTTNBAGS_add_options_subpage() {
+    acf_add_options_sub_page( array('title' => 'General Settings', ));
+    acf_add_options_sub_page( array('title' => 'PayPal Settings', ));
+    acf_add_options_sub_page( array('title' => 'EasyPost Settings', ));
+  }
+  add_action( 'after_setup_theme', 'LTTNBAGS_options_config' );
+  add_action( 'after_setup_theme', 'LTTNBAGS_add_options_subpage' );
+}
 
 // Retrieve various options for Stripe
 $stripe_options = get_option('stripe_settings');
@@ -144,7 +160,7 @@ if ( is_admin() ) {
 /**
  *  PayPal Functions
  */
-require_once( get_stylesheet_directory() . '/lib/PayPal/payments/method-paypal.php' );
+// require_once( get_stylesheet_directory() . '/lib/PayPal/payments/method-paypal.php' );
 
 // function submit_welcome_form() {
 //     global $wpdb, $current_user;
