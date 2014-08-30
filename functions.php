@@ -31,7 +31,11 @@ function format_money( $amount, $currencyType ) {
 /**
  * Globals & Constants
  */
+
+// Retrieve various options for Stripe
 $stripe_options = get_option('stripe_settings');
+
+// Retrieve various options for paypal
 $easypost_options = get_option('easypost_settings');
 
 /**

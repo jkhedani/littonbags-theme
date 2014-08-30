@@ -25,11 +25,11 @@ $apiContext = getApiContext();
  * @return PayPal\Rest\ApiContext
  */
 function getApiContext() {
-	
+
 	// ### Api context
-	// Use an ApiContext object to authenticate 
-	// API calls. The clientId and clientSecret for the 
-	// OAuthTokenCredential class can be retrieved from 
+	// Use an ApiContext object to authenticate
+	// API calls. The clientId and clientSecret for the
+	// OAuthTokenCredential class can be retrieved from
 	// developer.paypal.com
 
 	// # LIVE Context
@@ -43,7 +43,7 @@ function getApiContext() {
 		);
 		// #### SDK configuration
 		// Comment this line out and uncomment the PP_CONFIG_PATH
-		// 'define' block if you want to use static file 
+		// 'define' block if you want to use static file
 		// based configuration
 		$apiContext->setConfig(
 			array(
@@ -66,7 +66,7 @@ function getApiContext() {
 		);
 		// #### SDK configuration
 		// Comment this line out and uncomment the PP_CONFIG_PATH
-		// 'define' block if you want to use static file 
+		// 'define' block if you want to use static file
 		// based configuration
 		$apiContext->setConfig(
 			array(
@@ -79,10 +79,8 @@ function getApiContext() {
 		);
 
 	}
-	
+
 	return $apiContext;
 } // getApiContext();
-
-error_log(print_r($apiContext,true));
 
 ?>
