@@ -35,7 +35,7 @@ function format_money( $amount, $currencyType ) {
 // Retrieve various options for Stripe
 $stripe_options = get_option('stripe_settings');
 
-// Retrieve various options for paypal
+// Retrieve various options for EasyPost
 $easypost_options = get_option('easypost_settings');
 
 /**
@@ -92,7 +92,7 @@ function LTTNBAGS_enqueue_scripts() {
     ));
 
     // PayPal
-    wp_enqueue_script('paypal-scripts', get_stylesheet_directory_uri().'/lib/paypal/payments/paypal-payment-scripts.js', array('jquery','json2'), true);
+    wp_enqueue_script('paypal-scripts', get_stylesheet_directory_uri().'/lib/PayPal/payments/paypal-payment-scripts.js', array('jquery','json2'), true);
     wp_localize_script('paypal-scripts', 'paypal_data', array(
         'ajaxurl' => admin_url('admin-ajax.php',$protocol),
         'nonce' => wp_create_nonce('paypal_nonce')
@@ -144,7 +144,7 @@ if ( is_admin() ) {
 /**
  *  PayPal Functions
  */
-require_once( get_stylesheet_directory() . '/lib/paypal/payments/method-paypal.php' );
+require_once( get_stylesheet_directory() . '/lib/PayPal/payments/method-paypal.php' );
 
 // function submit_welcome_form() {
 //     global $wpdb, $current_user;

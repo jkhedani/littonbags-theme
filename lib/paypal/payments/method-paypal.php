@@ -1,13 +1,15 @@
 <?php
 
 /**
- *	Global Declarations
+ * Allow users to create payments.
+ * Vendor(s): PayPal
  */
 
-// # via bootstrap.php
+// Authorization & API Settings Namespaces
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
-// # via payments/method-XXX.php
+
+// PayPal Required Function Namespaces
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
 use PayPal\Api\Item;
@@ -17,16 +19,11 @@ use PayPal\Api\Payment;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 
-/**
- * Payments
- * Method: via PayPal
- * Allow users to create 
- */
-function create_payment_method_paypal() {
+function create_payment() {
 
-	// ### Initiate Wordpress
-	// Re-run Wordpress to obtain functionality plus
-	// check nonce.
+	// # Initiate Wordpress
+	// 	 Re-run Wordpress to obtain functionality plus
+	// 	 check nonce.
 	do_action('init');
 	$nonce = $_REQUEST['nonce'];
 	if ( ! wp_verify_nonce( $nonce, 'paypal_nonce' ) ) {
@@ -35,35 +32,29 @@ function create_payment_method_paypal() {
 	$success = false;
 	$paypalRedirectURL = "";
 	$cartdescription = $_REQUEST['cartdescription'];
+	$paymentmethod = $_REQUEST['paymentmethod'];
 
-	// ### Bootstrap PayPal API 
-	// Configure our API context
-	// Include the composer autoloader if we aren't already set
+	// # Bootstrap PayPal API
+	// 	 Configure our API context
+	// 	 Include the composer autoloader if we aren't already set
 	require __DIR__ . '/bootstrap.php';
-	// if(!file_exists(__DIR__ .'/vendor/autoload.php')) {
-	// 	echo "The 'vendor' folder is missing. You must run 'composer update --no-dev' to resolve application dependencies.\nPlease see the README for more information.\n";
-	// 	exit(1);
-	// }
-	// require __DIR__ . '/vendor/autoload.php';
-	// require __DIR__ . '/common.php';
-	// $apiContext = getApiContext();
 
-	// ### Create Payment using PayPal as payment method
-	// This sample code demonstrates how you can process a 
-	// PayPal Account based Payment.
-	// API used: /v1/payments/payment
+	// # Create Payment using PayPal as payment method
+	// 	 This sample code demonstrates how you can process a
+	// 	 PayPal Account based Payment.
+	// 	 API used: /v1/payments/payment
 	session_start();
 
-	// ### Payer
-	// A resource representing a Payer that funds a payment
-	// For paypal account payments, set payment method
-	// to 'paypal'.
+	// # Payer
+	// 	 A resource representing a Payer that funds a payment
+	//	 For paypal account payments, set payment method
+	// 	 to 'paypal'.
 	$payer = new Payer();
-	$payer->setPaymentMethod("paypal");
+	$payer->setPaymentMethod( $paymentmethod );
 
-	// ### Construct Itemized Infromation via Wordpress
-	// Using the cart description, generate the appropriate
-	// cart items for each of the items in the cart
+	// # Construct Itemized Infromation via Wordpress
+	// 	 Using the cart description, generate the appropriate
+	//   cart items for each of the items in the cart
 	$itemlistarray = array();
 	$cartsubtotal = '';
 	$productdescriptions = explode( '|', $cartdescription );
@@ -135,14 +126,14 @@ function create_payment_method_paypal() {
 	// ### Transaction
 	// A transaction defines the contract of a
 	// payment - what is the payment for and who
-	// is fulfilling it. 
+	// is fulfilling it.
 	$transaction = new Transaction();
 	$transaction->setAmount($amount)
 		->setItemList($itemList)
 		->setDescription("Payment description");
 
 	// ### Redirect urls
-	// Set the urls that the buyer must be redirected to after 
+	// Set the urls that the buyer must be redirected to after
 	// payment approval/ cancellation.
 	$baseUrl = get_stylesheet_directory_uri();
 	$redirectUrls = new RedirectUrls();
@@ -193,7 +184,7 @@ function create_payment_method_paypal() {
 	// back to your website.
 	//
 	// It is not a great idea to store the payment id
-	// in the session. In a real world app, you may want to 
+	// in the session. In a real world app, you may want to
 	// store the payment id in a database.
 	$_SESSION['paymentId'] = $payment->getId();
 
@@ -216,10 +207,10 @@ function create_payment_method_paypal() {
   exit;
 
 }
-add_action( 'wp_ajax_nopriv_create_payment_method_paypal', 'create_payment_method_paypal' );
-add_action( 'wp_ajax_create_payment_method_paypal', 'create_payment_method_paypal' );
+add_action( 'wp_ajax_nopriv_create_payment', 'create_payment' );
+add_action( 'wp_ajax_create_payment', 'create_payment' );
 
-if ( isset( $_REQUEST['action'] ) && ( $_REQUEST['action'] == 'create_payment_method_paypal' )  ) {
+if ( isset( $_REQUEST['action'] ) && ( $_REQUEST['action'] == 'create_payment' )  ) {
     do_action( 'wp_ajax_' . $_REQUEST['action'] );
     do_action( 'wp_ajax_nopriv_' . $_REQUEST['action'] );
 }
