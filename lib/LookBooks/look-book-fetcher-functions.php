@@ -1,7 +1,7 @@
 <?php
 
 /**
- *	Look Book
+ *	Look Books
  */
 
 function fetch_look_book() {
@@ -16,7 +16,7 @@ function fetch_look_book() {
 
 	// Nonce check
 	$nonce = $_REQUEST['nonce'];
-	if ( !wp_verify_nonce( $nonce, 'look_book_nonce') ) die( __('Busted.') );
+	if ( !wp_verify_nonce( $nonce, 'look_books_nonce') ) die( __('Busted.') );
 
 	$html = "";
 	$success = false;

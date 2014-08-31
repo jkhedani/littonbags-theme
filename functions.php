@@ -127,10 +127,10 @@ function LTTNBAGS_enqueue_scripts() {
     ));
 
     // Look Book Fetcher
-    wp_enqueue_script('look-book-scripts', get_stylesheet_directory_uri().'/lib/LookBook/look-book-scripts.js', array('jquery','json2'), true);
-    wp_localize_script('look-book-scripts', 'look_book_data', array(
+    wp_enqueue_script('look-books-scripts', get_stylesheet_directory_uri().'/lib/LookBooks/look-books-scripts.js', array('jquery','json2'), true);
+    wp_localize_script('look-books-scripts', 'look_book_data', array(
       'ajaxurl' => admin_url('admin-ajax.php',$protocol),
-      'nonce' => wp_create_nonce('look_book_nonce')
+      'nonce' => wp_create_nonce('look_books_nonce')
     ));
 
 }
@@ -296,7 +296,7 @@ add_action( 'p2p_init', 'LTTNBAGS_connection_types' );
  *  Look Books
  *  Include function after P2P so connections are availabled
  */
-require_once( get_stylesheet_directory() . '/lib/LookBook/look-book-functions.php');
+require_once( get_stylesheet_directory() . '/lib/LookBooks/look-book-functions.php');
 
 /**
  * Custom Taxonomies (e.g. Product Type, etc.)
