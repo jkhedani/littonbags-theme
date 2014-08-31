@@ -1,7 +1,7 @@
 <?php
 
 /**
- *	Look Book Fetcher
+ *	Look Book
  */
 
 function fetch_look_book() {
@@ -16,7 +16,7 @@ function fetch_look_book() {
 
 	// Nonce check
 	$nonce = $_REQUEST['nonce'];
-	if ( !wp_verify_nonce( $nonce, 'look_book_fetcher_nonce') ) die( __('Busted.') );
+	if ( !wp_verify_nonce( $nonce, 'look_book_nonce') ) die( __('Busted.') );
 
 	$html = "";
 	$success = false;
@@ -61,17 +61,17 @@ function fetch_look_book() {
 			$html .= 				'</div>';
 		  $html .=  		'</div><!-- .view-master-controls -->';
 		  $html .=  		'<div class="view-master-reel">';
-		  
+
 		  // Construct slides
 		  while ( have_rows('look_book',$post->ID) ) : the_row();
 			  if ( !$i++ ) {
 			  $html .=  			'<div class="slide active">';
 			  } else {
 			  $html .=  			'<div class="slide">';
-			  }	
-			  // $html .=  				'<div class="slide-content">';  
+			  }
+			  // $html .=  				'<div class="slide-content">';
 			  $html .=						'<img src="'.get_sub_field('look_book_page').'" />';
-			  //$html .=				'<div class="background-image item" style="background-image:url('.$lookbookPage['look_book_page'].');"></div>';  
+			  //$html .=				'<div class="background-image item" style="background-image:url('.$lookbookPage['look_book_page'].');"></div>';
 			  // $html .=  		'</div>';
 			  $html .=  			'</div>';
 			endwhile;
@@ -90,7 +90,7 @@ function fetch_look_book() {
 		'success' => $success,
 		'html' => $html,
 	));
-	
+
 	// Construct and send the response
 	header("content-type: application/json");
 	echo $response;

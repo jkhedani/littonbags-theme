@@ -35,8 +35,8 @@ function format_money( $amount, $currencyType ) {
 // ACF Options
 if( function_exists('acf_add_options_sub_page') ) {
   function LTTNBAGS_options_config() {
-    // acf_set_options_page_menu( __('Extra') );
-    acf_set_options_page_title( __('Our Shop Settings') ); // Changes menu name
+    acf_set_options_page_menu( __('Shop Settings') ); // Changes menu name
+    acf_set_options_page_title( __('Our Shop Settings') ); // Changes option/setting page title
     // acf_set_options_page_capability( 'manage_options' );
   }
   function LTTNBAGS_add_options_subpage() {
@@ -127,10 +127,10 @@ function LTTNBAGS_enqueue_scripts() {
     ));
 
     // Look Book Fetcher
-    wp_enqueue_script('look-book-fetcher-scripts', get_stylesheet_directory_uri().'/lib/LookBookFetcher/look-book-fetcher-scripts.js', array('jquery','json2'), true);
-    wp_localize_script('look-book-fetcher-scripts', 'look_book_fetcher_data', array(
+    wp_enqueue_script('look-book-scripts', get_stylesheet_directory_uri().'/lib/LookBook/look-book-scripts.js', array('jquery','json2'), true);
+    wp_localize_script('look-book-scripts', 'look_book_data', array(
       'ajaxurl' => admin_url('admin-ajax.php',$protocol),
-      'nonce' => wp_create_nonce('look_book_fetcher_nonce')
+      'nonce' => wp_create_nonce('look_book_nonce')
     ));
 
 }
@@ -293,10 +293,10 @@ function LTTNBAGS_connection_types() {
 add_action( 'p2p_init', 'LTTNBAGS_connection_types' );
 
 /**
- *  Look Book Fetcher
+ *  Look Books
  *  Include function after P2P so connections are availabled
  */
-require_once( get_stylesheet_directory() . '/lib/LookBookFetcher/look-book-fetcher-functions.php');
+require_once( get_stylesheet_directory() . '/lib/LookBook/look-book-functions.php');
 
 /**
  * Custom Taxonomies (e.g. Product Type, etc.)
