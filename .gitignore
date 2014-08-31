@@ -1,1 +1,4 @@
 .DS_Store
+
+# Untrack OurStore for now...
+lib/OurShop
