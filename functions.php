@@ -1,210 +1,51 @@
 <?php
 
-/**
- * Helper Functions
- */
-
-// HTML set content type for sending html through WP_Mail
-function set_html_content_type() {
-    return 'text/html';
-}
-
-// Generate Random Order Number
-function generateRandomOrderNumber( $length ) {
-    $chars = array_merge(range('A', 'Z'), range(0, 9));
-    shuffle($chars);
-    return implode(array_slice($chars, 0, $length));
-}
-
-// Money formatter
-// Accepts only cents
-function format_money( $amount, $currencyType ) {
-    // Format: US
-    if ( $currencyType == 'US' ) {
-        $nonos = array( '.', '$' ); // Set possible objects to strip
-        $priceInPennies = str_replace( $nonos, '', $amount); // ensure cents
-        $prettyMoney = money_format( '%n', $priceInPennies/100 ); // Format yo cash
-        return $prettyMoney;
-    }
-}
-
-/**
- * Globals, Constants, Options and Settings
- */
-
-// ACF Options
-if( function_exists('acf_add_options_sub_page') ) {
-  function LTTNBAGS_options_config() {
-    acf_set_options_page_menu( __('Shop Settings') ); // Changes menu name
-    acf_set_options_page_title( __('Our Shop Settings') ); // Changes option/setting page title
-    // acf_set_options_page_capability( 'manage_options' );
-  }
-  function LTTNBAGS_add_options_subpage() {
-    // acf_add_options_sub_page( array('title' => 'General Settings', ));
-    // acf_add_options_sub_page( array('title' => 'PayPal Settings', ));
-    // acf_add_options_sub_page( array('title' => 'EasyPost Settings', ));
-  }
-  add_action( 'after_setup_theme', 'LTTNBAGS_options_config' );
-  add_action( 'after_setup_theme', 'LTTNBAGS_add_options_subpage' );
-}
-
-// Retrieve various options for Stripe
-$stripe_options = get_option('stripe_settings');
-
-// Retrieve various options for EasyPost
-$easypost_options = get_option('easypost_settings');
-
-/**
- * Dequeue some parent theme scripts
- */
 function LTTNBAGS_dequeue_scripts() {
-   wp_dequeue_script( 'bootstrap-tooltip' );
+  wp_dequeue_script( 'bootstrap-tooltip' );
 }
 add_action( 'wp_print_scripts', 'LTTNBAGS_dequeue_scripts', 100 );
 
-/**
- * Properly add new script files using this function.
- * http://codex.wordpress.org/Plugin_API/Action_Reference/wp_enqueue_scripts
- */
 function LTTNBAGS_enqueue_scripts() {
 
-    // Assign the appropriate protocol
-    $protocol = 'http:';
-    if ( !empty($_SERVER['HTTPS']) ) $protocol = 'https:';
+  // Assign the appropriate protocol
+  $protocol = 'http:';
+  if ( !empty($_SERVER['HTTPS']) ) $protocol = 'https:';
 
-    // Enqueue Fonts
-    wp_enqueue_style( 'google-fonts-oswald', '//fonts.googleapis.com/css?family=Oswald:300,400', array(), false, 'all' );
-    wp_enqueue_style( 'google-fonts-source-sans-pro', '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', array(), false, 'all' );
-    wp_enqueue_style( 'google-fonts-josefin-sans', '//fonts.googleapis.com/css?family=Josefin+Sans:300,400', array(), false, 'all' );
-    wp_enqueue_style( 'font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css', array(), false, 'all' );
+  // Enqueue Fonts
+  wp_enqueue_style( 'google-fonts-oswald', '//fonts.googleapis.com/css?family=Oswald:300,400', array(), false, 'all' );
+  wp_enqueue_style( 'google-fonts-source-sans-pro', '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', array(), false, 'all' );
+  wp_enqueue_style( 'google-fonts-josefin-sans', '//fonts.googleapis.com/css?family=Josefin+Sans:300,400', array(), false, 'all' );
+  wp_enqueue_style( 'font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css', array(), false, 'all' );
 
-    // Enqueue Styles
-    wp_enqueue_style( 'bootstrap-styles', get_stylesheet_directory_uri().'/css/bootstrap/bootstrap.css' );
-	  wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css' );
+  // Enqueue Styles
+  // Must come after bootstrap styles as some styles override others.
+  wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css', array('bootstrap-styles') );
 
-    // Enqueue Scripts
-    # Modal
-    # Tooltip (required for popovers)
-    wp_enqueue_script( 'bootstrap-transition-script', get_stylesheet_directory_uri().'/js/bootstrap/transition.js', array(), false, true );
-    wp_enqueue_script( 'bootstrap-modal-script', get_stylesheet_directory_uri().'/js/bootstrap/modal.js', array(), false, true );
-    wp_enqueue_script( 'bootstrap-tooltip-script', get_stylesheet_directory_uri().'/js/bootstrap/tooltip.js', array(), false, true );
-    wp_enqueue_script( 'bootstrap-popover-script', get_stylesheet_directory_uri().'/js/bootstrap/popover.js', array(), false, true );
-    wp_enqueue_script( 'bootstrap-tab-script', get_stylesheet_directory_uri().'/js/bootstrap/tab.js', array(), false, true );
-    wp_enqueue_script( 'bootstrap-carousel-script', get_stylesheet_directory_uri().'/js/bootstrap/carousel.js', array(), false, true );
-    wp_enqueue_script( 'jquery-validate', get_stylesheet_directory_uri().'/js/jquery.validate.js', array('jquery') );
-    wp_enqueue_script( 'jquery-payment', get_stylesheet_directory_uri().'/js/jquery.payment.js', array('jquery') );
+  // Enqueue Scripts
+  wp_enqueue_script( 'bootstrap-carousel-script', get_stylesheet_directory_uri().'/js/bootstrap/carousel.js', array(), false, true );
+  wp_enqueue_script( 'jquery-validate', get_stylesheet_directory_uri().'/js/jquery.validate.js', array('jquery') );
+  wp_enqueue_script( 'jquery-payment', get_stylesheet_directory_uri().'/js/jquery.payment.js', array('jquery') );
 
-    // Stripe
-    // https://stripe.com/
-    global $stripe_options;
-    if ( isset($stripe_options['test_mode']) && $stripe_options['test_mode'] ) {
-        $publishable = $stripe_options['test_publishable_key']; // Use Test API Key for Stripe Processing
-    } else {
-        $publishable = $stripe_options['live_publishable_key']; // Use Test API Key for Stripe Processing
-    }
-    wp_enqueue_script('stripe-processing', get_stylesheet_directory_uri().'/lib/StripeScripts/stripe-processing.js', array('jquery') );
-    wp_localize_script('stripe-processing', 'stripe_vars', array(
-        'publishable_key' => $publishable,
-    ));
+  // Look Book
+  wp_enqueue_script('look-books-scripts', get_stylesheet_directory_uri().'/lib/LookBooks/look-books-scripts.js', array('jquery','json2'), true);
+  wp_localize_script('look-books-scripts', 'look_book_data', array(
+    'ajaxurl' => admin_url('admin-ajax.php',$protocol),
+    'nonce' => wp_create_nonce('look_books_nonce')
+  ));
 
-    // PayPal
-    wp_enqueue_script('paypal-scripts', get_stylesheet_directory_uri().'/lib/PayPal/payments/paypal-payment-scripts.js', array('jquery','json2'), true);
-    wp_localize_script('paypal-scripts', 'paypal_data', array(
-        'ajaxurl' => admin_url('admin-ajax.php',$protocol),
-        'nonce' => wp_create_nonce('paypal_nonce')
-    ));
+  // General
+  wp_enqueue_script('diamond-custom-script', get_stylesheet_directory_uri().'/js/scripts.js', array('jquery'), false, true);
 
-    // jStorage
-    // http://www.jstorage.info/
-    wp_enqueue_script('jstorage-script', get_stylesheet_directory_uri().'/js/jstorage.js', array('jquery','json2'));
-    wp_enqueue_script('diamond-custom-script', get_stylesheet_directory_uri().'/js/scripts.js', array('jquery'), false, true);
-
-    // Shopping Cart
-    wp_enqueue_script('shopping-cart-scripts', get_stylesheet_directory_uri().'/lib/ShoppingCart/shopping-cart.js', array('jquery','json2'), true);
-    wp_localize_script('shopping-cart-scripts', 'shopping_cart_scripts', array(
-        'ajaxurl' => admin_url('admin-ajax.php',$protocol),
-        'nonce' => wp_create_nonce('shopping_cart_scripts_nonce')
-    ));
-
-    // Look Book Fetcher
-    wp_enqueue_script('look-books-scripts', get_stylesheet_directory_uri().'/lib/LookBooks/look-books-scripts.js', array('jquery','json2'), true);
-    wp_localize_script('look-books-scripts', 'look_book_data', array(
-      'ajaxurl' => admin_url('admin-ajax.php',$protocol),
-      'nonce' => wp_create_nonce('look_books_nonce')
-    ));
 
 }
 add_action( 'wp_enqueue_scripts', 'LTTNBAGS_enqueue_scripts' );
 
 /**
- * Shopping Cart
- * By Justin Hedani
- * Uses: Ajax, jStorage & Bootstrap
+ * To Market
+ * A simple shopping + checkout solution for WP.
+ * @url https://github.com/jkhedani/ToMarket
  */
-require_once( get_stylesheet_directory() . '/lib/ShoppingCart/shopping-cart.php');
-require_once( get_stylesheet_directory() . '/lib/ShoppingCart/shopping-cart-markup.php');
-
-/**
- * "Stripe" Integration
- * With lots of love from: http://pippinsplugins.com/series/integrating-stripe-com-with-wordpress/
- */
-
-// Load "Stripe" settings & Payment processors
-if ( is_admin() ) {
-    require_once( get_stylesheet_directory() . '/lib/StripeScripts/settings.php' );
-} else {
-    require_once( get_stylesheet_directory() . '/lib/StripeScripts/stripe-process-payment.php' );
-    require_once( get_stylesheet_directory() . '/lib/StripeScripts/stripe-listener.php' );
-}
-
-/**
- *  PayPal Functions
- */
-// require_once( get_stylesheet_directory() . '/lib/PayPal/payments/method-paypal.php' );
-
-// function submit_welcome_form() {
-//     global $wpdb, $current_user;
-//     $nonce = $_REQUEST['nonce'];
-//     if ( ! wp_verify_nonce( $nonce, 'ajax_interactions_nonce' ) ) {
-//         die( __('Busted.') ); // Nonce check
-//     }
-//     $html = "";
-//     $success = false;
-//     $params = array();
-//     parse_str( $_REQUEST['postdata'], $params ); // Unserialize post data
-
-//     // Update our user meta
-//     update_user_meta( $current_user->ID, 'registration-reason', $params['registration-reason'] );
-//     update_user_meta( $current_user->ID, 'education-level', $params['education-level'] );
-//     update_user_meta( $current_user->ID, 'location', $params['location'] );
-//     update_user_meta( $current_user->ID, 'allow-data-access', $params['allow-data-access'] );
-
-//     $success = true;
-//     $response = json_encode( array(
-//         'success' => $success,
-//         'html' => $html,
-//     ));
-
-//     header( 'content-type: application/json' );
-//     echo $response;
-//     exit;
-// }
-// add_action( 'wp_ajax_nopriv_submit_welcome_form', 'submit_welcome_form' );
-// add_action( 'wp_ajax_submit_welcome_form', 'submit_welcome_form' );
-
-// if ( isset( $_REQUEST['action'] ) && ( $_REQUEST['action'] == 'submit_welcome_form' )  ) {
-//     do_action( 'wp_ajax_' . $_REQUEST['action'] );
-//     do_action( 'wp_ajax_nopriv_' . $_REQUEST['action'] );
-// }
-
-/**
- *  "Easy Post" Integration
- *  https://www.easypost.com
- */
-if ( is_admin() ) {
-    require_once( get_stylesheet_directory() . '/lib/EasyPostScripts/settings.php' );
-}
-//require_once( get_stylesheet_directory() . '/lib/easypost.php' );
+require_once( get_stylesheet_directory() . '/lib/ToMarket/tomarket.php');
 
 /**
  * Custom Post Types (e.g. Products, etc.)
@@ -296,7 +137,7 @@ add_action( 'p2p_init', 'LTTNBAGS_connection_types' );
  *  Look Books
  *  Include function after P2P so connections are availabled
  */
-require_once( get_stylesheet_directory() . '/lib/LookBooks/look-book-functions.php');
+require_once( get_stylesheet_directory() . '/lib/LookBooks/look-books-functions.php');
 
 /**
  * Custom Taxonomies (e.g. Product Type, etc.)
