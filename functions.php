@@ -36,13 +36,13 @@ function format_money( $amount, $currencyType ) {
 if( function_exists('acf_add_options_sub_page') ) {
   function LTTNBAGS_options_config() {
     // acf_set_options_page_menu( __('Extra') );
-    acf_set_options_page_title( __('Shop Settings') ); // Changes menu name
+    acf_set_options_page_title( __('Our Shop Settings') ); // Changes menu name
     // acf_set_options_page_capability( 'manage_options' );
   }
   function LTTNBAGS_add_options_subpage() {
-    acf_add_options_sub_page( array('title' => 'General Settings', ));
-    acf_add_options_sub_page( array('title' => 'PayPal Settings', ));
-    acf_add_options_sub_page( array('title' => 'EasyPost Settings', ));
+    // acf_add_options_sub_page( array('title' => 'General Settings', ));
+    // acf_add_options_sub_page( array('title' => 'PayPal Settings', ));
+    // acf_add_options_sub_page( array('title' => 'EasyPost Settings', ));
   }
   add_action( 'after_setup_theme', 'LTTNBAGS_options_config' );
   add_action( 'after_setup_theme', 'LTTNBAGS_add_options_subpage' );
