@@ -174,7 +174,7 @@ function refresh_shopping_cart() {
 			endwhile;
 			endif;
 
-			/*
+			/**
 			 * Generate User-facing totals
 			 */
 			$optionPrice = ''; // Clear variable during loop

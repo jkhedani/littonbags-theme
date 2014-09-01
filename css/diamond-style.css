@@ -1451,7 +1451,6 @@ body.home #main .btn-primary-home {
 }
 body.home #primary {
   overflow: visible;
-  position: relative;
 }
 body.home i.tab.brown {
   width: 10px;
@@ -1599,7 +1598,7 @@ body.single-products #page #main #content article .product-content .product-pric
   font-size: 21px;
   margin: 0 0 11px 0;
 }
-body.single-products #page #main #content article .product-content a#add-to-hand-basket {
+body.single-products #page #main #content article .product-content a.add-handbasket-item {
   width: 172px;
   height: 56px;
 }
@@ -1982,7 +1981,8 @@ html body header#navbar {
   padding: 25px 0 15px 0;
 }
 html body #main {
-  margin-top: 20px;
+  margin-top: 0;
+  padding-top: 20px;
   background: #FFF;
 }
 html body .overlay.loading {
@@ -2144,7 +2144,7 @@ html body.single-products #page #main #content article .product-content .product
 html body.single-products #page #main #content article .product-content .product-right-col {
   width: 100%;
 }
-html body.single-products #page #main #content article .product-content .product-right-col a#add-to-hand-basket,
+html body.single-products #page #main #content article .product-content .product-right-col a.add-handbasket-item,
 html body.single-products #page #main #content article .product-content .product-right-col a#sold-out {
   text-indent: 0;
   width: 93%;
@@ -2154,7 +2154,7 @@ html body.single-products #page #main #content article .product-content .product
   text-align: center;
   padding: 8px 0;
 }
-html body.single-products #page #main #content article .product-content .product-right-col a#add-to-hand-basket {
+html body.single-products #page #main #content article .product-content .product-right-col a.add-handbasket-item {
   background: #ff6368;
 }
 html body.single-products #page #main #content article .product-content .product-right-col a#sold-out {
@@ -2256,11 +2256,8 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
   
 }
 @media (min-width: 500px) {
-  html body .shopping-cart-preview-legend {
-    display: block;
-  }
-  html body .shopping-cart-product .product-subtotal {
-    display: block !important;
+  html body #primary {
+    position: relative;
   }
   html body.single-products #page #main #content article .product-scroll {
     width: 100%;
@@ -2359,7 +2356,7 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
     float: none;
     width: 172px;
   }
-  html body.single-products #page #main #content article .product-content .product-right-col a#add-to-hand-basket {
+  html body.single-products #page #main #content article .product-content .product-right-col a.add-handbasket-item {
     background-size: 100% auto;
     background-image: url('../images/btn-primary-add-to-cart.png');
     background-repeat: no-repeat;
@@ -2427,11 +2424,9 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
   html body footer#colophon ul#menu-footer-menu li a[title='Facebook'] {
     margin: -2px 0 0 20px;
   }
-  html body .popover.bottom {
-    min-width: 565px;
-  }
   html body.home #main {
     margin-top: 91px;
+    padding-top: 0;
   }
   body.page-template-default.page-not-home .entry-header {
     margin-top: 15px;
@@ -2618,7 +2613,7 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
   html body.single-products #page #main #content article .product-content .product-left-col .jquery-color-selection ul li:first-child a {
     margin-left: 0;
   }
-  html body.single-products #page #main #content article .product-content .product-right-col a#add-to-hand-basket {
+  html body.single-products #page #main #content article .product-content .product-right-col a.add-handbasket-item {
     width: 172px;
   }
   html body.single-products #page #main #content article .product-content .product-right-col a#sold-out {
@@ -2732,4 +2727,15 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #737a7d;
+}
+.hand-basket .hand-basket-content .hand-basket-product,
+.hand-basket .checkoutReview .hand-basket-product {
+  font-family: 'Source Sans Pro', 'serif';
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.hand-basket .hand-basket-content .checkout,
+.hand-basket .checkoutReview .checkout {
+  background-color: #9bd2cb;
 }

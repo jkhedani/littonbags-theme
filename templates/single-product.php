@@ -39,75 +39,72 @@
 	<!-- Product Options -->
 	<div class="product-content span2">
 
-			<div class="product-left-col">
-				<?php
-					// General Options
-					$productOptions = get_field('product_options');
-					$productPrice = get_field('product_price');
-				?>
-				<div class="product-options">
+		<div class="product-left-col">
+			<div class="product-options">
 
-					<!-- Product Price -->
-					<span class="product-option product-price" data-standard-product-price="<?php echo format_money( $productPrice, 'US' ); ?>"><?php echo format_money( $productPrice, 'US' ); ?></span>
+				<!-- Display Option: Product Price -->
+				<span class="product-price" data-standard-product-price="<?php echo format_money( get_field('product_price'), 'US' ); ?>"><?php echo format_money( get_field('product_price'), 'US' ); ?></span>
 
-					<!-- Product Color -->
-					<?php
+				<!-- Selectable Option: Product Color -->
+				<?php if ( get_field('product_options') ) { ?>
+					<div class="product-color-container">
+						<h3 class="product-color-title">Select a Color</h3>
+						<select class="product-option product-color-selection" data-target="data-product_color_name">
+							<?php $productOptions = get_field('product_options'); ?>
+							<?php foreach ($productOptions as $productOption) : ?>
+								<option
+								 	value="<?php echo $productOption['product_color_name']; ?>"
+						 			data-background-color="<?php echo $productOption['product_color']; ?>"
+									data-option-price="<?php echo format_money( $productOption['product_option_price'], 'US' ); ?>"
+									data-option-sold-out="<?php echo $productOption['product_option_sold_out']; ?>"
+									<?php if ( $productOption === reset($productOptions) ) echo 'selected="selected"'; ?>
+									>
+									<?php echo $productOption['product_color_name']; ?>
+								</option>
+							<?php endforeach; ?>
+						</select>
+					</div><!-- .product-color-container -->
+				<?php } ?>
 
-					// Color Options
-					if ( get_field('product_options') ) {
-						echo '<div class="product-color-container">';
-						echo '<h3 class="product-color-title">Select a Color</h3>';
-						echo '<select class="product-color-selection" data-product-sold-out="';
-						if (get_field( 'product_sold_out' )) echo '1';
-						echo '">';
-						foreach ($productOptions as $productOption) {
-							echo '<option value="'.$productOption['product_color_name'].'"';
-							if ($productOption === reset($productOptions)) {
-								echo 'data-selected="1"';
-							}
-							echo ' data-background-color="'.$productOption['product_color'].'" data-option-price="'.format_money( $productOption['product_option_price'], 'US' ).'" data-option-sold-out="'.$productOption['product_option_sold_out'].'">'.$productOption['product_color_name'].'</option>';
-						}
-						echo '</select>';
-						echo '</div>'; // .product-color-container
-					}
+				<!-- Product Quantity -->
+				<div class="product-quantity-container">
+					<h3 class="product-qty-title">Quantity</h3>
+					<select class="product-qty-selection">
+						<?php for( $i = 1; $i < 11; $i++ ) { ?>
+						<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+						<?php } ?>
+					</select>
+				</div>
+				<hr />
 
-					// Quantity Options
-					echo 	'<div class="product-quantity-container">';
-					echo 		'<h3 class="product-qty-title">Quantity</h3>';
-					echo 		'<select class="product-qty-selection">';
-					for($i = 1; $i < 11; $i++) {
-					echo 			'<option value="'.$i.'">'.$i.'</option>';
-					}
-					echo 		'</select>';
-					echo 	'</div>'; // .product-quantity-container
+			</div><!-- .product-options -->
+		</div><!-- .product-left-col -->
 
-					echo '<hr />';
-					?>
-				</div><!-- .product-options -->
-			</div><!-- .product-left-col -->
-
-
-			<div class="product-right-col">
-				<!-- Add To Basket / Sold Out -->
-				<?php
-					// # Construct data attributes based on options. Default value
-					//	 is the first option. May want to give ability to set
-					//   default option in the future.
-					$productOptionKeys = array_keys( $productOptions[0] );
-					for ( $i = 0; $i < count($productOptionKeys); $i++ ) {
-						$productOptionKeys[$i] = $productOptionKeys[$i] . '="'.$productOptions[0][$productOptionKeys[$i]].'"';
-					}
-					$productDataAttr = 'data-' . implode(' data-', $productOptionKeys);
-				?>
-				<?php if ( get_field( 'product_sold_out' ) ) : ?>
-					<a id="sold-out" href="javascript:void(0);" class="btn btn-primary btn-primary-sold-out show">Sold Out</a>
-				<?php else : ?>
-					<a id="add-to-hand-basket" role="button" href="javascript:void(0);" class="btn btn-primary btn-primary-add-to-cart" data-post-id="<?php echo $post->ID; ?>" <?php echo $productDataAttr; ?>></a>
-				<?php endif; ?>
-			</div><!-- .product-right-col -->
+		<div class="product-right-col">
+			<?php
+				// # Add to Basket / Sold Out
+				// 	 Construct data attributes based on options. Default value
+				//	 is the first option. May want to give ability to set
+				//   default option in the future.
+				//	 NOTE: Removing "sold out option" as a product should never
+				//	 be added to the cart if it is sold out.
+				$productOptionKeys = array_keys( $productOptions[0] );
+				if ( ($sold_out_key = array_search('product_option_sold_out', $productOptionKeys)) !== false ) {
+					unset($productOptionKeys[$sold_out_key]);
+				}
+				for ( $i = 0; $i < count($productOptionKeys); $i++ ) {
+					$productOptionKeys[$i] = $productOptionKeys[$i] . '="'.$productOptions[0][$productOptionKeys[$i]].'"';
+				}
+				$productDataAttr = 'data-' . implode(' data-', $productOptionKeys);
+			?>
+			<?php if ( get_field( 'product_sold_out' ) ) : ?>
+				<a id="sold-out" href="javascript:void(0);" class="btn btn-primary btn-primary-sold-out show">Sold Out</a>
+			<?php else : ?>
+				<a id="add-handbasket-item" role="button" href="javascript:void(0);" class="btn btn-primary btn-primary-add-to-cart add-handbasket-item" data-post_id="<?php echo $post->ID; ?>" data-product_name="<?php echo get_the_title(); ?>" data-product_qty="1" <?php echo $productDataAttr; ?>>Add to Basket</a>
+			<?php endif; ?>
+		</div><!-- .product-right-col -->
 
 	</div><!-- .product-content -->
-
 	<div class="product-scroll">
 		<?php echo get_the_post_thumbnail(); ?>
 	</div>
