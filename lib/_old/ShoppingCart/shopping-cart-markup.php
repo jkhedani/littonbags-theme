@@ -145,25 +145,9 @@ function render_shopping_cart() {
 
 			// 		CARD NUMBER
 			echo 	'<div class="form-row checkoutPay payment-info hide" id="cc-info">';
-			echo 		'5% of your purchase will go to the charity WakaWaka Lights.';
-			echo 		'<legend>Card Information</legend>';
-			echo 		'<div class="cc-icons">';
-			echo 			'<div class="cc-icon visa"></div>';
-			echo 			'<div class="cc-icon mastercard"></div>';
-			echo 			'<div class="cc-icon amex"></div>';
-			echo 			'<div class="cc-icon discover"></div>';
-			echo 			'<div class="cc-icon jcb"></div>';
-			echo 		'</div>';
-			echo 		'<label>'. __('Name on Card', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" data-stripe="name" />';
-			echo 		'<label>'. __('Card Number', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="20" autocomplete="off" class="cc-num" data-stripe="number" />';
-			echo 		'<label>'. __('CVC', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="4" autocomplete="off" class="cc-cvc" data-stripe="cvc" />';
-			echo 		'<label>'. __('Expiration (MM/YYYY)', 'litton_bags') .'</label>';
-			echo 		'<input type="text" size="2" data-stripe="exp-month" class="cc-exp-month" data-numeric />';
-			echo 		'<span> / </span>';
-			echo 		'<input type="text" size="4" data-stripe="exp-year" class="cc-exp-year" data-numeric />';
+
+
+
 			echo 	'</div>';
 
 			//		WORDPRESS DATA VALUES (NO SENSITIVE FORMS BELOW THIS LINE!)

@@ -2,28 +2,13 @@
  * Diamond Specific Styles
  */
 
+@import "mixins-variables.less";
 @import "diamond-style-variables.less"; // Replace this line with your new variables, if you like.
 @import "../../bedrock/inc/bootstrap/less/mixins.less";
 @import "../../bedrock/inc/bootstrap/less/modals.less";
 @import "../../bedrock/inc/bootstrap/less/tooltip.less";
 @import "../../bedrock/inc/bootstrap/less/popovers.less";
 @import "../../bedrock/inc/bootstrap/less/carousel.less";
-
-@pinkAccent: #F0BDB7;
-@beigeAccent: #F2E9E1;
-@mapleAccent: rgb(219,88,68);
-@brownAccent: rgb(96,55,55);
-@taupeAccent: rgb(188,177,161);
-@redAccent: rgb(232, 88, 70);
-@darkBrown: rgb(114,85,63);
-@beige: rgb(159, 125, 104);
-@lightBeige: rgb(228, 255, 219);
-
-@lightGray: rgb(237, 238, 237);
-@darkGray: rgb(115, 122, 125);
-@darkestGray: darken( @darkGray, 20%);
-@watermelon: rgb(255, 99, 104);
-@mint: rgb(155, 210, 203);
 
 *, *:before, *:after {
 	-moz-box-sizing: border-box;
@@ -78,40 +63,6 @@
 }
 
 /**
- *	Mixins
- */
-.background-cover {
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-}
-.full-width-background-image (@imageURL, @bgColor) {
-	background: url(@imageURL) no-repeat center center fixed @bgColor;
-	.background-cover();
-}
-.capitalize {
-	text-transform: capitalize;
-}
-.border-box {
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-}
-.roundCorners(@radius) {
-  -webkit-border-radius: @radius;
-  -moz-border-radius: @radius;
-  border-radius: @radius;
-}
-.no-text {
-	// Modern approach: http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/
-	// Changed hide-text to no-text due to bootstrap overlap
-	text-indent: 150%;
-	white-space: nowrap;
-	overflow: hidden;
-}
-
-/**
  * Global Styles
  */
 .navbar-fixed-top .container, .container { width: 980px; }
@@ -145,11 +96,6 @@ img { color: transparent; border-color: transparent; }
 	// 	height: 56px;
 	// 	background: url('../images/btn-primary-sold-out.png') no-repeat;
 	// }
-	&.btn-primary-checkout, &.btn-primary-checkout:hover {
-		width: 106px;
-		height: 45px;
-		background: url('../images/btn-primary-checkout.png') no-repeat;
-	}
 }
 // .btn.btn-primary:hover {
 // 	background: inherit;
@@ -882,177 +828,6 @@ body.single-products {
 }
 
 /**
- *	Checkout Modal
- */
-#checkoutModal {
-	top: 0;
-	left: 0;
-	margin: 0;
-	width: 100%;
-	height: 100%;
-	padding: 40px 100px 100px 100px;
-	z-index: 99999;
-	border-radius: 0;
-	border: none;
-	overflow-y: scroll;
-	overflow-x: hidden;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	.close { font-size: 12px; text-transform: uppercase; }
-	.container { position: relative; }
-	.modal-meta, .modal-header, .modal-body, .modal-footer {
-		margin: 0 auto;
-		position: relative;
-		width: 620px;
-		border: none;
-		background: none;
-		-moz-box-shadow: none;
-		box-shadow: none;
-		padding: 0;
-		.clearfix();
-	}
-	.modal-meta { margin: 20px auto 80px auto; }
-	.modal-header {
-		margin: 20px auto;
-		.step-count { font-size: 13px; margin-bottom: 15px; #font-family > .source-sans-pro; color: @mint; }
-		h3 {
-			#font-family > .learning-curve;
-			color: @mint;
-			font-weight: normal;
-			font-size: 45px;
-			margin: 0;
-		}
-	}
-	.modal-body {
-		color: @darkestGray;
-		max-height: none;
-		form {
-			// Checkout specific styles
-			label { text-transform: uppercase; font-size: 12px; }
-			legend { #font-family > .source-sans-pro; color: @mint; font-size: 16px; margin-bottom: 15px; }
-			#shippingIsDifferent {
-				float: left;
-				margin-right: 10px;
-				margin-bottom: 20px;
-			}
-			input.address { width: 80%; }
-			input.zip-code { max-width: 60px; }
-			input.state { max-width: 45px; }
-			input.country { max-width: 45px; }
-		}
-	}
-	.modal-footer {
-		padding-top: 0;
-		.btn-primary { float: right; }
-		button.btn-primary { height: 31px; margin: 0; }
-	}
-	.services-used-container {
-		margin: 0 auto;
-		width: 620px;
-		.services-used {
-			float: left;
-			span { font-size: 12px; }
-			i {
-				opacity: 0.5;
-				display: block;
-				width: 150px;
-				height: 27px;
-				float: right;
-				&.stripe-icon { background: url('../images/stripe-outline.png') no-repeat; }
-			}
-			&.support { font-size: 11px; color: @darkGray; clear: both; float: none; }
-		}
-	}
-
-	// Step One "Review Your Cart"
-	.checkoutReview {
-		padding: 0;
-		// Hide some copied over stuff
-		h1, a.checkout, .donation-promo-text { display: none; }
-	}
-
-	// Step Three: "Submit Your Payment"
-	.modal-body {
-		.cc-icons {
-			.clearfix();
-			margin-bottom: 15px;
-			.cc-icon {
-				width: 40px;
-				height: 25px;
-				float: left;
-				background: url('../images/cc-logos.png') no-repeat;
-				&.visa { background-position: 0 -173px; }
-				&.visa.bw { background-position: 0 -148px; }
-				&.discover { background-position: 0 -124px; }
-				&.discover.bw { background-position: 0 -99px; }
-				&.mastercard { background-position: 0 -75px; }
-				&.mastercard.bw { background-position: 0 -50px; }
-				&.amex { background-position: 0 -25px; }
-				&.amex.bw { background-position: 0 0; }
-				&.jcb { background-position: 0 -222px; }
-				&.jcb.bw { background-position: 0 -198px; }
-			}
-		}
-	}
-	.modal-footer {
-		.paypal-checkout {
-			float: right;
-			width: 150px;
-			margin: -8px 0 10px -6px;
-			// opacity: 0.5;
-			cursor: pointer;
-			// &:hover { opacity: 1.0; }
-		}
-	}
-
-	// Step "Four": "Processing"
-	.modal-header {
-		.checkoutProcessing {
-			.step-count { text-align: center; }
-			h3 { text-align: center; }
-		}
-	}
-	.modal-body {
-		.checkoutProcessing {
-			p { margin: 20px auto; max-width: 400px; text-align: center; clear: both; }
-		}
-	}
-
-	// Step "Five": "Result"
-	.modal-header {
-		.checkoutResult {
-			h3 { margin-top: 15px; text-align: center; }
-		}
-	}
-	.modal-body {
-		.checkoutResult {
-			margin-bottom: 80px;
-			.result-wrapper {
-				width: 488px;
-				text-align: center;
-				margin: 15px auto;
-				img {
-					margin: 0 auto;
-				}
-			}
-			p { margin: 20px auto; max-width: 400px; padding: 0 44px; text-align: center; }
-		}
-	}
-	.modal-footer {
-		.checkoutResult {
-			width: 488px;
-			a { margin: 0 auto; }
-		}
-	}
-}
-
-/**
- * Checkout Styles
- */
-input.error { border: 1px solid @redAccent !important; }
-
-/**
  *	Look Book Styles
  */
 #lookBookModal {
@@ -1314,12 +1089,6 @@ body.post-type-archive-products {
 			h1 { font-size: 47px; margin-bottom: -6px; }
 			span.minster-flair { .no-text(); width: 39px; float: left; display: block; background: url('../images/minster-flair.png') no-repeat; background-size: 100%; }
 			span.subtitle { font-size: 14px; color: rgba(255,255,255,0.8); }
-		}
-	}
-	html body {
-		// # Checkout modal
-		#checkoutModal {
-			.modal-meta { margin-bottom: 0; }
 		}
 	}
 }
@@ -1727,17 +1496,6 @@ body.post-type-archive-products {
 		}
 	}
 
-	/**
-	 * Checkout Modal
-	 */
-	html body {
-		#checkoutModal {
-			padding: 20px;
-			.modal-meta, .modal-header, .modal-body, .modal-footer {
-				width: 100%;
-			}
-		}
-	}
 }
 
 /**
@@ -1768,11 +1526,6 @@ body.post-type-archive-products {
 		// 	width: 172px;
 		// 	height: 56px;
 		// 	background: url('../images/btn-primary-sold-out.png') no-repeat;
-		// }
-		// &.btn-primary-checkout, &.btn-primary-checkout:hover {
-		// 	width: 106px;
-		// 	height: 45px;
-		// 	background: url('../images/btn-primary-checkout.png') no-repeat;
 		// }
 	}
 } // @media
@@ -1813,5 +1566,27 @@ body.post-type-archive-products {
 			#font-family > .source-sans-pro;
 		}
 		.checkout { background-color: @mint; }
+	}
+}
+
+/**
+ * Checkout Styles
+ */
+#checkout {
+  h3 {
+    #font-family > .oswald;
+    color: @mint;
+    font-weight: 300;
+		font-size: 21px;
+		text-transform: uppercase;
+    margin: 0;
+  }
+	legend {
+		#font-family > .oswald;
+		color: @mint;
+		font-weight: 300;
+		font-size: 16px;
+		text-transform: uppercase;
+		margin: 0 0 10px 0;
 	}
 }

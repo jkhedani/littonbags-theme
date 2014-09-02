@@ -1,0 +1,62 @@
+/**
+ *	Mixins
+ */
+.clearfix() {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+.background-cover {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.full-width-background-image (@imageURL, @bgColor) {
+  background: url(@imageURL) no-repeat center center fixed @bgColor;
+  .background-cover();
+}
+.capitalize {
+  text-transform: capitalize;
+}
+.border-box {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.roundCorners(@radius) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+.no-text {
+  // Modern approach: http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/
+  // Changed hide-text to no-text due to bootstrap overlap
+  text-indent: 150%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/**
+ * Colors
+ */
+@pinkAccent: #F0BDB7;
+@beigeAccent: #F2E9E1;
+@mapleAccent: rgb(219,88,68);
+@brownAccent: rgb(96,55,55);
+@taupeAccent: rgb(188,177,161);
+@redAccent: rgb(232, 88, 70);
+@darkBrown: rgb(114,85,63);
+@beige: rgb(159, 125, 104);
+@lightBeige: rgb(228, 255, 219);
+
+@lightGray: rgb(237, 238, 237);
+@darkGray: rgb(115, 122, 125);
+@darkestGray: darken( @darkGray, 20%);
+@watermelon: rgb(255, 99, 104);
+@mint: rgb(155, 210, 203);
