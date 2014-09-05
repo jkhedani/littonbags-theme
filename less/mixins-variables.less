@@ -43,6 +43,25 @@
 }
 
 /**
+ * Global	Fonts
+ */
+
+#font-family {
+  .oswald {
+    font-family: 'Oswald','sans-serif'; font-weight: normal; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  .source-sans-pro {
+    font-family: 'Source Sans Pro', 'serif'; font-weight: normal; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  .georgia {
+    font-family: 'Georgia', serif; font-weight: normal; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  .josefin {
+    font-family: 'Josefin Sans', sans-serif !important; font-weight: normal; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/**
  * Colors
  */
 @pinkAccent: #F0BDB7;
@@ -60,3 +79,70 @@
 @darkestGray: darken( @darkGray, 20%);
 @watermelon: rgb(255, 99, 104);
 @mint: rgb(155, 210, 203);
+
+
+/**
+ * Forms
+ */
+// form {
+//   select { width: 100%; }
+//   input[type="text"], input[type="email"], textarea { .roundCorners(3px);  border: none; background-color: @lightGray; color: @darkGray; padding: 7px; #font-family > .source-sans-pro; font-size: 200; }
+//   .formHelperText { display: block; font-size: 13px; }
+//   .form-row-single {
+//     width: 100%;
+//     .clearfix();
+//     div { float: left; margin-right: 10px; }
+//   }
+// }
+
+::-webkit-input-placeholder,
+:-moz-placeholder,
+::-moz-placeholder,
+:-ms-input-placeholder {
+  color: red !important;
+}
+
+/**
+ * Fancy Stuff
+ */
+
+// CSS Spinners
+// Courtesy of: http://tobiasahlin.com/spinkit/
+.spinner {
+  width: 30px;
+  height: 30px;
+  background-color: @mint;
+  display: block;
+  float: right;
+  margin-right: 20px;
+  -webkit-animation: rotateplane 1.2s infinite ease-in-out;
+  animation: rotateplane 1.2s infinite ease-in-out;
+  &.medium {
+    width: 80px;
+    height: 80px;
+    float: none;
+    margin: 40px auto;
+  }
+  &.large {
+    width: 130px;
+    height: 130px;
+    float: none;
+    margin: 40px auto;
+  }
+}
+
+// Overlay
+.overlay {
+  &.loading {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: rgba(255,255,255,0.9);
+  }
+  .spinner { margin-top: 25%; }
+  h4 { display: block; margin: 0 auto; text-align: center; color: @darkGray; text-transform: uppercase; #font-family > .josefin; }
+}

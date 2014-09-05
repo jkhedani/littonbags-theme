@@ -54,6 +54,7 @@
 							<?php foreach ($productOptions as $productOption) : ?>
 								<option
 								 	value="<?php echo $productOption['product_color_name']; ?>"
+									data-checkout-image-preview="<?php echo $productOption['product_checkout_image_preview']; ?>"
 						 			data-background-color="<?php echo $productOption['product_color']; ?>"
 									data-option-price="<?php echo format_money( $productOption['product_option_price'], 'US' ); ?>"
 									data-option-sold-out="<?php echo $productOption['product_option_sold_out']; ?>"
