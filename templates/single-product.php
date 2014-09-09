@@ -37,75 +37,111 @@
 	</header><!-- .entry-header -->
 
 	<!-- Product Options -->
-	<div class="product-content span2">
+	<div class="product-content product-options span2">
+		<?php
+			// # Each "Product Option" is its own individual SKU
+			if ( get_field('product_skus') ) :
+				$product_skus = get_field('product_skus');
+			endif;
+		?>
 
-		<div class="product-left-col">
-			<div class="product-options">
+		<!-- Product Price -->
+		<?php foreach ( $product_skus as $product_sku ) : ?>
+			<div class="product-price" data-sku="<?php echo $product_sku['sku']; ?>"><?php echo format_money( $product_sku['sku_price'], 'US' ); ?></div>
+		<?php endforeach; ?>
 
-				<!-- Display Option: Product Price -->
-				<span class="product-price" data-standard-product-price="<?php echo format_money( get_field('product_price'), 'US' ); ?>"><?php echo format_money( get_field('product_price'), 'US' ); ?></span>
+		<!-- Product Color -->
+		<div class="product-color-container">
+			<h3 class="product-color-title">Select a Color</h3>
+			<select class="product-option product-color-selection user-selectable-option" data-sku-option-type="sku_color_name">
+				<?php $product_skus = get_field('product_skus'); ?>
+				<?php foreach ($product_skus as $product_sku) : ?>
+					<option
+					 	value="<?php echo $product_sku['sku_color_name']; ?>"
+						data-sku="<?php echo $product_sku['sku']; ?>"
+			 			data-sku-color="<?php echo $product_sku['sku_color']; ?>"
+						data-option-sold-out="<?php if ( $product_sku['sku_quantity'] === '0' ) echo 1; ?>"
+						<?php if ( $product_sku === reset($product_skus) ) echo 'selected="selected"'; ?>
+						>
+						<?php echo $product_sku['sku_color_name']; ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+		</div><!-- .product-color-container -->
 
-				<!-- Selectable Option: Product Color -->
-				<?php if ( get_field('product_options') ) { ?>
-					<div class="product-color-container">
-						<h3 class="product-color-title">Select a Color</h3>
-						<select class="product-option product-color-selection" data-target="data-product_color_name">
-							<?php $productOptions = get_field('product_options'); ?>
-							<?php foreach ($productOptions as $productOption) : ?>
-								<option
-								 	value="<?php echo $productOption['product_color_name']; ?>"
-									data-checkout-image-preview="<?php echo $productOption['product_checkout_image_preview']; ?>"
-						 			data-background-color="<?php echo $productOption['product_color']; ?>"
-									data-option-price="<?php echo format_money( $productOption['product_option_price'], 'US' ); ?>"
-									data-option-sold-out="<?php echo $productOption['product_option_sold_out']; ?>"
-									<?php if ( $productOption === reset($productOptions) ) echo 'selected="selected"'; ?>
-									>
-									<?php echo $productOption['product_color_name']; ?>
-								</option>
-							<?php endforeach; ?>
-						</select>
-					</div><!-- .product-color-container -->
+		<!-- Product Quantity -->
+		<div class="product-quantity-container">
+			<h3 class="product-qty-title">Quantity</h3>
+			<select class="product-qty-selection">
+				<?php for( $i = 1; $i < 11; $i++ ) { ?>
+				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
 				<?php } ?>
+			</select>
+		</div>
+		<hr />
 
-				<!-- Product Quantity -->
-				<div class="product-quantity-container">
-					<h3 class="product-qty-title">Quantity</h3>
-					<select class="product-qty-selection">
-						<?php for( $i = 1; $i < 11; $i++ ) { ?>
-						<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-						<?php } ?>
-					</select>
-				</div>
-				<hr />
-
-			</div><!-- .product-options -->
-		</div><!-- .product-left-col -->
-
-		<div class="product-right-col">
-			<?php
-				// # Add to Basket / Sold Out
-				// 	 Construct data attributes based on options. Default value
-				//	 is the first option. May want to give ability to set
-				//   default option in the future.
-				//	 NOTE: Removing "sold out option" as a product should never
-				//	 be added to the cart if it is sold out.
-				$productOptionKeys = array_keys( $productOptions[0] );
-				if ( ($sold_out_key = array_search('product_option_sold_out', $productOptionKeys)) !== false ) {
-					unset($productOptionKeys[$sold_out_key]);
+		<?php
+		// # Create invisible descriptors for every sku
+		for ( $i = 0; $i < count($product_skus); $i++ ) {
+			// # Add some post data into the mix
+			$product_skus[$i]['post_id'] = $post->ID;
+			$product_skus[$i]['product_name'] = get_the_title();
+			// # For each of the skus, gather various pieces of data
+			$product_skus_keys = array_keys( $product_skus[$i] );
+			// # Iterate through all the sku keys and construct
+			for ( $ii = 0; $ii < count($product_skus_keys); $ii++ ) {
+				// # Remove "private" data VALUE from loop
+				if ( $product_skus_keys[$ii] === 'sku_quantity' ) {
+					// do nothing for removed array keys
+				} else {
+					// Add the product sku values for each
+					$product_skus_keys[$ii] = $product_skus_keys[$ii] . '="'.$product_skus[$i][$product_skus_keys[$ii]].'"';
 				}
-				for ( $i = 0; $i < count($productOptionKeys); $i++ ) {
-					$productOptionKeys[$i] = $productOptionKeys[$i] . '="'.$productOptions[0][$productOptionKeys[$i]].'"';
-				}
-				$productDataAttr = 'data-' . implode(' data-', $productOptionKeys);
+			}
+			// # Remove "private" data KEY from loop (after construction)
+			$sku_quantity_key = array_search('sku_quantity', $product_skus_keys);
+			unset($product_skus_keys[$sku_quantity_key]);
+			$productDataAttr = 'data-' . implode(' data-', $product_skus_keys);
 			?>
-			<?php if ( get_field( 'product_sold_out' ) ) : ?>
-				<a id="sold-out" href="javascript:void(0);" class="btn btn-primary btn-primary-sold-out show">Sold Out</a>
-			<?php else : ?>
-				<a id="add-handbasket-item" role="button" href="javascript:void(0);" class="btn btn-primary btn-primary-add-to-cart add-handbasket-item" data-post_id="<?php echo $post->ID; ?>" data-product_name="<?php echo get_the_title(); ?>" data-product_qty="1" <?php echo $productDataAttr; ?>>Add to Basket</a>
-			<?php endif; ?>
-		</div><!-- .product-right-col -->
+			<div class="descriptor" <?php echo $productDataAttr; ?>></div>
+		<?php }
+
+		// # Add to Basket
+		// 	 Collate all user inputed data here to interpret what a user wants to
+		//   add to their cart.
+		// # Create the initial data set based on the first product sku
+		// $product_skus_keys = array_keys( $product_skus[0] );
+		// // # Remove "private" data from loop
+		// $sku_quantity_key = array_search('sku_quantity', $product_skus_keys);
+		// unset($product_skus_keys[$sku_quantity_key]);
+		// // # Iterate through all the sku keys and construct
+		// for ( $i = 0; $i < count($product_skus_keys); $i++ ) {
+		// 	$product_skus_keys[$i] = $product_skus_keys[$i] . '="'.$product_skus[0][$product_skus_keys[$i]].'"';
+		// }
+		// $productDataAttr = 'data-' . implode(' data-', $product_skus_keys);
+		?>
+		<a id="add-handbasket-item" role="button" href="javascript:void(0);" class="btn btn-primary btn-primary-add-to-cart add-handbasket-item">Add to Basket</a>
 
 	</div><!-- .product-content -->
+
+
+<?php
+/**
+
+	1. Disable add to cart button until all options have been selected.
+	1. When an option is selected, determine
+
+
+*/
+?>
+
+
+
+
+
+
+
+
 	<div class="product-scroll">
 		<?php echo get_the_post_thumbnail(); ?>
 	</div>

@@ -922,41 +922,35 @@ html body.single-products {
 		}
 		// HACK! Product Content Formatting
 		.product-content {
-			width: 100%;
+			//width: 100%;
 			max-width: 400px;
 			margin-top: 15px;
 			.clearfix();
-			.product-price { border-bottom: none; padding: 0; }
-			.product-left-col {
-				width: 172px;
-				hr { display: none; }
-				.jquery-color-selection a {
-					width: 31%;
-					height: 51px;
-					float: left;
-					margin-left: 3%;
-					display: block;
-					.no-text();
-				}
-				.jquery-color-selection ul li:first-child a { margin-left: 0; }
-				.product-quantity-container {
-					padding-top: 10px;
-				}
+			.product-price { border-bottom: none; padding: 0; display: none; }
+			hr { display: none; }
+			.jquery-color-selection a {
+				width: 31%;
+				height: 51px;
+				float: left;
+				margin-left: 3%;
+				display: block;
+				.no-text();
 			}
-			.product-right-col {
-				width: 100%;
-				a.add-handbasket-item, a#sold-out {
-					text-indent: 0;
-					width: 93%;
-					height: auto;
-					text-shadow: none;
-					text-transform: uppercase;
-					text-align: center;
-					padding: 8px 0;
-				}
-				a.add-handbasket-item { background: @watermelon; }
-				a#sold-out { border: 1px solid @watermelon; color: @watermelon; background: none; }
+			.jquery-color-selection ul li:first-child a { margin-left: 0; }
+			.product-quantity-container {
+				padding-top: 10px;
 			}
+			a.add-handbasket-item, a#sold-out {
+				text-indent: 0;
+				width: 93%;
+				height: auto;
+				text-shadow: none;
+				text-transform: uppercase;
+				text-align: center;
+				padding: 8px 0;
+			}
+			a.add-handbasket-item { background: @watermelon; }
+			a#sold-out { border: 1px solid @watermelon; color: @watermelon; background: none; }
 		}
 	}
 }
@@ -1099,38 +1093,33 @@ body.post-type-archive-products {
 				width: 125px;
 				.clearfix();
 				.product-price { padding-bottom: 20px; border-bottom: 2px dotted @darkGray; }
-				.product-left-col { float: none; width: auto;
-					.jquery-color-selection a {
-						height: 39px;
-					}
+				.jquery-color-selection a {
+					height: 39px;
 				}
-				.product-right-col {
-					float: none;
-					width: 172px;
 
-					a.add-handbasket-item {
-						background-size: 100% auto;
-						background-image: url('../images/btn-primary-add-to-cart.png');
-						background-repeat: no-repeat;
-						background-color: transparent;
-						width: 125px;
-						height: 56px;
-						padding: 0;
-						.no-text();
-					}
-					a#sold-out {
-						background-size: 100% auto;
-						background-image: url('../images/btn-primary-sold-out.png');
-						background-repeat: no-repeat;
-						background-color: transparent;
-						width: 125px;
-						height: 56px;
-						padding: 0;
-						border: none;
-						.no-text();
-					}
-
+				a.add-handbasket-item {
+					background-size: 100% auto;
+					background-image: url('../images/btn-primary-add-to-cart.png');
+					background-repeat: no-repeat;
+					background-color: transparent;
+					width: 125px;
+					height: 56px;
+					padding: 0;
+					.no-text();
 				}
+				a#sold-out {
+					background-size: 100% auto;
+					background-image: url('../images/btn-primary-sold-out.png');
+					background-repeat: no-repeat;
+					background-color: transparent;
+					width: 125px;
+					height: 56px;
+					padding: 0;
+					border: none;
+					.no-text();
+				}
+
+
 			}
 		}
 	}
@@ -1287,10 +1276,9 @@ body.post-type-archive-products {
 				//margin-top: 109px;
 			}
 			.product-content {
+
 				margin: 95px 0 0 825px;
-				.product-left-col {
-					hr { display: block; margin: 7px 0 16px; }
-				}
+				hr { display: block; margin: 7px 0 16px; }
 			}
 		}
 	}
@@ -1348,21 +1336,18 @@ body.post-type-archive-products {
 				width: 172px;
 				margin: 110px 0 0 932px;
 				hr { margin: 11px 0 20px; }
-				.product-left-col {
-					.jquery-color-selection a {
-						width: auto;
-						height: auto;
-						float: none;
-						margin-left: 0;
-						display: block;
-						text-indent: 0;
-					}
-					.jquery-color-selection ul li:first-child a { margin-left: 0; }
+
+				.jquery-color-selection a {
+					width: auto;
+					height: auto;
+					float: none;
+					margin-left: 0;
+					display: block;
+					text-indent: 0;
 				}
-				.product-right-col {
-					a.add-handbasket-item { width: 172px; }
-					a#sold-out { width: 172px; }
-				}
+				.jquery-color-selection ul li:first-child a { margin-left: 0; }
+				a.add-handbasket-item { width: 172px; }
+				a#sold-out { width: 172px; }
 			}
 		}
 	}

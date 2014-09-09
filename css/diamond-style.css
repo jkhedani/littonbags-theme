@@ -1848,7 +1848,6 @@ html body.single-products #page #main #content article .product-header .lookbook
   margin-left: 31px;
 }
 html body.single-products #page #main #content article .product-content {
-  width: 100%;
   max-width: 400px;
   margin-top: 15px;
   *zoom: 1;
@@ -1873,14 +1872,12 @@ html body.single-products #page #main #content article .product-content:after {
 html body.single-products #page #main #content article .product-content .product-price {
   border-bottom: none;
   padding: 0;
-}
-html body.single-products #page #main #content article .product-content .product-left-col {
-  width: 172px;
-}
-html body.single-products #page #main #content article .product-content .product-left-col hr {
   display: none;
 }
-html body.single-products #page #main #content article .product-content .product-left-col .jquery-color-selection a {
+html body.single-products #page #main #content article .product-content hr {
+  display: none;
+}
+html body.single-products #page #main #content article .product-content .jquery-color-selection a {
   width: 31%;
   height: 51px;
   float: left;
@@ -1890,17 +1887,14 @@ html body.single-products #page #main #content article .product-content .product
   white-space: nowrap;
   overflow: hidden;
 }
-html body.single-products #page #main #content article .product-content .product-left-col .jquery-color-selection ul li:first-child a {
+html body.single-products #page #main #content article .product-content .jquery-color-selection ul li:first-child a {
   margin-left: 0;
 }
-html body.single-products #page #main #content article .product-content .product-left-col .product-quantity-container {
+html body.single-products #page #main #content article .product-content .product-quantity-container {
   padding-top: 10px;
 }
-html body.single-products #page #main #content article .product-content .product-right-col {
-  width: 100%;
-}
-html body.single-products #page #main #content article .product-content .product-right-col a.add-handbasket-item,
-html body.single-products #page #main #content article .product-content .product-right-col a#sold-out {
+html body.single-products #page #main #content article .product-content a.add-handbasket-item,
+html body.single-products #page #main #content article .product-content a#sold-out {
   text-indent: 0;
   width: 93%;
   height: auto;
@@ -1909,10 +1903,10 @@ html body.single-products #page #main #content article .product-content .product
   text-align: center;
   padding: 8px 0;
 }
-html body.single-products #page #main #content article .product-content .product-right-col a.add-handbasket-item {
+html body.single-products #page #main #content article .product-content a.add-handbasket-item {
   background: #ff6368;
 }
-html body.single-products #page #main #content article .product-content .product-right-col a#sold-out {
+html body.single-products #page #main #content article .product-content a#sold-out {
   border: 1px solid #ff6368;
   color: #ff6368;
   background: none;
@@ -2105,18 +2099,10 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
     padding-bottom: 20px;
     border-bottom: 2px dotted #737a7d;
   }
-  html body.single-products #page #main #content article .product-content .product-left-col {
-    float: none;
-    width: auto;
-  }
-  html body.single-products #page #main #content article .product-content .product-left-col .jquery-color-selection a {
+  html body.single-products #page #main #content article .product-content .jquery-color-selection a {
     height: 39px;
   }
-  html body.single-products #page #main #content article .product-content .product-right-col {
-    float: none;
-    width: 172px;
-  }
-  html body.single-products #page #main #content article .product-content .product-right-col a.add-handbasket-item {
+  html body.single-products #page #main #content article .product-content a.add-handbasket-item {
     background-size: 100% auto;
     background-image: url('../images/btn-primary-add-to-cart.png');
     background-repeat: no-repeat;
@@ -2128,7 +2114,7 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
     white-space: nowrap;
     overflow: hidden;
   }
-  html body.single-products #page #main #content article .product-content .product-right-col a#sold-out {
+  html body.single-products #page #main #content article .product-content a#sold-out {
     background-size: 100% auto;
     background-image: url('../images/btn-primary-sold-out.png');
     background-repeat: no-repeat;
@@ -2310,7 +2296,7 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
   html body.single-products #page #main #content article .product-content {
     margin: 95px 0 0 825px;
   }
-  html body.single-products #page #main #content article .product-content .product-left-col hr {
+  html body.single-products #page #main #content article .product-content hr {
     display: block;
     margin: 7px 0 16px;
   }
@@ -2362,7 +2348,7 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
   html body.single-products #page #main #content article .product-content hr {
     margin: 11px 0 20px;
   }
-  html body.single-products #page #main #content article .product-content .product-left-col .jquery-color-selection a {
+  html body.single-products #page #main #content article .product-content .jquery-color-selection a {
     width: auto;
     height: auto;
     float: none;
@@ -2370,13 +2356,13 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
     display: block;
     text-indent: 0;
   }
-  html body.single-products #page #main #content article .product-content .product-left-col .jquery-color-selection ul li:first-child a {
+  html body.single-products #page #main #content article .product-content .jquery-color-selection ul li:first-child a {
     margin-left: 0;
   }
-  html body.single-products #page #main #content article .product-content .product-right-col a.add-handbasket-item {
+  html body.single-products #page #main #content article .product-content a.add-handbasket-item {
     width: 172px;
   }
-  html body.single-products #page #main #content article .product-content .product-right-col a#sold-out {
+  html body.single-products #page #main #content article .product-content a#sold-out {
     width: 172px;
   }
 }
