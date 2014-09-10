@@ -88,7 +88,7 @@ $page_keywords = 'women\'s camera bags, women\'s camera purse, leather camera ba
           <a class="site-title" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
 
           <!-- Hand Basket Toggle -->
-          <a href="javascript:void(0);" data-toggle="hand-basket">Cart</a>
+          <a href="javascript:void(0);" data-toggle="hand-basket"><i class="fa fa-shopping-cart"></i></a>
 
           <!-- Site Main Menu -->
           <div class="menu-main-menu-container">
