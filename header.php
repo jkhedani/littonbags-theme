@@ -39,26 +39,7 @@ $page_keywords = 'women\'s camera bags, women\'s camera purse, leather camera ba
 	<script src="<?php echo get_template_directory_uri(); ?>/inc/js/html5.js" type="text/javascript"></script>
 	<![endif]-->
 
-<?php
-
-	wp_head();
-
-	/*
-	 * ADMIN: Move navbar down from under admin when user is
-   * logged in but not in the theme customizer previewer
-	 */
-  global $wp_customize;
-  if ( is_user_logged_in() && ! isset( $wp_customize ) ) {
-    // echo '
-    // <style type="text/css">
-    //   #navbar { margin-top: 28px; } /* Positions navbar below admin bar */
-    //   #main { padding-top: 88px; } /* Lowers all content below navbar to approximate position */
-    //   @media (max-width: 979px) {
-    //     #main { padding-top: 0px; } /* Navbar turns static, no need for compensation here*/
-    //   }
-    // </style>';
-  }
-?>
+	<?php wp_head(); ?>
 
 <!-- Google Analytics Script -->
 <script>
@@ -75,9 +56,7 @@ $page_keywords = 'women\'s camera bags, women\'s camera purse, leather camera ba
 </head>
 
 <body <?php body_class(); ?>>
-
   <div id="page" class="hfeed site">
-
   	<header id="navbar" class="navbar navbar-fixed-top navbar-inverse">
     	<div class="navbar-inner">
         <div class="container">

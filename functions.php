@@ -1,7 +1,9 @@
 <?php
 
 /**
- *  Add scripts to admin facing pages.
+ *  Admin-facing Scripts and Functions.
+ *
+ *  @author Justin Hedani
  *  @since 1.2.0
  */
 function admin_scripts() {
@@ -9,6 +11,18 @@ function admin_scripts() {
 }
 add_action('admin_enqueue_scripts', 'admin_scripts');
 add_action('login_enqueue_scripts', 'admin_scripts');
+
+/**
+ * Move <html> down to compensate for toolbar
+ * Note: The styling for this should be tweaked for each site.
+ * @since 1.2.0
+ */
+function clear_admin_toolbar() {
+  if ( ! is_admin() && current_user_can('manage_options') ) {
+    echo "<style type='text/css'>html{margin-top: 32px;} header#navbar{margin-top: 32px !important;}</style>";
+  }
+}
+add_action( 'wp_head', 'clear_admin_toolbar' );
 
 /**
  *	Return an array of the current user's role.
@@ -84,7 +98,7 @@ function add_useful_toolbar_menu() {
 			}
 		}
 
-		// Course Name Menu
+		// # Litton Bags (Dashboard/Home switch link)
 		$wp_admin_bar->add_menu( array(
 			'id' => 'back-to-home',
 			'title' => get_bloginfo('name'),
@@ -92,7 +106,7 @@ function add_useful_toolbar_menu() {
 			'href' => $location,
 		));
 
-		// Course Name Menu
+		// # View All
 		$wp_admin_bar->add_menu( array(
 			'id' => 'view-all',
 			'title' => 'View All',
@@ -100,7 +114,7 @@ function add_useful_toolbar_menu() {
 			'href' => $location,
 		));
 
-    // # Create a dropdown listing all post types
+    // # Create a dropdown listing all post types under View All
 		$postTypes = get_post_types( array(), 'object' );
 		foreach ($postTypes as $postType) {
 			if ( ($postType->name != 'attachment') || ($postType->name != 'revision') || ($postType->name != 'nav_menu_item') ) :
@@ -113,6 +127,14 @@ function add_useful_toolbar_menu() {
   			));
 			endif;
 		}
+
+    // # Shop Settings Link
+    $wp_admin_bar->add_menu( array(
+      "id" => "shop-settings",
+      "title" => "Shop Settings",
+      "meta" => array(),
+      "href" => get_admin_url() . "admin.php?page=acf-options",
+    ));
 
 		// Modify "Howdy in Menu Bar"
 		$user_id      = get_current_user_id();
@@ -132,22 +154,63 @@ function add_useful_toolbar_menu() {
             'title'     => __('My Account'),
         ),
     ) );
-
-		// // Table of Contents
-		// $wp_admin_bar->add_menu( array(
-		// 	'parent' => 'course-name',
-		// 	'id' => 'course-name-toc',
-		// 	'meta' => array(),
-		// 	'title' => 'Table of Contents',
-		// 	'href' => get_admin_url() . 'admin.php?page=global-sort.php',
-		// ));
-
 	}
 }
 add_action( 'admin_bar_menu', 'add_useful_toolbar_menu', 25 );
 
+
 /**
- * Client Scripts
+ * Create Stock Overview
+ * @since 1.2.0
+ */
+function dashboard_widget_stock_overview() {
+  // Retrieve a list of all post called "products"
+  global $post;
+  $products = new WP_Query(array(
+    'post_type' => 'products',
+    'post_per_page' => '-1',
+    'post_per_archive_page' => '-1'
+  ));
+  while ( $products->have_posts() ) : $products->the_post();
+    // List the name of each option (maybe with skus, titles and the little image)
+
+    // Product Options
+    if ( have_rows('product_skus', $post->ID ) ) {
+      while ( have_rows('product_skus', $post->ID ) ) : the_row();
+        //get_sub_field('sku');
+      endwhile;
+    endif;
+  endwhile;
+  wp_reset_postdata();
+
+}
+function dashboard_widget_stripe_overview() {
+  // See if we can
+  // Link to stripe
+}
+function add_dashboard_widgets() {
+  // Core
+  wp_add_dashboard_widget( "stock-overview", "Stock Overview", "dashboard_widget_stock_overview" );
+  // Side (http://codex.wordpress.org/Function_Reference/wp_add_dashboard_widget)
+  add_meta_box( "stripe-overview", "Stripe Overview", "dashboard_widget_stripe_overview", "dashboard", "side", "high" );
+}
+function remove_dashboard_widgets() {
+  remove_meta_box( 'dashboard_right_now', 'dashboard', 'core' );
+  remove_meta_box( 'dashboard_activity', 'dashboard', 'core' );
+  remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
+  remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
+}
+add_action( 'wp_dashboard_setup', 'add_dashboard_widgets' );
+add_action( 'wp_dashboard_setup', 'remove_dashboard_widgets' );
+
+
+
+
+/**
+ *  Client-facing scripts and functions
+ *
+ *  @author Justin Hedani
+ *  @since 1.2.0
  */
 function LTTNBAGS_dequeue_scripts() {
   wp_dequeue_script( 'bootstrap-tooltip' );

@@ -1,4 +1,4 @@
-/* Hide Admin Menu Sidebar for non-admins */
+/* Hide Admin Menu Sidebar */
 body.wp-admin #adminmenuback {
   display: none;
 }
