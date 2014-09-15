@@ -8,6 +8,8 @@
  */
 function admin_scripts() {
     wp_enqueue_style( 'admin-styles', get_stylesheet_directory_uri() . '/css/admin-styles.css' );
+    wp_enqueue_script( 'chartjs', get_stylesheet_directory_uri() . '/js/Chart.min.js' );
+    wp_enqueue_script( 'admin-scripts', get_stylesheet_directory_uri() . '/js/admin-scripts.js' );
 }
 add_action('admin_enqueue_scripts', 'admin_scripts');
 add_action('login_enqueue_scripts', 'admin_scripts');
@@ -166,23 +168,37 @@ add_action( 'admin_bar_menu', 'add_useful_toolbar_menu', 25 );
 function dashboard_widget_stock_overview() {
   // Retrieve a list of all post called "products"
   global $post;
+  $widget_contents = "<p>The current status of your product inventory.<p>";
+  $widget_contents .= '<canvas id="stock-overview" width="400" height="200"></canvas>';
   $products = new WP_Query(array(
     'post_type' => 'products',
+    'post_status' => 'publish',
     'post_per_page' => '-1',
     'post_per_archive_page' => '-1'
   ));
+  $widget_contents .= '<ul class="products">';
   while ( $products->have_posts() ) : $products->the_post();
     // List the name of each option (maybe with skus, titles and the little image)
-
+    $widget_contents .= '<li class="product">';
+    $widget_contents .= "<h3>" . get_the_title() . "</h3>";
     // Product Options
-    if ( have_rows('product_skus', $post->ID ) ) {
+    $widget_contents .= '<ul class="product-options">';
+    if ( have_rows('product_skus', $post->ID ) ) :
       while ( have_rows('product_skus', $post->ID ) ) : the_row();
-        //get_sub_field('sku');
+        $widget_contents .= '<li class="product-option">';
+        $widget_contents .= "<h4><span class='sku'>" . get_sub_field('sku') . "</span><span class='sku-quantity'>" . get_sub_field('sku_quantity') . "</span></h4>";
+        $widget_contents .= "</li>";
       endwhile;
     endif;
+    $widget_contents .= "</ul>";
   endwhile;
   wp_reset_postdata();
+  $widget_contents .= "</li>";
+  $widget_contents .= "</ul>";
 
+  // Show me the contents!
+  echo $widget_contents;
+  // <input type="submit" name="save" id="save-post" class="button button-primary" value="Save Draft">
 }
 function dashboard_widget_stripe_overview() {
   // See if we can
