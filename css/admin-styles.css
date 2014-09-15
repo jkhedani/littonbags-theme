@@ -1,3 +1,113 @@
+/**
+ *	Mixins
+ */
+.background-cover {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.capitalize {
+  text-transform: capitalize;
+}
+.border-box {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.no-text {
+  text-indent: 150%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/**
+ * Global	Fonts
+ */
+#font-family .oswald {
+  font-family: 'Oswald', 'sans-serif';
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#font-family .source-sans-pro {
+  font-family: 'Source Sans Pro', 'serif';
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#font-family .georgia {
+  font-family: 'Georgia', serif;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#font-family .josefin {
+  font-family: 'Josefin Sans', sans-serif !important;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/**
+ * Colors
+ */
+/**
+ * Forms
+ */
+::-webkit-input-placeholder,
+:-moz-placeholder,
+::-moz-placeholder,
+:-ms-input-placeholder {
+  color: red !important;
+}
+/**
+ * Fancy Stuff
+ */
+.spinner {
+  width: 30px;
+  height: 30px;
+  background-color: #9bd2cb;
+  display: block;
+  float: right;
+  margin-right: 20px;
+  -webkit-animation: rotateplane 1.2s infinite ease-in-out;
+  animation: rotateplane 1.2s infinite ease-in-out;
+}
+.spinner.medium {
+  width: 80px;
+  height: 80px;
+  float: none;
+  margin: 40px auto;
+}
+.spinner.large {
+  width: 130px;
+  height: 130px;
+  float: none;
+  margin: 40px auto;
+}
+.overlay.loading {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.9);
+}
+.overlay .spinner {
+  margin-top: 25%;
+}
+.overlay h4 {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  color: #737a7d;
+  text-transform: uppercase;
+  font-family: 'Josefin Sans', sans-serif !important;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 /* Hide Admin Menu Sidebar */
 body.wp-admin #adminmenuback {
   display: none;
@@ -11,6 +121,9 @@ body.wp-admin #wpfooter {
 }
 body.wp-admin #wpcontent .wrap {
   margin: 40px 0 20px;
+}
+body.wp-admin #wpcontent #screen-meta-links {
+  margin: 0;
 }
 body.login {
   background: url('../../images/public/marketing-bg.jpg') no-repeat center center fixed;
@@ -35,4 +148,40 @@ body.login p#backtoblog {
 body.login p#nav a,
 body.login p#backtoblog a {
   color: #FFF;
+}
+/* Dashboard Styles */
+body.index-php #security-image {
+  min-height: 200px;
+  overflow: hidden;
+}
+body.index-php #security-image .handlediv,
+body.index-php #security-image .hndle {
+  display: none;
+}
+body.index-php #security-image .inside {
+  margin: 0;
+  padding: 0;
+}
+body.index-php #security-image .inside:before,
+body.index-php #security-image .inside:after {
+  content: " ";
+  display: table;
+}
+body.index-php #security-image .inside:after {
+  clear: both;
+}
+body.index-php #security-image .inside .site-title {
+  background: url('../images/litton-ludwig-logo-white.png') no-repeat;
+  display: block;
+  width: 163px;
+  height: 44px;
+  padding: 0;
+  margin: 20% auto;
+  position: relative;
+  z-index: 99;
+}
+body.index-php #security-image .inside img {
+  position: absolute;
+  left: 0;
+  top: 0;
 }

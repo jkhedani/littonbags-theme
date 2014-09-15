@@ -8,6 +8,8 @@
  */
 function admin_scripts() {
     wp_enqueue_style( 'admin-styles', get_stylesheet_directory_uri() . '/css/admin-styles.css' );
+    wp_enqueue_script( 'chartjs', get_stylesheet_directory_uri() . '/js/Chart.min.js' );
+    wp_enqueue_script( 'admin-scripts', get_stylesheet_directory_uri() . '/js/admin-scripts.js' );
 }
 add_action('admin_enqueue_scripts', 'admin_scripts');
 add_action('login_enqueue_scripts', 'admin_scripts');
@@ -166,33 +168,71 @@ add_action( 'admin_bar_menu', 'add_useful_toolbar_menu', 25 );
 function dashboard_widget_stock_overview() {
   // Retrieve a list of all post called "products"
   global $post;
+  $widget_contents = "<p>The current status of your product inventory.<p>";
+  $widget_contents .= '<canvas id="stock-overview" width="273" height="200"></canvas>';
   $products = new WP_Query(array(
     'post_type' => 'products',
+    'post_status' => 'publish',
     'post_per_page' => '-1',
     'post_per_archive_page' => '-1'
   ));
+  $widget_contents .= '<ul class="products">';
   while ( $products->have_posts() ) : $products->the_post();
     // List the name of each option (maybe with skus, titles and the little image)
-
+    $widget_contents .= '<li class="product">';
+    $widget_contents .= "<h3>" . get_the_title() . "</h3>";
     // Product Options
-    if ( have_rows('product_skus', $post->ID ) ) {
+    $widget_contents .= '<ul class="product-options">';
+    if ( have_rows('product_skus', $post->ID ) ) :
       while ( have_rows('product_skus', $post->ID ) ) : the_row();
-        //get_sub_field('sku');
+        $widget_contents .= '<li class="product-option">';
+        $widget_contents .= "<h4><span class='sku'>" . get_sub_field('sku') . "</span><span class='sku-quantity'>" . get_sub_field('sku_quantity') . "</span></h4>";
+        $widget_contents .= "</li>";
       endwhile;
     endif;
+    $widget_contents .= "</ul>";
   endwhile;
   wp_reset_postdata();
+  $widget_contents .= "</li>";
+  $widget_contents .= "</ul>";
 
+  // Show me the contents!
+  echo $widget_contents;
 }
+
+/**
+ * Stripe Widget
+ * @require To Market
+ */
 function dashboard_widget_stripe_overview() {
-  // See if we can
-  // Link to stripe
+  // List of balance history
+  require_once( dirname( __FILE__ ) . '/lib/ToMarket/lib/Stripe/lib/Stripe.php'); // Load Stripe Client Library (PHP)
+  Stripe::setApiKey( stripe_api_key('secret') ); // # Present Secret API Key
+  $transactions = Stripe_Charge::all(array("limit" => 3))->data;
+  //var_dump($transactions->data);
+  // foreach ( $transactions as $transaction ) {
+  //   echo '<pre>';
+  //   var_dump($transaction);
+  //   echo '</pre>';
+  // }
+
+  echo '<a class="button button-primary" href="https://dashboard.stripe.com/dashboard" target="_blank">Go to Stripe Dashboard</a>';
+}
+function dashboard_widget_easypost_overview() {
+  echo '<a class="button button-primary" href="https://www.easypost.com/login" target="_blank">Go to EasyPost Dashboard</a>';
+}
+function dashboard_widget_security_image() {
+  $attachement_data = wp_get_attachment_image_src( 383, "large" );
+  echo '<div class="site-title"></div>';
+  echo '<img src="'.$attachement_data[0].'" width="'.$attachement_data[1].'" height="'.$attachement_data[2].'" />';
 }
 function add_dashboard_widgets() {
   // Core
   wp_add_dashboard_widget( "stock-overview", "Stock Overview", "dashboard_widget_stock_overview" );
   // Side (http://codex.wordpress.org/Function_Reference/wp_add_dashboard_widget)
-  add_meta_box( "stripe-overview", "Stripe Overview", "dashboard_widget_stripe_overview", "dashboard", "side", "high" );
+  add_meta_box( "security-image", "Security Image", "dashboard_widget_security_image", "dashboard", "side", "high" );
+  add_meta_box( "stripe-overview", "Stripe", "dashboard_widget_stripe_overview", "dashboard", "side", "high" );
+  add_meta_box( "easypost-overview", "EasyPost", "dashboard_widget_easypost_overview", "dashboard", "side", "high" );
 }
 function remove_dashboard_widgets() {
   remove_meta_box( 'dashboard_right_now', 'dashboard', 'core' );
