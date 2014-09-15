@@ -169,7 +169,7 @@ function dashboard_widget_stock_overview() {
   // Retrieve a list of all post called "products"
   global $post;
   $widget_contents = "<p>The current status of your product inventory.<p>";
-  $widget_contents .= '<canvas id="stock-overview" width="400" height="200"></canvas>';
+  $widget_contents .= '<canvas id="stock-overview" width="273" height="200"></canvas>';
   $products = new WP_Query(array(
     'post_type' => 'products',
     'post_status' => 'publish',
@@ -198,17 +198,41 @@ function dashboard_widget_stock_overview() {
 
   // Show me the contents!
   echo $widget_contents;
-  // <input type="submit" name="save" id="save-post" class="button button-primary" value="Save Draft">
 }
+
+/**
+ * Stripe Widget
+ * @require To Market
+ */
 function dashboard_widget_stripe_overview() {
-  // See if we can
-  // Link to stripe
+  // List of balance history
+  require_once( dirname( __FILE__ ) . '/lib/ToMarket/lib/Stripe/lib/Stripe.php'); // Load Stripe Client Library (PHP)
+  Stripe::setApiKey( stripe_api_key('secret') ); // # Present Secret API Key
+  $transactions = Stripe_Charge::all(array("limit" => 3))->data;
+  //var_dump($transactions->data);
+  // foreach ( $transactions as $transaction ) {
+  //   echo '<pre>';
+  //   var_dump($transaction);
+  //   echo '</pre>';
+  // }
+
+  echo '<a class="button button-primary" href="https://dashboard.stripe.com/dashboard" target="_blank">Go to Stripe Dashboard</a>';
+}
+function dashboard_widget_easypost_overview() {
+  echo '<a class="button button-primary" href="https://www.easypost.com/login" target="_blank">Go to EasyPost Dashboard</a>';
+}
+function dashboard_widget_security_image() {
+  $attachement_data = wp_get_attachment_image_src( 383, "large" );
+  echo '<div class="site-title"></div>';
+  echo '<img src="'.$attachement_data[0].'" width="'.$attachement_data[1].'" height="'.$attachement_data[2].'" />';
 }
 function add_dashboard_widgets() {
   // Core
   wp_add_dashboard_widget( "stock-overview", "Stock Overview", "dashboard_widget_stock_overview" );
   // Side (http://codex.wordpress.org/Function_Reference/wp_add_dashboard_widget)
-  add_meta_box( "stripe-overview", "Stripe Overview", "dashboard_widget_stripe_overview", "dashboard", "side", "high" );
+  add_meta_box( "security-image", "Security Image", "dashboard_widget_security_image", "dashboard", "side", "high" );
+  add_meta_box( "stripe-overview", "Stripe", "dashboard_widget_stripe_overview", "dashboard", "side", "high" );
+  add_meta_box( "easypost-overview", "EasyPost", "dashboard_widget_easypost_overview", "dashboard", "side", "high" );
 }
 function remove_dashboard_widgets() {
   remove_meta_box( 'dashboard_right_now', 'dashboard', 'core' );
