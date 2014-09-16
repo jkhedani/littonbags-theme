@@ -323,21 +323,26 @@ html {
 					ul {
 						margin: -9px 15px 0 0;
 						li {
+							float: left;
 							list-style: none;
-							// Shop Link
-							a { position: relative; }
-							a[title="shop"] {
+							a {
 								width: 80px;
 								height: 83px;
 								display: block;
+								position: relative;
+								float: left;
 								color: #FFF;
-								text-transform: uppercase;
-								padding: 15px 0 0 14px;
 								#font-family > .oswald;
 								font-size: 20px;
 								font-weight: 200;
-								//background: url('../images/menu-ribbon-shop.png') -2px 0 no-repeat;
-								//.no-text();
+								text-transform: uppercase;
+							}
+							// Shop Link
+							a[title="shop"] {
+								padding: 15px 0 0 14px;
+							}
+							a[title="blog"] {
+								padding: 15px 0 0 14px;
 							}
 						}
 					}

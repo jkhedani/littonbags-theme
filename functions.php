@@ -126,6 +126,15 @@ function add_useful_toolbar_menu() {
       "href"   => get_admin_url() . "plugins.php",
     ));
 
+    // # Litton Bags: Menus
+    $wp_admin_bar->add_menu( array(
+      'id'     => 'menus',
+      'parent' => 'back-to-home',
+      "title"  => "Menus",
+      "meta"   => array(),
+      "href"   => get_admin_url() . "menus.php",
+    ));
+
 		// # View All
 		$wp_admin_bar->add_menu( array(
 			'id' => 'view-all',

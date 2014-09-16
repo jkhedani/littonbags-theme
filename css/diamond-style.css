@@ -826,24 +826,29 @@ html body header#navbar .navbar-inner .menu-main-menu-container ul {
   margin: -9px 15px 0 0;
 }
 html body header#navbar .navbar-inner .menu-main-menu-container ul li {
+  float: left;
   list-style: none;
 }
 html body header#navbar .navbar-inner .menu-main-menu-container ul li a {
-  position: relative;
-}
-html body header#navbar .navbar-inner .menu-main-menu-container ul li a[title="shop"] {
   width: 80px;
   height: 83px;
   display: block;
+  position: relative;
+  float: left;
   color: #FFF;
-  text-transform: uppercase;
-  padding: 15px 0 0 14px;
   font-family: 'Oswald', 'sans-serif';
   font-weight: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 20px;
   font-weight: 200;
+  text-transform: uppercase;
+}
+html body header#navbar .navbar-inner .menu-main-menu-container ul li a[title="shop"] {
+  padding: 15px 0 0 14px;
+}
+html body header#navbar .navbar-inner .menu-main-menu-container ul li a[title="blog"] {
+  padding: 15px 0 0 14px;
 }
 html body #main {
   overflow: hidden;
