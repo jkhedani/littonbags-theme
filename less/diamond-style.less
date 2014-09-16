@@ -5,7 +5,7 @@
 @import "mixins-variables.less";
 @import "diamond-style-variables.less"; // Replace this line with your new variables, if you like.
 @import "../../bedrock/inc/bootstrap/less/mixins.less";
-@import "../../bedrock/inc/bootstrap/less/modals.less";
+//@import "bootstrap/modals.less";
 @import "../../bedrock/inc/bootstrap/less/tooltip.less";
 @import "../../bedrock/inc/bootstrap/less/popovers.less";
 @import "../../bedrock/inc/bootstrap/less/carousel.less";
@@ -784,46 +784,63 @@ body.single-products {
 /**
  *	Look Book Styles
  */
+#lookBookModal + .modal-backdrop { background: fade(@lightGray,90%); }
 #lookBookModal {
-	left: 50%;
-	z-index: 1050;
-	width: 80%;
-	margin-left: -40%;
-	overflow: hidden;
-	z-index: 99999;
-	border-radius: 0;
-	border: none;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	.close { font-size: 12px; text-transform: uppercase; margin-top: 35px; }
-	.modal-header {
-		margin: 0;
-		padding: 0 25px;
-		border: none;
-		h2 {
-			margin: 30px 0 24px;
-			float: left;
-			color: @mint;
-			#font-family > .learning-curve;
-			font-weight: normal;
-			font-size: 68px;
+	.modal-dialog {
+		margin-top: 15%;
+		.modal-body {
+			padding: 0px;
+			left: 50%;
+			z-index: 1050;
+			width: 100%;
+			margin-left: -50%;
+			overflow: hidden;
+			//z-index: 99999;
+			border-radius: 0;
+			border: none;
+			-moz-box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+
+			// Lookbook Logo ( White corner logo )
+			.lookbook-logo {
+				position: absolute;
+				right: 20px;
+				bottom: 20px;
+				width: 115px;
+				z-index: 9;
+			}
+
+			// Look Book carousel
+			ol.carousel-indicators {
+				opacity: 0.5;
+				top: auto;
+				bottom: 15px;
+				left: 15px;
+				li { width: 8px; height: 8px; }
+				li.active { width: 9px; height: 9px; margin-left: 5px; }
+			}
+
+			.close { font-size: 12px; text-transform: uppercase; margin-top: 35px; }
+			.modal-header {
+				margin: 0;
+				padding: 0 25px;
+				border: none;
+				h2 {
+					margin: 30px 0 24px;
+					float: left;
+					color: @mint;
+					#font-family > .learning-curve;
+					font-weight: normal;
+					font-size: 68px;
+				}
+				.content-fluff {
+					position: absolute;
+					left: -180px;
+					top: -10px;
+				}
+			}
 		}
-		.content-fluff {
-			position: absolute;
-			left: -180px;
-			top: -10px;
-		}
-	}
-	.modal-body {
-		max-height: none;
-		// height: 475px;
-		width: 100%;
-		overflow-y: hidden;
-		padding: 0;
-		margin: 0;
-		z-index: 99;
-		.view-master { overflow: hidden; } // hack!
 	}
 }
 

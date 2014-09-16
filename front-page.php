@@ -12,18 +12,41 @@
  */
 
 get_header(); ?>
-			
+
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
 
 			<!-- Background image -->
       <div id="homeCarousel" class="carousel slide">
         <div class="carousel-inner">
-        <?php $i = 0; ?>
-        <?php $home_featured_gallery = get_field('home_gallery'); ?>
-        <?php foreach ( $home_featured_gallery as $home_featured_gallery_meta ) { ?>
-          <img class="item <?php if (!$i++) echo 'active'; ?>" src="<?php echo $home_featured_gallery_meta['home_gallery_image']; ?>" />
-        <?php } ?>
+				<?php
+					/**
+					 * Use ACF only to display lookbooks
+					 * @since 1.2.0
+					 */
+					$lookbooks = new WP_Query(array(
+						'post_type' 			=> 'look_books',
+						'posts_per_page' 	=> 1, // Limit one for home page
+						'meta_key'				=> 'look_book_location',
+						'meta_query' 			=> array (
+							array (
+								'key' 		=> 'look_book_location',
+								'value' 	=> '"' . $post->ID . '"',
+								'compare' => 'LIKE'
+							)
+						)
+					));
+					$i = 0;
+					while ( $lookbooks->have_posts() ) : $lookbooks->the_post();
+						if ( have_rows('look_book', $post->ID ) ) :
+							while ( have_rows('look_book', $post->ID ) ) : the_row();
+								$lookbook_image = wp_get_attachment_image_src( get_sub_field('look_book_page'), 'full' ); ?>
+								<img class="item <?php if (!$i++) echo 'active'; ?>" src="<?php echo $lookbook_image[0]; ?>" />
+							<?php endwhile;
+						endif;
+					endwhile;
+					wp_reset_postdata();
+				?>
         </div><!-- .carousel-inner -->
         <a class="carousel-control left" href="#homeCarousel" data-slide="prev">&lsaquo;</a>
         <a class="carousel-control right" href="#homeCarousel" data-slide="next">&rsaquo;</a>

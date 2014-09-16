@@ -6,13 +6,7 @@
 
 function fetch_look_book() {
 
-	do_action('init');
-	// Need to grab connection types as well.
-	// Safe hook for calling p2p_register_connection_type()
-	// https://github.com/scribu/wp-posts-to-posts/blob/master/posts-to-posts.php
-	_p2p_init();
-
-	global $wpdb, $wp_query, $post;
+	global $wp_query, $post;
 
 	// Nonce check
 	$nonce = $_REQUEST['nonce'];
@@ -24,6 +18,9 @@ function fetch_look_book() {
 	// Grab filter values via ajax...
 	if ( isset($_REQUEST['lookBookID']) ) {
 		$lookBookID = $_REQUEST['lookBookID'];
+	}
+	if ( isset($_REQUEST['lookBookSize']) ) {
+		$lookbooksize = $_REQUEST['lookBookSize'];
 	}
 
 	// A. Here we want to check if a lookbook is available. If so, let's render the gallery.
@@ -38,47 +35,49 @@ function fetch_look_book() {
 	while ( $lookbook->have_posts() ) : $lookbook->the_post();
 
 		if ( have_rows('look_book', $post->ID) ) {
+			$i = 0;
 			$lookbookPages = get_field('look_book', $post->ID);
 
-			$html .=  '<div id="lookBookModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
-			// $html .=    '<div class="modal-header">';
-			// $html .=    	'<h2>'.get_the_title().'</h2>';
-			// $html .=    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">Back</button>';
-			// $html .=			'<div class="content-fluff stamp-watermark"></div>';
-			// $html .=   '</div>';
+			$html .=  '<div id="lookBookModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+			$html .=	 '<div class="modal-dialog">';
 			$html .=   '<div class="modal-body">';
-			$html .= 	 	'<div id="lookBookViewer" class="view-master">';
-			$html .=			'<div class="view-master-controls">';
-		  $html .=  			'<a class="view-master-control left" href="#productViewer" data-slide="prev">&lsaquo;</a>';
-		  $html .=  			'<a class="view-master-control right" href="#productViewer" data-slide="next">&rsaquo;</a>';
-		  // Construct counter
-			$i = 0;
-		  $lookbookPages = get_field('look_book', $post->ID);
-			$html .= 				'<div class="view-master-counters">';
+			// Litton Bags Logo
+			$html .=		'<div class="lookbook-logo">';
+			$html .= 			'<img src="'.get_stylesheet_directory_uri() .'/images/litton-ludwig-logo-white.png" />';
+			$html  .= 		'</div>';
+			// Carousel
+			$html .= 	 	'<div id="lookBookViewer" class="carousel slide">';
+			// Carousel Indicators
+			$html .=		'<ol class="carousel-indicators">';
 			foreach ( $lookbookPages as $lookbookPage ) {
-				$html .= 				'<span class="view-master-counter"></span>';
+				if ( !$i++ ) :
+					$html .=			'<li data-target="#carousel-example-generic" data-slide-to="'.$i.'" class="active"></li>';
+				else :
+					$html .=			'<li data-target="#carousel-example-generic" data-slide-to="'.$i.'"></li>';
+				endif;
 			}
-			$html .= 				'</div>';
-		  $html .=  		'</div><!-- .view-master-controls -->';
-		  $html .=  		'<div class="view-master-reel">';
+			$html .=		'</ol>';
 
-		  // Construct slides
-		  while ( have_rows('look_book',$post->ID) ) : the_row();
-			  if ( !$i++ ) {
-			  $html .=  			'<div class="slide active">';
-			  } else {
-			  $html .=  			'<div class="slide">';
-			  }
-			  // $html .=  				'<div class="slide-content">';
-			  $html .=						'<img src="'.get_sub_field('look_book_page').'" />';
-			  //$html .=				'<div class="background-image item" style="background-image:url('.$lookbookPage['look_book_page'].');"></div>';
-			  // $html .=  		'</div>';
-			  $html .=  			'</div>';
+		  // Carousel Slides
+			$i = 0; // Reset counter
+			$html .= '<div class="carousel-inner">';
+			while ( have_rows('look_book', $post->ID ) ) : the_row();
+			$lookbook_image = wp_get_attachment_image_src( get_sub_field('look_book_page'), $lookbooksize ); // Set lookbook image size based on screen width
+			if ( !$i++ ) :
+				$html .=	'<img class="item active" src="' . $lookbook_image[0] . '" />';
+			else :
+				$html .=	'<img class="item" src="' . $lookbook_image[0] . '" />';
+			endif;
 			endwhile;
-		  $html .=			'</div><!-- .view-master-reel -->';
+			$html .= '</div>';
 
-			$html .=		'</div><!-- .view-master -->';
+			// Carousel Controls
+			$html .= 				'<a class="carousel-control left" href="#lookBookViewer" data-slide="prev">&lsaquo;</a>';
+			$html .= 				'<a class="carousel-control right" href="#lookBookViewer" data-slide="next">&rsaquo;</a>';
+			$html .= 		'</div>'; // carousel
+
 			$html .=   '</div>'; // .modal-body
+			$html .= 	'</div>'; // .modal-dialog
 			$html .= '</div>'; // .modal
 	  }
 
@@ -98,11 +97,5 @@ function fetch_look_book() {
 }
 add_action('wp_ajax_nopriv_fetch_look_book', 'fetch_look_book');
 add_action('wp_ajax_fetch_look_book', 'fetch_look_book');
-
-//Run Ajax calls even if user is logged in
-if(isset($_REQUEST['action']) && ($_REQUEST['action']=='fetch_look_book')):
-	do_action( 'wp_ajax_' . $_REQUEST['action'] );
-  do_action( 'wp_ajax_nopriv_' . $_REQUEST['action'] );
-endif;
 
 ?>

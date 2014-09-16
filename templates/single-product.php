@@ -18,18 +18,23 @@
 		<?php endif; ?>
 		<!-- Product Lookbook Link -->
 		<?php
-			// Here we want to check if a lookbook is available. If so, let's render the gallery.
-			$lookbook = new WP_Query( array(
-				'post_type' => 'look_books',
-				'connected_type' => 'look_books_to_products',
-  			'connected_items' => get_queried_object(),
-  			'nopaging' => true,
+			$lookbooks = new WP_Query(array(
+				'post_type' 			=> 'look_books',
+				'posts_per_page' 	=> -1, // Limit one for home page
+				'meta_key'				=> 'look_book_location',
+				'meta_query' 			=> array (
+					array (
+						'key' 		=> 'look_book_location',
+						'value' 	=> '"' . $post->ID . '"',
+						'compare' => 'LIKE'
+					)
+				)
 			));
 		?>
-		<?php if ( $lookbook->have_posts() ) : ?>
-			<?php while ( $lookbook->have_posts() ) : $lookbook->the_post(); ?>
+		<?php if ( $lookbooks->have_posts() ) : ?>
+			<?php while ( $lookbooks->have_posts() ) : $lookbooks->the_post(); ?>
 				<div id="generate-lookbook" class="lookbook-link-container">
-					<a class="lookbook-link" href="#generate-lookbook" data-look-book-id="<?php echo $post->ID; ?>">View The Lookbook</a>
+					<a class="lookbook-link" href="#generate-lookbook" data-look-book-id="<?php echo $post->ID; ?>">View <?php echo get_the_title(); ?> Lookbook</a>
 				</div>
 			<?php endwhile; ?>
 			<?php wp_reset_postdata(); ?>

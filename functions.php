@@ -108,6 +108,24 @@ function add_useful_toolbar_menu() {
 			'href' => $location,
 		));
 
+    // # Litton Bags: ACF Custom Fields
+    $wp_admin_bar->add_menu( array(
+      'id'     => 'custom-fields',
+      'parent' => 'back-to-home',
+      "title"  => "Custom Fields",
+      "meta"   => array(),
+      "href"   => get_admin_url() . "edit.php?post_type=acf",
+    ));
+
+    // # Litton Bags: Plugins
+    $wp_admin_bar->add_menu( array(
+      'id'     => 'plugins',
+      'parent' => 'back-to-home',
+      "title"  => "Plugins",
+      "meta"   => array(),
+      "href"   => get_admin_url() . "plugins.php",
+    ));
+
 		// # View All
 		$wp_admin_bar->add_menu( array(
 			'id' => 'view-all',
@@ -268,6 +286,7 @@ function LTTNBAGS_enqueue_scripts() {
   wp_enqueue_style( 'google-fonts-source-sans-pro', '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', array(), false, 'all' );
   wp_enqueue_style( 'google-fonts-josefin-sans', '//fonts.googleapis.com/css?family=Josefin+Sans:300,400', array(), false, 'all' );
   wp_enqueue_style( 'font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css', array(), false, 'all' );
+  wp_enqueue_style( 'bootstrap-modal', get_stylesheet_directory_uri().'/css/bootstrap/modals.css', array(), false, 'all' );
 
   // Enqueue Styles
   // Must come after bootstrap styles as some styles override others.
@@ -351,38 +370,6 @@ function LTTNBAGS_post_types() {
   );
 }
 add_action( 'init', 'LTTNBAGS_post_types' );
-
-/**
- *  P2P Connections
- */
-function LTTNBAGS_connection_types() {
-
-  // Connect
-  p2p_register_connection_type( array(
-    // Connnection Attributes
-    'name' => 'look_books_to_products',
-    'from' => 'look_books',
-    'to' => 'products',
-    // 'reciprocol' => true,
-    // 'admin_box' => 'from',
-    'sortable' => 'any',
-    // 'title' => array( 'from' => __( 'Connected Modules', 'my-textdomain' ), 'to' => __( 'Connected Unit', 'my-textdomain' ) ),
-    // 'from_labels' => array(
-    //   'singular_name' => __( 'Unit', 'my-textdomain' ),
-    //   'search_items' => __( 'Search Units', 'my-textdomain' ),
-    //   'not_found' => __( 'No Units found.', 'my-textdomain' ),
-    //   'create' => __( 'Connect to a Unit', 'my-textdomain' ),
-    // ),
-    // 'to_labels' => array(
-    //   'singular_name' => __( 'Module', 'my-textdomain' ),
-    //   'search_items' => __( 'Search Modules', 'my-textdomain' ),
-    //   'not_found' => __( 'No Modules found.', 'my-textdomain' ),
-    //   'create' => __( 'Connect a Module', 'my-textdomain' ),
-    // ),
-  ));
-
-}
-add_action( 'p2p_init', 'LTTNBAGS_connection_types' );
 
 /**
  *  Look Books
