@@ -84,7 +84,6 @@ $page_keywords = 'women\'s camera bags, women\'s camera purse, leather camera ba
 						?>
 						<ul id="menu-<?php echo $menu->slug; ?>" class="main-menu">
 							<?php foreach ( $menu_items as $menu_item ) { ?>
-								<?php error_log(print_r($menu_item,true)); ?>
 								<li>
 									<a title="<?php echo $menu_item->attr_title; ?>" href="<?php echo $menu_item->url; ?>">
 										<?php echo $menu_item->title; ?>
