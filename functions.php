@@ -160,6 +160,7 @@ function add_useful_toolbar_menu() {
     // # Shop Settings Link
     $wp_admin_bar->add_menu( array(
       "id" => "shop-settings",
+      'parent' => 'back-to-home',
       "title" => "Shop Settings",
       "meta" => array(),
       "href" => get_admin_url() . "admin.php?page=acf-options",
@@ -226,6 +227,11 @@ function dashboard_widget_stock_overview() {
   // Show me the contents!
   echo $widget_contents;
 }
+function dashboard_widget_shop_settings() {
+  echo 'PayPal API status: test';
+  echo 'Stripe API status: test';
+  echo '<a class="button button-primary" href="'. get_admin_url() . 'admin.php?page=acf-options">Shop Settings</a>';
+}
 
 /**
  * Stripe Widget
@@ -256,6 +262,7 @@ function dashboard_widget_security_image() {
 function add_dashboard_widgets() {
   // Core
   wp_add_dashboard_widget( "stock-overview", "Stock Overview", "dashboard_widget_stock_overview" );
+  wp_add_dashboard_widget( "shop-settings", "Shop Settings", "dashboard_widget_shop_settings" );
   // Side (http://codex.wordpress.org/Function_Reference/wp_add_dashboard_widget)
   add_meta_box( "security-image", "Security Image", "dashboard_widget_security_image", "dashboard", "side", "high" );
   add_meta_box( "stripe-overview", "Stripe", "dashboard_widget_stripe_overview", "dashboard", "side", "high" );
