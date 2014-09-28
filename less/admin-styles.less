@@ -1,0 +1,57 @@
+@import "mixins-variables.less";
+
+/* Hide Admin Menu Sidebar */
+body.wp-admin {
+    #adminmenuback { display: none; }
+    #adminmenuwrap { display: none; }
+    #wpcontent, #wpfooter {
+        margin: 0 80px;
+    }
+    #wpcontent {
+      .wrap { margin: 40px 0 20px; }
+      #screen-meta-links { margin: 0; } // Straighten "Screen options link"
+    }
+}
+
+body.login {
+	background: url('../../images/public/marketing-bg.jpg') no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+  div#login {
+    padding-top: 15%;
+    h1 a {
+        background-size: auto;
+        background-image: url('../../images/public/bh-beta-logo.png');
+        width: auto;
+    }
+  }
+  p#nav, p#backtoblog { padding: 0; margin-top: 10px; }
+  p#nav a,p#backtoblog a { color: #FFF; }
+}
+
+/* Dashboard Styles */
+body.index-php {
+    #security-image {
+      min-height: 200px;
+      overflow: hidden;
+      .handlediv, .hndle { display: none; }
+      .inside {
+        margin: 0;
+        padding: 0;
+        .clearfix();
+        .site-title {
+          background: url('../images/litton-ludwig-logo-white.png') no-repeat;
+          display: block;
+          width: 163px;
+          height: 44px;
+          padding: 0;
+          margin: 20% auto;
+          position: relative;
+          z-index: 99;
+        }
+        img { position: absolute; left: 0; top: 0; }
+      }
+    }
+}

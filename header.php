@@ -11,7 +11,6 @@
  * Metadata Generation
  * Generate various pieces of meta data for the site's head
  */
-
 // # <meta name="description">
 if ( get_field('product_description') ) :
 	$page_description = get_field('product_description');
@@ -27,40 +26,20 @@ $page_keywords = 'women\'s camera bags, women\'s camera purse, leather camera ba
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
-
 	<title><?php wp_title( '|' ); ?></title>
-<meta charset="<?php bloginfo( 'charset' ); ?>" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="description" content="<?php echo $page_description; ?>" />
-<meta name="keywords" content="<?php echo $page_keywords; ?>" />
-<link rel="profile" href="http://gmpg.org/xfn/11" />
-<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-<link rel="shortcut icon" href="<?php bloginfo( 'stylesheet_directory' ); ?>/images/favicon.png" />
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-<!--[if lt IE 9]>
-<script src="<?php echo get_template_directory_uri(); ?>/inc/js/html5.js" type="text/javascript"></script>
-<![endif]-->
+	<meta charset="<?php bloginfo( 'charset' ); ?>" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<meta name="description" content="<?php echo $page_description; ?>" />
+	<meta name="keywords" content="<?php echo $page_keywords; ?>" />
+	<link rel="profile" href="http://gmpg.org/xfn/11" />
+	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+	<link rel="shortcut icon" href="<?php bloginfo( 'stylesheet_directory' ); ?>/images/favicon.png" />
+	<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+	<!--[if lt IE 9]>
+	<script src="<?php echo get_template_directory_uri(); ?>/inc/js/html5.js" type="text/javascript"></script>
+	<![endif]-->
 
-<?php
-
-	wp_head();
-
-	/*
-	 * ADMIN: Move navbar down from under admin when user is
-   * logged in but not in the theme customizer previewer
-	 */
-  global $wp_customize;
-  if ( is_user_logged_in() && ! isset( $wp_customize ) ) {
-    echo '
-    <style type="text/css">
-      #navbar { margin-top: 28px; } /* Positions navbar below admin bar */
-      #main { padding-top: 88px; } /* Lowers all content below navbar to approximate position */
-      @media (max-width: 979px) {
-        #main { padding-top: 0px; } /* Navbar turns static, no need for compensation here*/
-      }
-    </style>';
-  }
-?>
+	<?php wp_head(); ?>
 
 <!-- Google Analytics Script -->
 <script>
@@ -77,9 +56,7 @@ $page_keywords = 'women\'s camera bags, women\'s camera purse, leather camera ba
 </head>
 
 <body <?php body_class(); ?>>
-
   <div id="page" class="hfeed site">
-
   	<header id="navbar" class="navbar navbar-fixed-top navbar-inverse">
     	<div class="navbar-inner">
         <div class="container">
@@ -87,10 +64,8 @@ $page_keywords = 'women\'s camera bags, women\'s camera purse, leather camera ba
           <!-- Site Logo -->
           <a class="site-title" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
 
-          <!-- Shopping Cart Trigger -->
-          <div class="shoppingcart">
-            <a href="javascript:void(0);" class="shoppingcartshow">Cart</a>
-          </div>
+          <!-- Hand Basket Toggle -->
+          <a href="javascript:void(0);" data-toggle="hand-basket"><i class="fa fa-shopping-cart"></i></a>
 
           <!-- Site Main Menu -->
           <div class="menu-main-menu-container">
@@ -111,7 +86,7 @@ $page_keywords = 'women\'s camera bags, women\'s camera purse, leather camera ba
 							<?php foreach ( $menu_items as $menu_item ) { ?>
 								<li>
 									<a title="<?php echo $menu_item->attr_title; ?>" href="<?php echo $menu_item->url; ?>">
-										<?php echo $menu_item->post_title; ?>
+										<?php echo $menu_item->title; ?>
 										<i class="shape flag"></i>
 									</a>
 								</li>

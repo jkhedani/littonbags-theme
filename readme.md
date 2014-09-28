@@ -54,7 +54,29 @@ the street address or CVC is not valid, proceed by doing the following:
 +		Complete User Documentation
 +		Icons needed @2X: footer social icons, primary logo, & shopping cart
 
-### PayPal Checkout Routine
+### PayPal
+
+## Installation
+**Note:** Commands using `sudo` are for my reference (i.e. Vagrant setup).
+
+1.	PayPal's installation instructions are shit. Fuck them.
+2.	Open a shell window on your server (local should be your Vagrant machine)
+3.	Install Composer:
+				cd ~/
+				curl -sS https://getcomposer.org/installer | php
+4. 	Clone the PayPal API repo (I placed this in my theme to access WP
+		functions at runtime ):
+				git clone https://github.com/paypal/rest-api-sdk-php PayPal
+5.  A. If you want to run the samples:
+				cd PayPal/sample
+				sudo php ~/composer.phar update --no-dev
+6.  B. Write your own app:
+				cd PayPal
+				sudo mv sample/composer.json .
+				sudo mv sample/sdk_config.ini .
+				sudo php ~/composer.php update --no-dev
+
+## Resources.
 
 https://developer.paypal.com/webapps/developer/docs/integration/web/web-checkout/
 https://www.sandbox.paypal.com/

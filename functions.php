@@ -1,190 +1,335 @@
 <?php
 
 /**
- * Helper Functions
+ *  Admin-facing Scripts and Functions.
+ *
+ *  @author Justin Hedani
+ *  @since 1.2.0
  */
-
-// HTML set content type for sending html through WP_Mail
-function set_html_content_type() {
-    return 'text/html';
+function admin_scripts() {
+    wp_enqueue_style( 'admin-styles', get_stylesheet_directory_uri() . '/css/admin-styles.css' );
+    wp_enqueue_script( 'chartjs', get_stylesheet_directory_uri() . '/js/Chart.min.js' );
+    wp_enqueue_script( 'admin-scripts', get_stylesheet_directory_uri() . '/js/admin-scripts.js' );
 }
+add_action('admin_enqueue_scripts', 'admin_scripts');
+add_action('login_enqueue_scripts', 'admin_scripts');
 
-// Generate Random Order Number
-function generateRandomOrderNumber( $length ) {
-    $chars = array_merge(range('A', 'Z'), range(0, 9));
-    shuffle($chars);
-    return implode(array_slice($chars, 0, $length));
+/**
+ * Move <html> down to compensate for toolbar
+ * Note: The styling for this should be tweaked for each site.
+ * @since 1.2.0
+ */
+function clear_admin_toolbar() {
+  if ( ! is_admin() && current_user_can('manage_options') ) {
+    echo "<style type='text/css'>html{margin-top: 32px;} header#navbar{margin-top: 32px !important;}</style>";
+  }
 }
+add_action( 'wp_head', 'clear_admin_toolbar' );
 
-// Money formatter
-// Accepts only cents
-function format_money( $amount, $currencyType ) {
-    // Format: US
-    if ( $currencyType == 'US' ) {
-        $nonos = array( '.', '$' ); // Set possible objects to strip
-        $priceInPennies = str_replace( $nonos, '', $amount); // ensure cents
-        $prettyMoney = money_format( '%n', $priceInPennies/100 ); // Format yo cash
-        return $prettyMoney;
-    }
+/**
+ *	Return an array of the current user's role.
+ *	@since 1.2.0
+ *	@return array All current user's roles
+ */
+if ( ! function_exists('get_current_user_role') ) :
+	function get_current_user_role() {
+		global $current_user;
+		get_currentuserinfo();
+		$user_roles = $current_user->roles;
+		$user_role = array_shift($user_roles);
+		return $user_role;
+	};
+endif;
+
+/**
+ * 	Add special body classes to tell client if user is admin or not.
+ *	@since 1.2.0
+ */
+function admin_class_names($classes) {
+	// If user is on the 'admin' side and is not an admin
+	if( is_admin() && !current_user_can('manage_options') ) {
+		// add 'class-name' to the $classes array
+		$classes .= 'not-admin';
+		// return the $classes array
+		return $classes;
+	} else {
+		return $classes;
+	}
+}
+// add_filter('admin_body_class','admin_class_names');
+
+/**
+ *	Tweak the toolbar.
+ *	@link http://codex.wordpress.org/Class_Reference/WP_Admin_Bar
+ *  @since 1.2.0
+ */
+function toolbar_tweaks() {
+	global $wp_admin_bar;
+
+	// Remove these menu items (for now)
+	$wp_admin_bar->remove_menu( 'search' );
+	$wp_admin_bar->remove_menu( 'dashboard' );
+	$wp_admin_bar->remove_menu( 'site-name' ); // Re-creating on our own for more control
+	$wp_admin_bar->remove_menu( 'wp-logo' );
+	$wp_admin_bar->remove_menu( 'comments' );
+
+	// Hide "My Sites" from users associated with only one course
+	$current_user = wp_get_current_user();
+	if ( count( get_blogs_of_user( $current_user->ID ) ) == 1 ) {
+		$wp_admin_bar->remove_menu( 'my-sites' );
+	}
+}
+add_action( 'wp_before_admin_bar_render', 'toolbar_tweaks' );
+
+/**
+ * Create useful toolbar menus.
+ * @since 1.2.0
+ */
+function add_useful_toolbar_menu() {
+	global $wp_admin_bar;
+	if ( current_user_can('edit_posts') ) {
+
+    // # Set location to either front-facing home or the admin dashboard
+		if ( !current_user_can('manage_options') ) {
+			$location = get_home_url();
+		} else {
+			if ( is_admin() ) {
+				$location = get_home_url();
+			} else {
+				$location = get_admin_url();
+			}
+		}
+
+		// # Litton Bags (Dashboard/Home switch link)
+		$wp_admin_bar->add_menu( array(
+			'id' => 'back-to-home',
+			'title' => get_bloginfo('name'),
+			'meta' => array(),
+			'href' => $location,
+		));
+
+    // # Litton Bags: ACF Custom Fields
+    $wp_admin_bar->add_menu( array(
+      'id'     => 'custom-fields',
+      'parent' => 'back-to-home',
+      "title"  => "Custom Fields",
+      "meta"   => array(),
+      "href"   => get_admin_url() . "edit.php?post_type=acf",
+    ));
+
+    // # Litton Bags: Plugins
+    $wp_admin_bar->add_menu( array(
+      'id'     => 'plugins',
+      'parent' => 'back-to-home',
+      "title"  => "Plugins",
+      "meta"   => array(),
+      "href"   => get_admin_url() . "plugins.php",
+    ));
+
+    // # Litton Bags: Menus
+    $wp_admin_bar->add_menu( array(
+      'id'     => 'menus',
+      'parent' => 'back-to-home',
+      "title"  => "Menus",
+      "meta"   => array(),
+      "href"   => get_admin_url() . "menus.php",
+    ));
+
+		// # View All
+		$wp_admin_bar->add_menu( array(
+			'id' => 'view-all',
+			'title' => 'View All',
+			'meta' => array(),
+			'href' => $location,
+		));
+
+    // # Create a dropdown listing all post types under View All
+		$postTypes = get_post_types( array(), 'object' );
+		foreach ($postTypes as $postType) {
+			if ( ($postType->name != 'attachment') || ($postType->name != 'revision') || ($postType->name != 'nav_menu_item') ) :
+  			$wp_admin_bar->add_menu( array(
+  				'parent' => 'view-all',
+  				'id' => 'site-name-'.$postType->label,
+  				'meta' => array(),
+  				'title' => $postType->label,
+  				'href' => get_admin_url() . 'edit.php?post_type="' .$postType->name. '"',
+  			));
+			endif;
+		}
+
+    // # Shop Settings Link
+    $wp_admin_bar->add_menu( array(
+      "id" => "shop-settings",
+      'parent' => 'back-to-home',
+      "title" => "Shop Settings",
+      "meta" => array(),
+      "href" => get_admin_url() . "admin.php?page=acf-options",
+    ));
+
+		// Modify "Howdy in Menu Bar"
+		$user_id      = get_current_user_id();
+    $current_user = wp_get_current_user();
+    $my_url       = get_home_url();
+    if ( ! $user_id ) return;
+    $avatar = get_avatar( $user_id, 16 );
+    $howdy  = sprintf( __('Aloha e %1$s'), $current_user->display_name );
+    $class  = empty( $avatar ) ? '' : 'with-avatar';
+    $wp_admin_bar->add_menu( array(
+        'id'        => 'my-account',
+        'parent'    => 'top-secondary',
+        'title'     => $howdy . $avatar,
+        'href'      => $my_url,
+        'meta'      => array(
+            'class'     => $class,
+            'title'     => __('My Account'),
+        ),
+    ) );
+	}
+}
+add_action( 'admin_bar_menu', 'add_useful_toolbar_menu', 25 );
+
+
+/**
+ * Create Stock Overview
+ * @since 1.2.0
+ */
+function dashboard_widget_stock_overview() {
+  // Retrieve a list of all post called "products"
+  global $post;
+  $widget_contents = "<p>The current status of your product inventory.<p>";
+  $widget_contents .= '<canvas id="stock-overview" width="273" height="200"></canvas>';
+  $products = new WP_Query(array(
+    'post_type' => 'products',
+    'post_status' => 'publish',
+    'post_per_page' => '-1',
+    'post_per_archive_page' => '-1'
+  ));
+  $widget_contents .= '<ul class="products">';
+  while ( $products->have_posts() ) : $products->the_post();
+    // List the name of each option (maybe with skus, titles and the little image)
+    $widget_contents .= '<li class="product">';
+    $widget_contents .= "<h3>" . get_the_title() . "</h3>";
+    // Product Options
+    $widget_contents .= '<ul class="product-options">';
+    if ( have_rows('product_skus', $post->ID ) ) :
+      while ( have_rows('product_skus', $post->ID ) ) : the_row();
+        $widget_contents .= '<li class="product-option">';
+        $widget_contents .= "<h4><span class='sku'>" . get_sub_field('sku') . "</span><span class='sku-quantity'>" . get_sub_field('sku_quantity') . "</span></h4>";
+        $widget_contents .= "</li>";
+      endwhile;
+    endif;
+    $widget_contents .= "</ul>";
+  endwhile;
+  wp_reset_postdata();
+  $widget_contents .= "</li>";
+  $widget_contents .= "</ul>";
+
+  // Show me the contents!
+  echo $widget_contents;
+}
+function dashboard_widget_shop_settings() {
+  echo 'PayPal API status: test';
+  echo 'Stripe API status: test';
+  echo '<a class="button button-primary" href="'. get_admin_url() . 'admin.php?page=acf-options">Shop Settings</a>';
 }
 
 /**
- * Globals & Constants
+ * Stripe Widget
+ * @require To Market
  */
-$stripe_options = get_option('stripe_settings');
-$easypost_options = get_option('easypost_settings');
+function dashboard_widget_stripe_overview() {
+  // List of balance history
+  require_once( dirname( __FILE__ ) . '/lib/ToMarket/lib/Stripe/lib/Stripe.php'); // Load Stripe Client Library (PHP)
+  Stripe::setApiKey( stripe_api_key('secret') ); // # Present Secret API Key
+  $transactions = Stripe_Charge::all(array("limit" => 3))->data;
+  //var_dump($transactions->data);
+  // foreach ( $transactions as $transaction ) {
+  //   echo '<pre>';
+  //   var_dump($transaction);
+  //   echo '</pre>';
+  // }
+
+  echo '<a class="button button-primary" href="https://dashboard.stripe.com/dashboard" target="_blank">Go to Stripe Dashboard</a>';
+}
+function dashboard_widget_easypost_overview() {
+  echo '<a class="button button-primary" href="https://www.easypost.com/login" target="_blank">Go to EasyPost Dashboard</a>';
+}
+function dashboard_widget_security_image() {
+  $attachement_data = wp_get_attachment_image_src( 383, "large" );
+  echo '<div class="site-title"></div>';
+  echo '<img src="'.$attachement_data[0].'" width="'.$attachement_data[1].'" height="'.$attachement_data[2].'" />';
+}
+function add_dashboard_widgets() {
+  // Core
+  wp_add_dashboard_widget( "stock-overview", "Stock Overview", "dashboard_widget_stock_overview" );
+  wp_add_dashboard_widget( "shop-settings", "Shop Settings", "dashboard_widget_shop_settings" );
+  // Side (http://codex.wordpress.org/Function_Reference/wp_add_dashboard_widget)
+  add_meta_box( "security-image", "Security Image", "dashboard_widget_security_image", "dashboard", "side", "high" );
+  add_meta_box( "stripe-overview", "Stripe", "dashboard_widget_stripe_overview", "dashboard", "side", "high" );
+  add_meta_box( "easypost-overview", "EasyPost", "dashboard_widget_easypost_overview", "dashboard", "side", "high" );
+}
+function remove_dashboard_widgets() {
+  remove_meta_box( 'dashboard_right_now', 'dashboard', 'core' );
+  remove_meta_box( 'dashboard_activity', 'dashboard', 'core' );
+  remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
+  remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
+}
+add_action( 'wp_dashboard_setup', 'add_dashboard_widgets' );
+add_action( 'wp_dashboard_setup', 'remove_dashboard_widgets' );
+
+
+
 
 /**
- * Dequeue some parent theme scripts
+ *  Client-facing scripts and functions
+ *
+ *  @author Justin Hedani
+ *  @since 1.2.0
  */
 function LTTNBAGS_dequeue_scripts() {
-   wp_dequeue_script( 'bootstrap-tooltip' );
+  wp_dequeue_script( 'bootstrap-tooltip' );
 }
 add_action( 'wp_print_scripts', 'LTTNBAGS_dequeue_scripts', 100 );
 
-/**
- * Properly add new script files using this function.
- * http://codex.wordpress.org/Plugin_API/Action_Reference/wp_enqueue_scripts
- */
 function LTTNBAGS_enqueue_scripts() {
 
-    // Assign the appropriate protocol
-    $protocol = 'http:';
-    if ( !empty($_SERVER['HTTPS']) ) $protocol = 'https:';
+  // Assign the appropriate protocol
+  $protocol = 'http:';
+  if ( !empty($_SERVER['HTTPS']) ) $protocol = 'https:';
 
-    // Enqueue Fonts
-    wp_enqueue_style( 'google-fonts-oswald', '//fonts.googleapis.com/css?family=Oswald:300,400', array(), false, 'all' );
-    wp_enqueue_style( 'google-fonts-source-sans-pro', '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', array(), false, 'all' );
-    wp_enqueue_style( 'google-fonts-josefin-sans', '//fonts.googleapis.com/css?family=Josefin+Sans:300,400', array(), false, 'all' );
-    wp_enqueue_style( 'font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css', array(), false, 'all' );
+  // Enqueue Fonts
+  wp_enqueue_style( 'google-fonts-oswald', '//fonts.googleapis.com/css?family=Oswald:300,400', array(), false, 'all' );
+  wp_enqueue_style( 'google-fonts-source-sans-pro', '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', array(), false, 'all' );
+  wp_enqueue_style( 'google-fonts-josefin-sans', '//fonts.googleapis.com/css?family=Josefin+Sans:300,400', array(), false, 'all' );
+  wp_enqueue_style( 'font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css', array(), false, 'all' );
+  wp_enqueue_style( 'bootstrap-modal', get_stylesheet_directory_uri().'/css/bootstrap/modals.css', array(), false, 'all' );
 
-    // Enqueue Styles
-    wp_enqueue_style( 'bootstrap-styles', get_stylesheet_directory_uri().'/css/bootstrap/bootstrap.css' );
-	  wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css' );
+  // Enqueue Styles
+  // Must come after bootstrap styles as some styles override others.
+  wp_enqueue_style( 'diamond-style', get_stylesheet_directory_uri().'/css/diamond-style.css', array('bootstrap-styles') );
 
-    // Enqueue Scripts
-    # Modal
-    # Tooltip (required for popovers)
-    wp_enqueue_script( 'bootstrap-transition-script', get_stylesheet_directory_uri().'/js/bootstrap/transition.js', array(), false, true );
-    wp_enqueue_script( 'bootstrap-modal-script', get_stylesheet_directory_uri().'/js/bootstrap/modal.js', array(), false, true );
-    wp_enqueue_script( 'bootstrap-tooltip-script', get_stylesheet_directory_uri().'/js/bootstrap/tooltip.js', array(), false, true );
-    wp_enqueue_script( 'bootstrap-popover-script', get_stylesheet_directory_uri().'/js/bootstrap/popover.js', array(), false, true );
-    wp_enqueue_script( 'bootstrap-tab-script', get_stylesheet_directory_uri().'/js/bootstrap/tab.js', array(), false, true );
-    wp_enqueue_script( 'bootstrap-carousel-script', get_stylesheet_directory_uri().'/js/bootstrap/carousel.js', array(), false, true );
-    wp_enqueue_script( 'jquery-validate', get_stylesheet_directory_uri().'/js/jquery.validate.js', array('jquery') );
-    wp_enqueue_script( 'jquery-payment', get_stylesheet_directory_uri().'/js/jquery.payment.js', array('jquery') );
+  // Enqueue Scripts
+  wp_enqueue_script( 'bootstrap-carousel-script', get_stylesheet_directory_uri().'/js/bootstrap/carousel.js', array(), false, true );
 
-    // Stripe
-    // https://stripe.com/
-    global $stripe_options;
-    if ( isset($stripe_options['test_mode']) && $stripe_options['test_mode'] ) {
-        $publishable = $stripe_options['test_publishable_key']; // Use Test API Key for Stripe Processing
-    } else {
-        $publishable = $stripe_options['live_publishable_key']; // Use Test API Key for Stripe Processing
-    }
-    wp_enqueue_script('stripe-processing', get_stylesheet_directory_uri().'/lib/StripeScripts/stripe-processing.js', array('jquery') );
-    wp_localize_script('stripe-processing', 'stripe_vars', array(
-        'publishable_key' => $publishable,
-    ));
+  // Look Book
+  wp_enqueue_script('look-books-scripts', get_stylesheet_directory_uri().'/lib/LookBooks/look-books-scripts.js', array('jquery','json2'), true);
+  wp_localize_script('look-books-scripts', 'look_book_data', array(
+    'ajaxurl' => admin_url('admin-ajax.php',$protocol),
+    'nonce' => wp_create_nonce('look_books_nonce')
+  ));
 
-    // PayPal
-    wp_enqueue_script('paypal-scripts', get_stylesheet_directory_uri().'/lib/paypal/payments/paypal-payment-scripts.js', array('jquery','json2'), true);
-    wp_localize_script('paypal-scripts', 'paypal_data', array(
-        'ajaxurl' => admin_url('admin-ajax.php',$protocol),
-        'nonce' => wp_create_nonce('paypal_nonce')
-    ));
-
-    // jStorage
-    // http://www.jstorage.info/
-    wp_enqueue_script('jstorage-script', get_stylesheet_directory_uri().'/js/jstorage.js', array('jquery','json2'));
-    wp_enqueue_script('diamond-custom-script', get_stylesheet_directory_uri().'/js/scripts.js', array('jquery'), false, true);
-
-    // Shopping Cart
-    wp_enqueue_script('shopping-cart-scripts', get_stylesheet_directory_uri().'/lib/ShoppingCart/shopping-cart.js', array('jquery','json2'), true);
-    wp_localize_script('shopping-cart-scripts', 'shopping_cart_scripts', array(
-        'ajaxurl' => admin_url('admin-ajax.php',$protocol),
-        'nonce' => wp_create_nonce('shopping_cart_scripts_nonce')
-    ));
-
-    // Look Book Fetcher
-    wp_enqueue_script('look-book-fetcher-scripts', get_stylesheet_directory_uri().'/lib/LookBookFetcher/look-book-fetcher-scripts.js', array('jquery','json2'), true);
-    wp_localize_script('look-book-fetcher-scripts', 'look_book_fetcher_data', array(
-      'ajaxurl' => admin_url('admin-ajax.php',$protocol),
-      'nonce' => wp_create_nonce('look_book_fetcher_nonce')
-    ));
+  // General
+  wp_enqueue_script('diamond-custom-script', get_stylesheet_directory_uri().'/js/scripts.js', array('jquery'), false, true);
 
 }
 add_action( 'wp_enqueue_scripts', 'LTTNBAGS_enqueue_scripts' );
 
 /**
- * Shopping Cart
- * By Justin Hedani
- * Uses: Ajax, jStorage & Bootstrap
+ * To Market
+ * A simple shopping + checkout solution for WP.
+ * @url https://github.com/jkhedani/ToMarket
  */
-require_once( get_stylesheet_directory() . '/lib/ShoppingCart/shopping-cart.php');
-require_once( get_stylesheet_directory() . '/lib/ShoppingCart/shopping-cart-markup.php');
-
-/**
- * "Stripe" Integration
- * With lots of love from: http://pippinsplugins.com/series/integrating-stripe-com-with-wordpress/
- */
-
-// Load "Stripe" settings & Payment processors
-if ( is_admin() ) {
-    require_once( get_stylesheet_directory() . '/lib/StripeScripts/settings.php' );
-} else {
-    require_once( get_stylesheet_directory() . '/lib/StripeScripts/stripe-process-payment.php' );
-    require_once( get_stylesheet_directory() . '/lib/StripeScripts/stripe-listener.php' );
-}
-
-/**
- *  PayPal Functions
- */
-require_once( get_stylesheet_directory() . '/lib/paypal/payments/method-paypal.php' );
-
-// function submit_welcome_form() {
-//     global $wpdb, $current_user;
-//     $nonce = $_REQUEST['nonce'];
-//     if ( ! wp_verify_nonce( $nonce, 'ajax_interactions_nonce' ) ) {
-//         die( __('Busted.') ); // Nonce check
-//     }
-//     $html = "";
-//     $success = false;
-//     $params = array();
-//     parse_str( $_REQUEST['postdata'], $params ); // Unserialize post data
-
-//     // Update our user meta
-//     update_user_meta( $current_user->ID, 'registration-reason', $params['registration-reason'] );
-//     update_user_meta( $current_user->ID, 'education-level', $params['education-level'] );
-//     update_user_meta( $current_user->ID, 'location', $params['location'] );
-//     update_user_meta( $current_user->ID, 'allow-data-access', $params['allow-data-access'] );
-
-//     $success = true;
-//     $response = json_encode( array(
-//         'success' => $success,
-//         'html' => $html,
-//     ));
-
-//     header( 'content-type: application/json' );
-//     echo $response;
-//     exit;
-// }
-// add_action( 'wp_ajax_nopriv_submit_welcome_form', 'submit_welcome_form' );
-// add_action( 'wp_ajax_submit_welcome_form', 'submit_welcome_form' );
-
-// if ( isset( $_REQUEST['action'] ) && ( $_REQUEST['action'] == 'submit_welcome_form' )  ) {
-//     do_action( 'wp_ajax_' . $_REQUEST['action'] );
-//     do_action( 'wp_ajax_nopriv_' . $_REQUEST['action'] );
-// }
-
-/**
- *  "Easy Post" Integration
- *  https://www.easypost.com
- */
-if ( is_admin() ) {
-    require_once( get_stylesheet_directory() . '/lib/EasyPostScripts/settings.php' );
-}
-//require_once( get_stylesheet_directory() . '/lib/easypost.php' );
+require_once( get_stylesheet_directory() . '/lib/ToMarket/tomarket.php');
 
 /**
  * Custom Post Types (e.g. Products, etc.)
@@ -241,42 +386,10 @@ function LTTNBAGS_post_types() {
 add_action( 'init', 'LTTNBAGS_post_types' );
 
 /**
- *  P2P Connections
- */
-function LTTNBAGS_connection_types() {
-
-  // Connect
-  p2p_register_connection_type( array(
-    // Connnection Attributes
-    'name' => 'look_books_to_products',
-    'from' => 'look_books',
-    'to' => 'products',
-    // 'reciprocol' => true,
-    // 'admin_box' => 'from',
-    'sortable' => 'any',
-    // 'title' => array( 'from' => __( 'Connected Modules', 'my-textdomain' ), 'to' => __( 'Connected Unit', 'my-textdomain' ) ),
-    // 'from_labels' => array(
-    //   'singular_name' => __( 'Unit', 'my-textdomain' ),
-    //   'search_items' => __( 'Search Units', 'my-textdomain' ),
-    //   'not_found' => __( 'No Units found.', 'my-textdomain' ),
-    //   'create' => __( 'Connect to a Unit', 'my-textdomain' ),
-    // ),
-    // 'to_labels' => array(
-    //   'singular_name' => __( 'Module', 'my-textdomain' ),
-    //   'search_items' => __( 'Search Modules', 'my-textdomain' ),
-    //   'not_found' => __( 'No Modules found.', 'my-textdomain' ),
-    //   'create' => __( 'Connect a Module', 'my-textdomain' ),
-    // ),
-  ));
-
-}
-add_action( 'p2p_init', 'LTTNBAGS_connection_types' );
-
-/**
- *  Look Book Fetcher
+ *  Look Books
  *  Include function after P2P so connections are availabled
  */
-require_once( get_stylesheet_directory() . '/lib/LookBookFetcher/look-book-fetcher-functions.php');
+require_once( get_stylesheet_directory() . '/lib/LookBooks/look-books-functions.php');
 
 /**
  * Custom Taxonomies (e.g. Product Type, etc.)
