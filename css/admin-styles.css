@@ -126,7 +126,6 @@ body.wp-admin #wpcontent #screen-meta-links {
   margin: 0;
 }
 body.login {
-  background: url('../../images/public/marketing-bg.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -136,9 +135,9 @@ body.login div#login {
   padding-top: 15%;
 }
 body.login div#login h1 a {
-  background-size: auto;
-  background-image: url('../../images/public/bh-beta-logo.png');
-  width: auto;
+  background-size: 100%;
+  background-image: url('../images/litton-ludwig-logo@2X.png');
+  width: 272px;
 }
 body.login p#nav,
 body.login p#backtoblog {
@@ -147,7 +146,7 @@ body.login p#backtoblog {
 }
 body.login p#nav a,
 body.login p#backtoblog a {
-  color: #FFF;
+  color: #737373;
 }
 /* Dashboard Styles */
 body.index-php #security-image {
