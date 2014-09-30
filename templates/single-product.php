@@ -151,4 +151,7 @@
 		<?php echo get_the_post_thumbnail(); ?>
 	</div>
 
+	<!-- Back To Top -->
+	<div class="back-to-top" data-toggle="page-top"><i class="fa fa-chevron-up"></i></div>
+
 </article><!-- #post-<?php the_ID(); ?> -->

@@ -2335,6 +2335,25 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
   }
 }
 /**
+ * Back To Top
+ */
+.back-to-top {
+  color: #FFF;
+  background: #9bd2cb;
+  padding: 16px 20px 18px;
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  cursor: pointer;
+  opacity: 0.0;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.back-to-top:hover {
+  opacity: 1.0;
+}
+/**
  * Tooltip Styles
  */
 .tooltip {
