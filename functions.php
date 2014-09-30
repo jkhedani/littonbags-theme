@@ -9,7 +9,7 @@
 function admin_scripts() {
     wp_enqueue_style( 'admin-styles', get_stylesheet_directory_uri() . '/css/admin-styles.css' );
     wp_enqueue_script( 'chartjs', get_stylesheet_directory_uri() . '/js/Chart.min.js' );
-    wp_enqueue_script( 'admin-scripts', get_stylesheet_directory_uri() . '/js/admin-scripts.js' );
+    wp_enqueue_script( 'admin-scripts', get_stylesheet_directory_uri() . '/js/admin-scripts.js', array('jquery') );
 }
 add_action('admin_enqueue_scripts', 'admin_scripts');
 add_action('login_enqueue_scripts', 'admin_scripts');

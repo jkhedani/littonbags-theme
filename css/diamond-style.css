@@ -565,20 +565,15 @@ img {
   display: block;
 }
 .site-title {
-  text-indent: -9999px;
-  background: url('../images/litton-ludwig-logo.png') no-repeat;
   float: left;
   display: block;
   width: 163px;
-  height: 44px;
+  height: 43px;
   padding: 0;
   margin: -6px 0 0 0;
-  text-indent: 150%;
-  white-space: nowrap;
-  overflow: hidden;
 }
-.site-title.white {
-  background: url('../images/litton-ludwig-logo-white.png') no-repeat;
+.site-title img {
+  width: 100%;
 }
 ::selection {
   background: #f2e9e1;
@@ -2338,6 +2333,25 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
   .repeatingPattern {
     background: url(../images/bgPattern@2x.png) repeat;
   }
+}
+/**
+ * Back To Top
+ */
+.back-to-top {
+  color: #FFF;
+  background: #9bd2cb;
+  padding: 16px 20px 18px;
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  cursor: pointer;
+  opacity: 0.0;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.back-to-top:hover {
+  opacity: 1.0;
 }
 /**
  * Tooltip Styles

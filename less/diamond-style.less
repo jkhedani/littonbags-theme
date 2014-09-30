@@ -101,18 +101,13 @@ img { color: transparent; border-color: transparent; }
 .fixed { position: fixed; width: 100%; } // used in tandem with modal to prevent page scrolling
 .donation-promo-text { font-size: 13px; display: block; }
 .site-title {
-	text-indent: -9999px;
-	background: url('../images/litton-ludwig-logo.png') no-repeat;
 	float: left;
 	display: block;
 	width: 163px;
-	height: 44px;
+	height: 43px;
 	padding: 0;
 	margin: -6px 0 0 0;
-	.no-text();
-	&.white {
-		background: url('../images/litton-ludwig-logo-white.png') no-repeat;
-	}
+	img { width: 100%; }
 }
 ::selection {
 	background: @beigeAccent; /* Safari */
@@ -1480,6 +1475,24 @@ body.post-type-archive-products {
      .repeatingPattern {
           background: url(../images/bgPattern@2x.png) repeat;
      }
+}
+
+/**
+ * Back To Top
+ */
+.back-to-top {
+	color: #FFF;
+	background: @mint;
+	padding: 16px 20px 18px;
+	position: fixed;
+	right: 40px;
+	bottom: 40px;
+	cursor: pointer;
+	opacity: 0.0;
+	&:hover {
+		opacity: 1.0;
+	}
+	.roundCorners( 3px );
 }
 
 /**
