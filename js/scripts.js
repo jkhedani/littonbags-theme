@@ -220,14 +220,55 @@ jQuery(document).ready(function($){
 
 	}
 
+ /**
+	* Simple delay function.
+	* @function
+	* @param {function} callback - Function to be called back.
+	* @param {int} ms - The amount of time before callback occurs.
+	*/
+	var delay = (function(){
+		var timer = 0;
+		return function(callback, ms){
+			clearTimeout (timer);
+			timer = setTimeout(callback, ms);
+		};
+	})();
+
+	/**
+	 * Back To Top
+	 * @function
+	 * @author Justin Hedani
+	 */
+
+	// On page scroll, show "Back To Top" button unless at top of page.
+	$(document).on('scroll', function() {
+		if ( document.body.scrollTop === 0 ) {
+			delay( function(){
+				$('.back-to-top').animate({ opacity: 0.0 }, 500);
+			}, 50);
+		} else if ( document.body.scrollTop >= 5 ) {
+			delay( function(){
+				$('.back-to-top').animate({ opacity: 0.8 }, 500);
+			}, 50);
+		}
+	});
+
+	// Animate page scroll back to top
+	$('.back-to-top').on('click', function() {
+		$('html, body').animate({
+			scrollTop: 0
+		}, 500 );
+		return false;
+	});
+
 	// "Product Pages"
 	if ( $('body').hasClass('single-products') ) {
+
 
 		/**
 		 *	jQuery ScrollTo
 		 *	Allow users to scroll to pre-determined positions on a page.
 		 */
-
 		// Define scrollable object
 		var SCROLL_TO_OBJECT = $('.product-scroll img');
 		// Define scrollto navigation
@@ -247,6 +288,7 @@ jQuery(document).ready(function($){
     	// Disable <a> tag actions
     	return false;
 		});
+
 	}
 
 });
