@@ -7,6 +7,20 @@
 
 <article id="post-<?php the_ID(); ?>" class="row">
 
+	<!-- Points of Interest: Plus Button Version -->
+	<?php $product_pois = get_field('product_poi'); ?>
+	<?php foreach ($product_pois as $product_poi) : ?>
+		<?php $posx = $product_poi['product_poi_position_left'];?>
+		<?php $posy = $product_poi['product_poi_position_top'];?>
+		<button class="poi <?php echo $product_poi['product_poi_open_direction_x']; ?> <?php echo $product_poi['product_poi_open_direction_y']; ?>" style="left: <?php echo $posx; ?>px;top: <?php echo $posy; ?>px;">
+			<i class="fa fa-plus"></i>
+			<div class="poi-content">
+				<strong><?php echo $product_poi['product_poi_title']; ?></strong>
+				<?php echo $product_poi['product_poi_content']; ?>
+			</div>
+		</button>
+	<?php endforeach; ?>
+
 	<!-- Product Description(s) -->
 	<header class="product-header span3">
 		<h1 class="product-title"><?php the_title(); ?></h1>
@@ -15,6 +29,19 @@
 			<p class="muted helper-text">You currently have no description. Add some <a href="'.get_edit_post_link().'" title="Edit this piece of content">here.</a></p>
 		<?php else : ?>
 			<div class="product-details"><?php echo get_field( 'product_overview' ); ?></div>
+			<!-- Points of Interest: Text Version -->
+			<?php if ( $product_pois ) : ?>
+				<ul class="poi text">
+				<?php foreach ($product_pois as $product_poi) : ?>
+					<li>
+						<a>
+							<strong><?php echo $product_poi['product_poi_title']; ?></strong>
+							<div class="poi-content"><?php echo $product_poi['product_poi_content']; ?></div>
+						</a>
+					</li>
+				<?php endforeach; ?>
+				</ul>
+			<?php endif; ?>
 		<?php endif; ?>
 		<!-- Product Lookbook Link -->
 		<?php
