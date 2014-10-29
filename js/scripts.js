@@ -289,6 +289,16 @@ jQuery(document).ready(function($){
     	return false;
 		});
 
+		/**
+		 * Poi
+		 * Create points of interest anchors for general purpose use.
+		 *
+		 */
+		$('button.poi, .poi a').on('click', function(){
+			var content = $(this).find('.poi-content').html();
+			$(this).toggleClass('open');
+		});
+
 	}
 
 });

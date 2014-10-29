@@ -606,6 +606,66 @@ img {
 
   transform: rotate(360deg);
 }
+/**
+ * Points of Interest (POI)
+ * By default provides clickable points of interest to
+ * display additional information.
+ */
+button.poi {
+  border: none;
+  width: 28px;
+  height: 28px;
+  color: #ffffff;
+  background-color: #ff6368;
+  border-radius: 14px;
+  position: absolute;
+  outline: none;
+  font-family: 'Source Sans Pro', 'serif';
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+button.poi .poi-content {
+  width: 250px;
+  opacity: 0;
+  padding: 10px;
+  color: #555555;
+  background: #edeeed;
+  top: 88%;
+  position: absolute;
+  cursor: default;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+button.poi i {
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+}
+button.poi.open i {
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+button.poi.open .poi-content {
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+  opacity: 1.0;
+}
+button.poi.open.right .poi-content {
+  left: 28px;
+}
+button.poi.open.left .poi-content {
+  right: 28px;
+}
+ul.poi {
+  list-style: none;
+  margin: 20px 0;
+  padding: 0;
+}
 @-webkit-keyframes rotateplane {
   0% {
     -webkit-transform: perspective(120px);

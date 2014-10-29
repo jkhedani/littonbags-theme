@@ -15,6 +15,13 @@
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
+.transform (@params) {
+  -webkit-transform: @params;
+     -moz-transform: @params;
+      -ms-transform: @params;
+       -o-transform: @params;
+          transform: @params;
+}
 
 /**
  * Custom Fonts
@@ -139,6 +146,64 @@ img { color: transparent; border-color: transparent; }
 	}
 }
 
+/**
+ * Points of Interest (POI)
+ * By default provides clickable points of interest to
+ * display additional information.
+ */
+button.poi {
+	border: none;
+	width: 28px;
+	height: 28px;
+	color: rgb(255,255,255);
+	background-color: @watermelon;
+	border-radius: 14px;
+	position: absolute;
+	outline: none;
+	#font-family > .source-sans-pro;
+}
+button.poi .poi-content {
+	width: 250px;
+	opacity: 0;
+	padding: 10px;
+	color: @gray;
+	background: @lightGray;
+	top: 88%;
+	position: absolute;
+	cursor: default;
+	-webkit-transition: opacity 0.5s;
+					transition: opacity 0.5s;
+}
+button.poi i {
+-webkit-transition: -webkit-transform 0.5s;
+				transition: transform 0.5s;
+}
+// "Open" state of POI
+button.poi.open i {
+	-webkit-transition: -webkit-transform 0.5s;
+          transition: transform 0.5s;
+	.transform( rotate(45deg) );
+}
+button.poi.open .poi-content {
+	-webkit-transition: opacity 0.5s;
+				  transition: opacity 0.5s;
+	opacity: 1.0;
+}
+button.poi.open.right .poi-content {
+	left: 28px;
+}
+button.poi.open.left .poi-content {
+	right: 28px;
+}
+// Text Version of POI (List version styling for responsive layouts)
+ul.poi {
+	list-style: none;
+	margin: 20px 0;
+	padding: 0;
+}
+ul.poi li {
+
+}
 
 @-webkit-keyframes rotateplane {
   0% { -webkit-transform: perspective(120px) }
