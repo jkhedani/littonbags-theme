@@ -37,7 +37,7 @@ get_header(); ?>
 		    </div>
 
 		    <div class="view-master-reel">
-		    <?php 
+		    <?php
 		    	// First, load all bags in a descending order
 		    	while ( $cameraBags->have_posts() ) : $cameraBags->the_post();
 		    ?>
