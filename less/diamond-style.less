@@ -198,12 +198,49 @@ button.poi.open.left .poi-content {
 // Text Version of POI (List version styling for responsive layouts)
 ul.poi {
 	list-style: none;
-	margin: 20px 0;
+	margin: -10px 0 35px;
 	padding: 0;
+	width: 95%;
 }
 ul.poi li {
-
+	margin-bottom: 5px;
 }
+ul.poi li a,
+ul.poi li h3 {
+	color: @gray;
+	#font-family > .source-sans-pro;
+}
+ul.poi li a {
+	font-size: 13px;
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+}
+ul.poi li h3 {
+	font-weight: 600;
+	font-size: 14px;
+	text-transform: uppercase;
+	margin: 0 0 -5px;
+}
+ul.poi li a i.fa {
+	float: right;
+}
+ul.poi li a .poi-content {
+	display: none;
+	color: @grayLight;
+	margin: 5px 0 10px;
+}
+// "Open" state of POI text
+ul.poi li a.open .poi-content {
+	display: block;
+}
+// POI: Visibility
+button.poi { display: none; }
+@media ( min-width: 500px ) {
+	ul.poi { display: none; }
+	button.poi { display: block; }
+}
+
 
 @-webkit-keyframes rotateplane {
   0% { -webkit-transform: perspective(120px) }

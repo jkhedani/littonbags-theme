@@ -32,14 +32,16 @@
 			<!-- Points of Interest: Text Version -->
 			<?php if ( $product_pois ) : ?>
 				<ul class="poi text">
-				<?php foreach ($product_pois as $product_poi) : ?>
+					<li><h3>Features</h3></li>
+					<?php foreach ($product_pois as $product_poi) : ?>
 					<li>
 						<a>
-							<strong><?php echo $product_poi['product_poi_title']; ?></strong>
+							<span><?php echo $product_poi['product_poi_title']; ?></span>
+							<i class="fa fa-plus"></i>
 							<div class="poi-content"><?php echo $product_poi['product_poi_content']; ?></div>
 						</a>
 					</li>
-				<?php endforeach; ?>
+					<?php endforeach; ?>
 				</ul>
 			<?php endif; ?>
 		<?php endif; ?>

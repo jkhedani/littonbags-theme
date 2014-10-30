@@ -663,8 +663,54 @@ button.poi.open.left .poi-content {
 }
 ul.poi {
   list-style: none;
-  margin: 20px 0;
+  margin: -10px 0 35px;
   padding: 0;
+  width: 95%;
+}
+ul.poi li {
+  margin-bottom: 5px;
+}
+ul.poi li a,
+ul.poi li h3 {
+  color: #555555;
+  font-family: 'Source Sans Pro', 'serif';
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+ul.poi li a {
+  font-size: 13px;
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+}
+ul.poi li h3 {
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin: 0 0 -5px;
+}
+ul.poi li a i.fa {
+  float: right;
+}
+ul.poi li a .poi-content {
+  display: none;
+  color: #999999;
+  margin: 5px 0 10px;
+}
+ul.poi li a.open .poi-content {
+  display: block;
+}
+button.poi {
+  display: none;
+}
+@media (min-width: 500px) {
+  ul.poi {
+    display: none;
+  }
+  button.poi {
+    display: block;
+  }
 }
 @-webkit-keyframes rotateplane {
   0% {
