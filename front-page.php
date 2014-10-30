@@ -22,9 +22,7 @@ get_header(); ?>
 
       <div id="homeCarousel" class="carousel slide">
         <div class="carousel-inner">
-				<?php
-
-				?>
+					<!-- Place a spinner here -->
         </div><!-- .carousel-inner -->
         <a class="carousel-control left" href="#homeCarousel" data-slide="prev">&lsaquo;</a>
         <a class="carousel-control right" href="#homeCarousel" data-slide="next">&rsaquo;</a>

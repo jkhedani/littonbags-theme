@@ -32,8 +32,7 @@ function server_media_query() {
      */
     $lookbooks = new WP_Query(array(
       'post_type' 			=> 'look_books',
-      'posts_per_page' 	=> -1, // Look for all!
-      'offset'          => 1, // Select the second lookbook!
+      'posts_per_page' 	=> 1, // Select the first book.
       'meta_key'				=> 'look_book_location',
       'meta_query' 			=> array (
         array (
@@ -43,8 +42,6 @@ function server_media_query() {
         )
       )
     ));
-
-    error_log(print_r($lookbooks, true));
 
   /**
    * Normal Galleries
@@ -58,6 +55,7 @@ function server_media_query() {
     $lookbooks = new WP_Query(array(
       'post_type' 			=> 'look_books',
       'posts_per_page' 	=> 1, // Limit one for home page
+      'offset'          => 1, // Select the second lookbook!
       'meta_key'				=> 'look_book_location',
       'meta_query' 			=> array (
         array (

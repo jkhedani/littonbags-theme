@@ -1491,8 +1491,6 @@ body.home #menu-highlight-menu li a {
 }
 body.home .minster-type-treatment {
   position: absolute;
-  right: 151px;
-  bottom: 54px;
 }
 body.home .minster-type-treatment h1 {
   font-family: 'Learning Curve Pro', 'serif';
@@ -1769,6 +1767,9 @@ html body #main {
   margin-top: 0;
   background: #FFF;
 }
+html body [data-toggle="hand-basket"] i {
+  color: #999999;
+}
 html body footer#colophon {
   background: #edeeed;
 }
@@ -1837,9 +1838,9 @@ html body.home .btn.btn-primary.btn-primary-home:focus {
   background-size: 100%;
 }
 html body.home .minster-type-treatment {
-  left: 60px;
+  left: 20px;
   right: auto;
-  bottom: 30px;
+  bottom: 0;
 }
 html body.home .minster-type-treatment h1 {
   font-size: 56px;
@@ -1859,9 +1860,23 @@ html body.home .minster-type-treatment span.subtitle {
   font-size: 16px;
   color: rgba(255, 255, 255, 0.8);
 }
-html body.home #homeCarousel .carousel-inner img.item {
+html body.home #content {
+  height: 100%;
+}
+html body.home #content #homeCarousel {
+  height: 100%;
+}
+html body.home #content #homeCarousel .carousel-inner {
+  height: 100%;
+}
+html body.home #content #homeCarousel .carousel-inner img.item {
   width: auto;
   max-width: none;
+  height: 100%;
+}
+html body.home [data-toggle="hand-basket"] i,
+html body.home a.mobile-menu-toggle {
+  color: #ffffff;
 }
 html body.single-products .product-mobile-image-container {
   display: block;
@@ -2007,13 +2022,13 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
  */
 @media (min-width: 200px) and (max-width: 400px) {
   html body.home .minster-type-treatment {
-    left: 50px;
+    left: 20px;
     right: auto;
     bottom: 20px;
   }
   html body.home .minster-type-treatment h1 {
-    font-size: 47px;
-    margin-bottom: -6px;
+    font-size: 55px;
+    margin-bottom: -1px;
   }
   html body.home .minster-type-treatment span.minster-flair {
     text-indent: 150%;
@@ -2024,9 +2039,10 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
     display: block;
     background: url('../images/minster-flair.png') no-repeat;
     background-size: 100%;
+    margin: 6px 5px 0 0;
   }
   html body.home .minster-type-treatment span.subtitle {
-    font-size: 14px;
+    font-size: 16px;
     color: rgba(255, 255, 255, 0.8);
   }
 }
@@ -2092,6 +2108,24 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
   }
   html body.home header#navbar .site-title.mobile {
     display: none;
+  }
+  html body.home #content {
+    height: auto;
+  }
+  html body.home #content #homeCarousel {
+    height: auto;
+  }
+  html body.home #content #homeCarousel .carousel-inner {
+    height: auto;
+  }
+  html body.home #content #homeCarousel .carousel-inner img.item {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+  html body.home [data-toggle="hand-basket"] i,
+  html body.home a.mobile-menu-toggle {
+    color: #999999;
   }
   html body.single-products .product-mobile-image-container {
     display: none;
@@ -2216,7 +2250,6 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
     margin: -2px 0 0 20px;
   }
   html body.home #main {
-    margin-top: 91px;
     padding-top: 0;
   }
   body.page-template-default.page-not-home .entry-header {

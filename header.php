@@ -70,7 +70,7 @@ $page_keywords = 'women\'s camera bags, women\'s camera purse, leather camera ba
 
           <!-- Site Main Menu -->
           <div class="menu-main-menu-container">
-            <a class="mobile-menu-toggle hide" href="#menu-main-menu" title="Toggle menu view for smaller devices."><i class="fa fa-bars"></i></a>
+            <a class="mobile-menu-toggle" href="#menu-main-menu" title="Toggle menu view for smaller devices."><i class="fa fa-bars"></i></a>
             <?php
 							wp_nav_menu( array (
 	              'menu' => 'mobile-menu',
