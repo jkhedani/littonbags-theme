@@ -399,7 +399,6 @@ html {
 		header#navbar {
 			margin: 0 auto;
 			padding: 36px 0 15px 0;
-			background-color: @lightGray;
 			position: fixed;
 			top: 0;
 			width: 100%;
@@ -959,7 +958,14 @@ html body {
 		width: 100%;
 		padding: 0px 20px;
 	}
-	header#navbar { position: relative; padding: 25px 0 15px 0; }
+	header#navbar {
+		position: relative;
+		background-color: @lightGray;
+		padding: 25px 0 15px 0;
+		.site-title.mobile {
+			display: none;
+		}
+	}
 	#main {
 		margin-top: 0;
 		//padding-top: 20px;
@@ -1015,6 +1021,17 @@ html body.home {
 	#main {
 		margin-top: 0px;
 	}
+	header#navbar {
+		background-color: rgba(255,255,255,0.1);
+		position: fixed;
+		padding: 25px 0 15px 0;
+		.site-title {
+			display: none;
+		}
+		.site-title.mobile {
+			display: block;
+		}
+	}
 	.btn.btn-primary.btn-primary-home,
 	.btn.btn-primary.btn-primary-home:hover,
 	.btn.btn-primary.btn-primary-home:focus {
@@ -1022,7 +1039,6 @@ html body.home {
 		height: 64px;
 		background-size: 100%;
 	}
-
 	.minster-type-treatment {
 		left: 60px;
 		right: auto;
@@ -1030,6 +1046,12 @@ html body.home {
 		h1 { font-size: 56px; margin-bottom: 0; }
 		span.minster-flair { .no-text(); width: 52px; float: left; display: block; background: url('../images/minster-flair.png') no-repeat; background-size: 100%; }
 		span.subtitle { font-size: 16px; color: rgba(255,255,255,0.8); }
+	}
+	// Home Carousel (0px and up)
+	#homeCarousel {
+		.carousel-inner {
+			img.item { width: auto; max-width: none; }
+		}
 	}
 }
 // SINGLE PRODUCTS
@@ -1183,6 +1205,17 @@ body.post-type-archive-products {
 			h1 { #font-family > .learning-curve; font-size: 95px; color: #FFF; margin-bottom: 20px; }
 			span.minster-flair { .no-text(); width: 102px; float: left; display: block; background: url('../images/minster-flair.png') no-repeat; }
 			span.subtitle { #font-family > .oswald; font-size: 25px; font-weight: 300; text-transform: uppercase; color: rgba(255,255,255,0.7); float: right; margin-right: 10px; }
+		}
+		// Header
+		header#navbar {
+			position: relative;
+			background-color: @lightGray;
+			.site-title {
+				display: block;
+			}
+			.site-title.mobile {
+				display: none;
+			}
 		}
 	}
 	// BASIC PAGES

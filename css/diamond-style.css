@@ -900,7 +900,6 @@ html {
 html body header#navbar {
   margin: 0 auto;
   padding: 36px 0 15px 0;
-  background-color: #edeeed;
   position: fixed;
   top: 0;
   width: 100%;
@@ -1760,7 +1759,11 @@ html body .container {
 }
 html body header#navbar {
   position: relative;
+  background-color: #edeeed;
   padding: 25px 0 15px 0;
+}
+html body header#navbar .site-title.mobile {
+  display: none;
 }
 html body #main {
   margin-top: 0;
@@ -1815,6 +1818,17 @@ html body ul.mobile-menu li a:hover {
 html body.home #main {
   margin-top: 0px;
 }
+html body.home header#navbar {
+  background-color: rgba(255, 255, 255, 0.1);
+  position: fixed;
+  padding: 25px 0 15px 0;
+}
+html body.home header#navbar .site-title {
+  display: none;
+}
+html body.home header#navbar .site-title.mobile {
+  display: block;
+}
 html body.home .btn.btn-primary.btn-primary-home,
 html body.home .btn.btn-primary.btn-primary-home:hover,
 html body.home .btn.btn-primary.btn-primary-home:focus {
@@ -1844,6 +1858,10 @@ html body.home .minster-type-treatment span.minster-flair {
 html body.home .minster-type-treatment span.subtitle {
   font-size: 16px;
   color: rgba(255, 255, 255, 0.8);
+}
+html body.home #homeCarousel .carousel-inner img.item {
+  width: auto;
+  max-width: none;
 }
 html body.single-products #page #main #content article .product-header,
 html body.single-products #page #main #content article .product-content {
@@ -2060,6 +2078,16 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
     color: rgba(255, 255, 255, 0.7);
     float: right;
     margin-right: 10px;
+  }
+  html body.home header#navbar {
+    position: relative;
+    background-color: #edeeed;
+  }
+  html body.home header#navbar .site-title {
+    display: block;
+  }
+  html body.home header#navbar .site-title.mobile {
+    display: none;
   }
   html body.single-products #page #main #content article .product-header,
   html body.single-products #page #main #content article .product-content {
