@@ -1863,6 +1863,10 @@ html body.home #homeCarousel .carousel-inner img.item {
   width: auto;
   max-width: none;
 }
+html body.single-products .product-mobile-image-container {
+  display: block;
+  margin: 0 0 10px 0;
+}
 html body.single-products #page #main #content article .product-header,
 html body.single-products #page #main #content article .product-content {
   position: relative;
@@ -2087,6 +2091,9 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
     display: block;
   }
   html body.home header#navbar .site-title.mobile {
+    display: none;
+  }
+  html body.single-products .product-mobile-image-container {
     display: none;
   }
   html body.single-products #page #main #content article .product-header,

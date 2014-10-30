@@ -21,6 +21,14 @@
 		</button>
 	<?php endforeach; ?>
 
+	<!-- Product Image for Mobile -->
+	<?php if ( get_field('product_mobile_image') ) : ?>
+	<?php $mobile_image = get_field('product_mobile_image'); ?>
+		<div class="product-mobile-image-container">
+			<img class="product-mobile-image" src="<?php echo $mobile_image['url']; ?>" alt="<?php echo $mobile_image['caption']; ?>" />
+		</div>
+	<?php endif; ?>
+
 	<!-- Product Description(s) -->
 	<header class="product-header span3">
 		<h1 class="product-title"><?php the_title(); ?></h1>
