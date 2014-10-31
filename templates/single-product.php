@@ -12,7 +12,7 @@
 	<?php foreach ($product_pois as $product_poi) : ?>
 		<?php $posx = $product_poi['product_poi_position_left'];?>
 		<?php $posy = $product_poi['product_poi_position_top'];?>
-		<button class="poi <?php echo $product_poi['product_poi_open_direction_x']; ?> <?php echo $product_poi['product_poi_open_direction_y']; ?>" style="left: <?php echo $posx; ?>px;top: <?php echo $posy; ?>px;">
+		<button class="poi <?php echo $product_poi['product_poi_open_direction_x']; ?>" style="left: <?php echo $posx; ?>px;top: <?php echo $posy; ?>px;">
 			<i class="fa fa-plus"></i>
 			<div class="poi-content">
 				<strong><?php echo $product_poi['product_poi_title']; ?></strong>
