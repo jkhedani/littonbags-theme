@@ -404,71 +404,6 @@ function set_easypost_api_key() {
 
 
 
-
-
-
-
-
-/**
- * Calculate hand basket cost
- *
- * Calculate true product cost based on
- * server-side calculations.
- *
- * @param   $handbasket array The contents of the handbasket
- * @return  Array of totals
- * @since 1.2.0
- */
-function handbasket_totals( $handbasket ) {
-  // Determine True Cost of Basket
-  $subtotal = 0;
-  foreach ( $handbasket as $sku => $data ) {
-    $post_id = $data['post_id'];
-    if ( have_rows('product_skus', $post_id ) ) {
-      while ( have_rows('product_skus', $post_id) ) : the_row();
-        // if the sku matches the current product
-        if ( get_sub_field('sku') === $sku ) {
-          $subtotal = $subtotal + ( get_sub_field('sku_price') * $data['product_qty'] );
-        }
-      endwhile;
-    } else {
-      // Exit and send message back (someone fucking with the system)
-    }
-  }
-  $taxtotal = $subtotal * get_field( 'tax_rate', 'option' );
-  $grandtotal = floor( ($subtotal + $taxtotal) );
-
-  // Construct return array
-  $handbasket_totals = array();
-  $handbasket_totals['taxtotal'] = $taxtotal;
-  $handbasket_totals['subtotal'] = $subtotal;
-  $handbasket_totals['grandtotal'] = $grandtotal;
-
-  return $handbasket_totals;
-}
-
-/**
- * Convert cents to dollars
- *
- * @param  $cents int Amount in cents
- * @return int Amount in dollars
- * @since 1.2.0
- */
-function cents_to_dollars( $cents ) {
-  $dollars = number_format( $cents / 100, 2, '.', '');
-  return $dollars;
-}
-
-
-
-
-
-
-
-
-
-
-
 /**
  * Process Checkout
  * @since 1.2.0
@@ -719,6 +654,11 @@ function process_checkout() {
 }
 add_action('wp_ajax_nopriv_process_checkout', 'process_checkout');
 add_action('wp_ajax_process_checkout', 'process_checkout');
+
+
+
+
+
 
 /**
  * PayPal
