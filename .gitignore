@@ -1,1 +1,5 @@
+# Ignore Mac OSX hidden system files
 .DS_Store
+
+# Ignore Composer vendor files
+vendor/
