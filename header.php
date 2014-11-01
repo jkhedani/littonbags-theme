@@ -62,14 +62,15 @@ $page_keywords = 'women\'s camera bags, women\'s camera purse, leather camera ba
         <div class="container">
 
           <!-- Site Logo -->
-          <a class="site-title" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/litton-ludwig-logo@2X.png" alt="Litton Fine Camera Bags" /></a>
+          <a class="site-title mobile" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/litton-ludwig-logo-white@2X.png" alt="Litton Fine Camera Bags" /></a>
+					<a class="site-title" href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/litton-ludwig-logo@2X.png" alt="Litton Fine Camera Bags" /></a>
 
           <!-- Hand Basket Toggle -->
           <a href="javascript:void(0);" data-toggle="hand-basket"><i class="fa fa-shopping-cart"></i></a>
 
           <!-- Site Main Menu -->
           <div class="menu-main-menu-container">
-            <a class="mobile-menu-toggle hide" href="#menu-main-menu" title="Toggle menu view for smaller devices."><i class="fa fa-bars"></i></a>
+            <a class="mobile-menu-toggle" href="#menu-main-menu" title="Toggle menu view for smaller devices."><i class="fa fa-bars"></i></a>
             <?php
 							wp_nav_menu( array (
 	              'menu' => 'mobile-menu',

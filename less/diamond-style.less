@@ -399,7 +399,6 @@ html {
 		header#navbar {
 			margin: 0 auto;
 			padding: 36px 0 15px 0;
-			background-color: @lightGray;
 			position: fixed;
 			top: 0;
 			width: 100%;
@@ -770,8 +769,6 @@ body.home {
 	// "The Minster" hard code type treatment
 	.minster-type-treatment {
 		position: absolute;
-		right: 151px;
-		bottom: 54px;
 		h1 { #font-family > .learning-curve; font-size: 95px; color: #FFF; margin-bottom: 20px; }
 		span.subtitle { #font-family > .oswald; font-weight: 300; text-transform: uppercase; font-size: 34px; float: right; margin-right: 10px; }
 	}
@@ -959,11 +956,21 @@ html body {
 		width: 100%;
 		padding: 0px 20px;
 	}
-	header#navbar { position: relative; padding: 25px 0 15px 0; }
+	header#navbar {
+		position: relative;
+		background-color: @lightGray;
+		padding: 25px 0 15px 0;
+		.site-title.mobile {
+			display: none;
+		}
+	}
 	#main {
 		margin-top: 0;
 		//padding-top: 20px;
 		background: #FFF;
+	}
+	[data-toggle="hand-basket"] i {
+		color: @grayLight;
 	}
 
 	// Footer
@@ -1015,6 +1022,17 @@ html body.home {
 	#main {
 		margin-top: 0px;
 	}
+	header#navbar {
+		background-color: rgba(255,255,255,0.1);
+		position: fixed;
+		padding: 25px 0 15px 0;
+		.site-title {
+			display: none;
+		}
+		.site-title.mobile {
+			display: block;
+		}
+	}
 	.btn.btn-primary.btn-primary-home,
 	.btn.btn-primary.btn-primary-home:hover,
 	.btn.btn-primary.btn-primary-home:focus {
@@ -1022,18 +1040,35 @@ html body.home {
 		height: 64px;
 		background-size: 100%;
 	}
-
 	.minster-type-treatment {
-		left: 60px;
+		left: 20px;
 		right: auto;
-		bottom: 30px;
+		bottom: 0;
 		h1 { font-size: 56px; margin-bottom: 0; }
 		span.minster-flair { .no-text(); width: 52px; float: left; display: block; background: url('../images/minster-flair.png') no-repeat; background-size: 100%; }
 		span.subtitle { font-size: 16px; color: rgba(255,255,255,0.8); }
 	}
+	// Home Carousel (0px and up)
+	#content {
+		height: 100%;
+		#homeCarousel {
+			height: 100%;
+			.carousel-inner {
+				height: 100%;
+				img.item { width: auto; max-width: none; height: 100%; }
+			}
+		}
+	}
+	[data-toggle="hand-basket"] i, a.mobile-menu-toggle {
+		color: rgb(255,255,255);
+	}
 }
 // SINGLE PRODUCTS
 html body.single-products {
+	.product-mobile-image-container {
+		display: block;
+		margin: 0 0 10px 0;
+	}
 	#page #main #content article {
 		.product-header, .product-content { position: relative; }
 		.product-header { width: 100%; margin-top: 20px; max-width: 400px;
@@ -1135,12 +1170,12 @@ body.post-type-archive-products {
 @media ( min-width: 200px ) and ( max-width: 400px ) {
 	html body.home {
 		.minster-type-treatment {
-			left: 50px;
+			left: 20px;
 			right: auto;
 			bottom: 20px;
-			h1 { font-size: 47px; margin-bottom: -6px; }
-			span.minster-flair { .no-text(); width: 39px; float: left; display: block; background: url('../images/minster-flair.png') no-repeat; background-size: 100%; }
-			span.subtitle { font-size: 14px; color: rgba(255,255,255,0.8); }
+			h1 { font-size: 55px; margin-bottom: -1px; }
+			span.minster-flair { .no-text(); width: 39px; float: left; display: block; background: url('../images/minster-flair.png') no-repeat; background-size: 100%; margin: 6px 5px 0 0; }
+			span.subtitle { font-size: 16px; color: rgba(255,255,255,0.8); }
 		}
 	}
 }
@@ -1184,6 +1219,31 @@ body.post-type-archive-products {
 			span.minster-flair { .no-text(); width: 102px; float: left; display: block; background: url('../images/minster-flair.png') no-repeat; }
 			span.subtitle { #font-family > .oswald; font-size: 25px; font-weight: 300; text-transform: uppercase; color: rgba(255,255,255,0.7); float: right; margin-right: 10px; }
 		}
+		// Header
+		header#navbar {
+			position: relative;
+			background-color: @lightGray;
+			.site-title {
+				display: block;
+			}
+			.site-title.mobile {
+				display: none;
+			}
+		}
+		// Home Carousel (500px and up)
+		#content {
+			height: auto;
+			#homeCarousel {
+				height: auto;
+				.carousel-inner {
+					height: auto;
+					img.item { width: 100%; max-width: 100%; height: auto; }
+				}
+			}
+		}
+		[data-toggle="hand-basket"] i, a.mobile-menu-toggle {
+			color: @grayLight;
+		}
 	}
 	// BASIC PAGES
 	body.page-template-default.page-not-home {
@@ -1191,6 +1251,9 @@ body.post-type-archive-products {
 	}
 	// SINGLE PRODUCTS
 	html body.single-products {
+	.product-mobile-image-container {
+		display: none;
+	}
 		#page #main #content article {
 			.product-header, .product-content { position: fixed; }
 			.product-header {
@@ -1287,7 +1350,7 @@ body.post-type-archive-products {
 	} // html body
 	// HOME
 	html body.home {
-		#main { margin-top: 91px; padding-top: 0; }
+		#main { padding-top: 0; }
 	}
 	// BASIC PAGES
 	body.page-template-default.page-not-home {

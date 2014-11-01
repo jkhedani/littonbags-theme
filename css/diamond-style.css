@@ -900,7 +900,6 @@ html {
 html body header#navbar {
   margin: 0 auto;
   padding: 36px 0 15px 0;
-  background-color: #edeeed;
   position: fixed;
   top: 0;
   width: 100%;
@@ -1492,8 +1491,6 @@ body.home #menu-highlight-menu li a {
 }
 body.home .minster-type-treatment {
   position: absolute;
-  right: 151px;
-  bottom: 54px;
 }
 body.home .minster-type-treatment h1 {
   font-family: 'Learning Curve Pro', 'serif';
@@ -1760,11 +1757,18 @@ html body .container {
 }
 html body header#navbar {
   position: relative;
+  background-color: #edeeed;
   padding: 25px 0 15px 0;
+}
+html body header#navbar .site-title.mobile {
+  display: none;
 }
 html body #main {
   margin-top: 0;
   background: #FFF;
+}
+html body [data-toggle="hand-basket"] i {
+  color: #999999;
 }
 html body footer#colophon {
   background: #edeeed;
@@ -1815,6 +1819,17 @@ html body ul.mobile-menu li a:hover {
 html body.home #main {
   margin-top: 0px;
 }
+html body.home header#navbar {
+  background-color: rgba(255, 255, 255, 0.1);
+  position: fixed;
+  padding: 25px 0 15px 0;
+}
+html body.home header#navbar .site-title {
+  display: none;
+}
+html body.home header#navbar .site-title.mobile {
+  display: block;
+}
 html body.home .btn.btn-primary.btn-primary-home,
 html body.home .btn.btn-primary.btn-primary-home:hover,
 html body.home .btn.btn-primary.btn-primary-home:focus {
@@ -1823,9 +1838,9 @@ html body.home .btn.btn-primary.btn-primary-home:focus {
   background-size: 100%;
 }
 html body.home .minster-type-treatment {
-  left: 60px;
+  left: 20px;
   right: auto;
-  bottom: 30px;
+  bottom: 0;
 }
 html body.home .minster-type-treatment h1 {
   font-size: 56px;
@@ -1844,6 +1859,28 @@ html body.home .minster-type-treatment span.minster-flair {
 html body.home .minster-type-treatment span.subtitle {
   font-size: 16px;
   color: rgba(255, 255, 255, 0.8);
+}
+html body.home #content {
+  height: 100%;
+}
+html body.home #content #homeCarousel {
+  height: 100%;
+}
+html body.home #content #homeCarousel .carousel-inner {
+  height: 100%;
+}
+html body.home #content #homeCarousel .carousel-inner img.item {
+  width: auto;
+  max-width: none;
+  height: 100%;
+}
+html body.home [data-toggle="hand-basket"] i,
+html body.home a.mobile-menu-toggle {
+  color: #ffffff;
+}
+html body.single-products .product-mobile-image-container {
+  display: block;
+  margin: 0 0 10px 0;
 }
 html body.single-products #page #main #content article .product-header,
 html body.single-products #page #main #content article .product-content {
@@ -1985,13 +2022,13 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
  */
 @media (min-width: 200px) and (max-width: 400px) {
   html body.home .minster-type-treatment {
-    left: 50px;
+    left: 20px;
     right: auto;
     bottom: 20px;
   }
   html body.home .minster-type-treatment h1 {
-    font-size: 47px;
-    margin-bottom: -6px;
+    font-size: 55px;
+    margin-bottom: -1px;
   }
   html body.home .minster-type-treatment span.minster-flair {
     text-indent: 150%;
@@ -2002,9 +2039,10 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
     display: block;
     background: url('../images/minster-flair.png') no-repeat;
     background-size: 100%;
+    margin: 6px 5px 0 0;
   }
   html body.home .minster-type-treatment span.subtitle {
-    font-size: 14px;
+    font-size: 16px;
     color: rgba(255, 255, 255, 0.8);
   }
 }
@@ -2060,6 +2098,37 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
     color: rgba(255, 255, 255, 0.7);
     float: right;
     margin-right: 10px;
+  }
+  html body.home header#navbar {
+    position: relative;
+    background-color: #edeeed;
+  }
+  html body.home header#navbar .site-title {
+    display: block;
+  }
+  html body.home header#navbar .site-title.mobile {
+    display: none;
+  }
+  html body.home #content {
+    height: auto;
+  }
+  html body.home #content #homeCarousel {
+    height: auto;
+  }
+  html body.home #content #homeCarousel .carousel-inner {
+    height: auto;
+  }
+  html body.home #content #homeCarousel .carousel-inner img.item {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+  html body.home [data-toggle="hand-basket"] i,
+  html body.home a.mobile-menu-toggle {
+    color: #999999;
+  }
+  html body.single-products .product-mobile-image-container {
+    display: none;
   }
   html body.single-products #page #main #content article .product-header,
   html body.single-products #page #main #content article .product-content {
@@ -2181,7 +2250,6 @@ body.post-type-archive-products #main .first-accessories img.featured-image {
     margin: -2px 0 0 20px;
   }
   html body.home #main {
-    margin-top: 91px;
     padding-top: 0;
   }
   body.page-template-default.page-not-home .entry-header {
