@@ -54,30 +54,6 @@ function tomarket_enqueue_scripts() {
     'stripe_publishable_key' => $stripe_publishable_api_key,
   ));
 
-  // wp_enqueue_script( 'handbasket-scripts', $path_to_plugin_uri . '/lib/HandBasket/handbasket.js', array('jquery','json2'), true );
-  // wp_localize_script( 'handbasket-scripts', 'handbasket_scripts', array(
-  //   'ajaxurl' => admin_url('admin-ajax.php',$protocol),
-  //   'nonce' => wp_create_nonce('handbasket_scripts_nonce')
-  // ));
-
-
-  // wp_enqueue_script( 'stripe-processing', $path_to_plugin_uri . '/scripts/js/stripe/payments.js', array('jquery'));
-  // wp_localize_script('stripe-processing', 'stripe_vars', array(
-  //   'publishable_key' => $stripe_publishable_api_key,
-  // ));
-
-  // EasyPost
-  // wp_enqueue_script( 'easypost-scripts', $path_to_plugin_uri . '/scripts/js/easypost/easypost.js', array('jquery'));
-  // wp_localize_script('easypost-scripts', 'easypost_vars', array(
-  //   'nonce' => wp_create_nonce('easypost_scripts_nonce')
-  // ));
-
-  // // PayPal
-  // wp_enqueue_script('paypal-scripts', get_stylesheet_directory_uri().'/lib/PayPal/payments/paypal-payment-scripts.js', array('jquery','json2'), true);
-  // wp_localize_script('paypal-scripts', 'paypal_data', array(
-  //     'ajaxurl' => admin_url('admin-ajax.php',$protocol),
-  //     'nonce' => wp_create_nonce('paypal_nonce')
-  // ));
 }
 add_action( 'wp_enqueue_scripts', 'tomarket_enqueue_scripts' );
 
@@ -93,9 +69,6 @@ if ( function_exists( 'acf_add_options_sub_page' ) && function_exists( 'get_fiel
 
 // # Utilities
 require_once( dirname( __FILE__ ) . '/lib/ToMarket/Util.php');
-
-// # PayPal
-// require_once( get_stylesheet_directory() . '/lib/PayPal/payments/method-paypal.php' );
 
 /**
  * Hand Basket Functions
@@ -536,7 +509,7 @@ function process_checkout() {
 
     // A. Verify Address via EasyPost
     global $path_to_plugin_uri;
-    require_once( dirname( __FILE__ ) . "/lib/EasyPost/lib/easypost.php");
+    require_once( get_stylesheet_directory() . "/vendor/easypost/easypost-php/lib/easypost.php");
     \EasyPost\EasyPost::setApiKey( set_easypost_api_key() );
     $shipping_address = \EasyPost\Address::create(array(
       'name' => $basicinfo['customer-name'],
@@ -559,7 +532,7 @@ function process_checkout() {
     // B. Stripe: Attempt to charge card
     // If their shipping adress is valid
     if ( isset($verified_address) && !empty($verified_address) ) {
-      require_once( dirname( __FILE__ ) . '/lib/Stripe/lib/Stripe.php'); // Load Stripe Client Library (PHP)
+      require_once( get_stylesheet_directory() . '/vendor/stripe/stripe-php/lib/Stripe.php'); // Load Stripe Client Library (PHP)
       Stripe::setApiKey( stripe_api_key('secret') ); // # Present Secret API Key
       // Order number, product details and customer email for Stripe
       $desc  = 'Customer email:' . $basicinfo['customer-email'];
@@ -751,6 +724,12 @@ add_action('wp_ajax_process_checkout', 'process_checkout');
  * PayPal
  * @since 1.2.0
  */
+
+// Authentication
+define('PP_CONFIG_PATH', get_stylesheet_directory_uri() . '/lib/PayPal/sdk_config.ini');
+use PayPal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
+// REST Modules
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
 use PayPal\Api\Item;
@@ -771,7 +750,8 @@ function paypal_prepare_payment() {
   // ### Bootstrap PayPal API
   // Configure our API context
   // Include the composer autoloader if we aren't already set
-  require dirname( __FILE__ ) . '/lib/PayPal/bootstrap.php';
+  $apiContext = new ApiContext(new OAuthTokenCredential('<clientId>', '<clientSecret>'));
+  //require get_stylesheet_directory_uri() . '/vendor/rest-api-sdk-php/lib/PayPal/bootstrap.php';
   session_start();
 
   // ### Payer
