@@ -24,6 +24,10 @@ Child Theme of [Bedrock v1.2](https://github.com/jkhedani/Wordpress-Bedrock-Them
 
 ## Developer Notes
 
+### Updating Live
+1. Run `composer update` locally and fix any problem areas.
+2. Reference release notes in PM software.
+
 ### Handling Charges
 
 It appears that handling invalid addresses can be tricky as read here:

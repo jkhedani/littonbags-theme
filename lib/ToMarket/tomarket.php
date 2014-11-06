@@ -44,7 +44,7 @@ function tomarket_enqueue_scripts() {
   // To Market Scripts & Styles
   // Note: Currently all scripts share the same ajax nonce.
   wp_enqueue_style( 'to-market-styles', $path_to_plugin_uri . '/assets/css/tomarket.css' );
-  wp_enqueue_script( 'to-market-scripts', $path_to_plugin_uri . '/assets/js/tomarket.js', array('jquery','json2') );
+  wp_enqueue_script( 'to-market-scripts', $path_to_plugin_uri . '/tomarket.js', array('jquery','json2') );
   wp_localize_script( 'to-market-scripts', 'to_market_scripts', array(
     'ajaxurl' => admin_url('admin-ajax.php',$protocol),
     'nonce' => wp_create_nonce('to_market_scripts_nonce'),
@@ -442,6 +442,8 @@ function process_checkout() {
     }
     $grandtotal = floor( $subtotal + ($subtotal * get_field( 'tax_rate', 'option' )) );
 
+    // Stub here to test sales price.
+
     // A. Verify Address via EasyPost
     global $path_to_plugin_uri;
     require_once( get_stylesheet_directory() . "/vendor/easypost/easypost-php/lib/easypost.php");
@@ -663,12 +665,14 @@ add_action('wp_ajax_process_checkout', 'process_checkout');
 /**
  * PayPal
  * @since 1.2.0
+ *
+ * @todo TEST Ensure Subtotal + Taxtotal === Grandtotal
  */
 
 // Authentication
-define('PP_CONFIG_PATH', get_stylesheet_directory_uri() . '/lib/PayPal/sdk_config.ini');
-use PayPal\Rest\ApiContext;
-use PayPal\Auth\OAuthTokenCredential;
+define('PP_CONFIG_PATH', dirname(__FILE__) . '/lib/PayPal/sdk_config.ini');
+// use PayPal\Rest\ApiContext;
+// use PayPal\Auth\OAuthTokenCredential;
 // REST Modules
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
@@ -690,8 +694,9 @@ function paypal_prepare_payment() {
   // ### Bootstrap PayPal API
   // Configure our API context
   // Include the composer autoloader if we aren't already set
-  $apiContext = new ApiContext(new OAuthTokenCredential('<clientId>', '<clientSecret>'));
+  //$apiContext = new ApiContext(new OAuthTokenCredential('<clientId>', '<clientSecret>'));
   //require get_stylesheet_directory_uri() . '/vendor/rest-api-sdk-php/lib/PayPal/bootstrap.php';
+  require dirname(__FILE__) . '/lib/PayPal/bootstrap.php';
   session_start();
 
   // ### Payer
@@ -753,6 +758,10 @@ function paypal_prepare_payment() {
     ->setTotal( cents_to_dollars( $handbasket_totals['grandtotal'] ) )
   	->setDetails($details);
 
+  error_log($handbasket_totals['taxtotal']);
+  error_log($handbasket_totals['subtotal']);
+  error_log($handbasket_totals['grandtotal']);
+
   // ### Transaction
   // A transaction defines the contract of a
   // payment - what is the payment for and who
@@ -791,6 +800,7 @@ function paypal_prepare_payment() {
   } catch (PayPal\Exception\PPConnectionException $ex) {
   	echo "Exception: " . $ex->getMessage() . PHP_EOL;
   	var_dump($ex->getData());
+    error_log('fail');
   	exit(1);
   }
 
