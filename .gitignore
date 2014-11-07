@@ -1,4 +1,5 @@
+# Ignore Mac OSX hidden system files
 .DS_Store
 
-# Untrack ToMarket for now...
-lib/ToMarket
+# Ignore Composer vendor files
+vendor/

@@ -16,37 +16,13 @@ get_header(); ?>
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
 
-			<!-- Background image -->
+
+			<!-- Server Media Query -->
+			<div class="server-media-query" data-load="home-carousel" data-post-id="<?php echo $post->ID; ?>"></div>
+
       <div id="homeCarousel" class="carousel slide">
         <div class="carousel-inner">
-				<?php
-					/**
-					 * Use ACF only to display lookbooks
-					 * @since 1.2.0
-					 */
-					$lookbooks = new WP_Query(array(
-						'post_type' 			=> 'look_books',
-						'posts_per_page' 	=> 1, // Limit one for home page
-						'meta_key'				=> 'look_book_location',
-						'meta_query' 			=> array (
-							array (
-								'key' 		=> 'look_book_location',
-								'value' 	=> '"' . $post->ID . '"',
-								'compare' => 'LIKE'
-							)
-						)
-					));
-					$i = 0;
-					while ( $lookbooks->have_posts() ) : $lookbooks->the_post();
-						if ( have_rows('look_book', $post->ID ) ) :
-							while ( have_rows('look_book', $post->ID ) ) : the_row();
-								$lookbook_image = wp_get_attachment_image_src( get_sub_field('look_book_page'), 'full' ); ?>
-								<img class="item <?php if (!$i++) echo 'active'; ?>" src="<?php echo $lookbook_image[0]; ?>" />
-							<?php endwhile;
-						endif;
-					endwhile;
-					wp_reset_postdata();
-				?>
+					<!-- Place a spinner here -->
         </div><!-- .carousel-inner -->
         <a class="carousel-control left" href="#homeCarousel" data-slide="prev">&lsaquo;</a>
         <a class="carousel-control right" href="#homeCarousel" data-slide="next">&rsaquo;</a>

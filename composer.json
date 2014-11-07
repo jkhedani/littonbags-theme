@@ -1,0 +1,14 @@
+{
+  "name": "LittonBags",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/EasyPost/easypost-php"
+    }
+  ],
+  "require": {
+    "paypal/rest-api-sdk-php" : "*",
+    "easypost/easypost-php": "dev-master",
+    "stripe/stripe-php": "1.*"
+  }
+}

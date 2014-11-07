@@ -277,9 +277,6 @@ function remove_dashboard_widgets() {
 add_action( 'wp_dashboard_setup', 'add_dashboard_widgets' );
 add_action( 'wp_dashboard_setup', 'remove_dashboard_widgets' );
 
-
-
-
 /**
  *  Client-facing scripts and functions
  *
@@ -316,6 +313,13 @@ function LTTNBAGS_enqueue_scripts() {
   wp_localize_script('look-books-scripts', 'look_book_data', array(
     'ajaxurl' => admin_url('admin-ajax.php',$protocol),
     'nonce' => wp_create_nonce('look_books_nonce')
+  ));
+
+  // ServerMediaQueries
+  wp_enqueue_script( 'server-media-query-scripts', get_stylesheet_directory_uri() . '/lib/ServerMediaQuery/ServerMediaQuery.js', array('jquery','json2') );
+  wp_localize_script( 'server-media-query-scripts', 'server_media_query_scripts', array(
+    'ajaxurl' => admin_url('admin-ajax.php',$protocol),
+    'nonce' => wp_create_nonce('server_media_query_nonce')
   ));
 
   // General
@@ -390,6 +394,7 @@ add_action( 'init', 'LTTNBAGS_post_types' );
  *  Include function after P2P so connections are availabled
  */
 require_once( get_stylesheet_directory() . '/lib/LookBooks/look-books-functions.php');
+require_once( get_stylesheet_directory() . '/lib/ServerMediaQuery/ServerMediaQuery.php');
 
 /**
  * Custom Taxonomies (e.g. Product Type, etc.)
@@ -419,7 +424,6 @@ function LTTNBAGS_taxonomies() {
   ));
 }
 add_action( 'init', 'LTTNBAGS_taxonomies');
-
 
 /**
  * Designate Litton Bags Menu Locations
